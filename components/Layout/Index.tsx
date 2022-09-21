@@ -17,7 +17,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 display: 'flex',
                 justifyContent: 'center',
                 flexDirection: 'column',
-                alignItems: 'center'
+                alignItems: 'center',
+                fontFamily: 'Montserrat, sans-serif'
             }}
         >
             {children}
