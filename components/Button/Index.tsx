@@ -7,12 +7,14 @@ interface ButtonProps {
     backgoundColor: string;
     color: string;
     border?: string;
+    onClick?: any;
 }
 
-const ButtonLanding: React.FC<ButtonProps> = ({ title, icon, backgoundColor, color, border }) => {
+const ButtonLanding: React.FC<ButtonProps> = ({ title, icon, backgoundColor, color, border, onClick }) => {
     return (
         <Button
             startIcon={icon}
+            onClick={onClick}
             sx={{
                 textTransform: 'none',
                 position: 'relative',
