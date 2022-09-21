@@ -1,7 +1,7 @@
 import Input from 'components/Input';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Box } from '@mui/material';
+import { Box, ButtonBase } from '@mui/material';
 
 const TestContiainer = () => {
     const form = useForm({
@@ -11,9 +11,14 @@ const TestContiainer = () => {
         }
     });
     return (
-        <Box sx={{ background: '#fff', width: '50%', padding: 5 }}>
-            <Input name='test' form={form} placeholder='Testing' type='standart' helperText='error' color='primary' />
-        </Box>
+        <form>
+            <Box sx={{ background: '#fff', width: '50%', padding: 5 }}>
+                <Input name='test' form={form} placeholder='Testing' color='primary' type='password' validator={{ required: true }} />
+            </Box>
+            <ButtonBase type='submit' sx={{ fontFamily: 'Montserrat, sans-serif' }}>
+                submit
+            </ButtonBase>
+        </form>
     );
 };
 
