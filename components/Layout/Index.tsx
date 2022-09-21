@@ -4,9 +4,10 @@ import { Box } from '@mui/material';
 interface LayoutProps {
     children: any;
     backgoundColor: any;
+    border?: any;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, backgoundColor }) => {
+const Layout: React.FC<LayoutProps> = ({ children, backgoundColor, border }) => {
     return (
         <Box sx={{ backgroundColor: '#FFF', display: 'flex', justifyContent: 'center' }}>
             <Box
@@ -19,7 +20,8 @@ const Layout: React.FC<LayoutProps> = ({ children, backgoundColor }) => {
                     display: 'flex',
                     justifyContent: 'center',
                     flexDirection: 'column',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    border
                 }}
             >
                 {children}

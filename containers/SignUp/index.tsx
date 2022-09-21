@@ -4,7 +4,7 @@ import Layout from 'components/Layout/Index';
 
 const SignUp = () => {
     return (
-        <Layout backgoundColor='#FFF'>
+        <Layout backgoundColor='#FFF' border='2px solid #D9D9D9'>
             <Box>
                 <Typography>Start Your Account. It’s Free !</Typography>
             </Box>
