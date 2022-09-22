@@ -2,6 +2,7 @@
 import { Box, ButtonBase, Typography } from '@mui/material';
 import React from 'react';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import Slider from 'react-slick';
 import Search from './Search';
 import useStyles from './useStyle';
 import Mission from './Mission';
@@ -13,6 +14,23 @@ const ArrowCustom = () => {
 
 const HomeContainer = () => {
     const classes = useStyles();
+
+    const settings = {
+        // className: 'center',
+        // centerMode: true,
+        // dots: true,
+        // infinite: true,
+        // speed: 500,
+        // slidesToShow: 1,
+        // slidesToScroll: 1
+        className: 'center',
+        centerMode: true,
+        infinite: true,
+        centerPadding: '60px',
+        slidesToShow: 2.1,
+        speed: 500,
+        dots: true
+    };
 
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
@@ -63,6 +81,67 @@ const HomeContainer = () => {
                 <Typography variant='h6' fontWeight='bold' component='h2'>
                     Games
                 </Typography>
+                <Box sx={{ width: '100%', margin: 'auto', minHeight: '300px' }}>
+                    <Box
+                        sx={{
+                            '& .slick-current': { width: '444px !important', zIndex: '80 !important', right: '122px !important' },
+                            '& .slick-cloned': { width: '300px' },
+                            '& .slick-slide.slick-active': { width: '300px', position: 'relative', right: '230px', zIndex: 90 },
+                            '& .slick-slide': { display: 'flex !important', justifyContent: 'flex-start' }
+                        }}
+                    >
+                        <Slider {...settings}>
+                            <Box>
+                                <ButtonBase
+                                    sx={{
+                                        background: `url(${'/icons/dummy/slider-1.png'})`,
+                                        backgroundPosition: 'center',
+                                        backgroundSize: 'cover',
+                                        width: '330px',
+                                        height: '184px',
+                                        borderRadius: '22px'
+                                    }}
+                                />
+                            </Box>
+                            <Box>
+                                <ButtonBase
+                                    sx={{
+                                        background: `url(${'/icons/dummy/slider-2.png'})`,
+                                        backgroundPosition: 'center',
+                                        backgroundSize: 'cover',
+                                        width: '330px',
+                                        height: '184px',
+                                        borderRadius: '22px'
+                                    }}
+                                />
+                            </Box>
+                            <Box>
+                                <ButtonBase
+                                    sx={{
+                                        background: `url(${'/icons/dummy/slider-3.png'})`,
+                                        backgroundPosition: 'center',
+                                        backgroundSize: 'cover',
+                                        width: '330px',
+                                        height: '184px',
+                                        borderRadius: '22px'
+                                    }}
+                                />
+                            </Box>
+                            <Box>
+                                <ButtonBase
+                                    sx={{
+                                        background: `url(${'/icons/dummy/slider-4.png'})`,
+                                        backgroundPosition: 'center',
+                                        backgroundSize: 'cover',
+                                        width: '330px',
+                                        height: '184px',
+                                        borderRadius: '22px'
+                                    }}
+                                />
+                            </Box>
+                        </Slider>
+                    </Box>
+                </Box>
                 <GamesCard />
             </Box>
         </Box>
