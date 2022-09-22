@@ -15,14 +15,13 @@ const Layout: React.FC<LayoutProps> = ({ children, backgoundColor, border }) => 
                     backgroundColor: backgoundColor,
                     maxWidth: '600px',
                     width: '600px',
-                    // paddingTop: '30px',
-                    // paddingBottom: '30px',
                     display: 'flex',
                     justifyContent: 'center',
                     flexDirection: 'column',
                     alignItems: 'center',
                     border,
-                    height: '100vh'
+                    minHeight: '100vh',
+                    padding: '20px'
                 }}
             >
                 {children}
