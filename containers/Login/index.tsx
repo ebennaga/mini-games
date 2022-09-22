@@ -14,8 +14,7 @@ const SignUp = () => {
         defaultValues: {
             tel: '',
             email: '',
-            password: '',
-            confirmPassword: ''
+            password: ''
         }
     });
     const rules = { required: true };
@@ -25,7 +24,7 @@ const SignUp = () => {
         <Layout backgoundColor='#FFF' border='2px solid #D9D9D9'>
             <Box sx={{ textAlign: 'start', width: '95%' }}>
                 <Typography sx={{ fontWeight: 700, fontSize: '46px' }} component='h1'>
-                    Start Your Account. It’s Free !
+                    Welcome Back
                 </Typography>
                 <Typography sx={{ fontSize: '21px', color: '#949494' }}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.
@@ -37,21 +36,28 @@ const SignUp = () => {
                 >
                     {!changeInput ? (
                         <Box sx={{ mt: 3 }}>
-                            <Input name='email' form={form} placeholder='Insert Your Email' validator={rules} type='email' />
+                            <Input name='tel' form={form} placeholder='Insert Your Phone Number' validator={rules} type='tel' />
                         </Box>
                     ) : (
                         <Box sx={{ mt: 3 }}>
-                            <Input name='tel' form={form} placeholder='Insert Your Phone Number' validator={rules} type='tel' />
+                            <Input name='email' form={form} placeholder='Insert Your Email' validator={rules} type='email' />
                         </Box>
                     )}
                     <Box sx={{ mt: 3 }}>
-                        <Input name='password' form={form} placeholder='Insert Your Password' validator={rules} type='password' />
+                        <Input name='password' form={form} placeholder=' Password' validator={rules} type='password' />
+                    </Box>
+                    <Box sx={{ textAlign: 'right', mt: 2, color: '#A54CE5' }}>
+                        <ButtonBase
+                            onClick={() => {
+                                setChangeInput(!changeInput);
+                            }}
+                            sx={{ fontWeight: 'bold' }}
+                        >
+                            Forgot Password
+                        </ButtonBase>
                     </Box>
                     <Box sx={{ mt: 3 }}>
-                        <Input name='confirmPassword' form={form} placeholder='Confirm Your Password' validator={rules} type='password' />
-                    </Box>
-                    <Box sx={{ mt: 3 }}>
-                        <Button title='Sign Up' backgoundColor='#A54CE5' color='#FFF' onClick={() => {}} />
+                        <Button title='Log in' backgoundColor='#A54CE5' color='#FFF' onClick={() => {}} />
                     </Box>
                 </form>
                 <Box sx={{ textAlign: 'center', mt: 2, color: '#A54CE5' }}>
@@ -61,7 +67,7 @@ const SignUp = () => {
                         }}
                         sx={{ fontWeight: 'bold' }}
                     >
-                        {changeInput ? 'Sign up with phone email' : 'Sign up with phone number'}
+                        {changeInput ? 'Log in with phone number' : 'Log in with email'}
                     </ButtonBase>
                 </Box>
                 <Box sx={{ mt: '75px', textAlign: 'center' }}>
@@ -95,14 +101,14 @@ const SignUp = () => {
                             mt: 3
                         }}
                     >
-                        <Typography sx={{ color: '#A54CE5' }}>Already have an Account?</Typography>
+                        <Typography sx={{ color: '#A54CE5', fontWeight: 500, lineHeight: '12px' }}>Dont have an account?</Typography>
                         <ButtonBase
                             onClick={() => {
-                                router.push('/login');
+                                router.push('/signup');
                             }}
-                            sx={{ fontSize: '16px', fontWeight: 'bold', color: '#A54CE5' }}
+                            sx={{ fontSize: '16px', fontWeight: 700, color: '#A54CE5' }}
                         >
-                            Log in!
+                            Sign Up!
                         </ButtonBase>
                     </Box>
                 </Box>
