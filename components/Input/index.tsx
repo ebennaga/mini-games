@@ -54,7 +54,6 @@ const Input: React.FC<InputProps> = ({ name, form, placeholder, validator, color
                             },
                             '& .MuiInputBase-input': {
                                 background,
-                                // textAlign: 'center',
                                 paddingLeft: '20px',
                                 fontWeight: 'bold',
                                 fontSize: '14px',
@@ -65,7 +64,7 @@ const Input: React.FC<InputProps> = ({ name, form, placeholder, validator, color
                                 color: colorText,
                                 borderRadius: '5px',
                                 height: '50px',
-                                padding: '10px 20px',
+                                padding: '30px 20px',
                                 width: '100%'
                             },
                             '& .MuiOutlinedInput-notchedOutline': {
@@ -100,7 +99,11 @@ const Input: React.FC<InputProps> = ({ name, form, placeholder, validator, color
                             ),
                             endAdornment: type === 'password' && (
                                 <IconButton onClick={() => setShowPwd(!showPwd)}>
-                                    {!showPwd ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                                    {!showPwd ? (
+                                        <VisibilityIcon sx={{ color: '#A54CE5' }} />
+                                    ) : (
+                                        <VisibilityOffIcon sx={{ color: '#A54CE5' }} />
+                                    )}
                                 </IconButton>
                             )
                         }}
