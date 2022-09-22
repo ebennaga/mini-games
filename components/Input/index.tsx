@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
-import { TextField, IconButton } from '@mui/material';
+import { TextField, IconButton, Typography } from '@mui/material';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -10,7 +10,7 @@ interface InputProps {
     name: string;
     form: any;
     placeholder: string;
-    type?: 'text' | 'number' | 'password' | 'email';
+    type?: 'text' | 'number' | 'password' | 'email' | 'tel';
     color?: 'primary' | 'secondary';
     validator: any;
 }
@@ -81,12 +81,22 @@ const Input: React.FC<InputProps> = ({ name, form, placeholder, validator, color
                             }
                         }}
                         placeholder={placeholder}
-                        type={type === 'password' ? (showPwd ? 'text' : 'password') : type}
+                        type={type === 'password' ? (showPwd ? 'text' : 'password') : type === 'tel' ? 'number' : type}
                         {...field}
                         fullWidth
                         InputProps={{
                             id: `input-${name}`,
                             disableUnderline: true,
+                            startAdornment: type === 'tel' && (
+                                <Typography
+                                    variant='subtitle1'
+                                    component='span'
+                                    fontWeight='bold'
+                                    sx={{ paddingRight: 2, borderRight: '1px solid rgba(148, 148, 148, 0.2)' }}
+                                >
+                                    +62
+                                </Typography>
+                            ),
                             endAdornment: type === 'password' && (
                                 <IconButton onClick={() => setShowPwd(!showPwd)}>
                                     {!showPwd ? (
