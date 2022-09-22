@@ -20,8 +20,8 @@ const SignUp = () => {
     const [changeInput, setChangeInput] = React.useState<boolean>(false);
 
     return (
-        <Layout backgoundColor='#FFF' border='2px solid #D9D9D9'>
-            <Box sx={{ textAlign: 'start', width: '95%' }}>
+        <Layout backgoundColor='#FFF'>
+            <Box sx={{ textAlign: 'start', width: '90%', margin: '20px' }}>
                 <Typography sx={{ fontWeight: 700, fontSize: '46px' }} component='h1'>
                     Start Your Account. It’s Free !
                 </Typography>
