@@ -58,7 +58,14 @@ const LandingPage = () => {
                 />
                 <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center', mt: 3 }}>
                     <Typography>Already have an Account?</Typography>
-                    <ButtonBase sx={{ fontSize: '16px', fontWeight: 'bold' }}>Log in!</ButtonBase>
+                    <ButtonBase
+                        onClick={() => {
+                            router.push('/login');
+                        }}
+                        sx={{ fontSize: '16px', fontWeight: 'bold' }}
+                    >
+                        Log in!
+                    </ButtonBase>
                 </Box>
             </Box>
         </Layout>
