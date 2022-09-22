@@ -22,7 +22,9 @@ const Layout: React.FC<LayoutProps> = ({ children, backgoundColor, border }) => 
                     flexDirection: 'column',
                     alignItems: 'center',
                     border,
-                    height: '100vh'
+                    height: '100vh',
+                    borderRadius: '15px',
+                    p: 4
                 }}
             >
                 {children}
