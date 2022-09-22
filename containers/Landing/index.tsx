@@ -2,9 +2,6 @@
 import { Box, ButtonBase, Typography } from '@mui/material';
 import Layout from 'components/Layout/Index';
 import React from 'react';
-import Image from 'next/image';
-import PrizeLogo from 'public/images/prizelogo.png';
-import PrizaMaskot from 'public/images/maskot.png';
 import ButtonCustom from 'components/Button/Index';
 import { Google, Facebook } from '@mui/icons-material';
 import { useRouter } from 'next/router';
@@ -14,13 +11,13 @@ const LandingPage = () => {
     return (
         <Layout backgoundColor='#A54CE5'>
             <Box sx={{ width: '20%', display: 'flex', justifyContent: 'center', flexDirection: 'column', rowGap: '40px' }}>
-                <Image src={PrizeLogo} />
+                <img src='/images/prizelogo.png' alt='prize-logo' />
             </Box>
             <Box sx={{ mt: 4 }}>
-                <Image src={PrizaMaskot} />
+                <img src='/images//maskot.png' alt='maskot-logo' />
             </Box>
             <Box sx={{ textAlign: 'center', width: '90%', color: '#FFF', mt: 5 }}>
-                <Typography sx={{ mb: 3 }}>PLAY THE GAME - WIN THE PRIZE</Typography>
+                <Typography sx={{ mb: 3, fontWeight: 700 }}>PLAY THE GAME - WIN THE PRIZE</Typography>
                 <Typography>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</Typography>
             </Box>
             <Box
