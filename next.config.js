@@ -7,9 +7,9 @@ const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // reactStrictMode: true,
-    // swcMinify: true,
-    reactStrictMode: false,
+    reactStrictMode: true,
+    swcMinify: true,
+    // reactStrictMode: false,
     optimizeFonts: false,
     webpack: (config, { dev }) => {
       if (dev) {

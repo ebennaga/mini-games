@@ -54,7 +54,7 @@ const Input: React.FC<InputProps> = ({ name, form, placeholder, validator, color
                             },
                             '& .MuiInputBase-input': {
                                 background,
-                                textAlign: 'start',
+                                paddingLeft: '20px',
                                 fontWeight: 'bold',
                                 fontSize: '14px',
                                 borderRadius: '15px'
