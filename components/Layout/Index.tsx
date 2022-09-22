@@ -9,13 +9,13 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children, backgoundColor, border }) => {
     return (
-        <Box sx={{ backgroundColor: '#FFF', display: 'flex', justifyContent: 'center' }}>
+        <Box sx={{ backgroundColor: '#FFF', display: 'flex', justifyContent: 'center', margin: 0, fontFamily: 'Montserrat' }}>
             <Box
                 sx={{
                     backgroundColor: backgoundColor,
                     maxWidth: '600px',
                     width: '600px',
-                    paddingTop: '80px',
+                    paddingTop: '70px',
                     paddingBottom: '80px',
                     display: 'flex',
                     justifyContent: 'center',
