@@ -47,14 +47,7 @@ const SignUp = () => {
                         <Input name='password' form={form} placeholder=' Password' validator={rules} type='password' />
                     </Box>
                     <Box sx={{ textAlign: 'right', mt: 2, color: '#A54CE5' }}>
-                        <ButtonBase
-                            onClick={() => {
-                                setChangeInput(!changeInput);
-                            }}
-                            sx={{ fontWeight: 'bold' }}
-                        >
-                            Forgot Password
-                        </ButtonBase>
+                        <ButtonBase sx={{ fontWeight: 'bold' }}>Forgot Password</ButtonBase>
                     </Box>
                     <Box sx={{ mt: 3 }}>
                         <Button title='Log in' backgoundColor='#A54CE5' color='#FFF' onClick={() => {}} />
