@@ -10,6 +10,7 @@ const SignUp = () => {
     const form = useForm({
         mode: 'all',
         defaultValues: {
+            tel: '',
             email: '',
             password: '',
             confirmPassword: ''
@@ -32,9 +33,15 @@ const SignUp = () => {
                         form.handleSubmit(() => {});
                     }}
                 >
-                    <Box sx={{ mt: 3 }}>
-                        <Input name='email' form={form} placeholder='Insert Your Email' validator={rules} type='email' />
-                    </Box>
+                    {!changeInput ? (
+                        <Box sx={{ mt: 3 }}>
+                            <Input name='email' form={form} placeholder='Insert Your Email' validator={rules} type='email' />
+                        </Box>
+                    ) : (
+                        <Box sx={{ mt: 3 }}>
+                            <Input name='tel' form={form} placeholder='Insert Your Phone Number' validator={rules} type='tel' />
+                        </Box>
+                    )}
                     <Box sx={{ mt: 3 }}>
                         <Input name='password' form={form} placeholder='Insert Your Password' validator={rules} type='password' />
                     </Box>
