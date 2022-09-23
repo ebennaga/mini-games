@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Box, ButtonBase } from '@mui/material';
+import { Typography, Box, ButtonBase, Grid } from '@mui/material';
 import Layout from 'components/Layout/Index';
 import Input from 'components/Input/index';
 import Button from 'components/Button/Index';
@@ -33,24 +33,32 @@ const SignUp = () => {
                         form.handleSubmit(() => {});
                     }}
                 >
-                    {!changeInput ? (
-                        <Box sx={{ mt: 3 }}>
-                            <Input name='email' form={form} placeholder='Insert Your Email' validator={rules} type='email' />
-                        </Box>
-                    ) : (
-                        <Box sx={{ mt: 3 }}>
-                            <Input name='tel' form={form} placeholder='Insert Your Phone Number' validator={rules} type='tel' />
-                        </Box>
-                    )}
-                    <Box sx={{ mt: 3 }}>
-                        <Input name='password' form={form} placeholder='Insert Your Password' validator={rules} type='password' />
-                    </Box>
-                    <Box sx={{ mt: 3 }}>
-                        <Input name='confirmPassword' form={form} placeholder='Confirm Your Password' validator={rules} type='password' />
-                    </Box>
-                    <Box sx={{ mt: 3 }}>
-                        <Button title='Sign Up' backgoundColor='#A54CE5' color='#FFF' onClick={() => {}} />
-                    </Box>
+                    <Grid container direction='row'>
+                        {!changeInput ? (
+                            <Grid item xs={12} sx={{ mt: 3 }}>
+                                <Input name='email' form={form} placeholder='Insert Your Email' validator={rules} type='email' />
+                            </Grid>
+                        ) : (
+                            <Grid item xs={12} sx={{ mt: 3 }}>
+                                <Input name='tel' form={form} placeholder='Insert Your Phone Number' validator={rules} type='tel' />
+                            </Grid>
+                        )}
+                        <Grid item xs={12} sx={{ mt: 3 }}>
+                            <Input name='password' form={form} placeholder='Insert Your Password' validator={rules} type='password' />
+                        </Grid>
+                        <Grid item xs={12} sx={{ mt: 3 }}>
+                            <Input
+                                name='confirmPassword'
+                                form={form}
+                                placeholder='Confirm Your Password'
+                                validator={rules}
+                                type='password'
+                            />
+                        </Grid>
+                        <Grid item xs={12} sx={{ mt: 3 }}>
+                            <Button title='Sign Up' backgoundColor='#A54CE5' color='#FFF' onClick={() => {}} />
+                        </Grid>
+                    </Grid>
                 </form>
                 <Box sx={{ textAlign: 'center', mt: 2, color: '#A54CE5' }}>
                     <ButtonBase
@@ -62,9 +70,11 @@ const SignUp = () => {
                         {changeInput ? 'Sign up with phone email' : 'Sign up with phone number'}
                     </ButtonBase>
                 </Box>
-                <Box sx={{ mt: '75px', textAlign: 'center' }}>
-                    <Typography sx={{ color: '#949494', fontSize: '15px', mb: 2 }}>or you can:</Typography>
-                    <Box sx={{ mb: 2 }}>
+                <Grid container sx={{ mt: '75px', textAlign: 'center' }}>
+                    <Grid item xs={12}>
+                        <Typography sx={{ color: '#949494', fontSize: '15px', mb: 2 }}>or you can:</Typography>
+                    </Grid>
+                    <Grid item xs={12} sx={{ mb: 2 }}>
                         <Button
                             icon={<Google sx={{ color: '#A54CE5', position: 'absolute', left: '20px', bottom: '20px' }} />}
                             title='Log in with Google'
@@ -73,8 +83,8 @@ const SignUp = () => {
                             border='2px solid #F4F1FF'
                             onClick={() => {}}
                         />
-                    </Box>
-                    <Box>
+                    </Grid>
+                    <Grid item xs={12}>
                         <Button
                             icon={<Facebook sx={{ color: '#A54CE5', position: 'absolute', left: '20px', bottom: '20px' }} />}
                             title='Log in with Facebook'
@@ -83,8 +93,10 @@ const SignUp = () => {
                             border='2px solid #F4F1FF'
                             onClick={() => {}}
                         />
-                    </Box>
-                    <Box
+                    </Grid>
+                    <Grid
+                        item
+                        xs={12}
                         sx={{
                             display: 'flex',
                             gap: '10px',
@@ -95,8 +107,8 @@ const SignUp = () => {
                     >
                         <Typography sx={{ color: '#A54CE5' }}>Already have an Account?</Typography>
                         <ButtonBase sx={{ fontSize: '16px', fontWeight: 'bold', color: '#A54CE5' }}>Log in!</ButtonBase>
-                    </Box>
-                </Box>
+                    </Grid>
+                </Grid>
             </Box>
         </Layout>
     );
