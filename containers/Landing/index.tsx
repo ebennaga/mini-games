@@ -10,7 +10,9 @@ const LandingPage = () => {
     const router = useRouter();
     return (
         <Layout backgoundColor='#A54CE5'>
-            <Box sx={{ width: '20%', display: 'flex', justifyContent: 'center', flexDirection: 'column', rowGap: '40px' }}>
+            <Box
+                sx={{ width: '20%', display: 'flex', justifyContent: 'center', flexDirection: 'column', rowGap: '40px', marginTop: '40px' }}
+            >
                 <img src='/images/prizelogo.png' alt='prize-logo' />
             </Box>
             <Box sx={{ mt: 4 }}>
@@ -30,7 +32,8 @@ const LandingPage = () => {
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    rowGap: '10px'
+                    rowGap: '10px',
+                    marginBottom: '40px'
                 }}
             >
                 <ButtonCustom
@@ -58,7 +61,14 @@ const LandingPage = () => {
                 />
                 <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center', mt: 3 }}>
                     <Typography>Already have an Account?</Typography>
-                    <ButtonBase sx={{ fontSize: '16px', fontWeight: 'bold' }}>Log in!</ButtonBase>
+                    <ButtonBase
+                        onClick={() => {
+                            router.push('/login');
+                        }}
+                        sx={{ fontSize: '16px', fontWeight: 'bold' }}
+                    >
+                        Log in!
+                    </ButtonBase>
                 </Box>
             </Box>
         </Layout>
