@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { Grid, Typography, ButtonBase, Tab, Tabs, Box } from '@mui/material';
-import { ArrowCircleLeft, WatchLater, Verified } from '@mui/icons-material';
+import { ArrowCircleLeft, WatchLater } from '@mui/icons-material';
 import TabPanel from 'components/TabPanel';
 import Layout from 'components/Layout/Index';
 import MissionCard from 'components/MissionCard';

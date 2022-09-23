@@ -10,6 +10,7 @@ interface ButtonProps {
     onClick?: any;
     height?: string;
     disabled?: boolean;
+    type?: 'button' | 'submit' | 'reset';
 }
 
 const ButtonLanding: React.FC<ButtonProps> = ({
@@ -20,10 +21,12 @@ const ButtonLanding: React.FC<ButtonProps> = ({
     backgoundColor,
     color,
     border = 'none',
-    onClick
+    onClick,
+    type = 'submit'
 }) => {
     return (
         <Button
+            type={type}
             disabled={disabled}
             startIcon={icon}
             onClick={onClick}
