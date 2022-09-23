@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
-import { TextField, IconButton, Typography } from '@mui/material';
-import React from 'react';
+import { TextField, IconButton, Typography, ButtonBase } from '@mui/material';
+import React, { ReactElement } from 'react';
 import { Controller } from 'react-hook-form';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -13,9 +13,10 @@ interface InputProps {
     type?: 'text' | 'number' | 'password' | 'email' | 'tel';
     color?: 'primary' | 'secondary';
     validator: any;
+    component?: any;
 }
 
-const Input: React.FC<InputProps> = ({ name, form, placeholder, validator, color = 'primary', type = 'text' }) => {
+const Input: React.FC<InputProps> = ({ name, form, placeholder, validator, color = 'primary', type = 'text', component }) => {
     const [showPwd, setShowPwd] = React.useState<boolean>(false);
 
     const {
@@ -97,15 +98,18 @@ const Input: React.FC<InputProps> = ({ name, form, placeholder, validator, color
                                     +62
                                 </Typography>
                             ),
-                            endAdornment: type === 'password' && (
-                                <IconButton onClick={() => setShowPwd(!showPwd)}>
-                                    {!showPwd ? (
-                                        <VisibilityIcon sx={{ color: '#A54CE5' }} />
-                                    ) : (
-                                        <VisibilityOffIcon sx={{ color: '#A54CE5' }} />
-                                    )}
-                                </IconButton>
-                            )
+                            endAdornment:
+                                type === 'password' ? (
+                                    <IconButton onClick={() => setShowPwd(!showPwd)}>
+                                        {!showPwd ? (
+                                            <VisibilityIcon sx={{ color: '#A54CE5' }} />
+                                        ) : (
+                                            <VisibilityOffIcon sx={{ color: '#A54CE5' }} />
+                                        )}
+                                    </IconButton>
+                                ) : (
+                                    <ButtonBase>{component}</ButtonBase>
+                                )
                         }}
                         helperText={helperText}
                         error={!!errType}
