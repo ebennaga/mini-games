@@ -22,10 +22,10 @@ const SendOtp = () => {
                 00:58
             </Typography>
             <form style={{ width: '100%' }}>
-                <Box sx={{ width: '90%', margin: 'auto' }}>
+                <Box sx={{ width: '100%', margin: 'auto' }}>
                     <Input name='otp' form={form} placeholder='Insert OTP Number' validator={{ require }} type='number' />
                 </Box>
-                <Box sx={{ width: '90%', margin: 'auto', paddingTop: 3 }}>
+                <Box sx={{ width: '100%', margin: 'auto', paddingTop: 3 }}>
                     <ButtonLanding title='Confirm' backgoundColor='#A54CE5' color='#fff' />
                 </Box>
             </form>
