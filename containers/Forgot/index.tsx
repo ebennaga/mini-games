@@ -16,7 +16,7 @@ const ForgotPasswordPage = () => {
     });
     return (
         <Layout>
-            <Grid container direction='row' sx={{ paddingX: '20px' }} spacing={4}>
+            <Grid container direction='row' sx={{ padding: '20px' }} spacing={4}>
                 <Grid item xs={1}>
                     <ArrowCircleLeft sx={{ width: '35px', height: '35px', color: '#A54CE5' }} />
                 </Grid>

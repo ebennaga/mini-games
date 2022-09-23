@@ -44,8 +44,9 @@ const MissionCard: React.FC<MissionCardProps> = ({
                 sx={{
                     display: 'flex',
                     flexDirection: 'row',
-                    justifyContent: isClaimed ? 'end' : 'space-evenly',
-                    alignItems: 'center'
+                    justifyContent: isClaimed ? 'end' : 'center',
+                    alignItems: 'center',
+                    gap: isClaimed ? null : 1
                 }}
             >
                 {children}
