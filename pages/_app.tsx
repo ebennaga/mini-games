@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <GlobalStyles
                 styles={{
                     // body: { margin: '0 auto', display: 'flex', justifyContent: 'center' }
-                    body: { margin: '0 auto', width: 'fit-content' }
+                    body: { margin: '0 auto' }
                 }}
             />
             <Component {...pageProps} />
