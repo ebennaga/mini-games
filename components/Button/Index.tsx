@@ -8,11 +8,23 @@ interface ButtonProps {
     color: string;
     border?: string;
     onClick?: any;
+    height?: string;
+    disabled?: boolean;
 }
 
-const ButtonLanding: React.FC<ButtonProps> = ({ title, icon, backgoundColor, color, border = 'none', onClick }) => {
+const ButtonLanding: React.FC<ButtonProps> = ({
+    disabled,
+    height = '60px',
+    title,
+    icon,
+    backgoundColor,
+    color,
+    border = 'none',
+    onClick
+}) => {
     return (
         <Button
+            disabled={disabled}
             startIcon={icon}
             onClick={onClick}
             sx={{
@@ -24,7 +36,7 @@ const ButtonLanding: React.FC<ButtonProps> = ({ title, icon, backgoundColor, col
                 color,
                 backgroundColor: backgoundColor,
                 width: '100%',
-                height: '60px',
+                height,
                 '&:hover': {
                     backgroundColor: backgoundColor,
                     border,
