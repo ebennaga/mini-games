@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Box, ButtonBase, Grid } from '@mui/material';
+import { Typography, Box, ButtonBase } from '@mui/material';
 import Layout from 'components/Layout/Index';
 import Input from 'components/Input/index';
 import Button from 'components/Button/Index';
@@ -14,18 +14,17 @@ const SignUp = () => {
         defaultValues: {
             tel: '',
             email: '',
-            password: '',
-            confirmPassword: ''
+            password: ''
         }
     });
     const rules = { required: true };
     const [changeInput, setChangeInput] = React.useState<boolean>(false);
 
     return (
-        <Layout backgoundColor='#FFF'>
-            <Box sx={{ textAlign: 'start', width: '90%', margin: '20px' }}>
+        <Layout backgoundColor='#FFF' border='2px solid #D9D9D9'>
+            <Box sx={{ textAlign: 'start', width: '95%' }}>
                 <Typography sx={{ fontWeight: 700, fontSize: '46px' }} component='h1'>
-                    Start Your Account. It’s Free !
+                    Welcome Back
                 </Typography>
                 <Typography sx={{ fontSize: '21px', color: '#949494' }}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.
@@ -35,32 +34,24 @@ const SignUp = () => {
                         form.handleSubmit(() => {});
                     }}
                 >
-                    <Grid container direction='row'>
-                        {!changeInput ? (
-                            <Grid item xs={12} sx={{ mt: 3 }}>
-                                <Input name='email' form={form} placeholder='Insert Your Email' validator={rules} type='email' />
-                            </Grid>
-                        ) : (
-                            <Grid item xs={12} sx={{ mt: 3 }}>
-                                <Input name='tel' form={form} placeholder='Insert Your Phone Number' validator={rules} type='tel' />
-                            </Grid>
-                        )}
-                        <Grid item xs={12} sx={{ mt: 3 }}>
-                            <Input name='password' form={form} placeholder='Insert Your Password' validator={rules} type='password' />
-                        </Grid>
-                        <Grid item xs={12} sx={{ mt: 3 }}>
-                            <Input
-                                name='confirmPassword'
-                                form={form}
-                                placeholder='Confirm Your Password'
-                                validator={rules}
-                                type='password'
-                            />
-                        </Grid>
-                        <Grid item xs={12} sx={{ mt: 3 }}>
-                            <Button title='Sign Up' backgoundColor='#A54CE5' color='#FFF' onClick={() => {}} />
-                        </Grid>
-                    </Grid>
+                    {!changeInput ? (
+                        <Box sx={{ mt: 3 }}>
+                            <Input name='tel' form={form} placeholder='Insert Your Phone Number' validator={rules} type='tel' />
+                        </Box>
+                    ) : (
+                        <Box sx={{ mt: 3 }}>
+                            <Input name='email' form={form} placeholder='Insert Your Email' validator={rules} type='email' />
+                        </Box>
+                    )}
+                    <Box sx={{ mt: 3 }}>
+                        <Input name='password' form={form} placeholder=' Password' validator={rules} type='password' />
+                    </Box>
+                    <Box sx={{ textAlign: 'right', mt: 2, color: '#A54CE5' }}>
+                        <ButtonBase sx={{ fontWeight: 'bold' }}>Forgot Password</ButtonBase>
+                    </Box>
+                    <Box sx={{ mt: 3 }}>
+                        <Button title='Log in' backgoundColor='#A54CE5' color='#FFF' onClick={() => {}} />
+                    </Box>
                 </form>
                 <Box sx={{ textAlign: 'center', mt: 2, color: '#A54CE5' }}>
                     <ButtonBase
@@ -69,14 +60,12 @@ const SignUp = () => {
                         }}
                         sx={{ fontWeight: 'bold' }}
                     >
-                        {changeInput ? 'Sign up with phone email' : 'Sign up with phone number'}
+                        {changeInput ? 'Log in with phone number' : 'Log in with email'}
                     </ButtonBase>
                 </Box>
-                <Grid container sx={{ mt: '75px', textAlign: 'center' }}>
-                    <Grid item xs={12}>
-                        <Typography sx={{ color: '#949494', fontSize: '15px', mb: 2 }}>or you can:</Typography>
-                    </Grid>
-                    <Grid item xs={12} sx={{ mb: 2 }}>
+                <Box sx={{ mt: '75px', textAlign: 'center' }}>
+                    <Typography sx={{ color: '#949494', fontSize: '15px', mb: 2 }}>or you can:</Typography>
+                    <Box sx={{ mb: 2 }}>
                         <Button
                             icon={<Google sx={{ color: '#A54CE5', position: 'absolute', left: '20px', bottom: '20px' }} />}
                             title='Log in with Google'
@@ -85,8 +74,8 @@ const SignUp = () => {
                             border='2px solid #F4F1FF'
                             onClick={() => {}}
                         />
-                    </Grid>
-                    <Grid item xs={12}>
+                    </Box>
+                    <Box>
                         <Button
                             icon={<Facebook sx={{ color: '#A54CE5', position: 'absolute', left: '20px', bottom: '20px' }} />}
                             title='Log in with Facebook'
@@ -95,10 +84,8 @@ const SignUp = () => {
                             border='2px solid #F4F1FF'
                             onClick={() => {}}
                         />
-                    </Grid>
-                    <Grid
-                        item
-                        xs={12}
+                    </Box>
+                    <Box
                         sx={{
                             display: 'flex',
                             gap: '10px',
@@ -107,10 +94,17 @@ const SignUp = () => {
                             mt: 3
                         }}
                     >
-                        <Typography sx={{ color: '#A54CE5' }}>Already have an Account?</Typography>
-                        <ButtonBase sx={{ fontSize: '16px', fontWeight: 'bold', color: '#A54CE5' }}>Log in!</ButtonBase>
-                    </Grid>
-                </Grid>
+                        <Typography sx={{ color: '#A54CE5', fontWeight: 500, lineHeight: '12px' }}>Dont have an account?</Typography>
+                        <ButtonBase
+                            onClick={() => {
+                                router.push('/signup');
+                            }}
+                            sx={{ fontSize: '16px', fontWeight: 700, color: '#A54CE5' }}
+                        >
+                            Sign Up!
+                        </ButtonBase>
+                    </Box>
+                </Box>
             </Box>
         </Layout>
     );
