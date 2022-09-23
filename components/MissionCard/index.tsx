@@ -6,9 +6,12 @@ import { Verified } from '@mui/icons-material';
 interface MissionCardProps {
     isCompleted: boolean;
     isClaimed?: boolean;
+    statusMission?: string;
+    descMission?: string;
+    children?: any;
 }
 
-const MissionCard: React.FC<MissionCardProps> = ({ isCompleted = true, isClaimed }) => {
+const MissionCard: React.FC<MissionCardProps> = ({ children, isCompleted = true, isClaimed, statusMission, descMission }) => {
     return (
         <Grid
             container
@@ -21,11 +24,11 @@ const MissionCard: React.FC<MissionCardProps> = ({ isCompleted = true, isClaimed
                     {isCompleted && (
                         <Box sx={{ display: 'flex', gap: '5px' }}>
                             <Verified sx={{ color: '#00AE50' }} />
-                            <Typography sx={{ fontSize: '20px' }}>Mission Complete</Typography>
+                            <Typography sx={{ fontSize: '20px' }}>{statusMission}</Typography>
                         </Box>
                     )}
                 </Box>
-                <Typography sx={{ fontWeight: 'bold' }}>Play 5 Games Banana jump</Typography>
+                <Typography sx={{ fontWeight: 'bold' }}>{descMission}</Typography>
             </Grid>
             <Grid
                 item
@@ -33,11 +36,12 @@ const MissionCard: React.FC<MissionCardProps> = ({ isCompleted = true, isClaimed
                 sx={{
                     display: 'flex',
                     flexDirection: 'row',
-                    justifyContent: isClaimed ? 'end' : 'space-around',
+                    justifyContent: isClaimed ? 'end' : 'space-evenly',
                     alignItems: 'center'
                 }}
             >
-                {isClaimed ? (
+                {children}
+                {/* {isClaimed ? (
                     <Box
                         sx={{
                             display: 'flex',
@@ -83,7 +87,7 @@ const MissionCard: React.FC<MissionCardProps> = ({ isCompleted = true, isClaimed
                             <Typography sx={{ fontWeight: 'bold', fontSize: '20px' }}>10</Typography>
                         </Box>
                     </>
-                )}
+                )} */}
             </Grid>
         </Grid>
     );
