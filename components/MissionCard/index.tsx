@@ -41,53 +41,6 @@ const MissionCard: React.FC<MissionCardProps> = ({ children, isCompleted = true,
                 }}
             >
                 {children}
-                {/* {isClaimed ? (
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            width: '50%',
-                            backgroundColor: '#FFF5CD',
-                            padding: '8px',
-                            justifyContent: 'space-around',
-                            borderRadius: '10px'
-                        }}
-                    >
-                        <Typography sx={{ fontWeight: 'bold', fontSize: '19.5px' }}>Claimed</Typography>
-                    </Box>
-                ) : (
-                    <>
-                        {' '}
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                width: '25%',
-                                backgroundColor: '#E8DEFF',
-                                padding: '8px',
-                                justifyContent: 'space-around',
-                                borderRadius: '10px'
-                            }}
-                        >
-                            <Typography sx={{ fontWeight: 'bold', color: '#9163F6', fontSize: '19.5px' }}>XP</Typography>
-                            <Typography sx={{ fontWeight: 'bold', fontSize: '19.5px' }}>10</Typography>
-                        </Box>
-                        {isCompleted && <Typography> + </Typography>}
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                width: '25%',
-                                backgroundColor: '#FFF5CD',
-                                padding: '8px',
-                                justifyContent: 'space-between',
-                                borderRadius: '10px',
-                                fontWeight: 'bold',
-                                alignItems: 'center'
-                            }}
-                        >
-                            <img src='/images/coin.png' alt='coin-img' />
-                            <Typography sx={{ fontWeight: 'bold', fontSize: '20px' }}>10</Typography>
-                        </Box>
-                    </>
-                )} */}
             </Grid>
         </Grid>
     );
