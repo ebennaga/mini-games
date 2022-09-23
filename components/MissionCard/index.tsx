@@ -9,9 +9,17 @@ interface MissionCardProps {
     statusMission?: string;
     descMission?: string;
     children?: any;
+    achievMission?: string;
 }
 
-const MissionCard: React.FC<MissionCardProps> = ({ children, isCompleted = true, isClaimed, statusMission, descMission }) => {
+const MissionCard: React.FC<MissionCardProps> = ({
+    achievMission,
+    children,
+    isCompleted = true,
+    isClaimed,
+    statusMission,
+    descMission
+}) => {
     return (
         <Grid
             container
@@ -20,7 +28,7 @@ const MissionCard: React.FC<MissionCardProps> = ({ children, isCompleted = true,
         >
             <Grid item xs={6}>
                 <Box sx={{ display: 'flex', gap: '10px', mb: 2, alignItems: 'center' }}>
-                    <Typography sx={{ fontWeight: 'bold' }}>5/5</Typography>
+                    <Typography sx={{ fontWeight: 'bold' }}>{achievMission}</Typography>
                     {isCompleted && (
                         <Box sx={{ display: 'flex', gap: '5px' }}>
                             <Verified sx={{ color: '#00AE50' }} />

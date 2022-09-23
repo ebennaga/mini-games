@@ -77,6 +77,7 @@ const MissionPage = () => {
                             <Typography sx={{ fontSize: '30px', fontWeight: 'bold', my: 4 }}>Progress Mission</Typography>
                             {[...Array(3)].map((item, index) => (
                                 <MissionCard
+                                    achievMission='5/5'
                                     descMission='Play 5 Games Banana jump'
                                     statusMission='Mission Complete'
                                     isCompleted={isCompleted}
@@ -139,6 +140,7 @@ const MissionPage = () => {
                             <Typography sx={{ fontSize: '30px', fontWeight: 'bold', my: 4 }}>Completed Mission</Typography>
                             {[...Array(2)].map((item, index) => (
                                 <MissionCard
+                                    achievMission='5/5'
                                     statusMission='Mission Complete'
                                     descMission='Play 5 Games Banana jump'
                                     isClaimed={isClaimed}
