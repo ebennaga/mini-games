@@ -28,6 +28,7 @@ const Layout: React.FC<LayoutProps> = ({ children, isCarousel, backgoundColor = 
                     alignItems: 'center',
                     border,
                     minHeight: '100vh',
+                    padding: isCarousel ? '20px' : 0,
                     py: 3
                 }}
             >
