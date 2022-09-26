@@ -5,10 +5,10 @@ import Input from 'components/Input/index';
 import Button from 'components/Button/Index';
 import { useForm } from 'react-hook-form';
 import { Google, Facebook } from '@mui/icons-material';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 
 const SignUp = () => {
-    const router = useRouter();
+    // const router = useRouter();
     const form = useForm({
         mode: 'all',
         defaultValues: {
