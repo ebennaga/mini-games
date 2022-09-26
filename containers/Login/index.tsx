@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { Google, Facebook } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 
-const SignUp = () => {
+const Login = () => {
     const router = useRouter();
     const form = useForm({
         mode: 'all',
@@ -110,4 +110,4 @@ const SignUp = () => {
     );
 };
 
-export default SignUp;
+export default Login;
