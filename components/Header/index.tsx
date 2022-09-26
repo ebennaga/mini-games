@@ -1,6 +1,7 @@
 import { Box, ButtonBase, Typography } from '@mui/material';
 import React from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import numberFormat from 'helper/numberFormat';
 import useStyles from './useStyle';
 
 interface HeaderProps {
@@ -57,7 +58,7 @@ const Header: React.FC<HeaderProps> = ({ logo, point, profilePicture, isBack, hr
                             className={classes.pointText}
                             sx={{ fontWeight: 'bold', fontSize: '14px', color: '#373737' }}
                         >
-                            {point}
+                            {numberFormat(point)}
                         </Typography>
                     </Box>
                 </Box>

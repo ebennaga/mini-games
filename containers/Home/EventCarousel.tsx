@@ -13,14 +13,22 @@ const EventCarousel = () => {
         dots: true
     };
     return (
-        <Box sx={{ margin: 'auto', height: '260px' }}>
+        <Box sx={{ margin: 'auto', height: '200px' }}>
             <Box
                 sx={{
                     '& .slick-slider': { maxWidth: '100vw', width: '100%' },
                     '& .slick-arrow': { display: 'none' },
-                    '& .slick-list': { height: '220px' },
-                    '& .slick-track': { height: '220px' },
-                    '& .slick-cloned': { marginLeft: '10px' }
+                    '& .slick-list': { height: '180px' },
+                    '& .slick-track': { height: '180px' },
+                    '& .slick-cloned': { marginLeft: '10px' },
+                    '& .slick-dots': {
+                        '& .slick-active button:before': {
+                            color: '#A54CE5'
+                        },
+                        '& button:before': {
+                            fontSize: '10px'
+                        }
+                    }
                 }}
             >
                 <Slider {...settings}>

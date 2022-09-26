@@ -1,12 +1,23 @@
 import { Box, ButtonBase, Typography } from '@mui/material';
+import numberFormat from 'helper/numberFormat';
+import { useRouter } from 'next/router';
 import React from 'react';
 
-const GamesCard = () => {
+interface GamesCardProps {
+    image: string;
+    title: string;
+    totalUser: number;
+    href: any;
+}
+
+const GamesCard: React.FC<GamesCardProps> = ({ image, title, totalUser, href }) => {
+    const router = useRouter();
+
     return (
-        <ButtonBase sx={{ display: 'flex', flexDirection: 'column', marginTop: '27px' }}>
+        <ButtonBase onClick={() => router.push(href)} sx={{ display: 'flex', flexDirection: 'column', marginTop: '27px' }}>
             <Box
                 sx={{
-                    background: `url(${'/icons/dummy/main-ikan.png'})`,
+                    background: `url(${image})`,
                     backgroundPosition: 'center',
                     backgroundSize: 'cover',
                     width: '120px',
@@ -14,8 +25,8 @@ const GamesCard = () => {
                     borderRadius: '22px'
                 }}
             />
-            <Typography variant='subtitle1' component='p' marginTop='14px' marginBottom='7px' sx={{ fontWeight: 'bold' }}>
-                Main Ikan
+            <Typography variant='subtitle1' component='p' marginTop='14px' marginBottom='7px' sx={{ fontWeight: 'bold', fontSize: '12px' }}>
+                {title}
             </Typography>
             <Box sx={{ display: 'flex' }}>
                 <Box
@@ -53,8 +64,8 @@ const GamesCard = () => {
                         marginLeft: '-13px'
                     }}
                 />
-                <Typography variant='subtitle2' fontWeight={600} component='span' paddingLeft='8px'>
-                    46.000
+                <Typography variant='subtitle2' fontWeight={600} component='span' paddingLeft='8px' fontSize='10px'>
+                    {numberFormat(totalUser)}
                 </Typography>
             </Box>
         </ButtonBase>
