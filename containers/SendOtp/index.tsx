@@ -13,12 +13,12 @@ const SendOtp = () => {
     });
 
     return (
-        <>
+        <Box sx={{ padding: '20px', textAlign: 'center' }}>
             <img src='/icons/sending-otp.svg' width={201} height={201} alt='icon sending otp' />
-            <Typography variant='subtitle1' component='p' textAlign='center'>
+            <Typography variant='subtitle1' component='p' textAlign='center' sx={{ color: '#949494', fontWeight: 400 }}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.s
             </Typography>
-            <Typography variant='subtitle1' component='p' sx={{ color: '#A54CE5', fontWeight: 'bold' }}>
+            <Typography variant='subtitle1' component='p' sx={{ color: '#A54CE5', fontWeight: 'bold', my: 2 }}>
                 00:58
             </Typography>
             <form style={{ width: '100%' }}>
@@ -29,7 +29,7 @@ const SendOtp = () => {
                     <ButtonLanding title='Confirm' backgoundColor='#A54CE5' color='#fff' />
                 </Box>
             </form>
-        </>
+        </Box>
     );
 };
 
