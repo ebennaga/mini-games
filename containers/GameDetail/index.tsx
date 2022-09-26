@@ -1,4 +1,5 @@
 import { Box, Grid, ButtonBase, Typography } from '@mui/material';
+// import { Box, Typography } from '@mui/material';
 // import LayoutLoggedIn from 'components/LayoutLoggedIn';
 import Layout from 'components/Layout/Index';
 import React from 'react';
@@ -6,33 +7,13 @@ import { HelpOutline } from '@mui/icons-material';
 
 const GameDetailContainer = () => {
     return (
-        // <LayoutLoggedIn myCoin='102.300'>
-        //     <Box position='absolute' zIndex={0} bottom='270px' width='100%'>
-        //         <img src='/images/bg-gamedetail.png' alt='bg-gamedetail' style={{ width: '100%' }} />
+        // <Layout>
+        //     <Box>
+        //         <Typography>Game Detail</Typography>
         //     </Box>
-        //     <Grid container gap='45px' padding='20px' mt='130px' position='relative' zIndex={1}>
-        //         <Grid item xs={5}>
-        //             <img src='/images/game-img.png' alt='game-img' style={{ borderRadius: '15px', width: '250px' }} />
-        //         </Grid>
-        //         <Grid item xs={6}>
-        //             <Typography variant='h4' sx={{ color: 'white' }}>
-        //                 Menara Dingdong
-        //             </Typography>
-        //         </Grid>
-        //     </Grid>
-        //     <Box
-        //         sx={{
-        //             position: 'absolute',
-        //             zIndex: 0,
-        //             bottom: '274px',
-        //             width: '100%',
-        //             height: '45px',
-        //             background: 'linear-gradient(transparent, #353535)'
-        //         }}
-        //     />
-        // </LayoutLoggedIn>
+        // </Layout>
         <Layout>
-            <Box sx={{ position: 'absolute', zIndex: 0, width: '100%' }}>
+            <Box sx={{ position: 'relative', zIndex: 0, width: '100%' }}>
                 <img src='/images/bg-gamedetail.png' alt='bgimage' style={{ width: '100%' }} />
                 <Box
                     sx={{
@@ -45,7 +26,15 @@ const GameDetailContainer = () => {
                     }}
                 />
             </Box>
-            <Grid border='1px solid red' container zIndex={2} paddingTop='20px' justifyContent='space-between' width='100%'>
+            <Grid
+                border='1px solid red'
+                container
+                zIndex={2}
+                // paddingTop='20px'
+                justifyContent='space-between'
+                width='100%'
+                position='absolute'
+            >
                 <Grid direction='row' gap='auto' container justifyContent='space-between' alignItems='center' width='100%' paddingX='20px'>
                     <Grid item xs={2}>
                         <ButtonBase>
