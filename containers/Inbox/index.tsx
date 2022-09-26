@@ -36,7 +36,7 @@ const Inbox = () => {
                 return (
                     <>
                         <Grid item xs={4} key={index.id}>
-                            <Typography sx={{ color: 'rgba(55, 55, 55, 0.5)', fontSize: '14px', mt: 2, fontWeight: 400 }}>
+                            <Typography sx={{ color: 'rgba(55, 55, 55, 0.5)', fontSize: '14px', mt: 1, fontWeight: 400 }}>
                                 {index.date}
                             </Typography>
                         </Grid>
@@ -46,12 +46,12 @@ const Inbox = () => {
                                 width={375}
                                 height={203}
                                 alt='open-tourney'
-                                style={{ borderRadius: '12px', marginLeft: '10px', marginRight: '22px' }}
+                                style={{ borderRadius: '12px', marginLeft: -2, marginRight: '22px' }}
                             />
 
                             <Typography
                                 sx={{
-                                    marginLeft: '17px',
+                                    marginLeft: 1,
                                     marginRight: '22px',
                                     color: '#373737',
                                     fontSize: '14px',
