@@ -65,7 +65,7 @@ const History = () => {
                     <>
                         <Grid item xs={1}>
                             <Box>
-                                <img src='/images/ellipse.png' width={10} height={18} alt='detail-item' style={{ marginTop: '8%' }} />
+                                <img src='/images/ellipse.png' width={12} height={18} alt='detail-item' style={{ marginTop: '8%' }} />
                             </Box>
                         </Grid>
                         <Grid item xs={4} key={index.id}>
@@ -78,7 +78,7 @@ const History = () => {
                                     borderRadius: '8px',
                                     display: 'flex',
                                     justifyContent: 'space-between',
-                                    ml: 2
+                                    ml: 3
                                 }}
                             >
                                 <img src='/images/dingdong.png' width={88} height={78} alt='maskot-logo' style={{ borderRadius: '12px' }} />
@@ -140,7 +140,7 @@ const History = () => {
                                     borderRadius: '22px',
                                     display: 'flex',
                                     justifyContent: 'space-between',
-                                    ml: 2
+                                    ml: 3
                                 }}
                             >
                                 <img
