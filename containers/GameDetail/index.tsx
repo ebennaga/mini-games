@@ -4,17 +4,20 @@ import React from 'react';
 import Header from 'components/Header';
 import { HelpOutline, EmojiEvents, Share } from '@mui/icons-material';
 import Button from 'components/Button/Index';
+import TournamentCard from 'components/TournamentCard';
+import TournamentSlider from 'components/TournamentSlider/TournamentSliderGD';
 
 const GameDetailContainer = () => {
     const isBack = true;
     return (
-        <Box border='1px solid #D9D9D9'>
+        <Box border='1px solid #D9D9D9' width='100%'>
             <Box
                 sx={{
                     backgroundImage: `url(${'/images/bg-gamedetail.png'})`,
                     height: '50vh',
                     backgroundSize: 'cover',
-                    position: 'relative'
+                    position: 'relative',
+                    backgroundPosition: 'center'
                 }}
             />
             <Box
@@ -66,7 +69,7 @@ const GameDetailContainer = () => {
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid container padding='10px 20px'>
+            <Grid container padding='10px 20px' gap='10px'>
                 <Grid item xs={6}>
                     <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
                         Tournaments
@@ -75,8 +78,14 @@ const GameDetailContainer = () => {
                 <Grid item xs={12}>
                     <Typography sx={{ fontSize: '12px', fontWeight: '600' }}>Join tournaments and get points for reedem prize</Typography>
                 </Grid>
+                <Grid item xs={12}>
+                    <TournamentSlider>
+                        <TournamentCard time='6d 13h 23m' pool='3500' champion='250' coin='100' stars='5.25' users='376' position='35' />
+                        <TournamentCard time='6d 13h 23m' pool='3500' champion='250' coin='100' stars='5.25' users='376' position='35' />
+                    </TournamentSlider>
+                </Grid>
             </Grid>
-            <Grid container padding='20px' direction='column'>
+            <Grid container padding='10px 20px' direction='column'>
                 <Grid item xs={6}>
                     <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
                         Casual Game
