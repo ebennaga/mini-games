@@ -1,109 +1,149 @@
-import { Box, Grid, ButtonBase, Typography } from '@mui/material';
-// import { Box, Typography } from '@mui/material';
-// import LayoutLoggedIn from 'components/LayoutLoggedIn';
-import Layout from 'components/Layout/Index';
+/* eslint-disable no-unused-vars */
+import { Box, ButtonBase, Grid, Typography } from '@mui/material';
 import React from 'react';
-import { HelpOutline } from '@mui/icons-material';
+import Header from 'components/Header';
+import { HelpOutline, EmojiEvents, Share } from '@mui/icons-material';
+import Button from 'components/Button/Index';
 
 const GameDetailContainer = () => {
+    const isBack = true;
     return (
-        // <Layout>
-        //     <Box>
-        //         <Typography>Game Detail</Typography>
-        //     </Box>
-        // </Layout>
-        <Layout>
-            <Box sx={{ position: 'relative', zIndex: 0, width: '100%' }}>
-                <img src='/images/bg-gamedetail.png' alt='bgimage' style={{ width: '100%' }} />
-                <Box
-                    sx={{
-                        position: 'absolute',
-                        zIndex: 1,
-                        bottom: '5px',
-                        width: '100%',
-                        height: '45px',
-                        background: 'linear-gradient(transparent, #353535)'
-                    }}
-                />
-            </Box>
-            <Grid
-                border='1px solid red'
-                container
-                zIndex={2}
-                // paddingTop='20px'
-                justifyContent='space-between'
-                width='100%'
+        <Box border='1px solid #D9D9D9'>
+            <Box
+                sx={{
+                    backgroundImage: `url(${'/images/bg-gamedetail.png'})`,
+                    height: '50vh',
+                    backgroundSize: 'cover',
+                    position: 'relative'
+                }}
+            />
+            <Box
+                sx={{ backgroundImage: 'linear-gradient(transparent, black)', width: '99.5%', height: '30px' }}
                 position='absolute'
-            >
-                <Grid direction='row' gap='auto' container justifyContent='space-between' alignItems='center' width='100%' paddingX='20px'>
-                    <Grid item xs={2}>
-                        <ButtonBase>
-                            <img src='/images/arrowBack.png' alt='arrowBack' />
-                        </ButtonBase>
-                    </Grid>
-                    <Grid container justifyContent='space-evenly' alignItems='center' xs={4}>
-                        <Grid item xs={7}>
-                            <Grid
-                                container
-                                gap='3px'
-                                alignItems='center'
-                                justifyContent='space-evenly'
-                                sx={{
-                                    position: 'relative',
-                                    backgroundColor: '#FFF5CD',
-                                    padding: '8px 9px',
-                                    borderRadius: '25px'
-                                }}
-                                component='div'
-                            >
-                                <img src='/images/coin.png' alt='coin' style={{ width: '20px' }} />
-                                <Typography sx={{ fontSize: '0.75rem' }} fontWeight='bold'>
-                                    102.300
-                                </Typography>
-                                <Box sx={{ position: 'absolute', bottom: '20px', left: '0px' }}>
-                                    <img src='/images/badge-plus.png' alt='badge' />
-                                </Box>
-                            </Grid>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <img src='/images/avatar.png' alt='avatar' />
-                        </Grid>
-                    </Grid>
+                zIndex={0}
+                bottom='50%'
+            />
+            <Grid container padding='20px' position='absolute' top={0} zIndex={2}>
+                <Grid item xs={12}>
+                    <Header isBack={isBack} point={102_300} profilePicture='/icons/dummy/profile.png' />
                 </Grid>
-                <Grid container alignItems='center' paddingX='20px' gap='15px'>
-                    <Grid item xs={5}>
-                        <img src='/images/game-img.png' alt='game-img' style={{ borderRadius: '15px', width: '100%' }} />
+            </Grid>
+            <Grid container spacing={2} padding='20px' position='absolute' bottom='50%'>
+                <Grid item xs={5}>
+                    <img src='/images/game-img.png' alt='game-img' style={{ borderRadius: '10px', width: '100%' }} />
+                </Grid>
+                <Grid item xs={7} justifyContent='space-between' direction='row' spacing={5}>
+                    <Grid item xs={12}>
+                        <Typography sx={{ fontWeight: 'bold', color: 'white', fontSize: '23px', lineHeight: '30px' }}>
+                            Menara Dingdong
+                        </Typography>
                     </Grid>
-                    <Grid container justifyContent='space-between' height='100%' direction='row' xs={6}>
-                        <Grid container alignItems='end' xs={12}>
-                            <Typography variant='h4' sx={{ color: 'white', fontWeight: 'bold' }}>
-                                Menara Dingdong
-                            </Typography>
+                    <Grid container mt={5} justifyContent='space-between' width='100%'>
+                        <Grid item xs={6}>
+                            <ButtonBase
+                                sx={{
+                                    color: 'white',
+                                    backgroundColor: '#949494',
+                                    padding: '1px 10px',
+                                    borderRadius: '24px',
+                                    display: 'flex',
+                                    width: '100%',
+                                    justifyContent: 'space-between'
+                                }}
+                            >
+                                <Typography sx={{ fontSize: '12px', fontWeight: 'bold' }}>Tutorials</Typography>
+                                <HelpOutline sx={{ width: '14px', fontWeight: 'bold' }} />
+                            </ButtonBase>
                         </Grid>
-                        <Grid container alignItems='end' justifyContent='space-between' xs={12}>
-                            <Grid item xs={6}>
-                                <Box
-                                    sx={{
-                                        backgroundColor: '#949494',
-                                        padding: '7px 10px',
-                                        borderRadius: '24px',
-                                        display: 'flex',
-                                        justifyContent: 'space-between'
-                                    }}
-                                >
-                                    <Typography sx={{ color: 'white', fontWeight: '700' }}>Tutorials</Typography>
-                                    <HelpOutline sx={{ color: 'white' }} />
-                                </Box>
+                        <Grid container xs={5} alignItems='center'>
+                            <Grid item xs={6} mr='3px'>
+                                <img src='/images/users-img.png' alt='user-img' />
                             </Grid>
-                            <Grid container gap='10px' alignItems='center' xs={5}>
-                                <img src='/images/users-img.png' alt='users-img' />
-                                <Typography sx={{ fontWeight: 'bold', color: 'white' }}>45.000</Typography>
+                            <Grid item xs={4}>
+                                <Typography sx={{ fontSize: '11px', color: 'white' }}>45.652</Typography>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-        </Layout>
+            <Grid container padding='10px 20px'>
+                <Grid item xs={6}>
+                    <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
+                        Tournaments
+                    </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                    <Typography sx={{ fontSize: '12px', fontWeight: '600' }}>Join tournaments and get points for reedem prize</Typography>
+                </Grid>
+            </Grid>
+            <Grid container padding='20px' direction='column'>
+                <Grid item xs={6}>
+                    <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
+                        Casual Game
+                    </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                    <Typography sx={{ fontSize: '12px', fontWeight: 'light' }}>
+                        get a change to got the Ticket to play Tournaments
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} mt='10px' position='relative'>
+                    <Box
+                        sx={{
+                            borderRadius: '20px',
+                            backgroundImage: `url(${'/images/bg-casual.png'})`,
+                            height: '260px',
+                            display: 'flex',
+                            flexDirection: 'column-reverse',
+                            backgroundSize: 'cover',
+                            position: 'relative',
+                            zIndex: 0
+                        }}
+                    >
+                        <Box position='relative' zIndex={2} margin='20px'>
+                            <Typography sx={{ color: 'white', fontWeight: 'bold', fontSize: '32px' }}>Free</Typography>
+                            <Button height='40px' title='Play Casual' backgoundColor='#A54CE5' color='white' />
+                        </Box>
+                        <Box
+                            sx={{
+                                backgroundImage: 'linear-gradient(transparent, black)',
+                                height: '50px',
+                                borderRadius: '0px 0px 20px 20px'
+                            }}
+                            position='absolute'
+                            zIndex={1}
+                            bottom='0%'
+                            width='100%'
+                        />
+                    </Box>
+                </Grid>
+            </Grid>
+            <Grid container padding='10px 20px'>
+                <Grid item xs={6}>
+                    <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
+                        Your Stats
+                    </Typography>
+                </Grid>
+                <Grid
+                    mt='18px'
+                    container
+                    justifyContent='space-between'
+                    xs={12}
+                    gap='10px'
+                    sx={{ backgroundColor: '#F4F1FF', padding: '18px 25px', borderRadius: '15px' }}
+                >
+                    <Grid container xs={5} justifyContent='space-between'>
+                        <img src='/icons/tape-stats.png' alt='ribbon' />
+                        <Typography sx={{ fontSize: '14px', fontWeight: '700' }}>High scores</Typography>
+                    </Grid>
+                    <Grid container xs={5} justifyContent='space-between'>
+                        <EmojiEvents />
+                        <Typography sx={{ fontWeight: '700' }}>211.876</Typography>
+                        <Share />
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Box>
     );
 };
 
