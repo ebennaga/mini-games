@@ -85,7 +85,7 @@ const GameDetailContainer = () => {
                     </TournamentSlider>
                 </Grid>
             </Grid>
-            <Grid container padding='10px 20px' direction='column'>
+            <Grid container padding='0px 20px' direction='column'>
                 <Grid item xs={6}>
                     <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
                         Casual Game
