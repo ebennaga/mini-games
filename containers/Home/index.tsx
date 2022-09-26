@@ -358,7 +358,7 @@ const HomeContainer = () => {
                                             </Typography>
                                         </Box>
                                         <Box sx={{ color: '#fff', display: 'flex', alignItems: 'center' }}>
-                                            <Box>
+                                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                                 <img src='/icons/trophy.png' width='14px' height='10px' alt='trophy' />
                                                 <Typography
                                                     component='span'

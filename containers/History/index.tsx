@@ -44,7 +44,7 @@ const History = () => {
         }
     ];
     return (
-        <Grid container spacing={2} sx={{ ml: 1 }} direction='column' alignItems='space-between'>
+        <Grid container spacing={2} sx={{ marginLeft: '20px' }} direction='column' alignItems='space-between'>
             <Grid item xs={4}>
                 <Box>
                     <ButtonBase sx={{ mt: 5 }}>
