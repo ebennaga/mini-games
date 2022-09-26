@@ -55,7 +55,7 @@ const Inbox = () => {
                                     marginRight: '22px',
                                     color: '#373737',
                                     fontSize: '14px',
-                                    mt: 2,
+                                    mt: 1,
                                     fontWeight: 600,
                                     lineHeight: '16px'
                                 }}
