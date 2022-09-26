@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Link } from '@mui/material';
+import { Box, ButtonBase, Typography } from '@mui/material';
 
 interface TournamentCardProps {
     users: string;
@@ -16,7 +16,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, champion, coin, p
         <Box
             sx={{
                 width: '90%',
-                height: '372px',
+                height: '320px',
                 backgroundImage: `url('/icons/dummy/menara.png')`,
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
@@ -165,18 +165,9 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, champion, coin, p
                                     {time}
                                 </Typography>
                             </Box>
-                            <Link href='/'>
-                                <a
-                                    style={{
-                                        textDecoration: 'none !important',
-                                        fontWeight: 600,
-                                        color: '#fff',
-                                        fontSize: '11px'
-                                    }}
-                                >
-                                    View Tournaments
-                                </a>
-                            </Link>
+                            <ButtonBase>
+                                <Typography sx={{ fontWeight: 600, color: '#fff', fontSize: '8px' }}>View Tournaments</Typography>
+                            </ButtonBase>
                         </Box>
                     </Box>
                 </Box>
