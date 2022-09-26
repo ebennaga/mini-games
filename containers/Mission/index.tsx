@@ -114,7 +114,7 @@ const MissionPage = () => {
                                                 </Typography>
                                                 <Typography sx={{ fontWeight: 'bold', fontSize: '19.5px' }}>10</Typography>
                                             </Box>
-                                            {isCompleted && <Typography> + </Typography>}
+                                            {isCompleted && <Typography fontWeight='bold'> + </Typography>}
                                             <Box
                                                 sx={{
                                                     display: 'flex',
