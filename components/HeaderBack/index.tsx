@@ -21,7 +21,7 @@ const HeaderBack: React.FC<HeaderBackProps> = ({ title, isSetting }) => {
                 {title}
             </Typography>
             {isSetting && (
-                <ButtonBase>
+                <ButtonBase onClick={() => router.push('/profile/settings')}>
                     <SettingsIcon />
                 </ButtonBase>
             )}

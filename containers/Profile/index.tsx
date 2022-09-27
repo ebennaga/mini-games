@@ -6,6 +6,7 @@ import React from 'react';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import NavigationCard from 'components/NavigationCard';
 import SocialMediaList from 'components/SocialMediaList';
+import { useRouter } from 'next/router';
 import BalanceCard from './BalanceCard';
 import BarExp from './BarExp';
 import HighScoreCard from './HighScoreCard';
@@ -13,9 +14,10 @@ import ProfilePicture from './ProfilePicture';
 import StatsCard from './StatsCard';
 
 const Profile = () => {
+    const router = useRouter();
     const listNavigation = [
-        { title: 'Input Promo Code', icon: '/icons/promo-code.png', href: '/promo' },
-        { title: 'Give us Ratings', icon: '/icons/rating.png', href: '/rating' }
+        { title: 'Input Promo Code', icon: '/icons/promo-code.png', onclick: () => router.push('/promo') },
+        { title: 'Give us Ratings', icon: '/icons/rating.png', onclick: () => router.push('/ratingas') }
     ];
 
     return (
@@ -115,7 +117,7 @@ const Profile = () => {
                 {listNavigation.map((item: any) => {
                     return (
                         <Box key={item.title} sx={{ width: '100%', padding: '25px 0', borderBottom: '2px solid #F4F1FF' }}>
-                            <NavigationCard icon={item.icon} title={item.title} href={item.href} />
+                            <NavigationCard icon={item.icon} title={item.title} onClick={item.onClick} />
                         </Box>
                     );
                 })}

@@ -1,21 +1,15 @@
 import { Box, ButtonBase, Typography } from '@mui/material';
 import React from 'react';
-import { useRouter } from 'next/router';
 
 interface INavigationCard {
     icon: string;
     title: string;
-    href: string;
+    onClick: any;
 }
 
-const NavigationCard: React.FC<INavigationCard> = ({ icon, title, href }) => {
-    const router = useRouter();
-
+const NavigationCard: React.FC<INavigationCard> = ({ icon, title, onClick }) => {
     return (
-        <ButtonBase
-            onClick={() => router.push(href)}
-            sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-        >
+        <ButtonBase onClick={onClick} sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <img src={icon} alt={title} width='24px' height='24px' />
                 <Typography component='span' fontSize='14px' fontWeight={700} marginLeft={1.5}>
