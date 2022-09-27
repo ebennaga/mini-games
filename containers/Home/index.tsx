@@ -422,7 +422,7 @@ const HomeContainer = () => {
                         key={index}
                         sx={{
                             background: `url(${`/images/dummy/banner-${index + 1}.png`})`,
-                            backgroundPosition: 'center',
+                            backgroundPosition: 'right',
                             backgroundSize: 'cover',
                             height: '90px',
                             width: '100%',
