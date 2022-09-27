@@ -18,7 +18,7 @@ const EventCarousel = () => {
                 sx={{
                     '& .slick-slider': { maxWidth: '100vw', width: '100%' },
                     '& .slick-arrow': { display: 'none' },
-                    '& .slick-list': { height: '180px' },
+                    '& .slick-list': { height: '200px' },
                     '& .slick-track': { height: '180px' },
                     '& .slick-cloned': { marginLeft: '10px' },
                     '& .slick-dots': {
