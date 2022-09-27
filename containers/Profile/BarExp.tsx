@@ -34,7 +34,7 @@ const BarExp: React.FC<BarExpProps> = ({ value, labelBar }) => {
                     {labelBar}
                 </Typography>
             </Box>
-            <ArrowForwardIosIcon sx={{ color: '#9163F6', fontSize: '1.1rem' }} />
+            <ArrowForwardIosIcon sx={{ color: '#9163F6', fontSize: '1.1rem', marginTop: '-4px' }} />
         </Box>
     );
 };
