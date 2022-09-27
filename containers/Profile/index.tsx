@@ -1,8 +1,12 @@
+/* eslint-disable no-unused-vars */
 import { Box, ButtonBase, Grid, Typography } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import Link from 'next/link';
 import React from 'react';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import NavigationCard from 'components/NavigationCard';
+import SocialMediaList from 'components/SocialMediaList';
+import { useRouter } from 'next/router';
 import BalanceCard from './BalanceCard';
 import BarExp from './BarExp';
 import HighScoreCard from './HighScoreCard';
@@ -10,6 +14,12 @@ import ProfilePicture from './ProfilePicture';
 import StatsCard from './StatsCard';
 
 const Profile = () => {
+    const router = useRouter();
+    const listNavigation = [
+        { title: 'Input Promo Code', icon: '/icons/promo-code.png', onclick: () => router.push('/promo') },
+        { title: 'Give us Ratings', icon: '/icons/rating.png', onclick: () => router.push('/ratingas') }
+    ];
+
     return (
         <Box
             sx={{
@@ -28,7 +38,7 @@ const Profile = () => {
             </Typography>
             <BarExp labelBar='10018/25000' value={70} />
             <Box sx={{ height: '1px', width: '100%', background: '#E6E6E6', my: '24px' }} />
-            <Box sx={{ width: '100%' }}>
+            <Box component='section' sx={{ width: '100%' }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginBottom: '24px' }}>
                     <Typography component='h3' fontWeight='bold' fontSize='18px'>
                         Balance
@@ -49,10 +59,10 @@ const Profile = () => {
 
             <Box sx={{ height: '1px', width: '100%', background: '#E6E6E6', my: '24px' }} />
             <Box
+                component='section'
                 sx={{
                     width: '100%',
-                    marginTop: '24px',
-                    padding: '24px'
+                    padding: '0 24px'
                 }}
             >
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginBottom: '24px' }}>
@@ -74,7 +84,7 @@ const Profile = () => {
             </Box>
 
             <Box sx={{ height: '1px', width: '100%', background: '#E6E6E6', my: '24px' }} />
-            <Box sx={{ width: '100%', marginTop: '24px' }}>
+            <Box sx={{ width: '100%' }}>
                 <Typography component='h3' fontWeight='bold' fontSize='18px' alignItems='start' marginBottom='24px'>
                     High Scores
                 </Typography>
@@ -92,6 +102,27 @@ const Profile = () => {
                     Show All <ArrowForwardIcon sx={{ fontSize: '16px', ml: 0.7 }} />
                 </Typography>
             </ButtonBase>
+            <ButtonBase
+                sx={{
+                    background: 'url(/images/dummy/banner-1.png)',
+                    backgroundPosition: 'right',
+                    backgroundSize: 'cover',
+                    height: '90px',
+                    width: '100%',
+                    borderRadius: '6px',
+                    marginTop: '26px'
+                }}
+            />
+            <Box component='section' sx={{ width: '100%', marginTop: '7px' }}>
+                {listNavigation.map((item: any) => {
+                    return (
+                        <Box key={item.title} sx={{ width: '100%', padding: '25px 0', borderBottom: '2px solid #F4F1FF' }}>
+                            <NavigationCard icon={item.icon} title={item.title} onClick={item.onClick} />
+                        </Box>
+                    );
+                })}
+            </Box>
+            <SocialMediaList />
         </Box>
     );
 };
