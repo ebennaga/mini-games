@@ -1,0 +1,90 @@
+import React from 'react';
+import { Dialog, ButtonBase, Box, Typography, Grid } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
+
+interface DialogPictureProps {
+    open: boolean;
+    setOpen: any;
+    setSelectedAvatar: any;
+}
+
+const DialogPicture: React.FC<DialogPictureProps> = ({ open, setOpen, setSelectedAvatar }) => {
+    const handleClickAvatar = (avatar: any) => {
+        setSelectedAvatar(avatar);
+        setOpen(false);
+    };
+
+    return (
+        <Dialog
+            open={open}
+            onClose={() => setOpen(false)}
+            sx={{ '& .MuiPaper-root': { maxHeight: 'none', margin: 0, height: '100%', width: '100%' } }}
+        >
+            <Box component='section' sx={{ padding: '20px' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '45px' }}>
+                    <ButtonBase
+                        onClick={() => setOpen(false)}
+                        sx={{ width: '24px', height: '24px', borderRadius: '50px', background: '#A54CE5' }}
+                    >
+                        <ArrowBackIcon sx={{ color: '#fff', width: '40px', height: '20px', fontWeight: 'bold' }} />
+                    </ButtonBase>
+                    <Typography component='h2' sx={{ fontSize: '24px', fontWeight: 'bold', width: '100%', textAlign: 'center' }}>
+                        Select Avatar
+                    </Typography>
+                </Box>
+                <Grid container>
+                    <Grid item xs={4} padding='15px 0' alignItems='center' justifyContent='center' display='flex'>
+                        <ButtonBase
+                            sx={{
+                                background: '#F4F1FF',
+                                width: '89px',
+                                height: '89px',
+                                borderRadius: '100px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}
+                        >
+                            <CameraAltIcon sx={{ fontSize: '30px', color: '#373737' }} />
+                        </ButtonBase>
+                    </Grid>
+                    <Grid item xs={4} padding='15px 0' alignItems='center' justifyContent='center' display='flex'>
+                        <ButtonBase
+                            onClick={() => handleClickAvatar('/icons/dummy/profile.png')}
+                            sx={{
+                                backgroundImage: 'url(/icons/dummy/profile.png)',
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                                width: '89px',
+                                height: '89px',
+                                borderRadius: '100px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}
+                        />
+                    </Grid>
+                    <Grid item xs={4} padding='15px 0' alignItems='center' justifyContent='center' display='flex'>
+                        <ButtonBase
+                            onClick={() => handleClickAvatar('/icons/dummy/profile-3.png')}
+                            sx={{
+                                backgroundImage: 'url(/icons/dummy/profile-3.png)',
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                                width: '89px',
+                                height: '89px',
+                                borderRadius: '100px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}
+                        />
+                    </Grid>
+                </Grid>
+            </Box>
+        </Dialog>
+    );
+};
+
+export default DialogPicture;
