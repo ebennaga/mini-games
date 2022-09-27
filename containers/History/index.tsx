@@ -53,7 +53,7 @@ const History = () => {
                 </Box>
 
                 <Box sx={{ mt: -10, ml: 20 }}>
-                    <Typography sx={{ fontWeight: 'bold', fontSize: '19.5px', mt: 6 }}>History</Typography>
+                    <Typography sx={{ fontWeight: 'bold', fontSize: '24px', mt: 6 }}>History</Typography>
                 </Box>
             </Grid>
             <Grid item xs={4}>
