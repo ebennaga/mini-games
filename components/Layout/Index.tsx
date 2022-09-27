@@ -37,7 +37,7 @@ const Layout: React.FC<LayoutProps> = ({
                     alignItems: 'center',
                     border,
                     padding: isCarousel ? '20px' : '0px',
-                    pt: 0,
+                    pt: isBackground ? 0 : 3,
                     pb: '150px',
                     minHeight: '100vh'
                 }}
