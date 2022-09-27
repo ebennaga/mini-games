@@ -5,8 +5,6 @@ import SwitchCard from 'components/SwitchCard';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import generalItem from './generalItem';
-import supportData from './supportData';
 
 const ProfileSetting = () => {
     const router = useRouter();
@@ -42,6 +40,19 @@ const ProfileSetting = () => {
     const handleSignOut = () => {
         router.push('/signup');
     };
+
+    const generalItem = [
+        { title: 'Avatar & Nickname', icon: '/icons/dummy/profile-2.png', onClick: () => router.push('/profile/edit-profile') },
+        { title: 'Avatar & Nickname', icon: '/icons/email.svg', onClick: undefined }
+    ];
+    const supportData = [
+        { title: 'About Prize Play', icon: '/icons/about.svg', onClick: undefined },
+        { title: 'How to get coins & prizes', icon: '/icons/coin-price.svg', onClick: undefined },
+        { title: 'Help & Support', icon: '/icons/help.svg', onClick: undefined },
+        { title: 'Reported Issues', icon: '/icons/report-issue.svg', onClick: undefined },
+        { title: 'Privacy policy', icon: '/icons/privacy.svg', onClick: undefined },
+        { title: 'Terms & Conditions', icon: '/icons/term.svg', onClick: undefined }
+    ];
 
     return (
         <Box component='main' sx={{ width: '-webkit-fill-available', padding: '0 20px', color: '#373737' }}>
