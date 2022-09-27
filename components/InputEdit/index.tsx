@@ -9,9 +9,10 @@ interface InputEditProps {
     form: any;
     label: string;
     value?: string;
+    placeholder?: string;
 }
 
-const InputEdit: React.FC<InputEditProps> = ({ name, form, label, value }) => {
+const InputEdit: React.FC<InputEditProps> = ({ name, form, label, value, placeholder }) => {
     const [isDisable, setIsDisable] = React.useState<boolean>(true);
 
     React.useEffect(() => {
@@ -36,6 +37,7 @@ const InputEdit: React.FC<InputEditProps> = ({ name, form, label, value }) => {
                         <TextField
                             fullWidth
                             disabled={isDisable}
+                            placeholder={placeholder}
                             {...field}
                             InputProps={{
                                 id: `input-${name}`,
@@ -48,12 +50,12 @@ const InputEdit: React.FC<InputEditProps> = ({ name, form, label, value }) => {
                             sx={{
                                 '& .MuiInputBase-root': {
                                     borderRadius: '10px',
-                                    height: '60px',
+                                    height: '73px',
                                     background: '#F4F1FF'
                                 },
                                 '& .MuiInputBase-input': {
                                     fontWeight: 'bold',
-                                    fontSize: '14px',
+                                    fontSize: '20px',
                                     borderRadius: '15px',
                                     background: '#F4F1FF',
                                     paddingTop: '27px',

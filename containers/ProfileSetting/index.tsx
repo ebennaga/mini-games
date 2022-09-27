@@ -43,7 +43,7 @@ const ProfileSetting = () => {
 
     const generalItem = [
         { title: 'Avatar & Nickname', icon: '/icons/dummy/profile-2.png', onClick: () => router.push('/profile/edit-profile') },
-        { title: 'Avatar & Nickname', icon: '/icons/email.svg', onClick: undefined }
+        { title: 'Email & Address', icon: '/icons/email.svg', onClick: () => router.push('/profile/settings/email-address') }
     ];
     const supportData = [
         { title: 'About Prize Play', icon: '/icons/about.svg', onClick: undefined },
