@@ -59,7 +59,15 @@ const ProfileEmailAddress = () => {
             </Box>
             <ButtonBase
                 type='submit'
-                sx={{ padding: '23px 0', background: '#A54CE5', width: '100%', color: '#fff', borderRadius: '15px', marginTop: '132px' }}
+                sx={{
+                    padding: '23px 0',
+                    background: '#A54CE5',
+                    width: '100%',
+                    color: '#fff',
+                    borderRadius: '15px',
+                    marginTop: '132px',
+                    marginBottom: '50px'
+                }}
             >
                 <Typography component='span' fontSize='14px' fontWeight={700}>
                     Save Changes

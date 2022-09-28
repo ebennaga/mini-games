@@ -5,7 +5,7 @@ import GetCard from './GetCard';
 
 const CoinsPrizes = () => {
     return (
-        <Box component='main' sx={{ width: '-webkit-fill-available', padding: '0 20px', color: '#373737', height: '90vh' }}>
+        <Box component='main' sx={{ width: '-webkit-fill-available', padding: '0 20px', color: '#373737' }}>
             <HeaderBack title='How to get' />
             <Box component='section'>
                 <GetCard

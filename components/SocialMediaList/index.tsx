@@ -10,7 +10,7 @@ const SocialMediaList = () => {
     ];
 
     return (
-        <Box component='section' sx={{ width: '100%', marginTop: '32px' }}>
+        <Box component='section' sx={{ width: '100%', marginTop: '32px', marginBottom: '50px' }}>
             <Typography component='h3' fontWeight='bold' fontSize='18px' alignItems='start' marginBottom='24px'>
                 Follow Social Media
             </Typography>
