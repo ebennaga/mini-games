@@ -15,25 +15,25 @@ const itemData = [
 const ShopsContainer = () => {
     return (
         <Box sx={{ width: '100%' }}>
-            <Box padding='20px 10px'>
+            <Box padding='20px'>
                 <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Divider sx={{ my: 2 }} />
-            <Grid container>
-                <Grid container xs={12} sx={{ m: '10px' }} justifyContent='space-between' alignItems='baseline'>
+            <Grid container justifyContent='center' alignItems='center'>
+                <Grid container padding='0 20px' xs={12} justifyContent='space-between' alignItems='baseline'>
                     <Grid item xs={7} sm={7}>
                         <Typography variant='h5' sx={{ fontWeight: '700' }}>
                             Redeem Prize
                         </Typography>
                     </Grid>
                     <Grid item xs={2} sm={2} sx={{ textAlign: 'end' }}>
-                        <ButtonBase>
+                        <ButtonBase href='/shops/prize'>
                             <Typography sx={{ color: '#A54CE5', fontSize: '12px', fontWeight: '600' }}>See All</Typography>
                         </ButtonBase>
                     </Grid>
                 </Grid>
                 <ShopsSlider>
-                    <Grid container sx={{ px: 1, pt: '55px' }}>
+                    <Grid container sx={{ px: '20px', pt: '55px' }}>
                         <Grid
                             container
                             alignItems='center'
@@ -87,22 +87,11 @@ const ShopsContainer = () => {
                             </Grid>
                         </Grid>
                     </Grid>
-
-                    {/* <Box sx={{ px: 1 }}>
-                        <Box sx={{ backgroundColor: 'red', height: '180px', borderRadius: '15px', width: '97%', display: 'flex' }}>
-                            <Typography>Test</Typography>
-                        </Box>
-                    </Box>
-                    <Box sx={{ px: 1 }}>
-                        <Box sx={{ backgroundColor: 'green', height: '180px', borderRadius: '15px', width: '97%', display: 'flex' }}>
-                            <Typography>Test</Typography>
-                        </Box>
-                    </Box> */}
                 </ShopsSlider>
-                <Box width='100%'>
+                <Box width='100%' padding='0 20px'>
                     <ImageList variant='masonry' cols={2} gap={10}>
                         {itemData.map((item, idx: number) => (
-                            <ImageListItem key={idx}>
+                            <ImageListItem sx={{ cursor: 'pointer' }} key={idx}>
                                 <Box sx={{ backgroundColor: '#F4F1FF', padding: '45px', borderRadius: '14px' }}>
                                     <img src={item.image} alt={item.label} style={{ width: '100%' }} />
                                 </Box>
@@ -117,7 +106,7 @@ const ShopsContainer = () => {
                         ))}
                     </ImageList>
                 </Box>
-                <Grid container>
+                <Grid container padding='0 20px' justifyContent='center' alignItems='center'>
                     <Grid
                         container
                         justifyContent='space-between'
@@ -125,6 +114,7 @@ const ShopsContainer = () => {
                         xs={12}
                         sx={{ backgroundColor: '#A54CE5', borderRadius: '15px', height: '230px' }}
                         direction='row'
+                        border='1px solid red'
                     >
                         <Grid item xs={6} sx={{ padding: '10px 20px' }}>
                             <Typography sx={{ fontSize: '16px', color: 'white', fontWeight: '700' }}>Lucky Raffle</Typography>
@@ -142,21 +132,25 @@ const ShopsContainer = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid
-                    container
-                    gap='10px'
-                    position='relative'
-                    sx={{ backgroundColor: '#56CF54', mt: 3, borderRadius: '15px', height: '100px' }}
-                    alignItems='center'
-                >
-                    <Grid item xs={5} sx={{ position: 'relative', zIndex: 2, bottom: '10px', left: '10px' }}>
-                        <img src='/images/maskot-shops.png' alt='maskot' style={{ width: '135px' }} />
+                <Box padding='0 20px' width='100%'>
+                    <Grid
+                        container
+                        gap='10px'
+                        position='relative'
+                        sx={{ backgroundColor: '#56CF54', mt: 3, borderRadius: '15px', height: '100px' }}
+                        alignItems='center'
+                        width='100%'
+                        border='1px solid red'
+                    >
+                        <Grid item xs={5} sx={{ position: 'relative', zIndex: 2, bottom: '10px', left: '10px' }}>
+                            <img src='/images/maskot-shops.png' alt='maskot' style={{ width: '135px' }} />
+                        </Grid>
+                        <Grid item xs={6} sx={{ color: 'white' }}>
+                            <Typography sx={{ fontWeight: 'bold' }}>Play & Join the Tournament</Typography>
+                            <Typography sx={{ fontSize: '10px' }}>Get the Points and Redeem it with our special prize!</Typography>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={6} sx={{ color: 'white' }}>
-                        <Typography sx={{ fontWeight: 'bold' }}>Play & Join the Tournament</Typography>
-                        <Typography sx={{ fontSize: '10px' }}>Get the Points and Redeem it with our special prize!</Typography>
-                    </Grid>
-                </Grid>
+                </Box>
             </Grid>
         </Box>
     );

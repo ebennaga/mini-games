@@ -19,7 +19,7 @@ const ShopsSlider: React.FC<ShopsSliderProps> = ({ children }) => {
         <Box
             sx={{
                 '& .slick-slider': {
-                    maxWidth: '600px',
+                    maxWidth: '590px',
                     width: '100%',
                     height: '260px',
                     outline: 'none',
