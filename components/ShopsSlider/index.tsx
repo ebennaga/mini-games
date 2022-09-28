@@ -13,13 +13,15 @@ const ShopsSlider: React.FC<ShopsSliderProps> = ({ children }) => {
         infinite: true,
         speed: 500,
         slidesToShow: 1,
-        slidesToScroll: 1
+        slidesToScroll: 1,
+        nextArrow: <Box />,
+        prevArrow: <Box />
     };
     return (
         <Box
             sx={{
                 '& .slick-slider': {
-                    maxWidth: '590px',
+                    maxWidth: '600px',
                     width: '100%',
                     height: '260px',
                     outline: 'none',

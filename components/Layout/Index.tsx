@@ -60,7 +60,7 @@ const Layout: React.FC<LayoutProps> = ({
                         pt: 3,
                         pb: '10px',
                         borderRadius: '15px 15px 0px 0px',
-                        maxWidth: '600px'
+                        maxWidth: '700px'
                     }}
                 >
                     <Grid sx={{ cursor: 'pointer' }} item xs={3}>
