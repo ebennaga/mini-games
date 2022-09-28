@@ -11,7 +11,7 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({
-    isBackground = true,
+    isBackground = false,
     isTab = false,
     children,
     isCarousel,
@@ -38,7 +38,7 @@ const Layout: React.FC<LayoutProps> = ({
                     border,
                     padding: isCarousel ? '20px' : '0px',
                     pt: isBackground ? 0 : 3,
-                    pb: '150px',
+                    pb: isTab ? '150px' : '0px',
                     minHeight: '100vh'
                 }}
             >
@@ -60,7 +60,7 @@ const Layout: React.FC<LayoutProps> = ({
                         pt: 3,
                         pb: '10px',
                         borderRadius: '15px 15px 0px 0px',
-                        maxWidth: '640px'
+                        maxWidth: '600px'
                     }}
                 >
                     <Grid sx={{ cursor: 'pointer' }} item xs={3}>
