@@ -16,7 +16,7 @@ const PrivacyPolicy = () => {
                     bigImage='/icons/coins.svg'
                 />
             </Box>
-            <Box component='article'>
+            <Box component='article' sx={{ marginBottom: '50px' }}>
                 {[...Array(2)].map((_item: any, index: number) => {
                     return (
                         <Box key={index} sx={{ marginTop: index === 0 ? 0 : '28px' }}>

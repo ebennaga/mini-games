@@ -6,7 +6,7 @@ import React from 'react';
 
 const AboutUs = () => {
     return (
-        <Box component='main' sx={{ width: '-webkit-fill-available', padding: '0 20px', color: '#373737', height: '90vh' }}>
+        <Box component='main' sx={{ width: '-webkit-fill-available', padding: '0 20px', color: '#373737' }}>
             <HeaderBack title='About' />
             <Box component='section' sx={{ marginTop: '57px', textAlign: 'center' }}>
                 <img src='/icons/logo.svg' width='150px' height='77.12px' alt='prize play' style={{ marginBottom: '60px' }} />
@@ -19,7 +19,7 @@ const AboutUs = () => {
                     />
                 </Box>
             </Box>
-            <Box component='footer' sx={{ borderTop: '1px solid #E6E6E6', marginTop: '84px' }}>
+            <Box sx={{ borderTop: '1px solid #E6E6E6', marginTop: '84px' }}>
                 <SocialMediaList />
             </Box>
         </Box>

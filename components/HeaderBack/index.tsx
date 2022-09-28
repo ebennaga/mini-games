@@ -13,7 +13,7 @@ const HeaderBack: React.FC<HeaderBackProps> = ({ title, isSetting }) => {
     const router = useRouter();
 
     return (
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', paddingTop: '20px' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
             <ButtonBase onClick={() => router.back()} sx={{ width: '24px', height: '24px', borderRadius: '50px', background: '#A54CE5' }}>
                 <ArrowBackIcon sx={{ color: '#fff', width: '40px', height: '20px', fontWeight: 'bold' }} />
             </ButtonBase>
