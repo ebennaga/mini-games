@@ -24,23 +24,23 @@ const MissionCard: React.FC<MissionCardProps> = ({
         <Grid
             container
             alignItems='center'
-            sx={{ opacity: isClaimed ? 0.5 : 'none', backgroundColor: '#F4F1FF', borderRadius: '10px', padding: '16px 18px', mt: 3 }}
+            sx={{ opacity: isClaimed ? 0.5 : 'none', backgroundColor: '#F4F1FF', borderRadius: '10px', padding: '12px', mt: 3 }}
         >
-            <Grid item xs={6}>
+            <Grid item xs={7}>
                 <Box sx={{ display: 'flex', gap: '10px', mb: 2, alignItems: 'center' }}>
                     <Typography sx={{ fontWeight: 'bold' }}>{achievMission}</Typography>
                     {isCompleted && (
-                        <Box sx={{ display: 'flex', gap: '5px' }}>
-                            <Verified sx={{ color: '#00AE50' }} />
-                            <Typography sx={{ fontSize: '20px' }}>{statusMission}</Typography>
+                        <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+                            <Verified sx={{ color: '#00AE50', width: '12px' }} />
+                            <Typography sx={{ fontSize: { xs: '12px', sm: '20px' } }}>{statusMission}</Typography>
                         </Box>
                     )}
                 </Box>
-                <Typography sx={{ fontWeight: 'bold' }}>{descMission}</Typography>
+                <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '12px', sm: '20px' } }}>{descMission}</Typography>
             </Grid>
             <Grid
                 item
-                xs={6}
+                xs={5}
                 sx={{
                     display: 'flex',
                     flexDirection: 'row',
