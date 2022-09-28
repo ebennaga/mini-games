@@ -9,6 +9,7 @@ const Page: NextPage = () => {
         <>
             <Head>
                 <title>Prize Play</title>
+                <link rel='manifest' href='/manifest.json' />
             </Head>
             <LandingPage />
         </>
