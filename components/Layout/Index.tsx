@@ -57,8 +57,7 @@ const Layout: React.FC<LayoutProps> = ({
                         color: 'white',
                         height: '70px',
                         textAlign: 'center',
-                        pt: 3,
-                        pb: '10px',
+                        p: '10px',
                         borderRadius: '15px 15px 0px 0px',
                         maxWidth: '600px'
                     }}

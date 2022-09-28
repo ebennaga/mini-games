@@ -5,8 +5,10 @@ import Header from 'components/Header';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import Button from 'components/Button/Index';
 import Paragraph from 'components/Paragraph';
+import { useRouter } from 'next/router';
 
 const PrizeDetailContainer = () => {
+    const router = useRouter();
     const [isFavorite, setIsFavorite] = React.useState<boolean>(false);
     return (
         <Box sx={{ width: '100%' }}>
@@ -62,7 +64,14 @@ const PrizeDetailContainer = () => {
                     paragraph='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
                 />
                 <Box sx={{ mt: '185px' }}>
-                    <Button title='Reedem' backgoundColor='#A54CE5' color='white' />
+                    <Button
+                        onClick={() => {
+                            router.push(`${router.asPath}/confirmation`);
+                        }}
+                        title='Reedem'
+                        backgoundColor='#A54CE5'
+                        color='white'
+                    />
                 </Box>
             </Box>
         </Box>
