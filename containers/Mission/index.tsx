@@ -106,13 +106,18 @@ const MissionPage = () => {
                                                     backgroundColor: '#E8DEFF',
                                                     padding: '8px',
                                                     justifyContent: 'space-around',
-                                                    borderRadius: '10px'
+                                                    borderRadius: '10px',
+                                                    alignItems: 'center'
                                                 }}
                                             >
-                                                <Typography sx={{ fontWeight: 'bold', color: '#9163F6', fontSize: '19.5px' }}>
+                                                <Typography
+                                                    sx={{ fontWeight: 'bold', color: '#9163F6', fontSize: { xs: '13px', sm: '19.5px' } }}
+                                                >
                                                     XP
                                                 </Typography>
-                                                <Typography sx={{ fontWeight: 'bold', fontSize: '19.5px' }}>10</Typography>
+                                                <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '13px', sm: '19.5px' } }}>
+                                                    10
+                                                </Typography>
                                             </Box>
                                             {isCompleted && <Typography fontWeight='bold'> + </Typography>}
                                             <Box
@@ -128,7 +133,9 @@ const MissionPage = () => {
                                                 }}
                                             >
                                                 <img src='/images/coin.png' alt='coin-img' />
-                                                <Typography sx={{ fontWeight: 'bold', fontSize: '20px' }}>10</Typography>
+                                                <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '13px', sm: '19.5px' } }}>
+                                                    10
+                                                </Typography>
                                             </Box>
                                         </>
                                     )}
@@ -158,7 +165,9 @@ const MissionPage = () => {
                                                 borderRadius: '10px'
                                             }}
                                         >
-                                            <Typography sx={{ fontWeight: 'bold', fontSize: '19.5px' }}>Claimed</Typography>
+                                            <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '13px', sm: '19.5px' } }}>
+                                                Claimed
+                                            </Typography>
                                         </Box>
                                     ) : (
                                         <>
@@ -173,7 +182,9 @@ const MissionPage = () => {
                                                     borderRadius: '10px'
                                                 }}
                                             >
-                                                <Typography sx={{ fontWeight: 'bold', color: '#9163F6', fontSize: '19.5px' }}>
+                                                <Typography
+                                                    sx={{ fontWeight: 'bold', color: '#9163F6', fontSize: { xs: '13px', sm: '19.5px' } }}
+                                                >
                                                     XP
                                                 </Typography>
                                                 <Typography sx={{ fontWeight: 'bold', fontSize: '19.5px' }}>10</Typography>
@@ -192,7 +203,9 @@ const MissionPage = () => {
                                                 }}
                                             >
                                                 <img src='/images/coin.png' alt='coin-img' />
-                                                <Typography sx={{ fontWeight: 'bold', fontSize: '20px' }}>10</Typography>
+                                                <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '13px', sm: '19.5px' } }}>
+                                                    10
+                                                </Typography>
                                             </Box>
                                         </>
                                     )}
