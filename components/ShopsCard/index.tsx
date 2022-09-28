@@ -20,7 +20,7 @@ const ShopsCard: React.FC<ShopsCardProps> = ({ title, image, point }) => {
             >
                 <Grid item xs={4}>
                     <img src='/icons/fire-icon.png' alt='fire-icon' />
-                    <Typography sx={{ fontWeight: '800', fontSize: '36px', color: 'white', lineHeight: '38px' }}>{title}</Typography>
+                    <Typography sx={{ fontWeight: '800', fontSize: '36px', color: 'white', lineHeight: '38px', mt: 1 }}>{title}</Typography>
                 </Grid>
                 <Grid item xs={4}>
                     <Box sx={{ position: 'absolute', bottom: '35px', right: '10px', zIndex: 9999 }}>
