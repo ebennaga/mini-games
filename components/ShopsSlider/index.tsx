@@ -7,19 +7,25 @@ interface ShopsSliderProps {
     children: any;
 }
 
+const Arrow = () => {
+    return <Box />;
+};
+
 const ShopsSlider: React.FC<ShopsSliderProps> = ({ children }) => {
     const settings = {
         dots: true,
         infinite: true,
         speed: 500,
         slidesToShow: 1,
-        slidesToScroll: 1
+        slidesToScroll: 1,
+        nextArrow: <Arrow />,
+        prevArrow: <Arrow />
     };
     return (
         <Box
             sx={{
                 '& .slick-slider': {
-                    maxWidth: '590px',
+                    maxWidth: { lg: '600px', md: '500px', xs: '100vw', sm: '600px' },
                     width: '100%',
                     height: '260px',
                     outline: 'none',
@@ -27,7 +33,7 @@ const ShopsSlider: React.FC<ShopsSliderProps> = ({ children }) => {
                         width: '100%'
                     }
                 },
-                '& .slick-arrow': { display: 'none' },
+                '& .slick-next.slick-arrow': { backgroundColor: 'red' },
                 '& .slick-list': { height: '300px' },
                 '.slick-track': { height: '200px' },
                 mb: '30px',

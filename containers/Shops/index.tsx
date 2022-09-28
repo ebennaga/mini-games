@@ -4,6 +4,7 @@ import Button from 'components/Button/Index';
 import Header from 'components/Header';
 import React from 'react';
 import ShopsSlider from 'components/ShopsSlider';
+import ShopsCard from 'components/ShopsCard';
 
 const itemData = [
     { image: '/images/keyboard.png', label: 'Rexus Daxa Mechanical Keyboard RGB', points: 5000 },
@@ -33,60 +34,9 @@ const ShopsContainer = () => {
                     </Grid>
                 </Grid>
                 <ShopsSlider>
-                    <Grid container sx={{ px: '20px', pt: '55px' }}>
-                        <Grid
-                            container
-                            alignItems='center'
-                            justifyContent='space-between'
-                            position='relative'
-                            zIndex={1}
-                            sx={{ backgroundColor: '#A54CE5', height: '200px', borderRadius: '15px', width: '100%', padding: '30px' }}
-                        >
-                            <Grid item xs={4}>
-                                <img src='/icons/fire-icon.png' alt='fire-icon' />
-                                <Typography sx={{ fontWeight: '800', fontSize: '36px', color: 'white', lineHeight: '38px' }}>
-                                    HOT ITEM
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <Box sx={{ position: 'absolute', bottom: '35px', right: '10px', zIndex: 9999 }}>
-                                    <img src='/images/ps5-2.png' alt='ps5-icon' style={{ width: '200px' }} />
-                                    <Typography sx={{ fontWeight: 'bold', color: 'white' }}>Playstation 5</Typography>
-                                    <Box sx={{ display: 'flex', gap: '10px' }}>
-                                        <img src='/images/point-shops.png' alt='point-shops' />
-                                        <Typography sx={{ fontWeight: 'bold', color: 'white', fontSize: '12px' }}>80.000</Typography>
-                                    </Box>
-                                </Box>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid container sx={{ px: 1, pt: '55px' }}>
-                        <Grid
-                            container
-                            alignItems='center'
-                            justifyContent='space-between'
-                            position='relative'
-                            zIndex={1}
-                            sx={{ backgroundColor: '#A54CE5', height: '200px', borderRadius: '15px', width: '100%', padding: '30px' }}
-                        >
-                            <Grid item xs={4}>
-                                <img src='/icons/fire-icon.png' alt='fire-icon' />
-                                <Typography sx={{ fontWeight: '800', fontSize: '36px', color: 'white', lineHeight: '38px' }}>
-                                    HOT ITEM
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <Box sx={{ position: 'absolute', bottom: '35px', right: '10px', zIndex: 9999 }}>
-                                    <img src='/images/ps5-2.png' alt='ps5-icon' style={{ width: '200px' }} />
-                                    <Typography sx={{ fontWeight: 'bold', color: 'white' }}>Playstation 5</Typography>
-                                    <Box sx={{ display: 'flex', gap: '10px' }}>
-                                        <img src='/images/point-shops.png' alt='point-shops' />
-                                        <Typography sx={{ fontWeight: 'bold', color: 'white', fontSize: '12px' }}>80.000</Typography>
-                                    </Box>
-                                </Box>
-                            </Grid>
-                        </Grid>
-                    </Grid>
+                    {[...Array(3)].map((item, index) => (
+                        <ShopsCard key={index} point={80_000} image='/images/ps5-2.png' title='HOT ITEM' />
+                    ))}
                 </ShopsSlider>
                 <Box width='100%' padding='0 20px'>
                     <ImageList variant='masonry' cols={2} gap={10}>
@@ -114,7 +64,6 @@ const ShopsContainer = () => {
                         xs={12}
                         sx={{ backgroundColor: '#A54CE5', borderRadius: '15px', height: '230px' }}
                         direction='row'
-                        border='1px solid red'
                     >
                         <Grid item xs={6} sx={{ padding: '10px 20px' }}>
                             <Typography sx={{ fontSize: '16px', color: 'white', fontWeight: '700' }}>Lucky Raffle</Typography>
@@ -140,7 +89,6 @@ const ShopsContainer = () => {
                         sx={{ backgroundColor: '#56CF54', mt: 3, borderRadius: '15px', height: '100px' }}
                         alignItems='center'
                         width='100%'
-                        border='1px solid red'
                     >
                         <Grid item xs={5} sx={{ position: 'relative', zIndex: 2, bottom: '10px', left: '10px' }}>
                             <img src='/images/maskot-shops.png' alt='maskot' style={{ width: '135px' }} />
