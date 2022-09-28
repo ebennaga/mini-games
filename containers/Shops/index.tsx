@@ -26,7 +26,7 @@ const ShopsContainer = () => {
             </Box>
             <Divider sx={{ my: 2 }} />
             <Grid container justifyContent='center' alignItems='center'>
-                <Grid container padding='0 20px' xs={12} justifyContent='space-between' alignItems='baseline'>
+                <Grid container padding='0 20px' justifyContent='space-between' alignItems='baseline'>
                     <Grid item xs={7} sm={7}>
                         <Typography variant='h5' sx={{ fontWeight: '700' }}>
                             Redeem Prize
@@ -72,9 +72,11 @@ const ShopsContainer = () => {
                         container
                         justifyContent='space-between'
                         alignItems='center'
-                        xs={12}
                         sx={{ backgroundColor: '#A54CE5', borderRadius: '15px', height: '230px' }}
                         direction='row'
+                        onClick={() => {
+                            router.push('/shops/lucky-raffle');
+                        }}
                     >
                         <Grid item xs={6} sx={{ padding: '10px 20px' }}>
                             <Typography sx={{ fontSize: '16px', color: 'white', fontWeight: '700' }}>Lucky Raffle</Typography>
@@ -85,7 +87,15 @@ const ShopsContainer = () => {
                                 <WatchLater />
                                 <Typography sx={{ fontSize: '12px' }}>6d 13h 23m</Typography>
                             </Box>
-                            <Button title='Join Now' backgoundColor='white' color='#A54CE5' height='30px' />
+                            <Button
+                                onClick={() => {
+                                    router.push('/shops/lucky-raffle');
+                                }}
+                                title='Join Now'
+                                backgoundColor='white'
+                                color='#A54CE5'
+                                height='30px'
+                            />
                         </Grid>
                         <Grid item xs={6} sx={{ textAlign: 'end' }}>
                             <img src='/images/lucky-raffle.png' alt='luckyraffle' />

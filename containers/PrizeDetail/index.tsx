@@ -10,7 +10,6 @@ import { useRouter } from 'next/router';
 const PrizeDetailContainer = () => {
     const router = useRouter();
     const [isFavorite, setIsFavorite] = React.useState<boolean>(false);
-    console.log(router);
     return (
         <Box sx={{ width: '100%' }}>
             <Box padding='0 20px'>
