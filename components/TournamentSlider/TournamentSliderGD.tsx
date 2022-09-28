@@ -9,6 +9,7 @@ interface TournamentSliderProps {
 const TournamentSlider = (props: TournamentSliderProps) => {
     const { children } = props;
     const settings = {
+        infinite: true,
         dots: false,
         speed: 500,
         slideToShow: 1,
