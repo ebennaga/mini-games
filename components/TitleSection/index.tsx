@@ -19,7 +19,7 @@ const TitleSection: React.FC<TitleSectionProps> = ({ title, sutTitle, smallImage
                     {sutTitle}
                 </Typography>
             </Box>
-            <Box sx={{ display: 'flex', position: 'absolute', right: '-28px', top: '3px', rotate: '-33deg' }}>
+            <Box sx={{ display: 'flex', position: 'absolute', right: '-30px', top: '3px', rotate: '-33deg' }}>
                 <Box>
                     <img src={smallImage} width='62.79px' height='59.36px' alt='coins' />
                 </Box>
