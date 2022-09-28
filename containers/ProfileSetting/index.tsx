@@ -42,17 +42,21 @@ const ProfileSetting = () => {
     };
 
     const generalItem = [
-        { title: 'Avatar & Nickname', icon: '/icons/dummy/profile-2.png', onClick: () => router.push('/profile/edit-profile') },
-        { title: 'Email & Address', icon: '/icons/email.svg', onClick: () => router.push('/profile/settings/email-address') }
+        { title: 'Avatar & Nickname', icon: '/icons/dummy/profile-2.png', href: '/profile/edit-profile' },
+        { title: 'Email & Address', icon: '/icons/email.svg', href: '/profile/settings/email-address' }
     ];
     const supportData = [
-        { title: 'About Prize Play', icon: '/icons/about.svg', onClick: undefined },
-        { title: 'How to get coins & prizes', icon: '/icons/coin-price.svg', onClick: undefined },
-        { title: 'Help & Support', icon: '/icons/help.svg', onClick: undefined },
-        { title: 'Reported Issues', icon: '/icons/report-issue.svg', onClick: undefined },
-        { title: 'Privacy policy', icon: '/icons/privacy.svg', onClick: undefined },
-        { title: 'Terms & Conditions', icon: '/icons/term.svg', onClick: undefined }
+        { title: 'About Prize Play', icon: '/icons/about.svg', href: '/about-us' },
+        { title: 'How to get coins & prizes', icon: '/icons/coin-price.svg', href: '/get-coins-prizes' },
+        { title: 'Help & Support', icon: '/icons/help.svg', href: 'help-support' },
+        { title: 'Reported Issues', icon: '/icons/report-issue.svg', href: 'reported' },
+        { title: 'Privacy policy', icon: '/icons/privacy.svg', href: 'privacy-policy' },
+        { title: 'Terms & Conditions', icon: '/icons/term.svg', href: 'terms-conditions' }
     ];
+
+    const handleHref = (href: string) => {
+        router.push(href);
+    };
 
     return (
         <Box component='main' sx={{ width: '-webkit-fill-available', padding: '0 20px', color: '#373737' }}>
@@ -64,7 +68,7 @@ const ProfileSetting = () => {
                 {generalItem.map((item: any, index: number) => {
                     return (
                         <Box key={index} sx={{ borderBottom: '2px solid #F4F1FF', padding: '20px 0' }}>
-                            <NavigationCard icon={item.icon} title={item.title} onClick={item.onClick} />
+                            <NavigationCard icon={item.icon} title={item.title} onClick={() => handleHref(item.href)} />
                         </Box>
                     );
                 })}
@@ -101,7 +105,7 @@ const ProfileSetting = () => {
                 {supportData.map((item: any, index: number) => {
                     return (
                         <Box key={index} sx={{ borderBottom: '2px solid #F4F1FF', padding: '20px 0' }}>
-                            <NavigationCard icon={item.icon} title={item.title} onClick={item.onClick} />
+                            <NavigationCard icon={item.icon} title={item.title} onClick={() => handleHref(item.href)} />
                         </Box>
                     );
                 })}
