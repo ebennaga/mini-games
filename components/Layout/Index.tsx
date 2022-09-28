@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid } from '@mui/material';
+import { Box, ButtonBase, Grid } from '@mui/material';
 
 interface LayoutProps {
     children: any;
@@ -55,25 +55,33 @@ const Layout: React.FC<LayoutProps> = ({
                         position: 'fixed',
                         backgroundColor: '#373737',
                         color: 'white',
-                        height: '90px',
+                        height: '70px',
                         textAlign: 'center',
                         pt: 3,
                         pb: '10px',
                         borderRadius: '15px 15px 0px 0px',
-                        maxWidth: '700px'
+                        maxWidth: '600px'
                     }}
                 >
-                    <Grid sx={{ cursor: 'pointer' }} item xs={3}>
-                        <img src={`/icons/${false ? 'home-active' : 'home-not-active'}.svg`} alt='home-icon' />
+                    <Grid item xs={3}>
+                        <ButtonBase>
+                            <img src={`/icons/${false ? 'home-active' : 'home-not-active'}.svg`} alt='home-icon' />
+                        </ButtonBase>
                     </Grid>
-                    <Grid sx={{ cursor: 'pointer' }} item xs={3}>
-                        <img src={`/icons/${false ? 'console-active' : 'console-not-active'}.svg`} alt='home-icon' />
+                    <Grid item xs={3}>
+                        <ButtonBase>
+                            <img src={`/icons/${false ? 'console-active' : 'console-not-active'}.svg`} alt='home-icon' />
+                        </ButtonBase>
                     </Grid>
-                    <Grid sx={{ cursor: 'pointer' }} item xs={3}>
-                        <img src={`/icons/${true ? 'redeem-active' : 'redeem-not-active'}.svg`} alt='home-icon' />
+                    <Grid item xs={3}>
+                        <ButtonBase>
+                            <img src={`/icons/${true ? 'redeem-active' : 'redeem-not-active'}.svg`} alt='home-icon' />
+                        </ButtonBase>
                     </Grid>
-                    <Grid sx={{ cursor: 'pointer' }} item xs={3}>
-                        <img src={`/icons/${false ? 'coin-active' : 'coin-not-active'}.svg`} alt='home-icon' />
+                    <Grid item xs={3}>
+                        <ButtonBase>
+                            <img src={`/icons/${false ? 'coin-active' : 'coin-not-active'}.svg`} alt='home-icon' />
+                        </ButtonBase>
                     </Grid>
                 </Grid>
             )}
