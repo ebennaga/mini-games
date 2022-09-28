@@ -5,15 +5,20 @@ import Header from 'components/Header';
 import React from 'react';
 import ShopsSlider from 'components/ShopsSlider';
 import ShopsCard from 'components/ShopsCard';
+import { useRouter } from 'next/router';
 
 const itemData = [
-    { image: '/images/keyboard.png', label: 'Rexus Daxa Mechanical Keyboard RGB', points: 5000 },
-    { image: '/images/tablet.png', label: 'Lorem Ipsum dolor Dolor sit amet', points: 5000 },
-    { image: '/images/ps5.png', label: 'Playstation 5', points: 5000 },
-    { image: '/images/smartphone.png', label: 'Realme Narzo 20 Pro4/64GB', points: 5000 }
+    { id: 1, image: '/images/keyboard.png', label: 'Rexus Daxa Mechanical Keyboard RGB', points: 5000 },
+    { id: 2, image: '/images/tablet.png', label: 'Lorem Ipsum dolor Dolor sit amet', points: 5000 },
+    { id: 3, image: '/images/ps5.png', label: 'Playstation 5', points: 5000 },
+    { id: 4, image: '/images/smartphone.png', label: 'Realme Narzo 20 Pro 4/64GB', points: 5000 },
+    { id: 5, image: '/images/smartphone.png', label: 'Realme Narzo 20 Pro 4/64GB', points: 5000 },
+    { id: 6, image: '/images/tablet.png', label: 'Lorem Ipsum dolor Dolor sit amet', points: 5000 }
 ];
 
 const ShopsContainer = () => {
+    const router = useRouter();
+
     return (
         <Box sx={{ width: '100%' }}>
             <Box padding='20px'>
@@ -42,14 +47,20 @@ const ShopsContainer = () => {
                     <ImageList variant='masonry' cols={2} gap={10}>
                         {itemData.map((item, idx: number) => (
                             <ImageListItem sx={{ cursor: 'pointer' }} key={idx}>
-                                <Box sx={{ backgroundColor: '#F4F1FF', padding: '45px', borderRadius: '14px' }}>
-                                    <img src={item.image} alt={item.label} style={{ width: '100%' }} />
-                                </Box>
-                                <Box>
-                                    <Typography sx={{ fontSize: '12px', fontWeight: '700', mt: 1 }}>{item.label}</Typography>
-                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                                        <img src='/images/point-shops.png' alt='point-shop' loading='lazy' />
-                                        <Typography sx={{ fontSize: '8px', fontWeight: '700' }}>{item.points}</Typography>
+                                <Box
+                                    onClick={() => {
+                                        router.push(`/shops/prize/${item.id}`);
+                                    }}
+                                >
+                                    <Box sx={{ backgroundColor: '#F4F1FF', padding: '25px', borderRadius: '14px' }}>
+                                        <img src={item.image} alt={item.label} style={{ width: '100%' }} />
+                                    </Box>
+                                    <Box>
+                                        <Typography sx={{ fontSize: '16px', fontWeight: '700', mt: 1 }}>{item.label}</Typography>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                            <img src='/images/point-shops.png' alt='point-shop' loading='lazy' />
+                                            <Typography sx={{ fontSize: '13px', fontWeight: '700' }}>{item.points}</Typography>
+                                        </Box>
                                     </Box>
                                 </Box>
                             </ImageListItem>
