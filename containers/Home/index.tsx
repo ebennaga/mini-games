@@ -39,7 +39,9 @@ const HomeContainer = () => {
                         Tournaments
                     </Typography>
                     <Link href='/'>
-                        <a style={{ textDecoration: 'none !important', fontWeight: 600, color: '#A54CE5' }}>View All Tournaments</a>
+                        <a style={{ textDecoration: 'none !important', fontWeight: 600, textDecorationLine: 'none', color: '#A54CE5' }}>
+                            View All Tournaments
+                        </a>
                     </Link>
                 </Box>
 
@@ -58,7 +60,7 @@ const HomeContainer = () => {
                             position='35'
                         />
                     ))} */}
-                    {[...Array(3)].map((_item: any, index: number) => {
+                    {[...Array(5)].map((_item: any, index: number) => {
                         return (
                             <Box
                                 key={index}
@@ -243,7 +245,8 @@ const HomeContainer = () => {
                                                             textDecoration: 'none !important',
                                                             fontWeight: 600,
                                                             color: '#fff',
-                                                            fontSize: '11px'
+                                                            fontSize: '11px',
+                                                            textDecorationLine: 'none'
                                                         }}
                                                     >
                                                         View Tournaments
