@@ -9,11 +9,25 @@ interface IRankCard {
     username: string;
     point: number;
     prize: number;
+    disabledUnderline?: boolean;
+    isYourRank?: boolean;
 }
 
-const RankCard: React.FC<IRankCard> = ({ key, rank, image, username, point, prize }) => {
+// eslint-disable-next-line no-unused-vars
+const RankCard: React.FC<IRankCard> = ({ key, rank, image, username, point, prize, disabledUnderline, isYourRank }) => {
     return (
-        <Grid container key={key} sx={{ borderBottom: '1px solid rgba(40, 38, 38, 0.2)', padding: '13px 0', alignItems: 'center' }}>
+        <Grid
+            container
+            key={key}
+            sx={{
+                borderBottom: disabledUnderline ? 'none' : '1px solid rgba(40, 38, 38, 0.2)',
+                padding: '13px 0',
+                margin: '10px 0',
+                alignItems: 'center',
+                background: isYourRank ? '#F4F1FF' : '#fff',
+                borderRadius: isYourRank ? '15px' : 'none'
+            }}
+        >
             <Grid item xs={2}>
                 <Typography textAlign='center' component='h3' fontSize='12px' fontWeight={700}>
                     {rank}#
