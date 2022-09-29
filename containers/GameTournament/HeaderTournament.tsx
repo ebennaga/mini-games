@@ -1,13 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { Box, Typography } from '@mui/material';
 import BadgeImages from 'components/BadgeImages';
-import Header from 'components/Header';
+// import Header from 'components/Header';
 import React from 'react';
 
 interface HeaderTournamentProps {
     backgroundImage: string;
-    point: number;
-    profilePicture: string;
     titleGame: string;
     tournamentType: string;
     time: any;
@@ -18,8 +16,7 @@ interface HeaderTournamentProps {
 }
 
 const HeaderTournament = (props: HeaderTournamentProps) => {
-    const { backgroundImage, point, profilePicture, titleGame, tournamentType, time, totalPlayer, playerImg1, playerImg2, playerImg3 } =
-        props;
+    const { backgroundImage, titleGame, tournamentType, time, totalPlayer, playerImg1, playerImg2, playerImg3 } = props;
 
     return (
         <Box
@@ -30,7 +27,9 @@ const HeaderTournament = (props: HeaderTournamentProps) => {
                 backgroundPosition: 'center',
                 height: '300px',
                 borderBottomLeftRadius: '15px',
-                borderBottomRightRadius: '15px'
+                borderBottomRightRadius: '15px',
+                marginTop: '-87px',
+                paddingTop: '30px'
             }}
         >
             <Box
@@ -42,10 +41,9 @@ const HeaderTournament = (props: HeaderTournamentProps) => {
                     borderBottomRightRadius: '15px',
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'space-between'
+                    justifyContent: 'flex-end'
                 }}
             >
-                <Header isBack point={point} profilePicture={profilePicture} />
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end' }}>
                     <Box sx={{ color: '#fff' }}>
                         <Typography component='h2' fontSize='24px' fontWeight={700}>

@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material';
 import React from 'react';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useRouter } from 'next/router';
+import Header from 'components/Header';
 import HeaderTournament from './HeaderTournament';
 import ButtonPlay from './ButtonPlay';
 import LeaderboardPodium from './LeaderboardPodium';
@@ -26,10 +27,9 @@ const GameTournament = () => {
 
     return (
         <Box width='100%'>
+            <Header isBack point={102343} profilePicture='/icons/dummy/profile-2.png' paddingX='20px' />
             <HeaderTournament
                 backgroundImage='/images/dummy/game-hopup.svg'
-                point={102343}
-                profilePicture='/icons/dummy/profile-2.png'
                 titleGame='Hop Up'
                 tournamentType='Tournament 1'
                 time='6d 13h 23m'
