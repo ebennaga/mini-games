@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Box, ButtonBase, Typography } from '@mui/material';
 import React from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -23,7 +24,7 @@ const Header: React.FC<HeaderProps> = ({ logo, point, profilePicture, isBack, hr
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
             {isBack ? (
                 <ButtonBase
-                    onClick={() => router.push(hrefBack)}
+                    onClick={() => router.back()}
                     sx={{ width: '24px', height: '24px', borderRadius: '50px', background: '#A54CE5' }}
                 >
                     <ArrowBackIcon sx={{ color: '#fff', width: '20px', height: '20px', fontWeight: 'bold' }} />

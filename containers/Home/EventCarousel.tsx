@@ -43,7 +43,7 @@ const EventCarousel = () => {
                                 // width: '282px',
                                 width: '90%',
                                 // height: '154px',
-                                height: { xs: '164px', sm: '200px' },
+                                height: { xs: '154px', sm: '200px' },
                                 borderRadius: '22px'
                             }}
                         />
@@ -58,7 +58,7 @@ const EventCarousel = () => {
                                 // width: '282px',
                                 width: '90%',
                                 // height: '154px',
-                                height: { xs: '164px', sm: '200px' },
+                                height: { xs: '154px', sm: '200px' },
                                 borderRadius: '22px'
                             }}
                         />
@@ -73,7 +73,7 @@ const EventCarousel = () => {
                                 // width: '282px',
                                 width: '90%',
                                 // height: '154px',
-                                height: { xs: '164px', sm: '200px' },
+                                height: { xs: '154px', sm: '200px' },
                                 borderRadius: '22px'
                             }}
                         />
@@ -88,7 +88,7 @@ const EventCarousel = () => {
                                 // width: '282px',
                                 width: '90%',
                                 // height: '154px',
-                                height: { xs: '164px', sm: '200px' },
+                                height: { xs: '154px', sm: '200px' },
                                 borderRadius: '22px'
                             }}
                         />
