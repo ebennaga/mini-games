@@ -20,10 +20,9 @@ const SignUp = () => {
     });
     const rules = { required: true };
     const [changeInput, setChangeInput] = React.useState<boolean>(false);
-    // const handleSubmit = async (e:any)=>{
-    //     e.preventDefault();
-    //     router.push('/send-otp')
-    // }
+    const handleSubmit = async () => {
+        router.push('/send-otp');
+    };
     return (
         <Layout backgoundColor='#FFF'>
             <Box sx={{ textAlign: 'start', width: '90%', margin: '20px' }}>
@@ -33,11 +32,7 @@ const SignUp = () => {
                 <Typography sx={{ fontSize: '21px', color: '#949494' }}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.
                 </Typography>
-                {/* <form
-                    onSubmit={() => {
-                        form.handleSubmit(() => {});
-                    }}
-                >
+                <form onSubmit={form.handleSubmit(handleSubmit)}>
                     <Grid container direction='row'>
                         {!changeInput ? (
                             <Grid item xs={12} sx={{ mt: 3 }}>
@@ -71,8 +66,8 @@ const SignUp = () => {
                             />
                         </Grid>
                     </Grid>
-                </form> */}
-                <Grid container direction='row'>
+                </form>
+                {/* <Grid container direction='row'>
                     {!changeInput ? (
                         <Grid item xs={12} sx={{ mt: 3 }}>
                             <Input name='email' form={form} placeholder='Insert Your Email' validator={rules} type='email' />
@@ -98,7 +93,7 @@ const SignUp = () => {
                             }}
                         />
                     </Grid>
-                </Grid>
+                </Grid> */}
                 <Box sx={{ textAlign: 'center', mt: 2, color: '#A54CE5' }}>
                     <ButtonBase
                         onClick={() => {
