@@ -1,5 +1,5 @@
 import { Typography, Box } from '@mui/material';
-import CircularStatic from 'components/CircularProgress/index-1';
+import CircularStatic from 'components/CircularProgress';
 import React from 'react';
 
 const LoadingCasual = () => {
