@@ -3,8 +3,10 @@ import { Box, Typography, Grid } from '@mui/material';
 import Header from 'components/Header';
 import Button from 'components/Button/Index';
 import { SmartDisplay, EmojiEvents, Share } from '@mui/icons-material';
+import { useRouter } from 'next/router';
 
 const CasualContainer = () => {
+    const router = useRouter();
     return (
         <Box sx={{ width: '100%' }}>
             {/* dari sini */}
@@ -58,7 +60,14 @@ const CasualContainer = () => {
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                     </Typography>
                     <Box sx={{ mt: '25px' }}>
-                        <Button title='Free' backgoundColor='#A54CE5' color='white' />
+                        <Button
+                            onClick={() => {
+                                router.push('/casual/loading');
+                            }}
+                            title='Free'
+                            backgoundColor='#A54CE5'
+                            color='white'
+                        />
                     </Box>
                     <Box display='flex' alignItems='center' justifyContent='center' gap='5px' mt='20px'>
                         <Typography sx={{ fontWeight: 'bold' }}>Watch Ads</Typography>
