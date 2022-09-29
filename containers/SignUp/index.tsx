@@ -5,10 +5,10 @@ import Input from 'components/Input/index';
 import Button from 'components/Button/Index';
 import { useForm } from 'react-hook-form';
 import { Google, Facebook } from '@mui/icons-material';
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 
 const SignUp = () => {
-    // const router = useRouter();
+    const router = useRouter();
     const form = useForm({
         mode: 'all',
         defaultValues: {
@@ -20,7 +20,9 @@ const SignUp = () => {
     });
     const rules = { required: true };
     const [changeInput, setChangeInput] = React.useState<boolean>(false);
-
+    const handleSubmit = async () => {
+        router.push('/send-otp');
+    };
     return (
         <Layout backgoundColor='#FFF'>
             <Box sx={{ textAlign: 'start', width: '90%', margin: '20px' }}>
@@ -30,11 +32,7 @@ const SignUp = () => {
                 <Typography sx={{ fontSize: '21px', color: '#949494' }}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.
                 </Typography>
-                <form
-                    onSubmit={() => {
-                        form.handleSubmit(() => {});
-                    }}
-                >
+                <form onSubmit={form.handleSubmit(handleSubmit)}>
                     <Grid container direction='row'>
                         {!changeInput ? (
                             <Grid item xs={12} sx={{ mt: 3 }}>
@@ -58,10 +56,44 @@ const SignUp = () => {
                             />
                         </Grid>
                         <Grid item xs={12} sx={{ mt: 3 }}>
-                            <Button title='Sign Up' backgoundColor='#A54CE5' color='#FFF' onClick={() => {}} />
+                            <Button
+                                title='Sign Up'
+                                backgoundColor='#A54CE5'
+                                color='#FFF'
+                                onClick={() => {
+                                    router.push('/send-otp');
+                                }}
+                            />
                         </Grid>
                     </Grid>
                 </form>
+                {/* <Grid container direction='row'>
+                    {!changeInput ? (
+                        <Grid item xs={12} sx={{ mt: 3 }}>
+                            <Input name='email' form={form} placeholder='Insert Your Email' validator={rules} type='email' />
+                        </Grid>
+                    ) : (
+                        <Grid item xs={12} sx={{ mt: 3 }}>
+                            <Input name='tel' form={form} placeholder='Insert Your Phone Number' validator={rules} type='tel' />
+                        </Grid>
+                    )}
+                    <Grid item xs={12} sx={{ mt: 3 }}>
+                        <Input name='password' form={form} placeholder='Insert Your Password' validator={rules} type='password' />
+                    </Grid>
+                    <Grid item xs={12} sx={{ mt: 3 }}>
+                        <Input name='confirmPassword' form={form} placeholder='Confirm Your Password' validator={rules} type='password' />
+                    </Grid>
+                    <Grid item xs={12} sx={{ mt: 3 }}>
+                        <Button
+                            title='Sign Up'
+                            backgoundColor='#A54CE5'
+                            color='#FFF'
+                            onClick={() => {
+                                router.push('/send-otp');
+                            }}
+                        />
+                    </Grid>
+                </Grid> */}
                 <Box sx={{ textAlign: 'center', mt: 2, color: '#A54CE5' }}>
                     <ButtonBase
                         onClick={() => {
