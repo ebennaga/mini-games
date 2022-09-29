@@ -1,4 +1,4 @@
-import { Box, Divider, Typography, ImageList, ImageListItem } from '@mui/material';
+import { Box, Typography, ImageList, ImageListItem } from '@mui/material';
 import React from 'react';
 import Header from 'components/Header';
 import { useRouter } from 'next/router';
@@ -16,10 +16,19 @@ const PrizeContainer = () => {
     const router = useRouter();
     return (
         <Box sx={{ width: '100%' }}>
-            <Box padding='0 20px'>
+            <Box
+                padding='0 20px'
+                sx={{
+                    borderBottom: '1px solid rgba(148, 148, 148, 0.35)',
+                    mb: 2,
+                    position: 'sticky',
+                    top: -1,
+                    backgroundColor: 'white',
+                    zIndex: 999
+                }}
+            >
                 <Header hrefBack='/shops' isBack point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
-            <Divider sx={{ my: 2 }} />
             <Box padding='10px 20px'>
                 <Typography sx={{ fontSize: '24px', fontWeight: '700' }}>Prizes</Typography>
                 <ImageList variant='masonry' cols={2} gap={30}>

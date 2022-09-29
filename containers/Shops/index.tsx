@@ -1,4 +1,4 @@
-import { Box, Divider, Typography, Grid, ButtonBase, ImageList, ImageListItem } from '@mui/material';
+import { Box, Typography, Grid, ButtonBase, ImageList, ImageListItem } from '@mui/material';
 import { WatchLater } from '@mui/icons-material';
 import Button from 'components/Button/Index';
 import Header from 'components/Header';
@@ -21,10 +21,19 @@ const ShopsContainer = () => {
 
     return (
         <Box sx={{ width: '100%' }}>
-            <Box padding='20px'>
+            <Box
+                padding='0px 20px'
+                sx={{
+                    borderBottom: '1px solid rgba(148, 148, 148, 0.35)',
+                    mb: 2,
+                    position: 'sticky',
+                    top: -1,
+                    backgroundColor: 'white',
+                    zIndex: 999
+                }}
+            >
                 <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
-            <Divider sx={{ my: 2 }} />
             <Grid container justifyContent='center' alignItems='center'>
                 <Grid container padding='0 20px' justifyContent='space-between' alignItems='baseline'>
                     <Grid item xs={7} sm={7}>
