@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, ButtonBase, Grid } from '@mui/material';
+import { useRouter } from 'next/router';
 
 interface LayoutProps {
     children: any;
@@ -18,6 +19,9 @@ const Layout: React.FC<LayoutProps> = ({
     backgoundColor = '#FFF',
     border = '1px solid #D9D9D9'
 }) => {
+    const router = useRouter();
+    console.log('router', router);
+
     return (
         <Box
             sx={{
@@ -63,8 +67,12 @@ const Layout: React.FC<LayoutProps> = ({
                     }}
                 >
                     <Grid item xs={3}>
-                        <ButtonBase>
-                            <img src={`/icons/${false ? 'home-active' : 'home-not-active'}.svg`} alt='home-icon' />
+                        <ButtonBase
+                            onClick={() => {
+                                router.push('/home');
+                            }}
+                        >
+                            <img src={`/icons/${router.pathname === '/home' ? 'home-active' : 'home-not-active'}.svg`} alt='home-icon' />
                         </ButtonBase>
                     </Grid>
                     <Grid item xs={3}>
@@ -73,13 +81,24 @@ const Layout: React.FC<LayoutProps> = ({
                         </ButtonBase>
                     </Grid>
                     <Grid item xs={3}>
-                        <ButtonBase>
-                            <img src={`/icons/${true ? 'redeem-active' : 'redeem-not-active'}.svg`} alt='home-icon' />
+                        <ButtonBase
+                            onClick={() => {
+                                router.push('/shops');
+                            }}
+                        >
+                            <img
+                                src={`/icons/${router.pathname === '/shops' ? 'redeem-active' : 'redeem-not-active'}.svg`}
+                                alt='home-icon'
+                            />
                         </ButtonBase>
                     </Grid>
                     <Grid item xs={3}>
-                        <ButtonBase>
-                            <img src={`/icons/${false ? 'coin-active' : 'coin-not-active'}.svg`} alt='home-icon' />
+                        <ButtonBase
+                            onClick={() => {
+                                router.push('/topup');
+                            }}
+                        >
+                            <img src={`/icons/${router.pathname === '/topup' ? 'coin-active' : 'coin-not-active'}.svg`} alt='home-icon' />
                         </ButtonBase>
                     </Grid>
                 </Grid>
