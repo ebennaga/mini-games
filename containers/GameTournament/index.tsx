@@ -16,7 +16,7 @@ const GameTournament = () => {
         { image: '/icons/dummy/profile-3.png', username: 'ricky', point: 500, prize: 550 },
         { image: '/icons/dummy/profile.png', username: 'wisnu', point: 250, prize: 250 },
         { image: '/icons/dummy/profile.png', username: 'ihsan', point: 300, prize: 300 },
-        { image: '/icons/dummy/profile-3.png', username: 'wartegdepan', point: 800, prize: 800 },
+        { image: '/icons/dummy/profile-3.png', username: 'warteg', point: 800, prize: 800 },
         { image: '/icons/dummy/profile.png', username: 'ihsan', point: 246, prize: 246 },
         { image: '/icons/dummy/profile.png', username: 'yanto', point: 132, prize: 150 },
         { image: '/icons/dummy/profile-3.png', username: 'beban', point: 10, prize: 10 }
@@ -47,7 +47,7 @@ const GameTournament = () => {
                     </Box>
                     <LeaderboardPodium dataLeaderboard={dataLeaderboard} />
                 </Box>
-                <Box component='section'>
+                <Box component='section' marginBottom='40px'>
                     <TableRank dataLeaderboard={dataLeaderboard} />
                 </Box>
             </Box>
