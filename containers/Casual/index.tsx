@@ -25,7 +25,7 @@ const CasualContainer = () => {
                     borderRadius: '0px 0px 20px 20px'
                 }}
             >
-                <Box sx={{ padding: '10px 20px', position: 'relative', zIndex: 1 }}>
+                <Box sx={{ padding: '10px 20px', position: 'sticky', zIndex: 999, top: 5 }}>
                     <Header isBack point={102_300} profilePicture='/icons/dummy/profile.png' />
                 </Box>
                 <Box

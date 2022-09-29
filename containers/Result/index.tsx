@@ -7,8 +7,18 @@ import Button from 'components/Button/Index';
 const ResultContainer = () => {
     return (
         <Box sx={{ width: '100%' }}>
-            <Box sx={{ padding: '0px 20px', textAlign: 'center' }}>
+            <Box
+                sx={{
+                    mb: 2,
+                    position: 'sticky',
+                    top: 10,
+                    zIndex: 999,
+                    padding: '0px 20px'
+                }}
+            >
                 <HeaderBack />
+            </Box>
+            <Box sx={{ padding: '0px 20px', textAlign: 'center' }}>
                 <Box sx={{ textAlign: 'center', margin: '20px' }}>
                     <img src='/images/loading-img-casual.png' alt='loading-casual' />
                 </Box>
