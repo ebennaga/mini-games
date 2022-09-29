@@ -5,7 +5,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { useRouter } from 'next/router';
 
 interface HeaderBackProps {
-    title: string;
+    title?: string;
     isSetting?: boolean;
 }
 
