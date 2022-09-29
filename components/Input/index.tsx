@@ -12,7 +12,7 @@ interface InputProps {
     placeholder: string;
     type?: 'text' | 'number' | 'password' | 'email' | 'tel';
     color?: 'primary' | 'secondary';
-    validator: any;
+    validator?: any;
     component?: any;
 }
 

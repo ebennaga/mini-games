@@ -2,8 +2,10 @@ import React from 'react';
 
 import { Grid, Box, ButtonBase, Typography } from '@mui/material';
 import { ArrowCircleLeft } from '@mui/icons-material';
+import { useRouter } from 'next/router';
 
 const Transaction = () => {
+    const router = useRouter();
     const cards = [
         {
             id: 1,
@@ -37,7 +39,12 @@ const Transaction = () => {
             <Grid container spacing={1} sx={{ mt: -4, ml: '20px', width: '100%' }} direction='column'>
                 <Grid item xs={4}>
                     <Box>
-                        <ButtonBase sx={{ mt: 5 }}>
+                        <ButtonBase
+                            onClick={() => {
+                                router.push('/topup');
+                            }}
+                            sx={{ mt: 5 }}
+                        >
                             <ArrowCircleLeft sx={{ width: '35px', height: '35px', color: '#A54CE5' }} />
                         </ButtonBase>
                     </Box>
