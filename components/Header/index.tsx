@@ -21,7 +21,18 @@ const Header: React.FC<HeaderProps> = ({ logo, point, profilePicture, isBack, hr
     const router = useRouter();
 
     return (
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+        <Box
+            sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                width: '100%',
+                position: 'sticky',
+                top: 10,
+                zIndex: 999,
+                paddingY: '20px'
+            }}
+        >
             {isBack ? (
                 <ButtonBase
                     onClick={() => router.back()}

@@ -58,10 +58,19 @@ const PrizeConfirmationContainer = () => {
     const [openDialog, setOpenDialog] = React.useState<boolean>(false);
     return (
         <Box sx={{ width: '100%', pb: '20px' }}>
-            <Box padding='0 20px'>
+            <Box
+                padding='0 20px'
+                sx={{
+                    borderBottom: '1px solid rgba(148, 148, 148, 0.35)',
+                    mb: 2,
+                    position: 'sticky',
+                    top: -1,
+                    backgroundColor: 'white',
+                    zIndex: 999
+                }}
+            >
                 <Header hrefBack='/shops' isBack point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
-            <Divider sx={{ my: 2 }} />
             <Box padding='0 20px' sx={{ mt: '30px' }}>
                 <Grid container spacing={2}>
                     <Grid item xs={4}>

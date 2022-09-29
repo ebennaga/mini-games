@@ -12,10 +12,19 @@ const PrizeDetailContainer = () => {
     const [isFavorite, setIsFavorite] = React.useState<boolean>(false);
     return (
         <Box sx={{ width: '100%' }}>
-            <Box padding='0 20px'>
+            <Box
+                padding='0 20px'
+                sx={{
+                    borderBottom: '1px solid rgba(148, 148, 148, 0.35)',
+                    mb: 2,
+                    position: 'sticky',
+                    top: -1,
+                    backgroundColor: 'white',
+                    zIndex: 999
+                }}
+            >
                 <Header hrefBack='/shops' isBack point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
-            <Divider sx={{ my: 2 }} />
             <Box padding='10px 20px'>
                 <Box sx={{ backgroundColor: '#F4F1FF', padding: '20px', borderRadius: '10px' }}>
                     <img src='/images/ps5-3.png' alt='ps5-icon' style={{ width: '100%' }} />

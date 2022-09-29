@@ -9,9 +9,10 @@ interface TournamentCardProps {
     champion: any;
     coin: any;
     time: any;
+    onClick?: any;
 }
 
-const TournamentCard: React.FC<TournamentCardProps> = ({ time, champion, coin, pool, stars, users, position }) => {
+const TournamentCard: React.FC<TournamentCardProps> = ({ time, champion, coin, pool, stars, users, position, onClick }) => {
     return (
         <Box
             sx={{
@@ -165,7 +166,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, champion, coin, p
                                     {time}
                                 </Typography>
                             </Box>
-                            <ButtonBase>
+                            <ButtonBase onClick={onClick}>
                                 <Typography sx={{ fontWeight: 600, color: '#fff', fontSize: '8px' }}>View Tournaments</Typography>
                             </ButtonBase>
                         </Box>

@@ -6,102 +6,27 @@ import { HelpOutline, EmojiEvents, Share } from '@mui/icons-material';
 import Button from 'components/Button/Index';
 import TournamentCard from 'components/TournamentCard';
 import TournamentSlider from 'components/TournamentSlider/TournamentSliderGD';
-import Layout from 'components/Layout/Index';
+import { useRouter } from 'next/router';
 
 const GameDetailContainer = () => {
     const isBack = true;
+    const router = useRouter();
+    const handleClick = async () => {
+        router.push('/games/1/tournament');
+    };
     return (
-        // <Box sx={{ width: '100%' }}>
-        //     <Box
-        //         sx={{
-        //             backgroundImage: `url(${'/images/bg-gamedetail.png'})`,
-        //             height: '50vh',
-        //             backgroundSize: 'cover',
-        //             backgroundPosition: 'center',
-        //             display: 'flex',
-        //             flexDirection: 'column',
-        //             justifyContent: 'space-between',
-        //             position: 'relative',
-        //             zIndex: 1,
-        //             padding: '10px 0'
-        //         }}
-        //     >
-        //         <Grid container padding='0px 20px' position='relative' zIndex={2}>
-        //             <Grid item xs={12}>
-        //                 <Header isBack={isBack} point={102_300} profilePicture='/icons/dummy/profile.png' />
-        //             </Grid>
-        //         </Grid>
-        //         <Grid container padding='0px 20px' justifyContent='space-between' position='relative' zIndex={2}>
-        //             <Grid item xs={5}>
-        //                 <img src='/images/game-img.png' alt='game-img' style={{ borderRadius: '10px', width: '100px' }} />
-        //             </Grid>
-        //             <Grid item xs={7} justifyContent='space-between' direction='row' spacing={5}>
-        //                 <Grid container>
-        //                     <Grid item xs={12}>
-        //                         <Typography sx={{ fontWeight: 'bold', color: 'white', fontSize: '23px', lineHeight: '30px' }}>
-        //                             Menara Dingdong
-        //                         </Typography>
-        //                     </Grid>
-        //                 </Grid>
-        //                 <Grid container justifyContent='space-between' mt={2}>
-        //                     <Grid item xs={6}>
-        //                         <ButtonBase
-        //                             sx={{
-        //                                 color: 'white',
-        //                                 backgroundColor: '#949494',
-        //                                 padding: '1px 10px',
-        //                                 borderRadius: '24px',
-        //                                 display: 'flex',
-        //                                 width: '100%',
-        //                                 justifyContent: 'space-between'
-        //                             }}
-        //                         >
-        //                             <Typography sx={{ fontSize: '12px', fontWeight: 'bold' }}>Tutorials</Typography>
-        //                             <HelpOutline sx={{ width: '14px', fontWeight: 'bold' }} />
-        //                         </ButtonBase>
-        //                     </Grid>
-        //                     <Grid container xs={5} alignItems='center'>
-        //                         <Grid item xs={6} mr='3px'>
-        //                             <img src='/images/users-img.png' alt='user-img' />
-        //                         </Grid>
-        //                         <Grid item xs={4}>
-        //                             <Typography sx={{ fontSize: '11px', color: 'white' }}>45.652</Typography>
-        //                         </Grid>
-        //                     </Grid>
-        //                 </Grid>
-        //             </Grid>
-        //         </Grid>
-        //         <Box
-        //             sx={{
-        //                 backgroundImage: 'linear-gradient(transparent, black)',
-        //                 width: '99.5%',
-        //                 height: '30px',
-        //                 position: 'absolute',
-        //                 bottom: '0%'
-        //             }}
-        //         />
-        //     </Box>
-
-        //     <Grid container border='1px solid red' sx={{ padding: '20px' }}>
-        //         <Grid item xs={6}>
-        //             <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
-        //                 Tournaments
-        //             </Typography>
-        //         </Grid>
-        //         <Grid item xs={12}>
-        //             <Typography sx={{ fontSize: '12px', fontWeight: '600' }}>Join tournaments and get points for reedem prize</Typography>
-        //         </Grid>
-
-        //         <Grid item xs={12}>
-        //             <TournamentSlider>
-        //                 <TournamentCard time='6d 13h 23m' pool='3500' champion='250' coin='100' stars='5.25' users='376' position='35' />
-        //                 <TournamentCard time='6d 13h 23m' pool='3500' champion='250' coin='100' stars='5.25' users='376' position='35' />
-        //             </TournamentSlider>
-        //         </Grid>
-        //     </Grid>
-        // </Box>
-
         <Box width='100%'>
+            <Box
+                sx={{
+                    mb: 2,
+                    position: 'sticky',
+                    top: 10,
+                    zIndex: 999,
+                    padding: '0px 20px'
+                }}
+            >
+                <Header isBack={isBack} point={102_300} profilePicture='/icons/dummy/profile.png' />
+            </Box>
             <Box
                 sx={{
                     backgroundImage: `url(${'/images/bg-gamedetail.png'})`,
@@ -113,14 +38,11 @@ const GameDetailContainer = () => {
                     justifyContent: 'space-between',
                     position: 'relative',
                     zIndex: 1,
-                    padding: '10px 0'
+                    padding: '10px 0',
+                    mt: -20
                 }}
             >
-                <Grid container padding='0px 20px' position='relative' zIndex={2}>
-                    <Grid item xs={12}>
-                        <Header isBack={isBack} point={102_300} profilePicture='/icons/dummy/profile.png' />
-                    </Grid>
-                </Grid>
+                <Grid container padding='0px 20px' />
                 <Grid container padding='10px 20px' justifyContent='space-between' position='relative' zIndex={2}>
                     <Grid item xs={5} sm={6}>
                         <img src='/images/game-img.png' alt='game-img' style={{ borderRadius: '10px', width: '150px' }} />
@@ -195,7 +117,9 @@ const GameDetailContainer = () => {
                                 stars='5.25'
                                 users='376'
                                 position='35'
+                                onClick={handleClick}
                             />
+
                             <TournamentCard
                                 time='6d 13h 23m'
                                 pool='3500'
@@ -234,7 +158,15 @@ const GameDetailContainer = () => {
                         >
                             <Box position='relative' zIndex={2} margin='20px'>
                                 <Typography sx={{ color: 'white', fontWeight: 'bold', fontSize: '32px' }}>Free</Typography>
-                                <Button height='40px' title='Play Casual' backgoundColor='#A54CE5' color='white' />
+                                <Button
+                                    onClick={() => {
+                                        router.push('/casual');
+                                    }}
+                                    height='40px'
+                                    title='Play Casual'
+                                    backgoundColor='#A54CE5'
+                                    color='white'
+                                />
                             </Box>
                             <Box
                                 sx={{

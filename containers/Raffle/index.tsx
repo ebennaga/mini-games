@@ -8,7 +8,17 @@ const RaffleContainer = () => {
     const [quantity, setQuantity] = React.useState<number>(0);
     return (
         <Box sx={{ width: '100%' }}>
-            <Box padding='20px'>
+            <Box
+                padding='20px'
+                sx={{
+                    borderBottom: '1px solid rgba(148, 148, 148, 0.35)',
+                    mb: 2,
+                    position: 'sticky',
+                    top: -1,
+                    backgroundColor: 'white',
+                    zIndex: 999
+                }}
+            >
                 <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Divider sx={{ my: 2 }} />
