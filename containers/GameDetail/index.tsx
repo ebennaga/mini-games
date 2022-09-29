@@ -6,10 +6,16 @@ import { HelpOutline, EmojiEvents, Share } from '@mui/icons-material';
 import Button from 'components/Button/Index';
 import TournamentCard from 'components/TournamentCard';
 import TournamentSlider from 'components/TournamentSlider/TournamentSliderGD';
+import { useRouter } from 'next/router';
+
 import Layout from 'components/Layout/Index';
 
 const GameDetailContainer = () => {
     const isBack = true;
+    const router = useRouter();
+    const handleClick = async () => {
+        router.push('/games/1/tournament');
+    };
     return (
         <Box width='100%'>
             <Box
@@ -105,7 +111,9 @@ const GameDetailContainer = () => {
                                 stars='5.25'
                                 users='376'
                                 position='35'
+                                onClick={handleClick}
                             />
+
                             <TournamentCard
                                 time='6d 13h 23m'
                                 pool='3500'

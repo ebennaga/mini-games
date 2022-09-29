@@ -76,8 +76,15 @@ const Layout: React.FC<LayoutProps> = ({
                         </ButtonBase>
                     </Grid>
                     <Grid item xs={3}>
-                        <ButtonBase>
-                            <img src={`/icons/${false ? 'console-active' : 'console-not-active'}.svg`} alt='home-icon' />
+                        <ButtonBase
+                            onClick={() => {
+                                router.push('/games');
+                            }}
+                        >
+                            <img
+                                src={`/icons/${router.pathname === '/games' ? 'console-active' : 'console-not-active'}.svg`}
+                                alt='home-icon'
+                            />
                         </ButtonBase>
                     </Grid>
                     <Grid item xs={3}>
