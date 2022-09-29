@@ -2,6 +2,7 @@ import { Box, ButtonBase, Typography } from '@mui/material';
 import React from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import numberFormat from 'helper/numberFormat';
+import { useRouter } from 'next/router';
 import useStyles from './useStyle';
 
 interface HeaderProps {
@@ -16,15 +17,21 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ logo, point, profilePicture, isBack, hrefBack, widthLogo = '75px', heightLogo = '39px' }) => {
     const classes = useStyles();
+    const router = useRouter();
 
     return (
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
             {isBack ? (
-                <ButtonBase href={hrefBack} sx={{ width: '24px', height: '24px', borderRadius: '50px', background: '#A54CE5' }}>
+                <ButtonBase
+                    onClick={() => router.push(hrefBack)}
+                    sx={{ width: '24px', height: '24px', borderRadius: '50px', background: '#A54CE5' }}
+                >
                     <ArrowBackIcon sx={{ color: '#fff', width: '20px', height: '20px', fontWeight: 'bold' }} />
                 </ButtonBase>
             ) : (
-                <img src={logo} width={widthLogo} height={heightLogo} alt='prize play' />
+                <ButtonBase onClick={() => router.push('/home')}>
+                    <img src={logo} width={widthLogo} height={heightLogo} alt='prize play' />
+                </ButtonBase>
             )}
             <Box className={classes.headerRight} sx={{ display: 'flex', alignItems: 'center' }}>
                 <Box
@@ -62,7 +69,9 @@ const Header: React.FC<HeaderProps> = ({ logo, point, profilePicture, isBack, hr
                         </Typography>
                     </Box>
                 </Box>
-                <img src={profilePicture} width='46px' height='46px' alt='profile' />
+                <ButtonBase onClick={() => router.push('/profile')}>
+                    <img src={profilePicture} width='46px' height='46px' alt='profile' />
+                </ButtonBase>
             </Box>
         </Box>
     );

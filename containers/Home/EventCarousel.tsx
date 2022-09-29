@@ -10,7 +10,8 @@ const EventCarousel = () => {
         centerPadding: '60px',
         slidesToShow: 1,
         speed: 500,
-        dots: true
+        dots: true,
+        swipeToSlide: true
     };
     return (
         <Box sx={{ margin: 'auto', height: '200px' }}>
