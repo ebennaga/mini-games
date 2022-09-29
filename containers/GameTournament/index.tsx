@@ -45,7 +45,7 @@ const GameTournament = () => {
                     points={40}
                 />
                 <Box component='section' padding='28px 0'>
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '37px' }}>
                         <Typography component='h2' fontSize='24px' fontWeight={700}>
                             Leaderboard
                         </Typography>
