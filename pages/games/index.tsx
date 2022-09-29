@@ -14,7 +14,7 @@ const Page = () => {
                 <link rel='icon' href='/favicon.ico' />
             </Head>
             <Layout isTab>
-                <GameContainer />
+                <GameContainer playerImg1='' playerImg2='' playerImg3='' totalPlayer={0} />
             </Layout>
         </>
     );
