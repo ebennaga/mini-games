@@ -174,7 +174,7 @@ const GameDetailContainer = () => {
                 />
             </Box>
             <Box>
-                <Grid container padding='10px 20px' gap='10px' my={3}>
+                <Grid container padding='10px 20px' gap='10px' my={3} overflow='hidden'>
                     <Grid item xs={6}>
                         <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
                             Tournaments

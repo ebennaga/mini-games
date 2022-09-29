@@ -26,11 +26,11 @@ const HomeContainer = () => {
                     Games
                 </Typography>
                 <GamesSlider>
-                    <GamesCard href='/' image='/icons/dummy/main-ikan.png' title='Main Ikan' totalUser={46_000} />
-                    <GamesCard href='/' image='/icons/dummy/piano.png' title='Piano Tiles' totalUser={46_000} />
-                    <GamesCard href='/' image='/icons/dummy/menara.png' title='Menara Dingdong' totalUser={46_000} />
-                    <GamesCard href='/' image='/icons/dummy/main-ikan.png' title='Main Ikan' totalUser={46_000} />
-                    <GamesCard href='/' image='/icons/dummy/menara.png' title='Menara Dingdong' totalUser={46_000} />
+                    <GamesCard href='/games/1' image='/icons/dummy/main-ikan.png' title='Main Ikan' totalUser={46_000} />
+                    <GamesCard href='/games/2' image='/icons/dummy/piano.png' title='Piano Tiles' totalUser={46_000} />
+                    <GamesCard href='/games/3' image='/icons/dummy/menara.png' title='Menara Dingdong' totalUser={46_000} />
+                    <GamesCard href='/games/4' image='/icons/dummy/main-ikan.png' title='Main Ikan' totalUser={46_000} />
+                    <GamesCard href='/games/5' image='/icons/dummy/menara.png' title='Menara Dingdong' totalUser={46_000} />
                 </GamesSlider>
             </Box>
             <Box sx={{ mt: '36px' }}>
@@ -237,7 +237,7 @@ const HomeContainer = () => {
                                                         6d 13h 23m
                                                     </Typography>
                                                 </Box>
-                                                <Link href='/'>
+                                                <Link href={`/games/${index + 1}/tournament`}>
                                                     <a
                                                         style={{
                                                             textDecoration: 'none !important',
