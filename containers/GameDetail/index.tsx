@@ -8,8 +8,6 @@ import TournamentCard from 'components/TournamentCard';
 import TournamentSlider from 'components/TournamentSlider/TournamentSliderGD';
 import { useRouter } from 'next/router';
 
-import Layout from 'components/Layout/Index';
-
 const GameDetailContainer = () => {
     const isBack = true;
     const router = useRouter();
@@ -18,6 +16,17 @@ const GameDetailContainer = () => {
     };
     return (
         <Box width='100%'>
+            <Box
+                sx={{
+                    mb: 2,
+                    position: 'sticky',
+                    top: 10,
+                    zIndex: 999,
+                    padding: '0px 20px'
+                }}
+            >
+                <Header isBack={isBack} point={102_300} profilePicture='/icons/dummy/profile.png' />
+            </Box>
             <Box
                 sx={{
                     backgroundImage: `url(${'/images/bg-gamedetail.png'})`,
@@ -29,14 +38,11 @@ const GameDetailContainer = () => {
                     justifyContent: 'space-between',
                     position: 'relative',
                     zIndex: 1,
-                    padding: '10px 0'
+                    padding: '10px 0',
+                    mt: -20
                 }}
             >
-                <Grid container padding='0px 20px' position='relative' zIndex={2}>
-                    <Grid item xs={12}>
-                        <Header isBack={isBack} point={102_300} profilePicture='/icons/dummy/profile.png' />
-                    </Grid>
-                </Grid>
+                <Grid container padding='0px 20px' />
                 <Grid container padding='10px 20px' justifyContent='space-between' position='relative' zIndex={2}>
                     <Grid item xs={5} sm={6}>
                         <img src='/images/game-img.png' alt='game-img' style={{ borderRadius: '10px', width: '150px' }} />
@@ -152,7 +158,15 @@ const GameDetailContainer = () => {
                         >
                             <Box position='relative' zIndex={2} margin='20px'>
                                 <Typography sx={{ color: 'white', fontWeight: 'bold', fontSize: '32px' }}>Free</Typography>
-                                <Button height='40px' title='Play Casual' backgoundColor='#A54CE5' color='white' />
+                                <Button
+                                    onClick={() => {
+                                        router.push('/casual');
+                                    }}
+                                    height='40px'
+                                    title='Play Casual'
+                                    backgoundColor='#A54CE5'
+                                    color='white'
+                                />
                             </Box>
                             <Box
                                 sx={{

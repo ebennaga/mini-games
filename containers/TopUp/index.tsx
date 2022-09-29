@@ -38,7 +38,17 @@ const TopUp = () => {
     ];
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
-            <Box sx={{ mt: '14px', ml: '20px', display: 'flex', justifyContent: 'space-between', mr: '18px' }}>
+            <Box
+                sx={{
+                    ml: '20px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    mr: '18px',
+                    position: 'sticky',
+                    zIndex: 9999,
+                    top: 5
+                }}
+            >
                 <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Box sx={{ mt: '40px', ml: '20px', display: 'flex', justifyContent: 'space-between', mr: '18px', height: '33px' }}>
