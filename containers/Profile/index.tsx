@@ -61,8 +61,7 @@ const Profile = () => {
             <Box
                 component='section'
                 sx={{
-                    width: '100%',
-                    padding: '0 24px'
+                    width: '100%'
                 }}
             >
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginBottom: '24px' }}>
