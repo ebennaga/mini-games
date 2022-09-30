@@ -17,7 +17,7 @@ const EventCarousel = () => {
         <Box sx={{ margin: 'auto', height: '200px' }}>
             <Box
                 sx={{
-                    '& .slick-slider': { maxWidth: '100vw', width: '100%' },
+                    '& .slick-slider': { maxWidth: '110vw', width: '100%' },
                     '& .slick-arrow': { display: 'none' },
                     '& .slick-list': { height: '200px', '@media (max-width:599px)': { height: '180px' } },
                     '& .slick-dots li': { width: '5px' },

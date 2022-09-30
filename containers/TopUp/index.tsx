@@ -39,14 +39,15 @@ const TopUp = () => {
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
             <Box
+                padding='25px'
                 sx={{
-                    ml: '20px',
                     display: 'flex',
                     justifyContent: 'space-between',
-                    mr: '18px',
                     position: 'sticky',
                     zIndex: 9999,
-                    top: 5
+                    backgroundColor: 'white',
+                    width: '415px',
+                    top: 0
                 }}
             >
                 <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />

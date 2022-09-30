@@ -20,7 +20,6 @@ const Layout: React.FC<LayoutProps> = ({
     border = '1px solid #D9D9D9'
 }) => {
     const router = useRouter();
-    console.log('router', router);
 
     return (
         <Box
@@ -40,7 +39,7 @@ const Layout: React.FC<LayoutProps> = ({
                     flexDirection: 'column',
                     alignItems: 'center',
                     border,
-                    padding: isCarousel ? '20px' : '0px',
+                    padding: isCarousel ? '25px' : '0px',
                     pt: isBackground ? 0 : 3,
                     pb: isTab ? '150px' : '0px',
                     minHeight: '100vh'

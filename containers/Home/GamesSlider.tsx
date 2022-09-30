@@ -17,7 +17,7 @@ const GamesSlider: React.FC<GamesSliderProps> = ({ children }) => {
     return (
         <Box
             sx={{
-                '& .slick-slider': { maxWidth: '100vw', width: '100%' },
+                '& .slick-slider': { maxWidth: '110vw', width: '100%' },
                 '& .slick-arrow': { display: 'none' },
                 '& .slick-slide.slick-active': {
                     paddingRight: '7px'

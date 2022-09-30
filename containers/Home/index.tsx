@@ -17,7 +17,14 @@ const HomeContainer = () => {
 
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
-            <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
+            <Box
+                padding='0px'
+                sx={{
+                    width: '415px'
+                }}
+            >
+                <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
+            </Box>
             <Search />
             <EventCarousel />
             <Mission />

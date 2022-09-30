@@ -28,7 +28,17 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
     ];
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
-            <Box sx={{ mt: '5x', ml: '30px', display: 'flex', justifyContent: 'space-around', mr: '18px' }}>
+            <Box
+                padding='25px'
+                sx={{
+                    mb: 2,
+                    position: 'sticky',
+                    top: -1,
+                    backgroundColor: 'white',
+                    zIndex: 999,
+                    width: '415px'
+                }}
+            >
                 <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
 
