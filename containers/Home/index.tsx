@@ -31,7 +31,14 @@ const HomeContainer = () => {
 
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
-            <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
+            <Box
+                padding='0px'
+                sx={{
+                    width: '415px'
+                }}
+            >
+                <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
+            </Box>
             <Box component='section' sx={{ display: 'flex', alignItems: 'center' }}>
                 <Search form={form} name='search' placeholder='Search Games' onSubmit={handleSearch} />
                 <ButtonBase onClick={() => router.push('inbox')} sx={{ marginLeft: '17px' }}>
