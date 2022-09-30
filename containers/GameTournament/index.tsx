@@ -1,12 +1,15 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useRouter } from 'next/router';
+import Header from 'components/Header';
 import HeaderTournament from './HeaderTournament';
 import ButtonPlay from './ButtonPlay';
 import LeaderboardPodium from './LeaderboardPodium';
 import TableRank from './TableRank';
 
 const GameTournament = () => {
+    const router = useRouter();
     const dataLeaderboard = [
         { image: '/icons/dummy/profile-2.png', username: 'rinto', point: 246000, prize: 2000 },
         { image: '/icons/dummy/profile.png', username: 'eben', point: 13200, prize: 1500 },
@@ -24,10 +27,9 @@ const GameTournament = () => {
 
     return (
         <Box width='100%'>
+            <Header isBack point={102343} profilePicture='/icons/dummy/profile-2.png' paddingX='20px' />
             <HeaderTournament
                 backgroundImage='/images/dummy/game-hopup.svg'
-                point={102343}
-                profilePicture='/icons/dummy/profile-2.png'
                 titleGame='Hop Up'
                 tournamentType='Tournament 1'
                 time='6d 13h 23m'
@@ -37,9 +39,13 @@ const GameTournament = () => {
                 playerImg3='/icons/dummy/user-2.png'
             />
             <Box component='main' padding='20px' color='#373737'>
-                <ButtonPlay onClick={undefined} title='Play Tournament' points={40} />
+                <ButtonPlay
+                    onClick={() => router.push(`/games/${router.query.id}/tournament/result`)}
+                    title='Play Tournament'
+                    points={40}
+                />
                 <Box component='section' padding='28px 0'>
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '37px' }}>
                         <Typography component='h2' fontSize='24px' fontWeight={700}>
                             Leaderboard
                         </Typography>

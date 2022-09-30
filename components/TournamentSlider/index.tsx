@@ -18,8 +18,7 @@ const TournamentSlider = (props: TournamentSliderProps) => {
     return (
         <Box
             sx={{
-                // border: '1px solid red',
-                '& .slick-slider': { maxWidth: '110vw', width: '100%', height: '380px' },
+                '& .slick-slider': { maxWidth: '100vw', width: '100%', height: '380px', marginRight: '10px' },
                 '& .slick-arrow': { display: 'none' },
                 '& .slick-current': {
                     // border: '1px solid red',

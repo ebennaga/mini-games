@@ -30,7 +30,11 @@ const BarExp: React.FC<BarExpProps> = ({ value, labelBar }) => {
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', padding: '0 10px' }}>
                 <BorderLinearProgress variant='determinate' value={value} />
-                <Typography component='span' fontWeight='bold' sx={{ fontSize: '10px', color: '#373737', textAlign: 'center' }}>
+                <Typography
+                    component='span'
+                    fontWeight='bold'
+                    sx={{ fontSize: '10px', marginTop: '4px', color: '#373737', textAlign: 'center' }}
+                >
                     {labelBar}
                 </Typography>
             </Box>

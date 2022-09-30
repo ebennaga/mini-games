@@ -14,9 +14,19 @@ interface HeaderProps {
     heightLogo?: any;
     isBack?: boolean;
     hrefBack?: any;
+    paddingX?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ logo, point, profilePicture, isBack, hrefBack, widthLogo = '75px', heightLogo = '39px' }) => {
+const Header: React.FC<HeaderProps> = ({
+    logo,
+    point,
+    profilePicture,
+    isBack,
+    hrefBack,
+    paddingX,
+    widthLogo = '75px',
+    heightLogo = '39px'
+}) => {
     const classes = useStyles();
     const router = useRouter();
 
@@ -26,11 +36,12 @@ const Header: React.FC<HeaderProps> = ({ logo, point, profilePicture, isBack, hr
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                width: '100%',
+                width: paddingX ? '-webkit-fill-available' : '100%',
                 position: 'sticky',
-                top: 10,
-                zIndex: 999
-                // paddingY: '20px'
+                top: paddingX ? 0 : 10,
+                zIndex: 999,
+                paddingY: paddingX ? '20px' : 0,
+                paddingX: paddingX || 0
             }}
         >
             {isBack ? (
