@@ -4,10 +4,11 @@ import Slider from 'react-slick';
 
 interface TournamentSliderProps {
     children: any;
+    isLarge?: boolean;
 }
 
 const TournamentSlider = (props: TournamentSliderProps) => {
-    const { children } = props;
+    const { children, isLarge = false } = props;
     const settings = {
         dots: false,
         speed: 500,
@@ -18,7 +19,7 @@ const TournamentSlider = (props: TournamentSliderProps) => {
     return (
         <Box
             sx={{
-                '& .slick-slider': { maxWidth: '100vw', width: '100%', height: '380px', marginRight: '10px' },
+                '& .slick-slider': { maxWidth: isLarge ? '108vw' : '100vw', width: '100%', height: '380px', marginRight: '10px' },
                 '& .slick-arrow': { display: 'none' },
                 '& .slick-current': {
                     // border: '1px solid red',

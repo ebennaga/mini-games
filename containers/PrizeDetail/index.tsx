@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Box, Typography, Divider, Grid } from '@mui/material';
 import React from 'react';
 import Header from 'components/Header';

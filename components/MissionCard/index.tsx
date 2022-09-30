@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Grid, Typography, Box } from '@mui/material';
 import { Verified } from '@mui/icons-material';
