@@ -29,8 +29,8 @@ const Header: React.FC<HeaderProps> = ({ logo, point, profilePicture, isBack, hr
                 width: '100%',
                 position: 'sticky',
                 top: 10,
-                zIndex: 999,
-                paddingY: '20px'
+                zIndex: 999
+                // paddingY: '20px'
             }}
         >
             {isBack ? (

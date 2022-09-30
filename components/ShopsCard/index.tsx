@@ -9,7 +9,7 @@ interface ShopsCardProps {
 
 const ShopsCard: React.FC<ShopsCardProps> = ({ title, image, point }) => {
     return (
-        <Grid container sx={{ px: '20px', pt: '55px' }}>
+        <Grid container sx={{ px: '5px', pt: '55px' }}>
             <Grid
                 container
                 alignItems='center'

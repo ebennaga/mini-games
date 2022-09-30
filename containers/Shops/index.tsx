@@ -22,14 +22,15 @@ const ShopsContainer = () => {
     return (
         <Box sx={{ width: '100%' }}>
             <Box
-                padding='0px 20px'
+                padding='25px'
                 sx={{
                     borderBottom: '1px solid rgba(148, 148, 148, 0.35)',
                     mb: 2,
                     position: 'sticky',
                     top: -1,
                     backgroundColor: 'white',
-                    zIndex: 999
+                    zIndex: 999,
+                    width: '415px'
                 }}
             >
                 <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
