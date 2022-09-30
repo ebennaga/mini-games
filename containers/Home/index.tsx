@@ -32,9 +32,13 @@ const HomeContainer = () => {
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
             <Box
-                padding='0px'
                 sx={{
-                    width: '415px'
+                    width: '-webkit-fill-available',
+                    position: 'sticky',
+                    zIndex: 9999,
+                    backgroundColor: 'white',
+                    top: 0,
+                    paddingY: '25px'
                 }}
             >
                 <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />

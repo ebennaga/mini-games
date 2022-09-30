@@ -30,7 +30,7 @@ const ShopsContainer = () => {
                     top: -1,
                     backgroundColor: 'white',
                     zIndex: 999,
-                    width: '415px'
+                    width: '-webkit-fill-available'
                 }}
             >
                 <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
