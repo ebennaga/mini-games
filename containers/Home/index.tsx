@@ -233,7 +233,7 @@ const HomeContainer = () => {
                                                         </Typography>
                                                     </Box>
                                                     <Box sx={{ color: '#fff', display: 'flex', alignItems: 'center' }}>
-                                                        <Box>
+                                                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                                             <img src='/icons/trophy.png' width='14px' height='10px' alt='trophy' />
                                                             <Typography
                                                                 component='span'
@@ -316,7 +316,7 @@ const HomeContainer = () => {
                 linearBackground='linear-gradient(216deg, rgb(25 84 159 / 72%) 14%, rgba(28,37,69,1) 87%)'
             />
             <InfoCard
-                onClick={undefined}
+                onClick={() => router.push('/topup')}
                 title='Coin'
                 subTitle='Top up Coins Now'
                 infoText='*Terms and Conditions'
@@ -324,7 +324,7 @@ const HomeContainer = () => {
                 image='/icons/coins.svg'
             />
             <InfoCard
-                onClick={undefined}
+                onClick={() => router.push('/shops')}
                 title='Point'
                 subTitle='Reedem your Points'
                 infoText='*Terms and Conditions'

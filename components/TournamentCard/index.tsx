@@ -136,7 +136,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, champion, coin, p
                                 </Typography>
                             </Box>
                             <Box sx={{ color: '#fff', display: 'flex', alignItems: 'center' }}>
-                                <Box>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                     <img src='/icons/trophy.png' width='14px' height='10px' alt='trophy' />
                                     <Typography component='span' sx={{ fontSize: '12px', fontWeight: 'bold', paddingLeft: '4px' }}>
                                         {champion}
