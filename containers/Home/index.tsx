@@ -5,6 +5,8 @@ import Header from 'components/Header';
 import Link from 'next/link';
 // import TournamentCard from 'components/TournamentCard';
 import TournamentSlider from 'components/TournamentSlider';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 import Search from './Search';
 import useStyles from './useStyle';
 import Mission from './Mission';
@@ -14,11 +16,28 @@ import GamesSlider from './GamesSlider';
 
 const HomeContainer = () => {
     const classes = useStyles();
+    const router = useRouter();
+
+    const form = useForm({
+        mode: 'all',
+        defaultValues: {
+            search: ''
+        }
+    });
+
+    const handleSearch = (data: any) => {
+        console.log(data);
+    };
 
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
             <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
-            <Search />
+            <Box component='section' sx={{ display: 'flex', alignItems: 'center' }}>
+                <Search form={form} name='search' placeholder='Search Games' onSubmit={handleSearch} />
+                <ButtonBase onClick={() => router.push('inbox')} sx={{ marginLeft: '17px' }}>
+                    <img src='/icons/message.svg' width='36px' height='30px' alt='inbox' />
+                </ButtonBase>
+            </Box>
             <EventCarousel />
             <Mission />
             <Box sx={{ marginTop: '32px' }}>
