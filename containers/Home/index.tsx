@@ -7,6 +7,7 @@ import Link from 'next/link';
 import TournamentSlider from 'components/TournamentSlider';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import InfoCard from 'components/InfoCard';
 import Search from './Search';
 import useStyles from './useStyle';
 import Mission from './Mission';
@@ -77,7 +78,7 @@ const HomeContainer = () => {
 
                 {/* Tournament Card Start */}
 
-                <TournamentSlider>
+                <TournamentSlider isLarge>
                     {/* {[...Array(6)].map((item: any, index: number) => (
                         <TournamentCard
                             key={index}
@@ -294,22 +295,42 @@ const HomeContainer = () => {
 
                 {/* Tournament Card End */}
             </Box>
-            {[...Array(3)].map((_item: any, index: number) => {
-                return (
-                    <ButtonBase
-                        key={index}
-                        sx={{
-                            background: `url(${`/images/dummy/banner-${index + 1}.png`})`,
-                            backgroundPosition: 'right',
-                            backgroundSize: 'cover',
-                            height: '90px',
-                            width: '100%',
-                            borderRadius: '6px',
-                            marginTop: '26px'
-                        }}
-                    />
-                );
-            })}
+            <InfoCard
+                onClick={undefined}
+                title='Block Stack'
+                subTitle='Game Launch'
+                infoText='21 October 2022'
+                isGame
+                background='/images/dummy/block-stack-bg.png'
+                image='/images/dingdong.png'
+                linearBackground='linear-gradient(216deg, rgb(99 48 199 / 66%) 0%, rgba(28,37,69,1) 87%)'
+            />
+            <InfoCard
+                onClick={undefined}
+                title='Hop Up'
+                subTitle='Game Launch'
+                infoText='21 October 2022'
+                isGame
+                background='/images/dummy/hop-up-bg.png'
+                image='/images/hopup.png'
+                linearBackground='linear-gradient(216deg, rgb(25 84 159 / 72%) 14%, rgba(28,37,69,1) 87%)'
+            />
+            <InfoCard
+                onClick={undefined}
+                title='Coin'
+                subTitle='Top up Coins Now'
+                infoText='*Terms and Conditions'
+                background='/images/coins-bg.png'
+                image='/icons/coins.svg'
+            />
+            <InfoCard
+                onClick={undefined}
+                title='Point'
+                subTitle='Reedem your Points'
+                infoText='*Terms and Conditions'
+                background='/images/points-bg.png'
+                image='/icons/point.svg'
+            />
         </Box>
     );
 };
