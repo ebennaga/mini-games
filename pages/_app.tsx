@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from '@mui/material/styles';
 import { GlobalStyles } from '@mui/material';

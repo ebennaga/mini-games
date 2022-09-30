@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Box, ButtonBase, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { Controller } from 'react-hook-form';

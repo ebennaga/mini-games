@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Box, ButtonBase, Typography } from '@mui/material';
 import React from 'react';
 import TodayIcon from '@mui/icons-material/Today';
@@ -22,7 +21,6 @@ const InfoCard: React.FC<InfoCardProps> = ({ onClick, title, subTitle, infoText,
                 background: `url(${background})`,
                 backgroundPosition: 'right',
                 backgroundSize: 'cover',
-                // height: '163px',
                 height: 'fit-content',
                 width: '100%',
                 borderRadius: '6px',
