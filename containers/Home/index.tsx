@@ -69,7 +69,7 @@ const HomeContainer = () => {
                     <Typography variant='h6' fontWeight='bold' component='h2'>
                         Tournaments
                     </Typography>
-                    <Link href='/'>
+                    <Link href='/tournaments'>
                         <a style={{ textDecoration: 'none !important', fontWeight: 600, textDecorationLine: 'none', color: '#A54CE5' }}>
                             View All Tournaments
                         </a>

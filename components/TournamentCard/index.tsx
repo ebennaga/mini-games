@@ -10,13 +10,14 @@ interface TournamentCardProps {
     coin: any;
     time: any;
     onClick?: any;
+    customWidth?: any;
 }
 
-const TournamentCard: React.FC<TournamentCardProps> = ({ time, champion, coin, pool, stars, users, position, onClick }) => {
+const TournamentCard: React.FC<TournamentCardProps> = ({ time, champion, coin, pool, stars, users, position, onClick, customWidth }) => {
     return (
         <Box
             sx={{
-                width: '90%',
+                width: customWidth || '90%',
                 height: '320px',
                 backgroundImage: `url('/icons/dummy/menara.png')`,
                 backgroundPosition: 'center',
