@@ -46,7 +46,7 @@ const TopUp = () => {
                     position: 'sticky',
                     zIndex: 9999,
                     backgroundColor: 'white',
-                    width: '415px',
+                    width: '-webkit-fill-available',
                     top: 0
                 }}
             >
