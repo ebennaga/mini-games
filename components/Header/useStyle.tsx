@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => {
             alignItems: 'center'
         },
         pointContainer: {
-            background: '#FFF5CD',
+            // background: '#FFF5CD',
             borderRadius: '27px',
             width: '96px',
             height: '30px',

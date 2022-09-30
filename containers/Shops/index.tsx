@@ -33,7 +33,7 @@ const ShopsContainer = () => {
                     width: '-webkit-fill-available'
                 }}
             >
-                <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
+                <Header isShops logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Grid container justifyContent='center' alignItems='center'>
                 <Grid container padding='0 20px' justifyContent='space-between' alignItems='baseline'>
