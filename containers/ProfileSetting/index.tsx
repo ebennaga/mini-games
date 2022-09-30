@@ -38,8 +38,9 @@ const ProfileSetting = () => {
     };
 
     const handleSignOut = () => {
-        router.push('/signup');
+        router.push('/login');
     };
+    const handleDelete = () => router.push('/signup');
 
     const generalItem = [
         { title: 'Avatar & Nickname', icon: '/icons/dummy/profile-2.png', href: '/profile/edit-profile' },
@@ -118,7 +119,7 @@ const ProfileSetting = () => {
                     Sign Out
                 </Typography>
             </ButtonBase>
-            <ButtonBase onClick={handleSignOut} sx={{ width: '100%' }}>
+            <ButtonBase onClick={handleDelete} sx={{ width: '100%' }}>
                 <Typography component='span' fontSize='14px' fontWeight={700} sx={{ color: '#A54CE5' }}>
                     Delete Account
                 </Typography>

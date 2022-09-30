@@ -1,7 +1,6 @@
 /* eslint-disable no-nested-ternary */
-/* eslint-disable no-unused-vars */
 import { TextField, IconButton, Typography, ButtonBase } from '@mui/material';
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { Controller } from 'react-hook-form';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';

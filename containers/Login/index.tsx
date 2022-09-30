@@ -20,6 +20,11 @@ const Login = () => {
     const rules = { required: true };
     const [changeInput, setChangeInput] = React.useState<boolean>(false);
 
+    const handleSubmit = (data: any) => {
+        console.log(data);
+        router.push('/home');
+    };
+
     return (
         <Layout backgoundColor='#FFF' border='2px solid #D9D9D9'>
             <Box sx={{ textAlign: 'start', width: '95%' }}>
@@ -29,11 +34,7 @@ const Login = () => {
                 <Typography sx={{ fontSize: '21px', color: '#949494' }}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.
                 </Typography>
-                <form
-                    onSubmit={() => {
-                        form.handleSubmit(() => {});
-                    }}
-                >
+                <form onSubmit={form.handleSubmit(handleSubmit)}>
                     {!changeInput ? (
                         <Box sx={{ mt: 3 }}>
                             <Input name='tel' form={form} placeholder='Insert Your Phone Number' validator={rules} type='tel' />

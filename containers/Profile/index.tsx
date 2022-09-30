@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Box, ButtonBase, Grid, Typography } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import Link from 'next/link';
@@ -34,7 +33,7 @@ const Profile = () => {
             <HeaderBack title='Profile' isSetting />
             <ProfilePicture image='/icons/dummy/profile-2.png' />
             <Typography component='h3' fontWeight='bold' fontSize='18px' mt='26px'>
-                Lord Rinto
+                Rinto Kun
             </Typography>
             <BarExp labelBar='10018/25000' value={70} />
             <Box sx={{ height: '1px', width: '100%', background: '#E6E6E6', my: '24px' }} />
@@ -49,10 +48,22 @@ const Profile = () => {
                 </Box>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
-                        <BalanceCard title='Coins' value={102003} onClick={undefined} buttonText='Top up Coins' icon='/icons/coins.png' />
+                        <BalanceCard
+                            title='Coins'
+                            value={102003}
+                            onClick={() => router.push('/topup')}
+                            buttonText='Top up Coins'
+                            icon='/icons/coins.png'
+                        />
                     </Grid>
                     <Grid item xs={6}>
-                        <BalanceCard title='Points' value={2340} onClick={undefined} buttonText='Redeem Points' icon='/icons/points.png' />
+                        <BalanceCard
+                            title='Points'
+                            value={2340}
+                            onClick={() => router.push('/shops')}
+                            buttonText='Redeem Points'
+                            icon='/icons/points.png'
+                        />
                     </Grid>
                 </Grid>
             </Box>
@@ -68,7 +79,7 @@ const Profile = () => {
                     <Typography component='h3' fontWeight='bold' fontSize='18px'>
                         Your Stats
                     </Typography>
-                    <Link href='/stats'>
+                    <Link href='/history'>
                         <a style={{ textDecoration: 'unset', fontSize: '14px', fontWeight: 600, color: '#A54CE5' }}>View History</a>
                     </Link>
                 </Box>

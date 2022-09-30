@@ -37,7 +37,7 @@ const ProfileEmailAddress = () => {
             </Box>
             <Box component='section' sx={{ marginTop: '35px' }}>
                 <Box sx={{ marginBottom: 1.4 }}>
-                    <CurrentEmailCard email='lordrinto@yah.com' title='Current Email Address' />
+                    <CurrentEmailCard email='rintokun@yah.com' title='Current Email Address' />
                 </Box>
                 <InputEdit name='newEmail' form={form} label='New Email Address' placeholder='Ex: your@email.com' />
                 <InfoCard text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do. Lorem ipsum dolor sit' />
