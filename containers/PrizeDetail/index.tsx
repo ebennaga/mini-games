@@ -23,7 +23,7 @@ const PrizeDetailContainer = () => {
                     width: '415px'
                 }}
             >
-                <Header hrefBack='/shops' isBack point={102_300} profilePicture='/icons/dummy/profile.png' />
+                <Header isShops hrefBack='/shops' isBack point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Box padding='10px 20px'>
                 <Box sx={{ backgroundColor: '#F4F1FF', padding: '20px', borderRadius: '10px' }}>

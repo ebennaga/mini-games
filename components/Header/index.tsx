@@ -15,6 +15,7 @@ interface HeaderProps {
     isBack?: boolean;
     hrefBack?: any;
     paddingX?: string;
+    isShops?: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -25,7 +26,8 @@ const Header: React.FC<HeaderProps> = ({
     hrefBack,
     paddingX,
     widthLogo = '75px',
-    heightLogo = '39px'
+    heightLogo = '39px',
+    isShops = false
 }) => {
     const classes = useStyles();
     const router = useRouter();
@@ -60,7 +62,7 @@ const Header: React.FC<HeaderProps> = ({
                 <Box
                     className={classes.pointContainer}
                     sx={{
-                        background: '#FFF5CD',
+                        background: isShops ? '#DDFFDC' : '#FFF5CD',
                         borderRadius: '27px',
                         width: '96px',
                         height: '30px',
@@ -68,9 +70,11 @@ const Header: React.FC<HeaderProps> = ({
                         marginRight: '11px'
                     }}
                 >
-                    <Box sx={{ position: 'absolute', top: '-7px' }}>
-                        <img src='/icons/plus-point.png' width='16px' height='16px' alt='plus point' />
-                    </Box>
+                    {!isShops && (
+                        <Box sx={{ position: 'absolute', top: '-7px' }}>
+                            <img src='/icons/plus-point.png' width='16px' height='16px' alt='plus point' />
+                        </Box>
+                    )}
                     <Box
                         className={classes.pointSection}
                         sx={{
@@ -81,7 +85,11 @@ const Header: React.FC<HeaderProps> = ({
                             paddingTop: '2px'
                         }}
                     >
-                        <img src='/icons/point.png' width='21px' height='20.02px' alt='point icon' />
+                        {isShops ? (
+                            <img src='/images/point-shops.png' width='21px' height='20.02px' alt='point icon' />
+                        ) : (
+                            <img src='/icons/point.png' width='21px' height='20.02px' alt='point icon' />
+                        )}
                         <Typography
                             variant='subtitle1'
                             component='span'

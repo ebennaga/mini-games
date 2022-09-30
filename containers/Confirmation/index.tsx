@@ -70,7 +70,7 @@ const PrizeConfirmationContainer = () => {
                     width: '415px'
                 }}
             >
-                <Header hrefBack='/shops' isBack point={102_300} profilePicture='/icons/dummy/profile.png' />
+                <Header isShops hrefBack='/shops' isBack point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Box padding='0 20px' sx={{ mt: '30px' }}>
                 <Grid container spacing={2}>

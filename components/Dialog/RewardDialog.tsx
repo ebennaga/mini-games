@@ -33,7 +33,7 @@ const RewardDialog: React.FC<RewardDialogProps> = ({ open, setOpenDialog, body }
             >
                 <Typography sx={{ fontWeight: 'bold' }}>Awesome!</Typography>
                 <img src='/images/dialog-image.png' alt='dialog-img' />
-                <Typography sx={{ fontWeight: '400', mt: '23px' }}>{body}</Typography>
+                <Typography sx={{ fontWeight: 500, mt: '23px' }}>{body}</Typography>
                 <Box sx={{ mt: '30px', width: '100%' }}>
                     <Button
                         onClick={() => {

@@ -28,7 +28,7 @@ const PrizeContainer = () => {
                     width: '415px'
                 }}
             >
-                <Header hrefBack='/shops' isBack point={102_300} profilePicture='/icons/dummy/profile.png' />
+                <Header isShops hrefBack='/shops' isBack point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Box padding='10px 20px'>
                 <Typography sx={{ fontSize: '24px', fontWeight: '700' }}>Prizes</Typography>
