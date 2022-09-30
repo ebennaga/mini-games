@@ -42,17 +42,16 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
                 <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
 
-            <Box sx={{ mt: '32px', ml: '30px' }}>
+            <Box sx={{ mt: '32px', mx: '20px' }}>
                 <Typography sx={{ fontSize: '32px', fontWeight: 700 }}>Games</Typography>
             </Box>
 
             <Box
                 sx={{
                     mt: '25px',
-                    ml: '30px',
+                    mx: '20px',
                     display: 'flex',
                     justifyContent: 'space-between',
-                    mr: '18px',
                     height: '33px',
                     direction: 'row'
                 }}
