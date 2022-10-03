@@ -5,10 +5,15 @@ import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import Button from 'components/Button/Index';
 import Paragraph from 'components/Paragraph';
 import { useRouter } from 'next/router';
+import NotifDialog from 'components/Dialog/notifDialog';
 
 const PrizeDetailContainer = () => {
     const router = useRouter();
     const [isFavorite, setIsFavorite] = React.useState<boolean>(false);
+    const [open, setOpen] = React.useState<boolean>(false);
+    const point = 9_000;
+    const prize = 10_000;
+
     return (
         <Box sx={{ width: '100%' }}>
             <Box
@@ -23,7 +28,7 @@ const PrizeDetailContainer = () => {
                     width: '415px'
                 }}
             >
-                <Header isShops hrefBack='/shops' isBack point={102_300} profilePicture='/icons/dummy/profile.png' />
+                <Header isShops hrefBack='/shops' isBack point={point} profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Box padding='10px 20px'>
                 <Box sx={{ backgroundColor: '#F4F1FF', padding: '20px', borderRadius: '10px' }}>
@@ -36,7 +41,7 @@ const PrizeDetailContainer = () => {
                                 <Box>
                                     <img src='/images/point-shops.png' alt='pointshops' />
                                 </Box>
-                                <Typography sx={{ fontWeight: 'bold', fontSize: '20px' }}>80.000</Typography>
+                                <Typography sx={{ fontWeight: 'bold', fontSize: '20px' }}>{prize}</Typography>
                             </Box>
                         </Grid>
                         <Grid
@@ -75,7 +80,10 @@ const PrizeDetailContainer = () => {
                 <Box sx={{ mt: '185px' }}>
                     <Button
                         onClick={() => {
-                            router.push(`${router.asPath}/confirmation`);
+                            if (point < prize) {
+                                return setOpen(!open);
+                            }
+                            return router.push(`${router.asPath}/confirmation`);
                         }}
                         title='Reedem'
                         backgoundColor='#A54CE5'
@@ -83,6 +91,12 @@ const PrizeDetailContainer = () => {
                     />
                 </Box>
             </Box>
+            <NotifDialog
+                setOpenDialog={setOpen}
+                open={open}
+                body='You don’t have Points in your balance. 
+Play Tournament and get points to continue'
+            />
         </Box>
     );
 };

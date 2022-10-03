@@ -3,8 +3,10 @@ import HeaderBack from 'components/HeaderBack';
 import { SmartDisplay } from '@mui/icons-material';
 import React from 'react';
 import Button from 'components/Button/Index';
+import { useRouter } from 'next/router';
 
 const ResultContainer = () => {
+    const router = useRouter();
     return (
         <Box sx={{ width: '100%' }}>
             <Box
@@ -33,7 +35,14 @@ const ResultContainer = () => {
                         <SmartDisplay sx={{ color: '#A54CE5' }} />
                         <Typography sx={{ fontSize: '14px', fontWeight: 600 }}>for Playing Again</Typography>
                     </Box>
-                    <Button title='Play Again' backgoundColor='#A54CE5' color='white' />
+                    <Button
+                        onClick={() => {
+                            router.push('/casual/loading');
+                        }}
+                        title='Play Again'
+                        backgoundColor='#A54CE5'
+                        color='white'
+                    />
                 </Box>
             </Box>
         </Box>

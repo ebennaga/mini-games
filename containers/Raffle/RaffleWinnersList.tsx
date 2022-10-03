@@ -40,7 +40,14 @@ const RaffleWinners: React.FC<RaffleWinnersProps> = ({ dataList }) => {
             </Grid>
             {dataList.length > 0 &&
                 dataList.map((item: any, idx: number) => (
-                    <RankRaffle image={item.image} round={284 - idx} username={item.username} tickets={item.tickets} prize={item.prize} />
+                    <RankRaffle
+                        key={idx}
+                        image={item.image}
+                        round={284 - idx}
+                        username={item.username}
+                        tickets={item.tickets}
+                        prize={item.prize}
+                    />
                 ))}
         </Box>
     );
