@@ -79,15 +79,15 @@ const StatusRoundDialog: React.FC<StatusRoundDialogProps> = ({ open, setOpen, is
                         </Typography>
                     </Box>
                 </Box>
-                <Box sx={{ width: '90%', paddingY: '20px' }}>
+                <Box sx={{ width: '90%', paddingY: '20px', position: 'sticky', bottom: '20px' }}>
                     <Button
                         onClick={() => {
                             setOpen(!open);
                         }}
                         title='Close'
                         border='1px solid #A54CE5'
-                        color='#A54CE5'
-                        backgoundColor='white'
+                        color='white'
+                        backgoundColor='#A54CE5'
                     />
                 </Box>
             </Box>

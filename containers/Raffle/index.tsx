@@ -13,9 +13,9 @@ const RaffleContainer = () => {
     const [quantity, setQuantity] = React.useState<number>(0);
     const [openBuyDialog, setOpenBuyDialog] = React.useState<any>(false);
     const [openRewardDialog, setOpenRewardDialog] = React.useState<any>(false);
-    const [openStatusRoundDialog, setOpenStatusRoundDialog] = React.useState<any>(false);
-    const [isWinner, setIsWinner] = React.useState<boolean>(false);
-    const [roundDay, setRoundDay] = React.useState<boolean>(false);
+    const [openStatusRoundDialog, setOpenStatusRoundDialog] = React.useState<any>(true);
+    const [isWinner, setIsWinner] = React.useState<boolean>(true);
+    const [roundDay, setRoundDay] = React.useState<boolean>(true);
 
     const dataList = [
         { image: '/icons/dummy/profile-2.png', username: 'rinto', tickets: 246000, prize: 2000 },
@@ -312,7 +312,14 @@ const RaffleContainer = () => {
                     </Box>
                 </Grid>
                 {!roundDay && (
-                    <Button onClick={() => setOpenBuyDialog(!openBuyDialog)} title='Buy Raffle' backgoundColor='#A54CE5' color='white' />
+                    <Box sx={{ position: 'sticky', bottom: '20px' }}>
+                        <Button
+                            onClick={() => setOpenBuyDialog(!openBuyDialog)}
+                            title='Buy Raffle'
+                            backgoundColor='#A54CE5'
+                            color='white'
+                        />
+                    </Box>
                 )}
             </Box>
             <BuyTicketDialog handleBuyRaffle={handleBuyRaffle} count={quantity} open={openBuyDialog} setOpen={setOpenBuyDialog} />
