@@ -4,10 +4,11 @@ import Slider from 'react-slick';
 
 interface TournamentSliderProps {
     children: any;
+    spacing?: 'large' | 'normal';
 }
 
 const TournamentSlider = (props: TournamentSliderProps) => {
-    const { children } = props;
+    const { children, spacing = 'normal' } = props;
     const settings = {
         infinite: true,
         dots: false,
@@ -24,7 +25,7 @@ const TournamentSlider = (props: TournamentSliderProps) => {
                 '& .slick-current': {
                     maxWidth: '500px !important',
                     width: '320px !important',
-                    marginRight: '0px'
+                    marginRight: spacing === 'large' ? '20px' : '0px'
                 }
             }}
         >

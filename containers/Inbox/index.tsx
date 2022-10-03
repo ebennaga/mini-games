@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, ButtonBase, Typography, Grid } from '@mui/material';
 import { ArrowCircleLeft } from '@mui/icons-material';
+import { useRouter } from 'next/router';
+import InboxSkeleton from './InboxSkeleton';
 
 const Inbox = () => {
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 2000);
+    }, []);
+
+    const router = useRouter();
     const cards = [
         {
             id: 1,
@@ -20,12 +30,16 @@ const Inbox = () => {
             image: '/images/open_tourney3.png'
         }
     ];
+
+    if (isLoading) {
+        return <InboxSkeleton />;
+    }
     return (
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
             <Grid container spacing={1} sx={{ mt: -4, ml: '60px', width: '100%' }} direction='column'>
                 <Grid item xs={4}>
                     <Box>
-                        <ButtonBase sx={{ mt: 5 }}>
+                        <ButtonBase onClick={() => router.back()} sx={{ mt: 5 }}>
                             <ArrowCircleLeft sx={{ width: '35px', height: '35px', color: '#A54CE5' }} />
                         </ButtonBase>
                     </Box>
