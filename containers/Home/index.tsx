@@ -8,6 +8,7 @@ import TournamentSlider from 'components/TournamentSlider';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import InfoCard from 'components/InfoCard';
+import TournamentCard from 'components/TournamentCard';
 import Search from './Search';
 import useStyles from './useStyle';
 import Mission from './Mission';
@@ -50,13 +51,13 @@ const HomeContainer = () => {
                     <img src='/icons/message.svg' width='36px' height='30px' alt='inbox' />
                 </ButtonBase>
             </Box>
-            <EventCarousel />
+            <EventCarousel customMaxWidth='91vw' />
             <Mission />
             <Box sx={{ marginTop: '32px' }}>
                 <Typography variant='h6' fontWeight='bold' component='h2'>
                     Games
                 </Typography>
-                <GamesSlider>
+                <GamesSlider customMaxWidth='91vw'>
                     <GamesCard href='/games/1' image='/icons/dummy/main-ikan.png' title='Main Ikan' totalUser={46_000} />
                     <GamesCard href='/games/2' image='/icons/dummy/piano.png' title='Piano Tiles' totalUser={46_000} />
                     <GamesCard href='/games/3' image='/icons/dummy/menara.png' title='Menara Dingdong' totalUser={46_000} />
@@ -78,30 +79,22 @@ const HomeContainer = () => {
 
                 {/* Tournament Card Start */}
 
-                <TournamentSlider isLarge>
-                    {/* {[...Array(6)].map((item: any, index: number) => (
-                        <TournamentCard
-                            key={index}
-                            time='6d 13h 23m'
-                            pool='3500'
-                            champion='250'
-                            coin='100'
-                            stars='5.25'
-                            users='376'
-                            position='35'
-                        />
-                    ))} */}
+                <TournamentSlider customMaxWidth='91vw'>
                     {[...Array(5)].map((_item: any, index: number) => {
                         return (
                             <Box key={index}>
                                 <Box
+                                    onClick={() => router.push(`/games/${index + 1}/tournament`)}
                                     sx={{
-                                        width: '98%',
+                                        width: '95%',
                                         height: '372px',
                                         backgroundImage: `url('/icons/dummy/menara.png')`,
                                         backgroundPosition: 'center',
                                         backgroundSize: 'cover',
-                                        borderRadius: '24px'
+                                        borderRadius: '24px',
+                                        '@media (max-width:500px)': {
+                                            height: '300px'
+                                        }
                                     }}
                                 >
                                     <Box

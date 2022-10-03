@@ -4,9 +4,10 @@ import Slider from 'react-slick';
 
 interface GamesSliderProps {
     children: any;
+    customMaxWidth?: string;
 }
 
-const GamesSlider: React.FC<GamesSliderProps> = ({ children }) => {
+const GamesSlider: React.FC<GamesSliderProps> = ({ children, customMaxWidth }) => {
     const settings = {
         dots: false,
         infinite: true,
@@ -17,14 +18,20 @@ const GamesSlider: React.FC<GamesSliderProps> = ({ children }) => {
     return (
         <Box
             sx={{
-                '& .slick-slider': { maxWidth: '110vw', width: '100%' },
+                '& .slick-slider': { maxWidth: customMaxWidth || '110vw', width: '100%' },
                 '& .slick-arrow': { display: 'none' },
                 '& .slick-slide.slick-active': {
                     paddingRight: '7px'
                 },
                 '& .slick-list': {
                     minHeight: '217px',
-                    height: '217px'
+                    height: '217px',
+                    '@media (max-width:475px)': {
+                        height: '200px'
+                    },
+                    '@media (max-width:450px)': {
+                        height: '190px'
+                    }
                 }
             }}
         >
