@@ -1,14 +1,17 @@
 import { Box, Typography, Dialog } from '@mui/material';
 import React from 'react';
 import Button from 'components/Button/Index';
+import { useRouter } from 'next/router';
 
 interface RewardDialogProps {
     open: any;
     setOpenDialog: any;
     body: string;
+    path?: any;
 }
 
-const RewardDialog: React.FC<RewardDialogProps> = ({ open, setOpenDialog, body }) => {
+const RewardDialog: React.FC<RewardDialogProps> = ({ open, setOpenDialog, body, path }) => {
+    const router = useRouter();
     return (
         <Dialog
             sx={{
@@ -38,6 +41,7 @@ const RewardDialog: React.FC<RewardDialogProps> = ({ open, setOpenDialog, body }
                     <Button
                         onClick={() => {
                             setOpenDialog(!open);
+                            router.push(path);
                         }}
                         title='Close'
                         border='1px solid #A54CE5'

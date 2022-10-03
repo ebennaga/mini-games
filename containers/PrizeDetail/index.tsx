@@ -79,7 +79,7 @@ const PrizeDetailContainer = () => {
                         paragraph='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
                     />
                 </Box>
-                <Box sx={{ position: 'sticky', bottom: '10px', zIndex: 0 }}>
+                <Box sx={{ position: 'sticky', bottom: '20px', zIndex: 0 }}>
                     <Button
                         onClick={() => {
                             if (point < prize) {
