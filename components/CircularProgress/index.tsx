@@ -2,6 +2,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import CircularProgress, { circularProgressClasses, CircularProgressProps } from '@mui/material/CircularProgress';
+import { useRouter } from 'next/router';
 
 function LoadingProgress(props: CircularProgressProps & { value: number }) {
     const { value } = props;
@@ -54,9 +55,9 @@ function LoadingProgress(props: CircularProgressProps & { value: number }) {
                     justifyContent: 'center'
                 }}
             >
-                <Typography variant='caption' component='div' sx={{ fontSize: '50px', fontWeight: 'bold' }}>{`${Math.round(
-                    label
-                )}`}</Typography>
+                <Typography variant='caption' component='div' sx={{ fontSize: value === 0 ? '20px' : '50px', fontWeight: 'bold' }}>
+                    {value === 0 ? 'Start!' : `${Math.round(label)}`}
+                </Typography>
             </Box>
         </Box>
     );
@@ -64,6 +65,7 @@ function LoadingProgress(props: CircularProgressProps & { value: number }) {
 
 export default function CustomizedProgressBars() {
     const [progress, setProgress] = React.useState(100);
+    const router = useRouter();
 
     React.useEffect(() => {
         const timer = setInterval(() => {
@@ -73,6 +75,15 @@ export default function CustomizedProgressBars() {
             clearInterval(timer);
         };
     }, []);
+
+    React.useEffect(() => {
+        if (progress === 0) {
+            setTimeout(() => {
+                router.push('/casual/result');
+            }, 500);
+        }
+    }, [progress]);
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <LoadingProgress value={progress} />
