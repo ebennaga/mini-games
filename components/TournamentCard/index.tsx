@@ -16,6 +16,7 @@ interface TournamentCardProps {
 const TournamentCard: React.FC<TournamentCardProps> = ({ time, champion, coin, pool, stars, users, position, onClick, customWidth }) => {
     return (
         <Box
+            onClick={onClick}
             sx={{
                 width: customWidth || '90%',
                 height: '320px',

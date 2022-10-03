@@ -8,12 +8,12 @@ import ShopsCard from 'components/ShopsCard';
 import { useRouter } from 'next/router';
 
 const itemData = [
-    { id: 1, image: '/images/keyboard.png', label: 'Rexus Daxa Mechanical Keyboard RGB', points: 5000 },
-    { id: 2, image: '/images/tablet.png', label: 'Lorem Ipsum dolor Dolor sit amet', points: 5000 },
+    { id: 1, image: '/images/keyboard.png', label: 'Rexus Daxa Mechanical', points: 5000 },
+    { id: 2, image: '/images/tablet.png', label: 'Lorem Ipsum', points: 5000 },
     { id: 3, image: '/images/ps5.png', label: 'Playstation 5', points: 5000 },
     { id: 4, image: '/images/smartphone.png', label: 'Realme Narzo 20 Pro 4/64GB', points: 5000 },
     { id: 5, image: '/images/smartphone.png', label: 'Realme Narzo 20 Pro 4/64GB', points: 5000 },
-    { id: 6, image: '/images/tablet.png', label: 'Lorem Ipsum dolor Dolor sit amet', points: 5000 }
+    { id: 6, image: '/images/tablet.png', label: 'Lorem Ipsum', points: 5000 }
 ];
 
 const ShopsContainer = () => {
@@ -49,8 +49,17 @@ const ShopsContainer = () => {
                     </Grid>
                 </Grid>
                 <ShopsSlider>
-                    {[...Array(3)].map((item, index) => (
-                        <ShopsCard key={index} point={80_000} image='/images/ps5-2.png' title='HOT ITEM' />
+                    {itemData.map((item) => (
+                        <ShopsCard
+                            productName={item.label}
+                            onClick={() => {
+                                router.push(`/shops/prize/${item.id}`);
+                            }}
+                            key={item.id}
+                            point={80_000}
+                            image='/images/ps5-2.png'
+                            title='HOT ITEM'
+                        />
                     ))}
                 </ShopsSlider>
                 <Box width='100%' padding='0 20px'>

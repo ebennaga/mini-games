@@ -50,7 +50,7 @@ const RaffleContainer = () => {
                     zIndex: 999
                 }}
             >
-                <Header isShops logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
+                <Header isBack isShops logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Box padding='20px'>
                 <Grid container sx={{ width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -94,7 +94,7 @@ const RaffleContainer = () => {
                                     <Typography sx={{ fontSize: '12px', color: 'white', fontWeight: 500 }}>Price Worth</Typography>
                                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                         <img src='/icons/points.png' alt='point' />
-                                        <Typography sx={{ fontSize: '40px', color: 'white', fontWeight: 700 }}>35.000</Typography>
+                                        <Typography sx={{ fontSize: '40px', color: 'white', fontWeight: 700 }}>350.000</Typography>
                                     </Box>
                                 </Box>
                                 <Box>

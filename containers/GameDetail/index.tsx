@@ -11,7 +11,7 @@ const GameDetailContainer = () => {
     const isBack = true;
     const router = useRouter();
     const handleClick = async () => {
-        router.push('/games/1/tournament');
+        router.push(`/games/${router.query.id}/tournament`);
     };
     return (
         <Box width='100%'>
@@ -21,7 +21,8 @@ const GameDetailContainer = () => {
                     position: 'sticky',
                     top: 10,
                     zIndex: 999,
-                    padding: '0px 20px'
+                    padding: '0px 20px',
+                    backgroundColor: 'transparent'
                 }}
             >
                 <Header isBack={isBack} point={102_300} profilePicture='/icons/dummy/profile.png' />
@@ -38,59 +39,81 @@ const GameDetailContainer = () => {
                     position: 'relative',
                     zIndex: 1,
                     padding: '10px 0',
-                    mt: -20
+                    mt: '-61px',
+                    borderRadius: '0px 0px 25px 25px'
                 }}
             >
+                <Box
+                    sx={{
+                        backgroundImage: 'linear-gradient(180deg, #353535 9.93%, rgba(53, 53, 53, 0) 90.83%)',
+                        width: '99.5%',
+                        height: '50%',
+                        position: 'absolute',
+                        top: '0px'
+                    }}
+                />
                 <Grid container padding='0px 20px' />
-                <Grid container padding='10px 20px' justifyContent='space-between' position='relative' zIndex={2}>
-                    <Grid item xs={5} sm={6}>
-                        <img src='/images/game-img.png' alt='game-img' style={{ borderRadius: '10px', width: '150px' }} />
+                <Grid container padding='10px 20px' justifyContent='center' gap={2} position='relative' zIndex={2}>
+                    <Grid item xs={5}>
+                        <Box>
+                            <img src='/images/game-img.png' alt='game-img' style={{ borderRadius: '10px', width: '100%' }} />
+                        </Box>
                     </Grid>
-                    <Grid item xs={7} sm={6} justifyContent='center' direction='row' spacing={5}>
-                        <Grid container mt={5}>
-                            <Grid item xs={12}>
+                    <Grid item xs={6} padding='10px'>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'flex-end',
+                                alignItems: 'center',
+                                width: '100%',
+                                height: '100%'
+                            }}
+                        >
+                            <Box sx={{ width: '100%' }}>
                                 <Typography
                                     sx={{ fontWeight: 'bold', color: 'white', fontSize: { xs: '23px', sm: '27px' }, lineHeight: '30px' }}
                                 >
                                     Menara Dingdong
                                 </Typography>
-                            </Grid>
-                        </Grid>
-                        <Grid container justifyContent='space-between' sx={{ marginTop: { xs: '25%', sm: '55px' } }}>
-                            <Grid item xs={6}>
-                                <ButtonBase
-                                    sx={{
-                                        color: 'white',
-                                        backgroundColor: '#949494',
-                                        padding: '1px 10px',
-                                        borderRadius: '24px',
-                                        display: 'flex',
-                                        width: '100%',
-                                        justifyContent: 'space-between'
-                                    }}
-                                >
-                                    <Typography sx={{ fontSize: '12px', fontWeight: 'bold' }}>Tutorials</Typography>
-                                    <HelpOutline sx={{ width: '14px', fontWeight: 'bold' }} />
-                                </ButtonBase>
-                            </Grid>
-                            <Grid container xs={5} alignItems='center'>
-                                <Grid item xs={6} mr='3px'>
-                                    <img src='/images/users-img.png' alt='user-img' />
+                            </Box>
+                            <Grid container justifyContent='space-between' sx={{ marginTop: { xs: '5%', sm: '10%' } }}>
+                                <Grid item xs={6}>
+                                    <ButtonBase
+                                        sx={{
+                                            color: 'white',
+                                            backgroundColor: '#949494',
+                                            padding: '1px 10px',
+                                            borderRadius: '24px',
+                                            display: 'flex',
+                                            width: '100%',
+                                            justifyContent: 'space-between'
+                                        }}
+                                    >
+                                        <Typography sx={{ fontSize: '12px', fontWeight: 'bold' }}>Tutorials</Typography>
+                                        <HelpOutline sx={{ width: '14px', fontWeight: 'bold' }} />
+                                    </ButtonBase>
                                 </Grid>
-                                <Grid item xs={4}>
-                                    <Typography sx={{ fontSize: '11px', color: 'white' }}>45.652</Typography>
+                                <Grid container xs={5} alignItems='center' gap='10px'>
+                                    <Grid item xs={6}>
+                                        <img src='/images/users-img.png' alt='user-img' />
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        <Typography sx={{ fontSize: '11px', color: 'white' }}>45.652</Typography>
+                                    </Grid>
                                 </Grid>
                             </Grid>
-                        </Grid>
+                        </Box>
                     </Grid>
                 </Grid>
                 <Box
                     sx={{
-                        backgroundImage: 'linear-gradient(transparent, black)',
+                        backgroundImage: 'linear-gradient(transparent, #353535)',
                         width: '99.5%',
-                        height: '30px',
+                        height: '50%',
                         position: 'absolute',
-                        bottom: '0%'
+                        bottom: '0px',
+                        borderRadius: '0px 0px 25px 25px'
                     }}
                 />
             </Box>
@@ -108,26 +131,19 @@ const GameDetailContainer = () => {
                     </Grid>
                     <Grid item xs={12}>
                         <TournamentSlider>
-                            <TournamentCard
-                                time='6d 13h 23m'
-                                pool='3500'
-                                champion='250'
-                                coin='100'
-                                stars='5.25'
-                                users='376'
-                                position='35'
-                                onClick={handleClick}
-                            />
-
-                            <TournamentCard
-                                time='6d 13h 23m'
-                                pool='3500'
-                                champion='250'
-                                coin='100'
-                                stars='5.25'
-                                users='376'
-                                position='35'
-                            />
+                            {[...Array(6)].map((item, idx) => (
+                                <TournamentCard
+                                    key={idx}
+                                    time='6d 13h 23m'
+                                    pool='3500'
+                                    champion='250'
+                                    coin='100'
+                                    stars='5.25'
+                                    users='376'
+                                    position='35'
+                                    onClick={handleClick}
+                                />
+                            ))}
                         </TournamentSlider>
                     </Grid>
                 </Grid>
