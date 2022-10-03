@@ -2,10 +2,11 @@ import { Box, Typography, Grid, ButtonBase, ImageList, ImageListItem } from '@mu
 import { WatchLater } from '@mui/icons-material';
 import Button from 'components/Button/Index';
 import Header from 'components/Header';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ShopsSlider from 'components/ShopsSlider';
 import ShopsCard from 'components/ShopsCard';
 import { useRouter } from 'next/router';
+import ShopsSkeleton from './ShopsSkeleton';
 
 const itemData = [
     { id: 1, image: '/images/keyboard.png', label: 'Rexus Daxa Mechanical', points: 5000 },
@@ -17,8 +18,15 @@ const itemData = [
 ];
 
 const ShopsContainer = () => {
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    useEffect(() => {
+        setTimeout(() => setIsLoading(false), 2000);
+    }, []);
     const router = useRouter();
 
+    if (isLoading) {
+        return <ShopsSkeleton />;
+    }
     return (
         <Box sx={{ width: '100%' }}>
             <Box
