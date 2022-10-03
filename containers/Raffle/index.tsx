@@ -50,7 +50,7 @@ const RaffleContainer = () => {
                     zIndex: 999
                 }}
             >
-                <Header isShops logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
+                <Header isBack isShops logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Box padding='20px'>
                 <Grid container sx={{ width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
