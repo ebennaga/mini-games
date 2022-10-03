@@ -13,9 +13,9 @@ const RaffleContainer = () => {
     const [quantity, setQuantity] = React.useState<number>(0);
     const [openBuyDialog, setOpenBuyDialog] = React.useState<any>(false);
     const [openRewardDialog, setOpenRewardDialog] = React.useState<any>(false);
-    const [openStatusRoundDialog, setOpenStatusRoundDialog] = React.useState<any>(true);
+    const [openStatusRoundDialog, setOpenStatusRoundDialog] = React.useState<any>(false);
     const [isWinner, setIsWinner] = React.useState<boolean>(false);
-    const [roundDay, setRoundDay] = React.useState<boolean>(true);
+    const [roundDay, setRoundDay] = React.useState<boolean>(false);
 
     const dataList = [
         { image: '/icons/dummy/profile-2.png', username: 'rinto', tickets: 246000, prize: 2000 },
@@ -115,40 +115,49 @@ const RaffleContainer = () => {
                             <img src='/images/lucky-raffle.png' alt='luckyraffle' />
                         </Grid>
                     </Grid>
-                    <Box sx={{ width: '100%', textAlign: 'center' }}>
-                        <Box
-                            sx={{
-                                backgroundColor: '#FF4567',
-                                mt: '20px',
-                                borderRadius: '8px',
-                                color: 'white',
-                                textAlign: 'center',
-                                paddingTop: '5px'
-                            }}
-                        >
-                            <Typography sx={{ fontSize: '12px', fontWeight: 700 }}>Next Lucky Raffle Round 286 starts in</Typography>
+                    {roundDay && (
+                        <Box sx={{ width: '100%', textAlign: 'center' }}>
                             <Box
-                                sx={{ display: 'flex', mb: 2, color: 'white', gap: '5px', alignItems: 'center', justifyContent: 'center' }}
+                                sx={{
+                                    backgroundColor: '#FF4567',
+                                    mt: '20px',
+                                    borderRadius: '8px',
+                                    color: 'white',
+                                    textAlign: 'center',
+                                    paddingTop: '5px'
+                                }}
                             >
-                                <WatchLater sx={{ width: '15px' }} />
-                                <Typography sx={{ fontSize: '12px' }}>6d 13h 23m</Typography>
+                                <Typography sx={{ fontSize: '12px', fontWeight: 700 }}>Next Lucky Raffle Round 286 starts in</Typography>
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        mb: 2,
+                                        color: 'white',
+                                        gap: '5px',
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+                                    }}
+                                >
+                                    <WatchLater sx={{ width: '15px' }} />
+                                    <Typography sx={{ fontSize: '12px' }}>6d 13h 23m</Typography>
+                                </Box>
+                            </Box>
+                            <Typography sx={{ fontSize: '24px', color: '#373737', fontWeight: 700 }}>
+                                Winners of Raffle rounds 285 <br />{' '}
+                                {isWinner ? (
+                                    <span style={{ color: '#949494', fontSize: '14px' }}>
+                                        The winner is <span style={{ color: '#A54CE5' }}>you</span>
+                                    </span>
+                                ) : (
+                                    <span style={{ color: '#949494', fontSize: '14px' }}>You aren`t the winner in this round</span>
+                                )}
+                            </Typography>
+                            <Box sx={{ mt: '20px' }}>
+                                <img src={isWinner ? '/images/winner.png' : '/images/not-winner.png'} alt='winner' />
+                                <Typography sx={{ fontSize: '20px', fontWeight: 700, mt: '30px' }}>Arya Stark</Typography>
                             </Box>
                         </Box>
-                        <Typography sx={{ fontSize: '24px', color: '#373737', fontWeight: 700 }}>
-                            Winners of Raffle rounds 285 <br />{' '}
-                            {isWinner ? (
-                                <span style={{ color: '#949494', fontSize: '14px' }}>
-                                    The winner is <span style={{ color: '#A54CE5' }}>you</span>
-                                </span>
-                            ) : (
-                                <span style={{ color: '#949494', fontSize: '14px' }}>You aren`t the winner in this round</span>
-                            )}
-                        </Typography>
-                        <Box sx={{ mt: '20px' }}>
-                            <img src={isWinner ? '/images/winner.png' : '/images/not-winner.png'} alt='winner' />
-                            <Typography sx={{ fontSize: '20px', fontWeight: 700, mt: '30px' }}>Arya Stark</Typography>
-                        </Box>
-                    </Box>
+                    )}
                     <Box sx={{ width: '100%' }}>
                         <Grid
                             container
