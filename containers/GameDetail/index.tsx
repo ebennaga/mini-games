@@ -11,7 +11,7 @@ const GameDetailContainer = () => {
     const isBack = true;
     const router = useRouter();
     const handleClick = async () => {
-        router.push('/games/1/tournament');
+        router.push(`/games/${router.query.id}/tournament`);
     };
     return (
         <Box width='100%'>
@@ -131,26 +131,19 @@ const GameDetailContainer = () => {
                     </Grid>
                     <Grid item xs={12}>
                         <TournamentSlider>
-                            <TournamentCard
-                                time='6d 13h 23m'
-                                pool='3500'
-                                champion='250'
-                                coin='100'
-                                stars='5.25'
-                                users='376'
-                                position='35'
-                                onClick={handleClick}
-                            />
-
-                            <TournamentCard
-                                time='6d 13h 23m'
-                                pool='3500'
-                                champion='250'
-                                coin='100'
-                                stars='5.25'
-                                users='376'
-                                position='35'
-                            />
+                            {[...Array(6)].map((item, idx) => (
+                                <TournamentCard
+                                    key={idx}
+                                    time='6d 13h 23m'
+                                    pool='3500'
+                                    champion='250'
+                                    coin='100'
+                                    stars='5.25'
+                                    users='376'
+                                    position='35'
+                                    onClick={handleClick}
+                                />
+                            ))}
                         </TournamentSlider>
                     </Grid>
                 </Grid>
