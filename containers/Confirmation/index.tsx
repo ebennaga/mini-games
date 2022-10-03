@@ -67,7 +67,7 @@ const PrizeConfirmationContainer = () => {
                     top: -1,
                     backgroundColor: 'white',
                     zIndex: 999,
-                    width: '415px'
+                    width: '-webkit-fill-available'
                 }}
             >
                 <Header isShops hrefBack='/shops' isBack point={102_300} profilePicture='/icons/dummy/profile.png' />
