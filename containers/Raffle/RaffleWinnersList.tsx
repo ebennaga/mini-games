@@ -8,7 +8,7 @@ interface RaffleWinnersProps {
 
 const RaffleWinners: React.FC<RaffleWinnersProps> = ({ dataList }) => {
     return (
-        <Box sx={{ width: '100vw', mt: '65px' }}>
+        <Box sx={{ width: '100vw', mt: '45px' }}>
             <Grid container>
                 <Grid item xs={12}>
                     <Typography sx={{ fontSize: '24px', fontWeight: 700, color: '#373737' }}>Previous Raffle Winners</Typography>
