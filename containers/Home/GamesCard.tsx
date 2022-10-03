@@ -22,7 +22,15 @@ const GamesCard: React.FC<GamesCardProps> = ({ image, title, totalUser, href }) 
                     backgroundSize: 'cover',
                     width: '120px',
                     height: '120px',
-                    borderRadius: '22px'
+                    borderRadius: '22px',
+                    '@media (max-width:475px)': {
+                        height: '110px',
+                        width: '110px'
+                    },
+                    '@media (max-width:450px)': {
+                        height: '100px',
+                        width: '100px'
+                    }
                 }}
             />
             <Typography variant='subtitle1' component='p' marginTop='14px' marginBottom='7px' sx={{ fontWeight: 'bold', fontSize: '12px' }}>
