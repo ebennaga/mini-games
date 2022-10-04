@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Layout from 'components/Layout/Index';
 
-const TopupTutorialContainer = dynamic(() => import('containers/TopupTutorial'));
+const TopupTutorialContainer = dynamic(() => import('containers/SupportTopup'));
 const Page = () => {
     return (
         <>
