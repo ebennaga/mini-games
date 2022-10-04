@@ -4,15 +4,33 @@ import Header from 'components/Header';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import Button from 'components/Button/Index';
 import Paragraph from 'components/Paragraph';
-import { useRouter } from 'next/router';
 import NotifDialog from 'components/Dialog/notifDialog';
+import AgeConfirmationDialog from 'components/Dialog/AgeConfirmationDialog';
+import { useForm } from 'react-hook-form';
 
 const PrizeDetailContainer = () => {
-    const router = useRouter();
     const [isFavorite, setIsFavorite] = React.useState<boolean>(false);
     const [open, setOpen] = React.useState<boolean>(false);
+    const [dialogConfirm, setDialogConfirm] = React.useState<boolean>(false);
+
+    const form = useForm({
+        mode: 'all',
+        defaultValues: {
+            date: new Date().getDate() || '',
+            month: new Date().getMonth()?.toLocaleString() || '',
+            year: new Date().getFullYear() || ''
+        }
+    });
+
     const point = 90_000;
     const prize = 10_000;
+
+    const handleReedem = () => {
+        if (point < prize) {
+            return setOpen(!open);
+        }
+        return setDialogConfirm(true);
+    };
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -80,17 +98,7 @@ const PrizeDetailContainer = () => {
                     />
                 </Box>
                 <Box sx={{ position: 'sticky', bottom: '20px', zIndex: 0 }}>
-                    <Button
-                        onClick={() => {
-                            if (point < prize) {
-                                return setOpen(!open);
-                            }
-                            return router.push(`${router.asPath}/confirmation`);
-                        }}
-                        title='Reedem'
-                        backgoundColor='#A54CE5'
-                        color='white'
-                    />
+                    <Button onClick={handleReedem} title='Reedem' backgoundColor='#A54CE5' color='white' />
                 </Box>
             </Box>
             <NotifDialog
@@ -98,6 +106,14 @@ const PrizeDetailContainer = () => {
                 open={open}
                 body='You don’t have Points in your balance. 
 Play Tournament and get points to continue'
+            />
+            <AgeConfirmationDialog
+                form={form}
+                nameDate='date'
+                nameMonth='month'
+                nameYear='year'
+                open={dialogConfirm}
+                setOpen={setDialogConfirm}
             />
         </Box>
     );
