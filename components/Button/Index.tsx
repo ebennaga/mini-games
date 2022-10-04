@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@mui/material';
 
 interface ButtonProps {
-    title: string;
+    title: any;
     icon?: any;
     backgoundColor: string;
     color: string;
