@@ -11,7 +11,7 @@ const PrizeDetailContainer = () => {
     const router = useRouter();
     const [isFavorite, setIsFavorite] = React.useState<boolean>(false);
     const [open, setOpen] = React.useState<boolean>(false);
-    const point = 9_000;
+    const point = 90_000;
     const prize = 10_000;
 
     return (
@@ -25,7 +25,7 @@ const PrizeDetailContainer = () => {
                     top: -1,
                     backgroundColor: 'white',
                     zIndex: 999,
-                    width: '415px'
+                    width: '-webkit-fill-available'
                 }}
             >
                 <Header isShops hrefBack='/shops' isBack point={point} profilePicture='/icons/dummy/profile.png' />
@@ -63,7 +63,7 @@ const PrizeDetailContainer = () => {
                 </Box>
             </Box>
             <Divider sx={{ my: '25px' }} />
-            <Box padding='10px 20px' position='relative'>
+            <Box padding='20px 20px' position='relative'>
                 <Paragraph
                     title='Highlight'
                     paragraph=' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio
@@ -73,11 +73,13 @@ const PrizeDetailContainer = () => {
                     title='Description'
                     paragraph='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
                 />
-                <Paragraph
-                    title='Terms and Conditions'
-                    paragraph='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                />
-                <Box sx={{ mt: '185px' }}>
+                <Box sx={{ mb: '180px' }}>
+                    <Paragraph
+                        title='Terms and Conditions'
+                        paragraph='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+                    />
+                </Box>
+                <Box sx={{ position: 'sticky', bottom: '20px', zIndex: 0 }}>
                     <Button
                         onClick={() => {
                             if (point < prize) {

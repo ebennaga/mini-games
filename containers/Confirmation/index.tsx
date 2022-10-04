@@ -67,7 +67,7 @@ const PrizeConfirmationContainer = () => {
                     top: -1,
                     backgroundColor: 'white',
                     zIndex: 999,
-                    width: '415px'
+                    width: '-webkit-fill-available'
                 }}
             >
                 <Header isShops hrefBack='/shops' isBack point={102_300} profilePicture='/icons/dummy/profile.png' />
@@ -112,30 +112,35 @@ const PrizeConfirmationContainer = () => {
                     title='Lorem Ipsum'
                     paragraph='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
                 />
-                <Box sx={{ mt: '70px' }}>
+                <Box sx={{ mt: '70px', position: 'relative', zIndex: 0 }}>
                     <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
                         Address
                     </Typography>
-                    <form onSubmit={form.handleSubmit(() => {})}>
+                    <form style={{ position: 'relative', zIndex: 0, marginBottom: '185px' }} onSubmit={form.handleSubmit(() => {})}>
                         <TextFieldInput label='Address' form={form} name='address' />
                         <TextFieldInput label='Notes' form={form} name='notes' />
                         <TextFieldInput label={`Recipient's Name`} form={form} name='recipient' />
                         <TextFieldInput label='Phone Number' form={form} name='phone' />
-                        <Box sx={{ mt: '285px' }}>
-                            <Button
-                                onClick={() => {
-                                    setOpenDialog(!openDialog);
-                                }}
-                                type='submit'
-                                title='Proceed to Reedem'
-                                backgoundColor='#A54CE5'
-                                color='white'
-                            />
-                        </Box>
                     </form>
                 </Box>
             </Box>
-            <RewardDialog open={openDialog} setOpenDialog={setOpenDialog} body='The redeem completed. Your prize will arrive soon.' />
+            <Box padding='0 20px' sx={{ position: 'sticky', bottom: '20px', zIndex: 1 }}>
+                <Button
+                    onClick={() => {
+                        setOpenDialog(!openDialog);
+                    }}
+                    type='submit'
+                    title='Proceed to Reedem'
+                    backgoundColor='#A54CE5'
+                    color='white'
+                />
+            </Box>
+            <RewardDialog
+                path='/shops'
+                open={openDialog}
+                setOpenDialog={setOpenDialog}
+                body='The redeem completed. Your prize will arrive soon.'
+            />
         </Box>
     );
 };
