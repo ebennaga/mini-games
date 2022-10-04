@@ -78,7 +78,6 @@ const TopUp = () => {
                     <Box
                         sx={{
                             background: '#FFF5CD',
-
                             borderRadius: '10px',
                             width: '126px',
                             height: '35px',
@@ -295,9 +294,11 @@ const TopUp = () => {
                 </ButtonBase>
             </Box>
             <Box
+                onClick={() => {
+                    router.push('/topup/tutorial');
+                }}
                 sx={{
                     mt: '20px',
-                    ml: '20px',
                     display: 'flex',
                     justifyContent: 'space-between',
                     mr: '18px',
@@ -318,14 +319,13 @@ const TopUp = () => {
             <Box
                 sx={{
                     mt: '20px',
-                    ml: '20px',
                     display: 'flex',
                     justifyContent: 'space-between',
                     mr: '18px',
                     height: '33px'
                 }}
             >
-                <Box sx={{ borderRadius: '6px', width: '48px', height: '48px', ml: 2 }}>
+                <Box sx={{ borderRadius: '6px', width: '48px', height: '48px', ml: 2, textAlign: 'start' }}>
                     <img src='/images/ask.png' width={30} height={30} alt='maskot-logo' style={{ marginLeft: '20%', marginTop: '5%' }} />
                 </Box>
                 <Box sx={{ ml: -19 }}>
