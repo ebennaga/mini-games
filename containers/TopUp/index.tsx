@@ -4,6 +4,7 @@ import Header from 'components/Header';
 import { ChevronRight, East } from '@mui/icons-material';
 import { Box, Typography, Stack, ButtonBase, Skeleton, Grid } from '@mui/material';
 import { useRouter } from 'next/router';
+import HeaderSkeleton from 'components/Header/HeaderSkeleton';
 
 const TopUp = () => {
     const router = useRouter();
@@ -45,23 +46,35 @@ const TopUp = () => {
     ];
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
-            <Box
-                padding='25px'
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    position: 'sticky',
-                    zIndex: 9999,
-                    backgroundColor: 'white',
-                    width: '-webkit-fill-available',
-                    top: 0
-                }}
-            >
-                <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
-            </Box>
-            <Box sx={{ mt: '40px', ml: '20px', display: 'flex', justifyContent: 'space-between', mr: '18px', height: '33px' }}>
-                <Typography sx={{ fontSize: '32px', fontWeight: 700, lineHeight: '33px' }}>Top Up Coins</Typography>
-            </Box>
+            {loading ? (
+                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Skeleton sx={{ width: '75px', height: '38px', ml: '20px', mt: '20px' }} />
+                    <Skeleton sx={{ width: '75px', height: '38px', mr: '10%', mt: '20px' }} />
+                </Box>
+            ) : (
+                <Box
+                    padding='25px'
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        position: 'sticky',
+                        zIndex: 9999,
+                        backgroundColor: 'white',
+                        width: '-webkit-fill-available',
+                        top: 0
+                    }}
+                >
+                    <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
+                </Box>
+            )}
+            {loading ? (
+                <Skeleton sx={{ width: '125px', height: '38px', ml: '20px', mt: '40px' }} />
+            ) : (
+                <Box sx={{ mt: '40px', ml: '20px', display: 'flex', justifyContent: 'space-between', mr: '18px', height: '33px' }}>
+                    <Typography sx={{ fontSize: '32px', fontWeight: 700, lineHeight: '33px' }}>Top Up Coins</Typography>
+                </Box>
+            )}
+
             <Box sx={{ mt: '40px', ml: '20px', display: 'flex', justifyContent: 'space-between', mr: '18px', height: '33px' }}>
                 <Typography sx={{ fontSize: '14px', fontWeight: 700 }}>Exchange Rate</Typography>
                 {loading ? (
@@ -283,59 +296,96 @@ const TopUp = () => {
                     </Box>
                 </Box>
             )}
-            <Box sx={{ ml: 3, border: '1px solid rgba(40, 38, 38, 0.1)', width: '373px', mt: 4 }} />.
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
-                <ButtonBase
-                    onClick={() => {
-                        router.push('/transaction');
+            <Box sx={{ ml: 3, border: '1px solid rgba(40, 38, 38, 0.1)', width: '373px', mt: 4 }} />
+            {loading ? (
+                <Box sx={{ display: 'flex', justifyContent: 'center', ml: '20px', mt: 2 }}>
+                    {[...Array(1)].map((_item: any, index: number) => {
+                        return <Skeleton variant='rectangular' width={100} height={30} />;
+                    })}
+                </Box>
+            ) : (
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
+                    <ButtonBase
+                        onClick={() => {
+                            router.push('/transaction');
+                        }}
+                        sx={{ color: '#A54CE5' }}
+                    >
+                        Show All <East fontSize='inherit' sx={{ ml: '3px' }} />
+                    </ButtonBase>
+                </Box>
+            )}
+
+            {loading ? (
+                <Box sx={{ display: 'flex', justifyContent: 'flex-start', ml: '20px', mt: 2 }}>
+                    {[...Array(2)].map((_item: any, index: number) => {
+                        return <Skeleton variant='rectangular' width={160} height={30} />;
+                    })}
+                </Box>
+            ) : (
+                <Box
+                    sx={{
+                        mt: '20px',
+                        ml: '20px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        mr: '18px',
+                        height: '33px'
                     }}
-                    sx={{ color: '#A54CE5' }}
                 >
-                    Show All <East fontSize='inherit' sx={{ ml: '3px' }} />
-                </ButtonBase>
-            </Box>
-            <Box
-                sx={{
-                    mt: '20px',
-                    ml: '20px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    mr: '18px',
-                    height: '33px'
-                }}
-            >
-                <Box sx={{ borderRadius: '6px', width: '48px', height: '48px', ml: 2 }}>
-                    <img src='/images/star.png' width={30} height={30} alt='maskot-logo' style={{ marginLeft: '20%', marginTop: '5%' }} />
+                    <Box sx={{ borderRadius: '6px', width: '48px', height: '48px', ml: 2 }}>
+                        <img
+                            src='/images/star.png'
+                            width={30}
+                            height={30}
+                            alt='maskot-logo'
+                            style={{ marginLeft: '20%', marginTop: '5%' }}
+                        />
+                    </Box>
+                    <Box sx={{ ml: -10 }}>
+                        <Typography sx={{ fontSize: '14px', fontWeight: 700, lineHeight: '33px' }}>How to get coins and prizes</Typography>
+                    </Box>
+                    <Box sx={{ mt: 1, mr: 0 }}>
+                        {/* <img src='/images/tanda_panah.png' width={10} height={10} alt='poin' style={{ marginLeft: 0 }} /> */}
+                        <ChevronRight sx={{ color: '#8634C1' }} />
+                    </Box>
                 </Box>
-                <Box sx={{ ml: -10 }}>
-                    <Typography sx={{ fontSize: '14px', fontWeight: 700, lineHeight: '33px' }}>How to get coins and prizes</Typography>
+            )}
+            {loading ? (
+                <Box sx={{ display: 'flex', justifyContent: 'flex-start', ml: '20px', mt: 2 }}>
+                    {[...Array(2)].map((_item: any, index: number) => {
+                        return <Skeleton variant='rectangular' width={160} height={30} />;
+                    })}
                 </Box>
-                <Box sx={{ mt: 1, mr: 0 }}>
-                    {/* <img src='/images/tanda_panah.png' width={10} height={10} alt='poin' style={{ marginLeft: 0 }} /> */}
-                    <ChevronRight sx={{ color: '#8634C1' }} />
+            ) : (
+                <Box
+                    sx={{
+                        mt: '20px',
+                        ml: '20px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        mr: '18px',
+                        height: '33px'
+                    }}
+                >
+                    <Box sx={{ borderRadius: '6px', width: '48px', height: '48px', ml: 2 }}>
+                        <img
+                            src='/images/ask.png'
+                            width={30}
+                            height={30}
+                            alt='maskot-logo'
+                            style={{ marginLeft: '20%', marginTop: '5%' }}
+                        />
+                    </Box>
+                    <Box sx={{ ml: -19 }}>
+                        <Typography sx={{ fontSize: '14px', fontWeight: 700, lineHeight: '33px' }}>Help and Support</Typography>
+                    </Box>
+                    <Box sx={{ marginTop: '2%' }}>
+                        {/* <img src='/images/tanda_panah.png' width={10} height={10} alt='poin' style={{ marginLeft: 0 }} /> */}
+                        <ChevronRight sx={{ color: '#8634C1' }} />
+                    </Box>
                 </Box>
-            </Box>
-            <Box
-                sx={{
-                    mt: '20px',
-                    ml: '20px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    mr: '18px',
-                    height: '33px'
-                }}
-            >
-                <Box sx={{ borderRadius: '6px', width: '48px', height: '48px', ml: 2 }}>
-                    <img src='/images/ask.png' width={30} height={30} alt='maskot-logo' style={{ marginLeft: '20%', marginTop: '5%' }} />
-                </Box>
-                <Box sx={{ ml: -19 }}>
-                    <Typography sx={{ fontSize: '14px', fontWeight: 700, lineHeight: '33px' }}>Help and Support</Typography>
-                </Box>
-                <Box sx={{ marginTop: '2%' }}>
-                    {/* <img src='/images/tanda_panah.png' width={10} height={10} alt='poin' style={{ marginLeft: 0 }} /> */}
-                    <ChevronRight sx={{ color: '#8634C1' }} />
-                </Box>
-            </Box>
+            )}
         </Box>
     );
 };
