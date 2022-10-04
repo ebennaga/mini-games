@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { Box, Typography, Stack, Skeleton, Grid } from '@mui/material';
 import BadgeImages from 'components/BadgeImages';
+import HeaderSkeleton from 'components/Header/HeaderSkeleton';
 
 interface GameProps {
     playerImg1: string;
@@ -33,19 +34,23 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
     ];
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
-            <Box
-                padding='25px'
-                sx={{
-                    mb: 2,
-                    position: 'sticky',
-                    top: -1,
-                    backgroundColor: 'white',
-                    zIndex: 999,
-                    width: '-webkit-fill-available'
-                }}
-            >
-                <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
-            </Box>
+            {loading ? (
+                <HeaderSkeleton />
+            ) : (
+                <Box
+                    padding='25px'
+                    sx={{
+                        mb: 2,
+                        position: 'sticky',
+                        top: -1,
+                        backgroundColor: 'white',
+                        zIndex: 999,
+                        width: '-webkit-fill-available'
+                    }}
+                >
+                    <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
+                </Box>
+            )}
 
             <Box sx={{ mt: '42px', mx: '20px' }}>
                 <Typography sx={{ fontSize: '32px', fontWeight: 700 }}>Games</Typography>
