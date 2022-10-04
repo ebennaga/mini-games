@@ -16,9 +16,26 @@ interface GameProps {
 // eslint-disable-next-line no-unused-vars
 const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3, totalPlayer }) => {
     const [loading, setLoading] = useState(true);
+    const [borderValue, setBorderValue] = useState<string>('none');
     const router = useRouter();
     React.useEffect(() => {
         setTimeout(() => setLoading(false), 3000);
+    }, []);
+    const handleScroll = () => {
+        if (window.scrollY === 0) {
+            return setBorderValue('none');
+        }
+        return setBorderValue('0.5px solid rgba(148, 148, 148, 0.35)');
+    };
+
+    React.useEffect(() => {
+        const watchScroll = () => {
+            window.addEventListener('scroll', handleScroll);
+        };
+        watchScroll();
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
     }, []);
     const cards = [
         {
@@ -48,7 +65,8 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
                         top: -1,
                         backgroundColor: 'white',
                         zIndex: 999,
-                        width: '-webkit-fill-available'
+                        width: '-webkit-fill-available',
+                        borderBottom: borderValue
                     }}
                 >
                     <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />

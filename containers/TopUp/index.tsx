@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Header from 'components/Header';
 import { ChevronRight, East } from '@mui/icons-material';
-import { Box, Typography, Stack, ButtonBase, Skeleton, Grid } from '@mui/material';
+import { Typography, Stack, ButtonBase, Skeleton, Grid, Box } from '@mui/material';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import HeaderSkeleton from 'components/Header/HeaderSkeleton';
@@ -10,6 +10,7 @@ import HeaderSkeleton from 'components/Header/HeaderSkeleton';
 const TopUp = () => {
     const router = useRouter();
     const [loading, setLoading] = useState(true);
+    const [borderValue, setBorderValue] = useState<string>('none');
     React.useEffect(() => {
         setTimeout(() => setLoading(false), 1000);
     }, []);
@@ -45,6 +46,22 @@ const TopUp = () => {
             type: 'join'
         }
     ];
+    const handleScroll = () => {
+        if (window.scrollY === 0) {
+            return setBorderValue('none');
+        }
+        return setBorderValue('0.5px solid rgba(148, 148, 148, 0.35)');
+    };
+
+    React.useEffect(() => {
+        const watchScroll = () => {
+            window.addEventListener('scroll', handleScroll);
+        };
+        watchScroll();
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
             {loading ? (
@@ -62,7 +79,8 @@ const TopUp = () => {
                         zIndex: 9999,
                         backgroundColor: 'white',
                         width: '-webkit-fill-available',
-                        top: 0
+                        top: 0,
+                        borderBottom: borderValue
                     }}
                 >
                     <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
@@ -99,7 +117,6 @@ const TopUp = () => {
                     <Box
                         sx={{
                             background: '#FFF5CD',
-
                             borderRadius: '10px',
                             width: '126px',
                             height: '35px',
@@ -144,7 +161,7 @@ const TopUp = () => {
                         spacing={{ xs: 1.5, sm: 15 }}
                         sx={{ mt: '10%' }}
                     >
-                        {cards.map((index: any) => {
+                        {cards.map((item: any, index: number) => {
                             return (
                                 <Box
                                     key={index}
@@ -159,7 +176,7 @@ const TopUp = () => {
                                 >
                                     <Box sx={{ mt: 2, ml: '65%' }}>
                                         <Typography sx={{ fontSize: '10px', fontWeight: 'bold', lineHeight: '10px', color: '#373737' }}>
-                                            {index.price}
+                                            {item.price}
                                         </Typography>
                                     </Box>
                                     <Box sx={{ mt: 4 }}>
@@ -173,7 +190,7 @@ const TopUp = () => {
                                     </Box>
                                     <Box sx={{ mt: -2, ml: 5 }}>
                                         <Typography sx={{ fontSize: '32px', fontWeight: 'bold', lineHeight: '10px', color: '#373737' }}>
-                                            {index.poin}
+                                            {item.poin}
                                         </Typography>
                                     </Box>
                                     <Box sx={{ ml: 2, mt: 1.5, alignItems: 'center' }}>
@@ -228,7 +245,7 @@ const TopUp = () => {
             {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'flex-start', ml: '20px' }}>
                     {[...Array(2)].map((_item: any, index: number) => {
-                        return <Skeleton variant='rectangular' width={160} height={30} />;
+                        return <Skeleton key={index} variant='rectangular' width={160} height={30} />;
                     })}
                 </Box>
             ) : (
@@ -269,7 +286,7 @@ const TopUp = () => {
             {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'flex-start', ml: '20px', mt: 2 }}>
                     {[...Array(2)].map((_item: any, index: number) => {
-                        return <Skeleton variant='rectangular' width={160} height={30} />;
+                        return <Skeleton key={index} variant='rectangular' width={160} height={30} />;
                     })}
                 </Box>
             ) : (
@@ -308,7 +325,7 @@ const TopUp = () => {
             {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'center', ml: '20px', mt: 2 }}>
                     {[...Array(1)].map((_item: any, index: number) => {
-                        return <Skeleton variant='rectangular' width={100} height={30} />;
+                        return <Skeleton key={index} variant='rectangular' width={100} height={30} />;
                     })}
                 </Box>
             ) : (
@@ -327,14 +344,16 @@ const TopUp = () => {
             {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'flex-start', ml: '20px', mt: 2 }}>
                     {[...Array(2)].map((_item: any, index: number) => {
-                        return <Skeleton variant='rectangular' width={160} height={30} />;
+                        return <Skeleton key={index} variant='rectangular' width={160} height={30} />;
                     })}
                 </Box>
             ) : (
                 <Box
+                    onClick={() => {
+                        router.push('/topup/support');
+                    }}
                     sx={{
                         mt: '20px',
-                        ml: '20px',
                         display: 'flex',
                         justifyContent: 'space-between',
                         mr: '18px',
@@ -362,39 +381,30 @@ const TopUp = () => {
             {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'flex-start', ml: '20px', mt: 2 }}>
                     {[...Array(2)].map((_item: any, index: number) => {
-                        return <Skeleton variant='rectangular' width={160} height={30} />;
+                        return <Skeleton key={index} variant='rectangular' width={160} height={30} />;
                     })}
                 </Box>
             ) : (
-                <Link href='/help-support'>
-                    <Box
-                        sx={{
-                            mt: '20px',
-                            ml: '20px',
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            mr: '18px',
-                            height: '33px'
-                        }}
-                    >
-                        <Box sx={{ borderRadius: '6px', width: '48px', height: '48px', ml: 2 }}>
-                            <img
-                                src='/images/ask.png'
-                                width={30}
-                                height={30}
-                                alt='maskot-logo'
-                                style={{ marginLeft: '20%', marginTop: '5%' }}
-                            />
-                        </Box>
-                        <Box sx={{ ml: -19 }}>
-                            <Typography sx={{ fontSize: '14px', fontWeight: 700, lineHeight: '33px' }}>Help and Support</Typography>
-                        </Box>
-                        <Box sx={{ marginTop: '2%' }}>
-                            {/* <img src='/images/tanda_panah.png' width={10} height={10} alt='poin' style={{ marginLeft: 0 }} /> */}
-                            <ChevronRight sx={{ color: '#8634C1' }} />
-                        </Box>
+                <Box
+                    onClick={() => {}}
+                    sx={{
+                        mt: '20px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        mr: '18px',
+                        height: '33px'
+                    }}
+                >
+                    <Box sx={{ borderRadius: '6px', width: '48px', height: '48px', ml: 2 }}>
+                        <img
+                            src='/images/ask.png'
+                            width={30}
+                            height={30}
+                            alt='maskot-logo'
+                            style={{ marginLeft: '20%', marginTop: '5%' }}
+                        />
                     </Box>
-                </Link>
+                </Box>
             )}
         </Box>
     );

@@ -13,9 +13,10 @@ const RaffleContainer = () => {
     const [quantity, setQuantity] = React.useState<number>(0);
     const [openBuyDialog, setOpenBuyDialog] = React.useState<any>(false);
     const [openRewardDialog, setOpenRewardDialog] = React.useState<any>(false);
-    const [openStatusRoundDialog, setOpenStatusRoundDialog] = React.useState<any>(true);
-    const [isWinner, setIsWinner] = React.useState<boolean>(true);
-    const [roundDay, setRoundDay] = React.useState<boolean>(true);
+    const [openStatusRoundDialog, setOpenStatusRoundDialog] = React.useState<any>(false);
+    const [isWinner, setIsWinner] = React.useState<boolean>(false);
+    const [roundDay, setRoundDay] = React.useState<boolean>(false);
+    const [borderValue, setBorderValue] = React.useState<string>('none');
 
     const dataList = [
         { image: '/icons/dummy/profile-2.png', username: 'rinto', tickets: 246000, prize: 2000 },
@@ -36,16 +37,33 @@ const RaffleContainer = () => {
         setOpenBuyDialog(!openBuyDialog);
         setOpenRewardDialog(!openRewardDialog);
     };
+    const handleScroll = () => {
+        if (window.scrollY === 0) {
+            return setBorderValue('none');
+        }
+        return setBorderValue('0.5px solid rgba(148, 148, 148, 0.35)');
+    };
+
+    React.useEffect(() => {
+        const watchScroll = () => {
+            window.addEventListener('scroll', handleScroll);
+        };
+        watchScroll();
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     return (
         <Box sx={{ width: '100%' }}>
             <Box
                 padding='15px 20px'
                 sx={{
-                    borderBottom: '1px solid rgba(148, 148, 148, 0.35)',
+                    borderBottom: borderValue,
+                    border: '1px solid white',
                     mb: 2,
                     position: 'sticky',
-                    top: -1,
+                    top: 0,
                     backgroundColor: 'white',
                     zIndex: 999
                 }}
