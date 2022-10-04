@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => {
         pointContainer: {
             // background: '#FFF5CD',
             borderRadius: '27px',
-            width: '96px',
+            // width: '96px',
             height: '30px',
             position: 'relative',
             marginRight: '11px'

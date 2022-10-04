@@ -64,7 +64,7 @@ const Header: React.FC<HeaderProps> = ({
                     sx={{
                         background: isShops ? '#DDFFDC' : '#FFF5CD',
                         borderRadius: '27px',
-                        width: '96px',
+                        // width: '100%',
                         height: '30px',
                         position: 'relative',
                         marginRight: '11px'
@@ -82,7 +82,8 @@ const Header: React.FC<HeaderProps> = ({
                             justifyContent: 'space-between',
                             alignItems: 'center',
                             padding: '0 9px',
-                            paddingTop: '2px'
+                            paddingTop: '2px',
+                            gap: '5px'
                         }}
                     >
                         {isShops ? (
