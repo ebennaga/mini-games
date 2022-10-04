@@ -49,7 +49,7 @@ const TopUp = () => {
             {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Skeleton sx={{ width: '75px', height: '38px', ml: '20px', mt: '20px' }} />
-                    <Skeleton sx={{ width: '75px', height: '38px', mr: '10%', mt: '20px' }} />
+                    <Skeleton sx={{ width: '75px', height: '38px', mr: '5%', mt: '20px' }} />
                 </Box>
             ) : (
                 <Box
@@ -76,7 +76,14 @@ const TopUp = () => {
             )}
 
             <Box sx={{ mt: '40px', ml: '20px', display: 'flex', justifyContent: 'space-between', mr: '18px', height: '33px' }}>
-                <Typography sx={{ fontSize: '14px', fontWeight: 700 }}>Exchange Rate</Typography>
+                {loading ? (
+                    <Skeleton sx={{ width: '195px', height: '38px', mt: -2 }} />
+                ) : (
+                    <Box>
+                        <Typography sx={{ fontSize: '14px', fontWeight: 700 }}>Exchange Rate</Typography>
+                    </Box>
+                )}
+
                 {loading ? (
                     <Grid container spacing={1} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                         {[...Array(1)].map((_item: any, index: number) => {

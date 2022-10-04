@@ -35,7 +35,10 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
             {loading ? (
-                <HeaderSkeleton />
+                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Skeleton sx={{ width: '75px', height: '38px', ml: '20px', mt: '20px' }} />
+                    <Skeleton sx={{ width: '75px', height: '38px', ml: '20px', mt: '20px', mr: '5%' }} />
+                </Box>
             ) : (
                 <Box
                     padding='25px'
@@ -51,10 +54,13 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
                     <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
                 </Box>
             )}
-
-            <Box sx={{ mt: '42px', mx: '20px' }}>
-                <Typography sx={{ fontSize: '32px', fontWeight: 700 }}>Games</Typography>
-            </Box>
+            {loading ? (
+                <Skeleton sx={{ width: '75px', height: '38px', ml: '20px', mt: '20px' }} />
+            ) : (
+                <Box sx={{ mt: '42px', mx: '20px' }}>
+                    <Typography sx={{ fontSize: '32px', fontWeight: 700 }}>Games</Typography>
+                </Box>
+            )}
 
             <Box
                 sx={{
