@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import Header from 'components/Header';
-
+import { ChevronRight, East } from '@mui/icons-material';
 import { Box, Typography, Stack, ButtonBase, Skeleton, Grid } from '@mui/material';
 import { useRouter } from 'next/router';
 
@@ -9,7 +9,7 @@ const TopUp = () => {
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     React.useEffect(() => {
-        setTimeout(() => setLoading(false), 3000);
+        setTimeout(() => setLoading(false), 1000);
     }, []);
     const cards = [
         {
@@ -27,17 +27,20 @@ const TopUp = () => {
         {
             id: 3,
             title: 'Menara Dingdong',
-            point: '+1000'
+            point: '+1000',
+            type: 'join'
         },
         {
             id: 4,
             title: 'Join Tourney',
-            point: '+3000'
+            point: '+3000',
+            type: 'topup'
         },
         {
             id: 5,
             title: '50 Coins Up',
-            point: '+4000'
+            point: '+4000',
+            type: 'join'
         }
     ];
     return (
@@ -174,7 +177,17 @@ const TopUp = () => {
                     })}
                 </Box>
             ) : (
-                <Box sx={{ mt: '60px', ml: '20px', display: 'flex', justifyContent: 'flex-start', mr: '18px', height: '33px' }}>
+                <Box
+                    sx={{
+                        mt: '60px',
+                        ml: '20px',
+                        display: 'flex',
+                        justifyContent: 'flex-start',
+                        mr: '18px',
+                        height: '33px',
+                        alignItems: 'center'
+                    }}
+                >
                     <Box sx={{ mt: 2 }}>
                         <img src='/images/subtract.png' width={22} height={22} alt='subtract' />
                     </Box>
@@ -206,7 +219,8 @@ const TopUp = () => {
                         justifyContent: 'space-between',
                         mr: '18px',
                         height: '33px',
-                        direction: 'row'
+                        direction: 'row',
+                        alignItems: 'center'
                     }}
                 >
                     <Box sx={{ background: '#FFF5CD', borderRadius: '6px', width: '48px', height: '48px', ml: 2 }}>
@@ -277,7 +291,7 @@ const TopUp = () => {
                     }}
                     sx={{ color: '#A54CE5' }}
                 >
-                    Show all
+                    Show All <East fontSize='inherit' sx={{ ml: '3px' }} />
                 </ButtonBase>
             </Box>
             <Box
@@ -297,7 +311,8 @@ const TopUp = () => {
                     <Typography sx={{ fontSize: '14px', fontWeight: 700, lineHeight: '33px' }}>How to get coins and prizes</Typography>
                 </Box>
                 <Box sx={{ mt: 1, mr: 0 }}>
-                    <img src='/images/tanda_panah.png' width={10} height={10} alt='poin' style={{ marginLeft: 0 }} />
+                    {/* <img src='/images/tanda_panah.png' width={10} height={10} alt='poin' style={{ marginLeft: 0 }} /> */}
+                    <ChevronRight sx={{ color: '#8634C1' }} />
                 </Box>
             </Box>
             <Box
@@ -317,7 +332,8 @@ const TopUp = () => {
                     <Typography sx={{ fontSize: '14px', fontWeight: 700, lineHeight: '33px' }}>Help and Support</Typography>
                 </Box>
                 <Box sx={{ marginTop: '2%' }}>
-                    <img src='/images/tanda_panah.png' width={10} height={10} alt='poin' style={{ marginLeft: 0 }} />
+                    {/* <img src='/images/tanda_panah.png' width={10} height={10} alt='poin' style={{ marginLeft: 0 }} /> */}
+                    <ChevronRight sx={{ color: '#8634C1' }} />
                 </Box>
             </Box>
         </Box>
