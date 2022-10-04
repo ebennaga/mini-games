@@ -1,8 +1,7 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, ButtonBase } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import { SmartDisplay } from '@mui/icons-material';
 import React from 'react';
-import Button from 'components/Button/Index';
 import { useRouter } from 'next/router';
 
 const ResultContainer = () => {
@@ -20,7 +19,7 @@ const ResultContainer = () => {
             >
                 <HeaderBack />
             </Box>
-            <Box sx={{ padding: '0px 20px', textAlign: 'center' }}>
+            <Box sx={{ padding: '0px 20px', textAlign: 'center', m: '0px 0px 300px' }}>
                 <Box sx={{ textAlign: 'center', margin: '20px' }}>
                     <img src='/images/loading-img-casual.png' alt='loading-casual' />
                 </Box>
@@ -29,21 +28,34 @@ const ResultContainer = () => {
                     <Typography sx={{ fontWeight: 300, fontSize: '14px', color: '#949494' }}>Total Scores</Typography>
                     <Typography sx={{ fontWeight: 700, fontSize: '44px' }}>20</Typography>
                 </Box>
-                <Box sx={{ m: '300px 0px 30px' }}>
-                    <Box display='flex' alignItems='center' justifyContent='center' gap='5px' mb='10px'>
-                        <Typography sx={{ fontWeight: 'bold', fontSize: '14px' }}>Watch Ads</Typography>
-                        <SmartDisplay sx={{ color: '#A54CE5' }} />
-                        <Typography sx={{ fontSize: '14px', fontWeight: 600 }}>for Playing Again</Typography>
-                    </Box>
-                    <Button
-                        onClick={() => {
-                            router.push('/casual/loading');
-                        }}
-                        title='Play Again'
-                        backgoundColor='#A54CE5'
-                        color='white'
-                    />
-                </Box>
+            </Box>
+            <Box sx={{ padding: '20px', position: 'sticky', bottom: '20px' }}>
+                <ButtonBase
+                    onClick={() => {
+                        router.push('/casual/loading');
+                    }}
+                    sx={{
+                        textTransform: 'none',
+                        position: 'relative',
+                        borderRadius: '15px',
+                        fontWeight: 'bold',
+                        color: 'white',
+                        backgroundColor: '#A54CE5',
+                        width: '100%',
+                        height: '60px',
+                        '&:hover': {
+                            backgroundColor: '#A54CE5',
+                            color: 'white',
+                            fontWeight: 'bold'
+                        }
+                    }}
+                >
+                    Watch Ads{' '}
+                    <span style={{ margin: '0px 5px' }}>
+                        <SmartDisplay />
+                    </span>{' '}
+                    to Play Again
+                </ButtonBase>
             </Box>
         </Box>
     );

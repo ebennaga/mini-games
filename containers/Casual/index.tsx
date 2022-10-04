@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Typography, Grid } from '@mui/material';
+import { Box, Typography, Grid, ButtonBase } from '@mui/material';
 import Header from 'components/Header';
-import Button from 'components/Button/Index';
+// import Button from 'components/Button/Index';
 import { SmartDisplay, EmojiEvents, Share } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 
@@ -54,26 +54,11 @@ const CasualContainer = () => {
                 </Box>
             </Box>
             {/* sampai sini */}
-            <Grid container direction='column' padding='20px'>
+            <Grid container direction='column' padding='10px'>
                 <Grid item xs={12}>
                     <Typography sx={{ color: '#949494', fontSize: '14px', fontWeight: 400 }}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                     </Typography>
-                    <Box sx={{ mt: '25px' }}>
-                        <Button
-                            onClick={() => {
-                                router.push('/casual/loading');
-                            }}
-                            title='Free'
-                            backgoundColor='#A54CE5'
-                            color='white'
-                        />
-                    </Box>
-                    <Box display='flex' alignItems='center' justifyContent='center' gap='5px' mt='20px'>
-                        <Typography sx={{ fontWeight: 'bold' }}>Watch Ads</Typography>
-                        <SmartDisplay sx={{ color: '#A54CE5' }} />
-                        <Typography>to Play</Typography>
-                    </Box>
                 </Grid>
             </Grid>
             <Grid container padding='10px 20px' mt={3}>
@@ -102,6 +87,34 @@ const CasualContainer = () => {
                     </Grid>
                 </Grid>
             </Grid>
+            <Box sx={{ padding: '20px', position: 'sticky', bottom: '20px' }}>
+                <ButtonBase
+                    onClick={() => {
+                        router.push('/casual/loading');
+                    }}
+                    sx={{
+                        textTransform: 'none',
+                        position: 'relative',
+                        borderRadius: '15px',
+                        fontWeight: 'bold',
+                        color: 'white',
+                        backgroundColor: '#A54CE5',
+                        width: '100%',
+                        height: '60px',
+                        '&:hover': {
+                            backgroundColor: '#A54CE5',
+                            color: 'white',
+                            fontWeight: 'bold'
+                        }
+                    }}
+                >
+                    Watch Ads{' '}
+                    <span style={{ margin: '0px 5px' }}>
+                        <SmartDisplay />
+                    </span>{' '}
+                    to Play
+                </ButtonBase>
+            </Box>
         </Box>
     );
 };
