@@ -4,6 +4,7 @@ import Header from 'components/Header';
 import { ChevronRight, East } from '@mui/icons-material';
 import { Box, Typography, Stack, ButtonBase, Skeleton, Grid } from '@mui/material';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import HeaderSkeleton from 'components/Header/HeaderSkeleton';
 
 const TopUp = () => {
@@ -365,33 +366,35 @@ const TopUp = () => {
                     })}
                 </Box>
             ) : (
-                <Box
-                    sx={{
-                        mt: '20px',
-                        ml: '20px',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        mr: '18px',
-                        height: '33px'
-                    }}
-                >
-                    <Box sx={{ borderRadius: '6px', width: '48px', height: '48px', ml: 2 }}>
-                        <img
-                            src='/images/ask.png'
-                            width={30}
-                            height={30}
-                            alt='maskot-logo'
-                            style={{ marginLeft: '20%', marginTop: '5%' }}
-                        />
+                <Link href='/help-support'>
+                    <Box
+                        sx={{
+                            mt: '20px',
+                            ml: '20px',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            mr: '18px',
+                            height: '33px'
+                        }}
+                    >
+                        <Box sx={{ borderRadius: '6px', width: '48px', height: '48px', ml: 2 }}>
+                            <img
+                                src='/images/ask.png'
+                                width={30}
+                                height={30}
+                                alt='maskot-logo'
+                                style={{ marginLeft: '20%', marginTop: '5%' }}
+                            />
+                        </Box>
+                        <Box sx={{ ml: -19 }}>
+                            <Typography sx={{ fontSize: '14px', fontWeight: 700, lineHeight: '33px' }}>Help and Support</Typography>
+                        </Box>
+                        <Box sx={{ marginTop: '2%' }}>
+                            {/* <img src='/images/tanda_panah.png' width={10} height={10} alt='poin' style={{ marginLeft: 0 }} /> */}
+                            <ChevronRight sx={{ color: '#8634C1' }} />
+                        </Box>
                     </Box>
-                    <Box sx={{ ml: -19 }}>
-                        <Typography sx={{ fontSize: '14px', fontWeight: 700, lineHeight: '33px' }}>Help and Support</Typography>
-                    </Box>
-                    <Box sx={{ marginTop: '2%' }}>
-                        {/* <img src='/images/tanda_panah.png' width={10} height={10} alt='poin' style={{ marginLeft: 0 }} /> */}
-                        <ChevronRight sx={{ color: '#8634C1' }} />
-                    </Box>
-                </Box>
+                </Link>
             )}
         </Box>
     );
