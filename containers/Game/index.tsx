@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import Header from 'components/Header';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { Box, Typography, Stack, Skeleton, Grid } from '@mui/material';
 import BadgeImages from 'components/BadgeImages';
-import Link from 'next/link';
 
 interface GameProps {
     playerImg1: string;
@@ -15,6 +15,7 @@ interface GameProps {
 // eslint-disable-next-line no-unused-vars
 const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3, totalPlayer }) => {
     const [loading, setLoading] = useState(true);
+    const router = useRouter();
     React.useEffect(() => {
         setTimeout(() => setLoading(false), 3000);
     }, []);
@@ -79,33 +80,34 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
                     </Grid>
                 ) : (
                     <Stack direction='row' spacing={2}>
-                        {cards.map((index: any) => {
+                        {cards.map((item: any) => {
                             return (
-                                <Link href='/games/1/'>
-                                    <Box
-                                        key={index}
-                                        sx={{
-                                            width: '172px',
-                                            height: '172px',
-                                            borderRadius: '11px',
-                                            backgroundImage: `url(${'/images/hopup.png'})`
-                                        }}
-                                    >
-                                        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 23 }}>
-                                            <Typography sx={{ fontSize: '18px', fontWeight: 700 }}>{index.title}</Typography>
-                                        </Box>
-                                        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                            <BadgeImages
-                                                backgroundColor='white'
-                                                size='large'
-                                                images1={'/images/dingdong.png' || playerImg1}
-                                                images2={'/images/wanita.png' || playerImg2}
-                                                images3={playerImg3}
-                                                total={index.person}
-                                            />
-                                        </Box>
+                                <Box
+                                    onClick={() => {
+                                        router.push(`/games/${item.id}`);
+                                    }}
+                                    key={item.id}
+                                    sx={{
+                                        width: '172px',
+                                        height: '172px',
+                                        borderRadius: '11px',
+                                        backgroundImage: `url(${'/images/hopup.png'})`
+                                    }}
+                                >
+                                    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 23 }}>
+                                        <Typography sx={{ fontSize: '18px', fontWeight: 700 }}>{item.title}</Typography>
                                     </Box>
-                                </Link>
+                                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                                        <BadgeImages
+                                            backgroundColor='white'
+                                            size='large'
+                                            images1={'/images/dingdong.png' || playerImg1}
+                                            images2={'/images/wanita.png' || playerImg2}
+                                            images3={playerImg3}
+                                            total={item.person}
+                                        />
+                                    </Box>
+                                </Box>
                             );
                         })}
                     </Stack>

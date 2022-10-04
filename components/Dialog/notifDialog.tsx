@@ -46,13 +46,20 @@ const RewardDialog: React.FC<RewardDialogProps> = ({ open, setOpenDialog, body }
                     </ButtonBase>
                 </Box>
                 <Box sx={{ mt: '20px' }}>
-                    <img src='/images/lg-points.png' alt='dialog-img' />
+                    {router.asPath.includes('/games') ? (
+                        <img src='/images/lg-coins.png' alt='dialog-img' />
+                    ) : (
+                        <img src='/images/lg-points.png' alt='dialog-img' />
+                    )}
                 </Box>
                 <Typography sx={{ fontWeight: 500, mt: '14px' }}>{body}</Typography>
                 <Box sx={{ mt: '30px', width: '100%' }}>
                     <Button
                         onClick={() => {
-                            router.push('/tournaments');
+                            if (router.asPath.includes('/games')) {
+                                return router.push('/topup');
+                            }
+                            return router.push('/tournaments');
                         }}
                         title='Show Tournaments'
                         border='1px solid #A54CE5'

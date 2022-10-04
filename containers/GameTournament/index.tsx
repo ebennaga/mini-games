@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material';
 import React from 'react';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useRouter } from 'next/router';
+import NotifDialog from 'components/Dialog/notifDialog';
 import Header from 'components/Header';
 import HeaderTournament from './HeaderTournament';
 import ButtonPlay from './ButtonPlay';
@@ -10,6 +11,9 @@ import TableRank from './TableRank';
 
 const GameTournament = () => {
     const router = useRouter();
+    const myCoins = 10;
+    const coins = 20;
+    const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
     const dataLeaderboard = [
         { image: '/icons/dummy/profile-2.png', username: 'rinto', point: 246000, prize: 2000 },
         { image: '/icons/dummy/profile.png', username: 'eben', point: 13200, prize: 1500 },
@@ -27,7 +31,7 @@ const GameTournament = () => {
 
     return (
         <Box width='100%'>
-            <Header isBack point={102343} profilePicture='/icons/dummy/profile-2.png' paddingX='20px' />
+            <Header isBack point={myCoins} profilePicture='/icons/dummy/profile-2.png' paddingX='20px' />
             <HeaderTournament
                 backgroundImage='/images/dummy/game-hopup.svg'
                 titleGame='Hop Up'
@@ -40,9 +44,14 @@ const GameTournament = () => {
             />
             <Box component='main' padding='20px' color='#373737'>
                 <ButtonPlay
-                    onClick={() => router.push(`/games/${router.query.id}/tournament/result`)}
+                    onClick={() => {
+                        if (myCoins < coins) {
+                            return setOpenNotifDialog(!openNotifDialog);
+                        }
+                        return router.push(`/games/${router.query.id}/tournament/result`);
+                    }}
                     title='Play Tournament'
-                    points={40}
+                    points={coins}
                 />
                 <Box component='section' padding='28px 0'>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '37px' }}>
@@ -57,6 +66,12 @@ const GameTournament = () => {
                     <TableRank dataLeaderboard={dataLeaderboard} />
                 </Box>
             </Box>
+            <NotifDialog
+                open={openNotifDialog}
+                setOpenDialog={setOpenNotifDialog}
+                body='You don’t have Coins in your balance. 
+Top up Coins to continue'
+            />
         </Box>
     );
 };
