@@ -16,7 +16,7 @@ import HomeSkeleton from './HomeSkeleton';
 
 const HomeContainer = () => {
     const router = useRouter();
-
+    const [borderValue, setBorderValue] = useState<string>('none');
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const form = useForm({
@@ -26,11 +26,29 @@ const HomeContainer = () => {
         }
     });
 
+    const handleScroll = () => {
+        if (window.scrollY === 0) {
+            return setBorderValue('none');
+        }
+        return setBorderValue('0.5px solid rgba(148, 148, 148, 0.35)');
+    };
+
+    useEffect(() => {
+        const watchScroll = () => {
+            window.addEventListener('scroll', handleScroll);
+        };
+        watchScroll();
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false);
         }, 3000);
     }, []);
+
     const handleSearch = (data: any) => {
         console.log(data);
     };
@@ -49,7 +67,8 @@ const HomeContainer = () => {
                     zIndex: 9999,
                     backgroundColor: 'white',
                     top: 0,
-                    paddingY: '25px'
+                    paddingY: '25px',
+                    borderBottom: borderValue
                 }}
             >
                 <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />

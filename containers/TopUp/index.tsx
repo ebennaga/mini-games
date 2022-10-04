@@ -9,6 +9,7 @@ import HeaderSkeleton from 'components/Header/HeaderSkeleton';
 const TopUp = () => {
     const router = useRouter();
     const [loading, setLoading] = useState(true);
+    const [borderValue, setBorderValue] = useState<string>('none');
     React.useEffect(() => {
         setTimeout(() => setLoading(false), 1000);
     }, []);
@@ -44,6 +45,22 @@ const TopUp = () => {
             type: 'join'
         }
     ];
+    const handleScroll = () => {
+        if (window.scrollY === 0) {
+            return setBorderValue('none');
+        }
+        return setBorderValue('0.5px solid rgba(148, 148, 148, 0.35)');
+    };
+
+    React.useEffect(() => {
+        const watchScroll = () => {
+            window.addEventListener('scroll', handleScroll);
+        };
+        watchScroll();
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
             {loading ? (
@@ -61,7 +78,8 @@ const TopUp = () => {
                         zIndex: 9999,
                         backgroundColor: 'white',
                         width: '-webkit-fill-available',
-                        top: 0
+                        top: 0,
+                        borderBottom: borderValue
                     }}
                 >
                     <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
@@ -142,7 +160,7 @@ const TopUp = () => {
                         spacing={{ xs: 1.5, sm: 15 }}
                         sx={{ mt: '10%' }}
                     >
-                        {cards.map((index: any) => {
+                        {cards.map((item: any, index: number) => {
                             return (
                                 <Box
                                     key={index}
@@ -157,7 +175,7 @@ const TopUp = () => {
                                 >
                                     <Box sx={{ mt: 2, ml: '65%' }}>
                                         <Typography sx={{ fontSize: '10px', fontWeight: 'bold', lineHeight: '10px', color: '#373737' }}>
-                                            {index.price}
+                                            {item.price}
                                         </Typography>
                                     </Box>
                                     <Box sx={{ mt: 4 }}>
@@ -171,7 +189,7 @@ const TopUp = () => {
                                     </Box>
                                     <Box sx={{ mt: -2, ml: 5 }}>
                                         <Typography sx={{ fontSize: '32px', fontWeight: 'bold', lineHeight: '10px', color: '#373737' }}>
-                                            {index.poin}
+                                            {item.poin}
                                         </Typography>
                                     </Box>
                                     <Box sx={{ ml: 2, mt: 1.5, alignItems: 'center' }}>
@@ -226,7 +244,7 @@ const TopUp = () => {
             {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'flex-start', ml: '20px' }}>
                     {[...Array(2)].map((_item: any, index: number) => {
-                        return <Skeleton variant='rectangular' width={160} height={30} />;
+                        return <Skeleton key={index} variant='rectangular' width={160} height={30} />;
                     })}
                 </Box>
             ) : (
@@ -267,7 +285,7 @@ const TopUp = () => {
             {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'flex-start', ml: '20px', mt: 2 }}>
                     {[...Array(2)].map((_item: any, index: number) => {
-                        return <Skeleton variant='rectangular' width={160} height={30} />;
+                        return <Skeleton key={index} variant='rectangular' width={160} height={30} />;
                     })}
                 </Box>
             ) : (
@@ -306,7 +324,7 @@ const TopUp = () => {
             {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'center', ml: '20px', mt: 2 }}>
                     {[...Array(1)].map((_item: any, index: number) => {
-                        return <Skeleton variant='rectangular' width={100} height={30} />;
+                        return <Skeleton key={index} variant='rectangular' width={100} height={30} />;
                     })}
                 </Box>
             ) : (
@@ -325,14 +343,16 @@ const TopUp = () => {
             {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'flex-start', ml: '20px', mt: 2 }}>
                     {[...Array(2)].map((_item: any, index: number) => {
-                        return <Skeleton variant='rectangular' width={160} height={30} />;
+                        return <Skeleton key={index} variant='rectangular' width={160} height={30} />;
                     })}
                 </Box>
             ) : (
                 <Box
+                    onClick={() => {
+                        router.push('/topup/support');
+                    }}
                     sx={{
                         mt: '20px',
-                        ml: '20px',
                         display: 'flex',
                         justifyContent: 'space-between',
                         mr: '18px',
@@ -360,14 +380,14 @@ const TopUp = () => {
             {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'flex-start', ml: '20px', mt: 2 }}>
                     {[...Array(2)].map((_item: any, index: number) => {
-                        return <Skeleton variant='rectangular' width={160} height={30} />;
+                        return <Skeleton key={index} variant='rectangular' width={160} height={30} />;
                     })}
                 </Box>
             ) : (
                 <Box
+                    onClick={() => {}}
                     sx={{
                         mt: '20px',
-                        ml: '20px',
                         display: 'flex',
                         justifyContent: 'space-between',
                         mr: '18px',

@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, Box } from '@mui/material';
 import RankCard from 'components/RankCard';
 import React from 'react';
 
@@ -37,7 +37,11 @@ const TableRank: React.FC<TableRankProps> = ({ dataLeaderboard }) => {
             </Grid>
             {sorting.map((item: any, index: number) => {
                 const rank = index + 4;
-                return <RankCard rank={rank} image={item.image} username={item.username} point={item.point} prize={item.prize} />;
+                return (
+                    <Box key={index}>
+                        <RankCard rank={rank} image={item.image} username={item.username} point={item.point} prize={item.prize} />
+                    </Box>
+                );
             })}
         </>
     );

@@ -14,12 +14,29 @@ const itemData = [
 
 const PrizeContainer = () => {
     const router = useRouter();
+    const [borderValue, setBorderValue] = React.useState<string>('none');
+    const handleScroll = () => {
+        if (window.scrollY === 0) {
+            return setBorderValue('none');
+        }
+        return setBorderValue('0.5px solid rgba(148, 148, 148, 0.35)');
+    };
+
+    React.useEffect(() => {
+        const watchScroll = () => {
+            window.addEventListener('scroll', handleScroll);
+        };
+        watchScroll();
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
     return (
         <Box sx={{ width: '100%' }}>
             <Box
-                padding='25px'
+                padding='20px'
                 sx={{
-                    borderBottom: '1px solid rgba(148, 148, 148, 0.35)',
+                    borderBottom: borderValue,
                     mb: 2,
                     position: 'sticky',
                     top: -1,

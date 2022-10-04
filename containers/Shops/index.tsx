@@ -19,10 +19,28 @@ const itemData = [
 
 const ShopsContainer = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [borderValue, setBorderValue] = useState<string>('none');
+    const router = useRouter();
     useEffect(() => {
         setTimeout(() => setIsLoading(false), 2000);
     }, []);
-    const router = useRouter();
+
+    const handleScroll = () => {
+        if (window.scrollY === 0) {
+            return setBorderValue('none');
+        }
+        return setBorderValue('0.5px solid rgba(148, 148, 148, 0.35)');
+    };
+
+    useEffect(() => {
+        const watchScroll = () => {
+            window.addEventListener('scroll', handleScroll);
+        };
+        watchScroll();
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     if (isLoading) {
         return <ShopsSkeleton />;
@@ -32,7 +50,7 @@ const ShopsContainer = () => {
             <Box
                 padding='25px'
                 sx={{
-                    borderBottom: '1px solid rgba(148, 148, 148, 0.35)',
+                    borderBottom: borderValue,
                     mb: 2,
                     position: 'sticky',
                     top: -1,

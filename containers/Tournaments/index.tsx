@@ -10,17 +10,46 @@ import TournamentsSkeleton from './TournamentsSkeleton';
 
 const Tournaments = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [borderValue, setBorderValue] = useState<string>('none');
     useEffect(() => {
         setTimeout(() => setIsLoading(false), 2000);
     }, []);
     const router = useRouter();
 
+    const handleScroll = () => {
+        if (window.scrollY === 0) {
+            return setBorderValue('none');
+        }
+        return setBorderValue('0.5px solid rgba(148, 148, 148, 0.35)');
+    };
+
+    useEffect(() => {
+        const watchScroll = () => {
+            window.addEventListener('scroll', handleScroll);
+        };
+        watchScroll();
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
     if (isLoading) {
         return <TournamentsSkeleton />;
     }
     return (
-        <Box sx={{ width: '-webkit-fill-available' }}>
-            <HeaderBack title='Tournaments' />
+        <Box sx={{ width: '100%' }}>
+            <Box
+                sx={{
+                    padding: '20px',
+                    borderBottom: borderValue,
+                    position: 'sticky',
+                    top: '20px',
+                    zIndex: 2,
+                    backgroundColor: 'white',
+                    width: '-webkit-fill-available'
+                }}
+            >
+                <HeaderBack title='Tournaments' />
+            </Box>
             <Box component='section' marginTop='45px'>
                 <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
                     <img src='/icons/wifi.svg' width='14px' height='18.5px' alt='attention' />
