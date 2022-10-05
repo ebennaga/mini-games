@@ -21,11 +21,13 @@ const SignUp = () => {
             confirmPassword: ''
         }
     });
+    const dataInput = form.watch();
+
     const rules = { required: true };
     const [changeInput, setChangeInput] = React.useState<boolean>(false);
     const [isSamePwd, setIsSamePwd] = React.useState<boolean>(true);
 
-    const { fetchAPI } = useAPICaller();
+    const { fetchAPI, isLoading } = useAPICaller();
     const notify = useNotify();
     const { setUser } = useAuthReducer();
 
@@ -99,7 +101,14 @@ const SignUp = () => {
                             )}
                         </Grid>
                         <Grid item xs={12} sx={{ mt: 3 }}>
-                            <Button title='Sign Up' backgoundColor='#A54CE5' color='#FFF' type='submit' />
+                            <Button
+                                title='Sign Up'
+                                backgoundColor='#A54CE5'
+                                color='#FFF'
+                                type='submit'
+                                loading={isLoading}
+                                disabled={!dataInput.email || dataInput.password.length < 8 || !isSamePwd}
+                            />
                         </Grid>
                     </Grid>
                 </form>
