@@ -1,6 +1,7 @@
 import { Box, Typography, Grid, ButtonBase, ImageList, ImageListItem } from '@mui/material';
 import { WatchLater } from '@mui/icons-material';
 import Button from 'components/Button/Index';
+import NavigationCard from 'components/NavigationCard';
 import Header from 'components/Header';
 import React, { useEffect, useState } from 'react';
 import ShopsSlider from 'components/ShopsSlider';
@@ -147,6 +148,16 @@ const ShopsContainer = () => {
                         </Grid>
                     </Grid>
                 </Grid>
+                <Box sx={{ padding: '0 24px', width: '100%', my: 2 }}>
+                    <NavigationCard
+                        isBorder
+                        icon='/icons/term.svg'
+                        title='Terms & Condition'
+                        onClick={() => {
+                            router.push('/terms-conditions');
+                        }}
+                    />
+                </Box>
                 <Box padding='0 20px' width='100%'>
                     <Grid
                         container
