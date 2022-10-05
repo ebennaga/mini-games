@@ -14,8 +14,20 @@ export const pageSlice = createSlice({
     }
 });
 
+// export const otpSlice = createSlice({
+//     name: 'otpdata',
+//     initialState: { otpData: null },
+//     reducers: {
+//         setOtpData(state: any, action: any) {
+//             console.log('action store', action.payload);
+//             state = action.payload;
+//         }
+//     }
+// });
+
 const combinedReducers = combineReducers({
     [pageSlice.name]: pageSlice.reducer
+    // [otpSlice.name]: otpSlice.reducer
 });
 
 const rootReducer = (state: any, action: any) => {
@@ -49,6 +61,8 @@ const makeStore = wrapMakeStore(() =>
 
 // eslint-disable-next-line no-use-before-define
 export const selectPage = (state: AppState) => state[pageSlice.name];
+// eslint-disable-next-line no-use-before-define
+// export const selectOtp = (state: AppState) => state[otpSlice.name];
 
 export type AppStore = ReturnType<typeof makeStore>;
 export type AppState = ReturnType<AppStore['getState']>;
