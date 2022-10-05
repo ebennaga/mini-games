@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Typography, Box, ButtonBase, Grid } from '@mui/material';
 import Layout from 'components/Layout/Index';
 import Input from 'components/Input/index';
@@ -6,6 +6,9 @@ import Button from 'components/Button/Index';
 import { useForm } from 'react-hook-form';
 import { Google, Facebook } from '@mui/icons-material';
 import { useRouter } from 'next/router';
+import useAPICaller from 'hooks/useAPICaller';
+import useNotify from 'hooks/useNotify';
+import useAuthReducer from 'hooks/useAuthReducer';
 
 const SignUp = () => {
     const router = useRouter();
@@ -20,9 +23,42 @@ const SignUp = () => {
     });
     const rules = { required: true };
     const [changeInput, setChangeInput] = React.useState<boolean>(false);
-    const handleSubmit = async () => {
-        router.push('/send-otp');
+    const [isSamePwd, setIsSamePwd] = React.useState<boolean>(true);
+
+    const { fetchAPI } = useAPICaller();
+    const notify = useNotify();
+    const { setUser } = useAuthReducer();
+
+    useEffect(() => {
+        const value = form.watch();
+        if (value.password.length >= 8) {
+            if (value.password === value.confirmPassword) {
+                setIsSamePwd(true);
+            } else {
+                setIsSamePwd(false);
+            }
+        }
+    }, [form.watch('password'), form.watch('confirmPassword')]);
+
+    const handleSubmit = async (data: any) => {
+        const response = await fetchAPI({
+            method: 'POST',
+            endpoint: 'accounts/register',
+            data: {
+                email: data.email,
+                password: data.password,
+                password_confirmation: data.confirmPassword
+            }
+        });
+        if (response.data.status) {
+            const registerData = { emailOtp: data.email };
+            setUser(registerData);
+            router.push('/send-otp');
+        } else {
+            notify('Signup Error', 'error');
+        }
     };
+
     return (
         <Layout backgoundColor='#FFF'>
             <Box sx={{ textAlign: 'start', width: '90%', margin: '20px' }}>
@@ -44,26 +80,26 @@ const SignUp = () => {
                             </Grid>
                         )}
                         <Grid item xs={12} sx={{ mt: 3 }}>
-                            <Input name='password' form={form} placeholder='Insert Your Password' validator={rules} type='password' />
-                        </Grid>
-                        <Grid item xs={12} sx={{ mt: 3 }}>
                             <Input
-                                name='confirmPassword'
+                                name='password'
                                 form={form}
-                                placeholder='Confirm Your Password'
-                                validator={rules}
+                                placeholder='Insert Your Password'
+                                validator={{ minLength: 8 }}
                                 type='password'
                             />
                         </Grid>
                         <Grid item xs={12} sx={{ mt: 3 }}>
-                            <Button
-                                title='Sign Up'
-                                backgoundColor='#A54CE5'
-                                color='#FFF'
-                                onClick={() => {
-                                    router.push('/send-otp');
-                                }}
-                            />
+                            <Input name='confirmPassword' form={form} placeholder='Confirm Your Password' type='password' />
+                            {!isSamePwd && (
+                                <Box mt={2}>
+                                    <Typography component='span' sx={{ color: '#CD1719', ml: '1em' }}>
+                                        Password and Confirm Password does not match
+                                    </Typography>
+                                </Box>
+                            )}
+                        </Grid>
+                        <Grid item xs={12} sx={{ mt: 3 }}>
+                            <Button title='Sign Up' backgoundColor='#A54CE5' color='#FFF' type='submit' />
                         </Grid>
                     </Grid>
                 </form>
