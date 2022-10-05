@@ -55,7 +55,7 @@ const Login = () => {
                             <Button title='Log in' backgoundColor='#A54CE5' color='#FFF' onClick={() => {}} />
                         </Box>
                     </form>
-                    <Box sx={{ textAlign: 'center', mt: 2, color: '#A54CE5' }}>
+                    {/* <Box sx={{ textAlign: 'center', mt: 2, color: '#A54CE5' }}>
                         <ButtonBase
                             onClick={() => {
                                 setChangeInput(!changeInput);
@@ -64,8 +64,8 @@ const Login = () => {
                         >
                             {!changeInput ? 'Log in with phone number' : 'Log in with email'}
                         </ButtonBase>
-                    </Box>
-                    <Box sx={{ mt: '75px', textAlign: 'center' }}>
+                    </Box> */}
+                    <Box sx={{ mt: '25px', textAlign: 'center' }}>
                         <Typography sx={{ color: '#949494', fontSize: '15px', mb: 2 }}>or you can:</Typography>
                         <Box sx={{ mb: 2 }}>
                             <Button
