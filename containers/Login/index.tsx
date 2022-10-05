@@ -94,7 +94,7 @@ const Login = () => {
                             {!changeInput ? 'Log in with phone number' : 'Log in with email'}
                         </ButtonBase>
                     </Box> */}
-                    <Box sx={{ mt: '75px', textAlign: 'center' }}>
+                    <Box sx={{ mt: '25px', textAlign: 'center' }}>
                         <Typography sx={{ color: '#949494', fontSize: '15px', mb: 2 }}>or you can:</Typography>
                         <Box sx={{ mb: 2 }}>
                             <Button
