@@ -24,7 +24,7 @@ const Login = () => {
 
     const rules = { required: true };
     // eslint-disable-next-line no-unused-vars
-    const [changeInput, setChangeInput] = React.useState<boolean>(true);
+    const [changeInput, setChangeInput] = React.useState<boolean>(false);
 
     const { fetchAPI, isLoading } = useAPICaller();
     const { setUser } = useAuthReducer();
