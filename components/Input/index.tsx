@@ -30,6 +30,8 @@ const Input: React.FC<InputProps> = ({ name, form, placeholder, validator, color
         helperText = `${placeholder} - exceed maximum length`;
     } else if (errType === 'required') {
         helperText = `${placeholder} - is required`;
+    } else if (errType === 'minLength') {
+        helperText = type === 'password' ? `Password minimum 8 characters` : `${placeholder} - exceed minimum length`;
     }
     if (error?.message) {
         helperText = `${placeholder} - ${error.message}`;
