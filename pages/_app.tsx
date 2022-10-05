@@ -23,6 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </ThemeProvider>
     );
 }
+
 MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ ctx, Component }: any) => {
     let pageProps: any = { protectedRoute: false };
 
@@ -35,23 +36,23 @@ MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ ctx, Comp
                 // On the server, we'll use an HTTP response to
                 // redirect with the status code of our choice.
                 // 307 is for temporary redirects.
-                ctx.res.writeHead(302, { Location: '/sign-in' });
+                ctx.res.writeHead(302, { Location: '/login' });
                 ctx.res.end();
             } else {
                 // On the client, we'll use the Router-object
                 // from the 'next/router' module.
-                Router.push('/sign-in');
+                Router.push('/login');
             }
         }
     }
 
-    // if sign-in page && userData
-    if (ctx.pathname === '/sign-in' && userData) {
+    // if login page && userData
+    if (ctx.pathname === '/login' && userData) {
         if (ctx.res) {
-            ctx.res.writeHead(302, { Location: '/games' });
+            ctx.res.writeHead(302, { Location: '/home' });
             ctx.res.end();
         } else {
-            Router.push('/games');
+            Router.push('/home');
         }
     }
 

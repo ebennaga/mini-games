@@ -1,21 +1,37 @@
 import { Box, Typography } from '@mui/material';
-import ButtonLanding from 'components/Button/Index';
+import Button from 'components/Button/Index';
 import Input from 'components/Input';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
+import useAPICaller from 'hooks/useAPICaller';
+// import { useSelector } from 'react-redux';
+// import useAuthReducer from 'hooks/useAuthReducer';
 
 const SendOtp = () => {
-    const router = useRouter();
+    // const userState = useSelector((state: any) => state.webpage?.user?.user);
+    const userState = { email: 'pesimov754@canyona.com' };
+    const { isLoading, fetchAPI } = useAPICaller();
+    // const { setUser } = useAuthReducer();
+    // const router = useRouter();
     const form = useForm({
         mode: 'all',
         defaultValues: {
             otp: ''
         }
     });
-    const handleSubmit = async () => {
-        // e.preventDefault();
-        router.push('/home');
+    const handleSubmit = async (data: any, e: any) => {
+        e.preventDefault();
+        const response = await fetchAPI({
+            method: 'POST',
+            endpoint: 'accounts/register/otp',
+            data: {
+                email: userState.email,
+                otp_token: data.otp
+            }
+        });
+        console.log(response);
+        // router.push('/home');
     };
 
     return (
@@ -32,7 +48,7 @@ const SendOtp = () => {
                     <Input name='otp' form={form} placeholder='Insert OTP Number' validator={{ require }} type='number' />
                 </Box>
                 <Box sx={{ width: '100%', margin: 'auto', paddingTop: 3 }}>
-                    <ButtonLanding title='Confirm' backgoundColor='#A54CE5' color='#fff' />
+                    <Button loading={isLoading} disabled={isLoading} title='Confirm' backgoundColor='#A54CE5' color='#fff' />
                 </Box>
             </form>
         </Box>
