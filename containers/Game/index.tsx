@@ -5,6 +5,9 @@ import React, { useState } from 'react';
 import { Box, Typography, Stack, Skeleton, Grid } from '@mui/material';
 import BadgeImages from 'components/BadgeImages';
 import HeaderSkeleton from 'components/Header/HeaderSkeleton';
+import useAPICaller from 'hooks/useAPICaller';
+import useNotify from 'hooks/useNotify';
+import { Mms } from '@mui/icons-material';
 
 interface GameProps {
     playerImg1: string;
@@ -18,6 +21,9 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
     const [loading, setLoading] = useState(true);
     const [borderValue, setBorderValue] = useState<string>('none');
     const router = useRouter();
+    const notify = useNotify();
+    const [listingGame, setListingGame] = React.useState<any>(null);
+    const { fetchAPI } = useAPICaller();
     React.useEffect(() => {
         setTimeout(() => setLoading(false), 3000);
     }, []);
@@ -27,6 +33,25 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
         }
         return setBorderValue('0.5px solid rgba(148, 148, 148, 0.35)');
     };
+
+    const fetchData = async () => {
+        try {
+            const res = await fetchAPI({
+                endpoint: '/games/home',
+                method: 'GET'
+            });
+            console.log('res game', res);
+            if (res.data?.data?.data) {
+                setListingGame(res.data.data);
+            }
+        } catch (e) {
+            notify('failed data', 'e');
+        }
+    };
+
+    React.useEffect(() => {
+        fetchData();
+    }, []);
 
     React.useEffect(() => {
         const watchScroll = () => {
