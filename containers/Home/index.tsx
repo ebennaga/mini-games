@@ -16,7 +16,7 @@ import TournamentCard from './TournamentCard';
 import HomeSkeleton from './HomeSkeleton';
 
 const HomeContainer = () => {
-    const userData = useSelector((state: any) => state.webpage?.user?.user);
+    const userData = useSelector((state: any) => state.webpage?.user.user);
     const router = useRouter();
     const [borderValue, setBorderValue] = useState<string>('none');
     const [isLoading, setIsLoading] = useState<boolean>(true);

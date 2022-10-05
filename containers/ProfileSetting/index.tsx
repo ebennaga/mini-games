@@ -41,7 +41,6 @@ const ProfileSetting = () => {
 
     const handleSignOut = () => {
         clearUser();
-        console.log('logout');
         router.push('/login');
     };
     const handleDelete = () => router.push('/signup');

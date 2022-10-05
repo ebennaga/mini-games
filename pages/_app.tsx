@@ -38,7 +38,7 @@ MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ ctx, Comp
     let pageProps: any = { protectedRoute: false };
 
     const reduxState = store.getState();
-    const userData = reduxState?.webpage?.user;
+    const userData = reduxState?.webpage?.user.token;
     if (Component?.getPageProps) {
         pageProps = await Component?.getPageProps(ctx);
         if (!userData && pageProps?.protectedRoute) {
