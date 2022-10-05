@@ -1,6 +1,7 @@
 import { Box, ButtonBase, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Header from 'components/Header';
+import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import TournamentSlider from 'components/TournamentSlider';
 import { useForm } from 'react-hook-form';
@@ -15,6 +16,7 @@ import TournamentCard from './TournamentCard';
 import HomeSkeleton from './HomeSkeleton';
 
 const HomeContainer = () => {
+    const userData = useSelector((state: any) => state.webpage?.user.user);
     const router = useRouter();
     const [borderValue, setBorderValue] = useState<string>('none');
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -52,7 +54,7 @@ const HomeContainer = () => {
     const handleSearch = (data: any) => {
         console.log(data);
     };
-
+    console.log(userData);
     const isNotif = true;
 
     if (isLoading) {
