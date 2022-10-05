@@ -33,6 +33,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </SnackbarProvider>
     );
 }
+
 MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ ctx, Component }: any) => {
     let pageProps: any = { protectedRoute: false };
 
@@ -55,7 +56,7 @@ MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ ctx, Comp
         }
     }
 
-    // if sign-in page && userData
+    // if login page && userData
     if (ctx.pathname === '/login' && userData) {
         if (ctx.res) {
             ctx.res.writeHead(302, { Location: '/home' });
