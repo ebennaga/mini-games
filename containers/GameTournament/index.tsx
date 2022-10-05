@@ -43,16 +43,6 @@ const GameTournament = () => {
                 playerImg3='/icons/dummy/user-2.png'
             />
             <Box component='main' padding='20px' color='#373737'>
-                <ButtonPlay
-                    onClick={() => {
-                        if (myCoins < coins) {
-                            return setOpenNotifDialog(!openNotifDialog);
-                        }
-                        return router.push(`/games/${router.query.id}/tournament/result`);
-                    }}
-                    title='Play Tournament'
-                    points={coins}
-                />
                 <Box component='section' padding='28px 0'>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '37px' }}>
                         <Typography component='h2' fontSize='24px' fontWeight={700}>
@@ -65,6 +55,18 @@ const GameTournament = () => {
                 <Box component='section' marginBottom='40px'>
                     <TableRank dataLeaderboard={dataLeaderboard} />
                 </Box>
+            </Box>
+            <Box sx={{ padding: '20px', position: 'sticky', bottom: '10px' }}>
+                <ButtonPlay
+                    onClick={() => {
+                        if (myCoins < coins) {
+                            return setOpenNotifDialog(!openNotifDialog);
+                        }
+                        return router.push(`/games/${router.query.id}/tournament/result`);
+                    }}
+                    title='Play Tournament'
+                    points={coins}
+                />
             </Box>
             <NotifDialog
                 open={openNotifDialog}
