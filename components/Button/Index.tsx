@@ -33,6 +33,11 @@ const ButtonLanding: React.FC<ButtonProps> = ({
             startIcon={icon}
             onClick={onClick}
             sx={{
+                '&:disabled': {
+                    backgroundColor: '#949494',
+                    color: 'white',
+                    border: 'none'
+                },
                 textTransform: 'none',
                 position: 'relative',
                 border,
