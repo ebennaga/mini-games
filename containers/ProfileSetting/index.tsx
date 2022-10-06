@@ -5,8 +5,10 @@ import SwitchCard from 'components/SwitchCard';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import useAuthReducer from 'hooks/useAuthReducer';
 
 const ProfileSetting = () => {
+    const { clearUser } = useAuthReducer();
     const router = useRouter();
 
     const form = useForm({
@@ -38,6 +40,7 @@ const ProfileSetting = () => {
     };
 
     const handleSignOut = () => {
+        clearUser();
         router.push('/login');
     };
     const handleDelete = () => router.push('/signup');

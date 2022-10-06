@@ -1,11 +1,22 @@
+/* eslint-disable consistent-return */
 import { Box, Typography } from '@mui/material';
-import ButtonLanding from 'components/Button/Index';
+import Button from 'components/Button/Index';
 import Input from 'components/Input';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import useAPICaller from 'hooks/useAPICaller';
+import useNotify from 'hooks/useNotify';
+// import { useSelector } from 'react-redux';
+// import useAuthReducer from 'hooks/useAuthReducer';
 
 const SendOtp = () => {
+    // const userState = useSelector((state: any) => state.webpage?.user?.user);
+    const userState = { email: 'pesimov754@canyona.com' };
+    const tempOTP = '123456';
+    const { isLoading, fetchAPI } = useAPICaller();
+    const notfiy = useNotify();
+    // const { setUser } = useAuthReducer();
     const router = useRouter();
     const form = useForm({
         mode: 'all',
@@ -13,9 +24,23 @@ const SendOtp = () => {
             otp: ''
         }
     });
-    const handleSubmit = async () => {
-        // e.preventDefault();
-        router.push('/home');
+    const handleSubmit = async (data: any, e: any) => {
+        e.preventDefault();
+        const response = await fetchAPI({
+            method: 'POST',
+            endpoint: 'accounts/register/otp',
+            data: {
+                email: userState.email,
+                otp_token: data.otp
+            }
+        });
+        if (tempOTP !== data.otp) {
+            return notfiy('OTP Doesn`t match!', 'error');
+        }
+        if (response.status === 200) {
+            return router.push('/home');
+        }
+        // router.push('/home');
     };
 
     return (
@@ -32,7 +57,7 @@ const SendOtp = () => {
                     <Input name='otp' form={form} placeholder='Insert OTP Number' validator={{ require }} type='number' />
                 </Box>
                 <Box sx={{ width: '100%', margin: 'auto', paddingTop: 3 }}>
-                    <ButtonLanding title='Confirm' backgoundColor='#A54CE5' color='#fff' />
+                    <Button loading={isLoading} disabled={isLoading} title='Confirm' backgoundColor='#A54CE5' color='#fff' />
                 </Box>
             </form>
         </Box>

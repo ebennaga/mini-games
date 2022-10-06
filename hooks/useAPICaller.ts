@@ -52,8 +52,6 @@ const useAPICaller = () => {
             params: config.params ? config.params : undefined,
             headers: config.headers ? config.headers : undefined
         };
-
-        console.log('config', apiConfig);
         return axiosService(apiConfig);
     };
 

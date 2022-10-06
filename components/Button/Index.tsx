@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 
 interface ButtonProps {
     title: any;
@@ -11,6 +11,7 @@ interface ButtonProps {
     height?: string;
     disabled?: boolean;
     type?: 'button' | 'submit' | 'reset';
+    loading?: boolean;
 }
 
 const ButtonLanding: React.FC<ButtonProps> = ({
@@ -22,7 +23,8 @@ const ButtonLanding: React.FC<ButtonProps> = ({
     color,
     border = 'none',
     onClick,
-    type = 'submit'
+    type = 'submit',
+    loading = false
 }) => {
     return (
         <Button
@@ -49,7 +51,7 @@ const ButtonLanding: React.FC<ButtonProps> = ({
             }}
             variant='outlined'
         >
-            {title}
+            {loading ? <CircularProgress sx={{ color: 'white' }} /> : title}
         </Button>
     );
 };

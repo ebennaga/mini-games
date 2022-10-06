@@ -1,9 +1,12 @@
+/* eslint-disable no-unused-vars */
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useRouter } from 'next/router';
 import NotifDialog from 'components/Dialog/notifDialog';
 import Header from 'components/Header';
+import useAPICaller from 'hooks/useAPICaller';
+import useNotify from 'hooks/useNotify';
 import HeaderTournament from './HeaderTournament';
 import ButtonPlay from './ButtonPlay';
 import LeaderboardPodium from './LeaderboardPodium';
@@ -13,6 +16,9 @@ const GameTournament = () => {
     const router = useRouter();
     const myCoins = 10;
     const coins = 20;
+    const notify = useNotify();
+    const [listingGame, setListingGame] = React.useState<any>(null);
+    const { fetchAPI } = useAPICaller();
     const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
     const dataLeaderboard = [
         { image: '/icons/dummy/profile-2.png', username: 'rinto', point: 246000, prize: 2000 },
@@ -28,6 +34,24 @@ const GameTournament = () => {
         { image: '/icons/dummy/profile.png', username: 'yanto', point: 132, prize: 150 },
         { image: '/icons/dummy/profile-3.png', username: 'beban', point: 10, prize: 10 }
     ];
+    const fetchData = async (id: number) => {
+        try {
+            const res = await fetchAPI({
+                endpoint: `/tournamets/${id}`,
+                method: 'GET'
+            });
+            console.log('res tournament', res);
+            if (res.data?.data?.data) {
+                setListingGame(res.data.data);
+            }
+        } catch (e) {
+            notify('failed data', 'e');
+        }
+    };
+
+    React.useEffect(() => {
+        fetchData(listingGame);
+    }, []);
 
     return (
         <Box width='100%'>

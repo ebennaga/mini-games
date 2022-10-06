@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Box, ButtonBase, Grid, Typography } from '@mui/material';
 import React from 'react';
 import Header from 'components/Header';
@@ -6,10 +7,33 @@ import Button from 'components/Button/Index';
 import TournamentCard from 'components/TournamentCard';
 import TournamentSlider from 'components/TournamentSlider/TournamentSliderGD';
 import { useRouter } from 'next/router';
+import useAPICaller from 'hooks/useAPICaller';
+import useNotify from 'hooks/useNotify';
 
 const GameDetailContainer = () => {
     const isBack = true;
     const router = useRouter();
+    const { fetchAPI } = useAPICaller();
+    const notify = useNotify();
+    const [listingGame, setListingGame] = React.useState<any>(null);
+    const fetchData = async (id: number) => {
+        try {
+            const res = await fetchAPI({
+                endpoint: `/games/${id}`,
+                method: 'GET'
+            });
+            console.log('res game detail', res);
+            if (res.data?.data?.data) {
+                setListingGame(res.data.data);
+            }
+        } catch (e) {
+            notify('failed data', 'e');
+        }
+    };
+
+    React.useEffect(() => {
+        fetchData(listingGame);
+    }, []);
     const handleClick = async () => {
         router.push(`/games/${router.query.id}/tournament`);
     };

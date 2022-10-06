@@ -1,11 +1,15 @@
+/* eslint-disable no-unused-vars */
 import { Box, ButtonBase, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Header from 'components/Header';
+import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import TournamentSlider from 'components/TournamentSlider';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import InfoCard from 'components/InfoCard';
+import useAPICaller from 'hooks/useAPICaller';
+import useNotify from 'hooks/useNotify';
 import Search from './Search';
 import Mission from './Mission';
 import GamesCard from './GamesCard';
@@ -15,9 +19,13 @@ import TournamentCard from './TournamentCard';
 import HomeSkeleton from './HomeSkeleton';
 
 const HomeContainer = () => {
+    const userData = useSelector((state: any) => state.webpage?.user.user);
     const router = useRouter();
     const [borderValue, setBorderValue] = useState<string>('none');
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const notify = useNotify();
+    const [listingGame, setListingGame] = React.useState<any>(null);
+    const { fetchAPI } = useAPICaller();
 
     const form = useForm({
         mode: 'all',
@@ -25,6 +33,24 @@ const HomeContainer = () => {
             search: ''
         }
     });
+    const fetchData = async () => {
+        try {
+            const res = await fetchAPI({
+                endpoint: '/home/feeds',
+                method: 'GET'
+            });
+            console.log('res', res);
+            if (res.data?.data?.data) {
+                setListingGame(res.data.data);
+            }
+        } catch (e) {
+            notify('failed data', 'e');
+        }
+    };
+
+    React.useEffect(() => {
+        fetchData();
+    }, []);
 
     const handleScroll = () => {
         if (window.scrollY === 0) {
@@ -52,7 +78,7 @@ const HomeContainer = () => {
     const handleSearch = (data: any) => {
         console.log(data);
     };
-
+    console.log(userData);
     const isNotif = true;
 
     if (isLoading) {
