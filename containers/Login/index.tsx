@@ -7,6 +7,9 @@ import Button from 'components/Button/Index';
 import { useForm } from 'react-hook-form';
 import { Google, Facebook } from '@mui/icons-material';
 import { useRouter } from 'next/router';
+import useAPICaller from 'hooks/useAPICaller';
+import useAuthReducer from 'hooks/useAuthReducer';
+import useNotify from 'hooks/useNotify';
 
 const Login = () => {
     const router = useRouter();
@@ -18,12 +21,31 @@ const Login = () => {
             password: ''
         }
     });
+    const dataInput = form.watch();
+
     const rules = { required: true };
+    // eslint-disable-next-line no-unused-vars
     const [changeInput, setChangeInput] = React.useState<boolean>(false);
 
-    const handleSubmit = (data: any) => {
-        console.log(data);
-        router.push('/home');
+    const { fetchAPI, isLoading } = useAPICaller();
+    const { setUser } = useAuthReducer();
+    const notify = useNotify();
+
+    const handleSubmit = async (data: any) => {
+        const response = await fetchAPI({
+            method: 'POST',
+            endpoint: 'accounts/login',
+            data: {
+                email: data.email,
+                password: data.password
+            }
+        });
+        if (response.status === 200) {
+            setUser(response.data.data);
+            router.push('/home');
+        } else {
+            notify('Login Failed', 'error');
+        }
     };
 
     return (
@@ -53,7 +75,14 @@ const Login = () => {
                             <ButtonBase sx={{ fontWeight: 'bold' }}>Forgot Password</ButtonBase>
                         </Box>
                         <Box sx={{ mt: 3 }}>
-                            <Button title='Log in' backgoundColor='#A54CE5' color='#FFF' onClick={() => {}} />
+                            <Button
+                                title='Log in'
+                                backgoundColor='#A54CE5'
+                                color='#FFF'
+                                type='submit'
+                                loading={isLoading}
+                                disabled={!dataInput.email || !dataInput.password}
+                            />
                         </Box>
                     </form>
                     {/* <Box sx={{ textAlign: 'center', mt: 2, color: '#A54CE5' }}>
