@@ -7,7 +7,7 @@ interface TableRankProps {
 }
 
 const TableRank: React.FC<TableRankProps> = ({ dataLeaderboard }) => {
-    const sorting = dataLeaderboard && dataLeaderboard.sort((a: any, b: any) => b.point - a.point).slice(3, dataLeaderboard.length);
+    const sorting = dataLeaderboard && dataLeaderboard.filter((item: any) => item.position > 3);
 
     return (
         <>
@@ -39,7 +39,13 @@ const TableRank: React.FC<TableRankProps> = ({ dataLeaderboard }) => {
                 const rank = index + 4;
                 return (
                     <Box key={index}>
-                        <RankCard rank={rank} image={item.image} username={item.username} point={item.point} prize={item.prize} />
+                        <RankCard
+                            rank={rank}
+                            image={item.image}
+                            username={item.user.username}
+                            point={item.user.point_prize}
+                            prize={item.user.total_score}
+                        />
                     </Box>
                 );
             })}

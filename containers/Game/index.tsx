@@ -40,7 +40,7 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
                 endpoint: '/games/home',
                 method: 'GET'
             });
-            console.log('res game', res);
+
             if (res.data?.data?.data) {
                 setListingGame(res.data.data);
             }
