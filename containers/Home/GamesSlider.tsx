@@ -5,9 +5,10 @@ import Slider from 'react-slick';
 interface GamesSliderProps {
     children: any;
     customMaxWidth?: string;
+    data: any;
 }
 
-const GamesSlider: React.FC<GamesSliderProps> = ({ children, customMaxWidth }) => {
+const GamesSlider: React.FC<GamesSliderProps> = ({ children, customMaxWidth, data }) => {
     const settings = {
         dots: false,
         infinite: true,
@@ -15,9 +16,13 @@ const GamesSlider: React.FC<GamesSliderProps> = ({ children, customMaxWidth }) =
         slidesToShow: 3,
         swipeToSlide: true
     };
+
     return (
         <Box
             sx={{
+                '.slick-track': {
+                    display: data.length > 3 ? 'block' : 'flex'
+                },
                 '& .slick-slider': { maxWidth: customMaxWidth || '110vw', width: '100%' },
                 '& .slick-arrow': { display: 'none' },
                 '& .slick-slide.slick-active': {

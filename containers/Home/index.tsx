@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import InfoCard from 'components/InfoCard';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
+import getRemainingTimes from 'helper/getRemainingTime';
 import Search from './Search';
 import Mission from './Mission';
 import GamesCard from './GamesCard';
@@ -24,7 +25,7 @@ const HomeContainer = () => {
     const [borderValue, setBorderValue] = useState<string>('none');
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const notify = useNotify();
-    const [listingGame, setListingGame] = React.useState<any>(null);
+    const [datasHome, setDatasHome] = React.useState<any>(null);
     const { fetchAPI } = useAPICaller();
 
     const form = useForm({
@@ -39,9 +40,8 @@ const HomeContainer = () => {
                 endpoint: '/home/feeds',
                 method: 'GET'
             });
-            console.log('res', res);
-            if (res.data?.data?.data) {
-                setListingGame(res.data.data);
+            if (res.status === 200) {
+                setDatasHome(res.data.data);
             }
         } catch (e) {
             notify('failed data', 'e');
@@ -78,7 +78,6 @@ const HomeContainer = () => {
     const handleSearch = (data: any) => {
         console.log(data);
     };
-    console.log(userData);
     const isNotif = true;
 
     if (isLoading) {
@@ -118,18 +117,24 @@ const HomeContainer = () => {
                     <img src='/icons/message.svg' width='36px' height='30px' alt='inbox' />
                 </ButtonBase>
             </Box>
-            <EventCarousel customMaxWidth='91vw' />
+            <EventCarousel customMaxWidth='91vw' data={datasHome?.banners} />
             <Mission />
             <Box sx={{ marginTop: '32px' }}>
                 <Typography variant='h6' fontWeight='bold' component='h2'>
                     Games
                 </Typography>
-                <GamesSlider customMaxWidth='91vw'>
-                    <GamesCard href='/games/1' image='/icons/dummy/main-ikan.png' title='Main Ikan' totalUser={46_000} />
-                    <GamesCard href='/games/2' image='/icons/dummy/piano.png' title='Piano Tiles' totalUser={46_000} />
-                    <GamesCard href='/games/3' image='/icons/dummy/menara.png' title='Menara Dingdong' totalUser={46_000} />
-                    <GamesCard href='/games/4' image='/icons/dummy/main-ikan.png' title='Main Ikan' totalUser={46_000} />
-                    <GamesCard href='/games/5' image='/icons/dummy/menara.png' title='Menara Dingdong' totalUser={46_000} />
+                <GamesSlider customMaxWidth='91vw' data={datasHome?.games}>
+                    {datasHome.games.map((item: any) => {
+                        return (
+                            <GamesCard
+                                key={item.id}
+                                href={item.game_url}
+                                image={item.banner_url}
+                                title={item.name}
+                                totalUser={item.user_sessions}
+                            />
+                        );
+                    })}
                 </GamesSlider>
             </Box>
             <Box sx={{ mt: '36px' }}>
@@ -147,21 +152,20 @@ const HomeContainer = () => {
                 {/* Tournament Card Start */}
 
                 <TournamentSlider customMaxWidth='91vw'>
-                    {[...Array(5)].map((_item: any, index: number) => {
+                    {datasHome.tournaments.map((item: any, index: number) => {
                         return (
-                            <Box key={index}>
-                                <TournamentCard
-                                    image='/icons/dummy/menara.png'
-                                    onClick={() => router.push(`/games/${index + 1}/tournament`)}
-                                    totalUser={376}
-                                    rank={index + 1}
-                                    prize={3.25}
-                                    prizePool={35000}
-                                    totalMedal={250}
-                                    point={30}
-                                    time='6d 13h 23m'
-                                />
-                            </Box>
+                            <TournamentCard
+                                key={item.id}
+                                image={item.banner_url}
+                                imageGame={item.game.banner_url}
+                                onClick={() => router.push(`/games/${item.game.id}/tournament`)}
+                                totalUser={item.total_users}
+                                prizePool={item.total_price}
+                                point={item.entry_coin}
+                                // time='6d 13h 23m'
+                                time={item.start_time}
+                                dataLength={datasHome?.tournaments.length}
+                            />
                         );
                     })}
                 </TournamentSlider>
