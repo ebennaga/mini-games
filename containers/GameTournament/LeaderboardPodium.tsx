@@ -7,12 +7,16 @@ interface LeaderboardPodiumProps {
 }
 
 const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }) => {
-    const sorting = dataLeaderboard && dataLeaderboard.sort((a: any, b: any) => b.point - a.point).slice(0, 3);
+    // const sorting = dataLeaderboard && dataLeaderboard.sort((a: any, b: any) => b.point - a.point).slice(0, 3);
 
     return (
         <Grid container alignItems='end'>
             <Grid item xs={4} sx={{ overflow: 'hidden', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                <LeaderboardUser image={sorting[1].image} username={sorting[1].username} point={sorting[1].point} />
+                <LeaderboardUser
+                    image={dataLeaderboard[1].image}
+                    username={dataLeaderboard[1].user.username}
+                    point={dataLeaderboard[1].user.point_prize}
+                />
                 <Box sx={{ width: '100%' }}>
                     <Box
                         sx={{
@@ -35,7 +39,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                         <Box sx={{ display: 'flex', alignItems: 'center', alignSelf: 'end', marginRight: '9px', marginTop: '9px' }}>
                             <img src='/icons/point.svg' width='21px' height='22px' alt='prize' />
                             <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
-                                {sorting[1].prize}
+                                {dataLeaderboard[1].user.total_score}
                             </Typography>
                         </Box>
                         <Typography
@@ -51,7 +55,11 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                 </Box>
             </Grid>
             <Grid item xs={4} sx={{ overflow: 'hidden', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                <LeaderboardUser image={sorting[0].image} username={sorting[0].username} point={sorting[0].point} />
+                <LeaderboardUser
+                    image={dataLeaderboard[0].image}
+                    username={dataLeaderboard[0].user.username}
+                    point={dataLeaderboard[0].user.point_prize}
+                />
                 <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <Box
                         sx={{
@@ -74,7 +82,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                         <Box sx={{ display: 'flex', alignItems: 'center', alignSelf: 'end', marginRight: '9px', marginTop: '9px' }}>
                             <img src='/icons/point.svg' width='21px' height='22px' alt='prize' />
                             <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
-                                {sorting[0].prize}
+                                {dataLeaderboard[0].user.total_score}
                             </Typography>
                         </Box>
                         <Typography
@@ -90,7 +98,11 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                 </Box>
             </Grid>
             <Grid item xs={4} sx={{ overflow: 'hidden', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                <LeaderboardUser image={sorting[2].image} username={sorting[2].username} point={sorting[2].point} />
+                <LeaderboardUser
+                    image={dataLeaderboard[2].image}
+                    username={dataLeaderboard[2].user.username}
+                    point={dataLeaderboard[2].user.point_prize}
+                />
                 <Box sx={{ width: '100%' }}>
                     <Box
                         sx={{
@@ -113,7 +125,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                         <Box sx={{ display: 'flex', alignItems: 'center', alignSelf: 'end', marginRight: '9px', marginTop: '9px' }}>
                             <img src='/icons/point.svg' width='21px' height='22px' alt='prize' />
                             <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
-                                {sorting[2].prize}
+                                {dataLeaderboard[2].user.total_score}
                             </Typography>
                         </Box>
                         <Typography
