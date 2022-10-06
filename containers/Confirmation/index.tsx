@@ -1,10 +1,10 @@
 import { Box, Divider, Grid, Typography, TextField } from '@mui/material';
 import React from 'react';
 import Header from 'components/Header';
-import Paragraph from 'components/Paragraph';
 import Button from 'components/Button/Index';
 import { useForm, Controller } from 'react-hook-form';
 import RewardDialog from 'components/Dialog/RewardDialog';
+import ConfirmSkeleton from './ConfirmationSkeleton';
 
 interface TextFieldProps {
     form: any;
@@ -57,6 +57,8 @@ const PrizeConfirmationContainer = () => {
     });
     const [openDialog, setOpenDialog] = React.useState<boolean>(false);
     const [borderValue, setBorderValue] = React.useState<string>('none');
+    const [isLoading, setIsLoading] = React.useState<boolean>(true);
+
     const handleScroll = () => {
         if (window.scrollY === 0) {
             return setBorderValue('none');
@@ -73,6 +75,16 @@ const PrizeConfirmationContainer = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
+    React.useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
+    }, []);
+
+    if (isLoading) {
+        return <ConfirmSkeleton />;
+    }
     return (
         <Box sx={{ width: '100%', pb: '20px' }}>
             <Box
@@ -117,19 +129,7 @@ const PrizeConfirmationContainer = () => {
             </Box>
             <Divider sx={{ my: 3 }} />
             <Box padding='0 20px'>
-                <Paragraph
-                    title='Lorem Ipsum'
-                    paragraph='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                />
-                <Paragraph
-                    title='Description'
-                    paragraph='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                />
-                <Paragraph
-                    title='Lorem Ipsum'
-                    paragraph='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                />
-                <Box sx={{ mt: '70px', position: 'relative', zIndex: 0 }}>
+                <Box sx={{ mt: '30px', position: 'relative', zIndex: 0 }}>
                     <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
                         Address
                     </Typography>

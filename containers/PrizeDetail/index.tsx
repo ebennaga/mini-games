@@ -7,12 +7,13 @@ import Paragraph from 'components/Paragraph';
 import NotifDialog from 'components/Dialog/notifDialog';
 import AgeConfirmationDialog from 'components/Dialog/AgeConfirmationDialog';
 import { useForm } from 'react-hook-form';
+import PrizeSkeletonDetail from './PrizeDetailSkeleton';
 
 const PrizeDetailContainer = () => {
     const [isFavorite, setIsFavorite] = React.useState<boolean>(false);
     const [open, setOpen] = React.useState<boolean>(false);
     const [dialogConfirm, setDialogConfirm] = React.useState<boolean>(false);
-
+    const [isLoading, setIsLoading] = React.useState<boolean>(true);
     const form = useForm({
         mode: 'all',
         defaultValues: {
@@ -47,6 +48,16 @@ const PrizeDetailContainer = () => {
         }
         return setDialogConfirm(true);
     };
+
+    React.useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
+    }, []);
+
+    if (isLoading) {
+        return <PrizeSkeletonDetail />;
+    }
 
     return (
         <Box sx={{ width: '100%' }}>

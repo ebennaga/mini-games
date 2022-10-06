@@ -43,7 +43,6 @@ const Header: React.FC<HeaderProps> = ({
                 endpoint: 'accounts',
                 method: 'GET'
             });
-            console.log(result);
             if (result?.data?.data) {
                 setUserData(result.data.data);
             }
@@ -55,7 +54,7 @@ const Header: React.FC<HeaderProps> = ({
     React.useEffect(() => {
         fetchData();
     }, []);
-    console.log(router);
+
     return (
         <Box
             sx={{
@@ -121,7 +120,7 @@ const Header: React.FC<HeaderProps> = ({
                             className={classes.pointText}
                             sx={{ fontWeight: 'bold', fontSize: '14px', color: '#373737' }}
                         >
-                            {numberFormat(router.pathname.includes('/shops') ? userData?.point : userData?.coin)}
+                            {numberFormat(router.pathname.includes('/shops') && !isLoading ? userData?.point : userData?.coin)}
                         </Typography>
                     </Box>
                 </Box>

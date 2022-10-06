@@ -14,7 +14,6 @@ const StatusRoundDialog: React.FC<StatusRoundDialogProps> = ({ open, setOpen, is
     // const [isWinner, setIsWinner] = React.useState<boolean>(false);
     return (
         <Dialog
-            fullScreen
             sx={{
                 '& .MuiPaper-root': {
                     margin: 0
@@ -31,7 +30,8 @@ const StatusRoundDialog: React.FC<StatusRoundDialogProps> = ({ open, setOpen, is
                     display: 'flex',
                     justifyContent: 'space-between',
                     flexDirection: 'column',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    width: '100%'
                 }}
             >
                 <Box
