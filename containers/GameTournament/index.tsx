@@ -18,7 +18,7 @@ const GameTournament = () => {
     const coins = 20;
     const notify = useNotify();
     const [listingGame, setListingGame] = React.useState<any>(null);
-    const { fetchAPI } = useAPICaller();
+    const { fetchAPI, isLoading } = useAPICaller();
     const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
     const dataLeaderboard = [
         { image: '/icons/dummy/profile-2.png', username: 'rinto', point: 246000, prize: 2000 },
@@ -41,7 +41,7 @@ const GameTournament = () => {
                 method: 'GET'
             });
             console.log('res tournament', res);
-            if (res.data?.data?.data) {
+            if (res.status === 200) {
                 setListingGame(res.data.data);
             }
         } catch (e) {
@@ -52,7 +52,11 @@ const GameTournament = () => {
     React.useEffect(() => {
         fetchData(listingGame);
     }, []);
-
+    console.log('listing game', listingGame);
+    console.log('isLoading', isLoading);
+    if (isLoading || !listingGame) {
+        return <Box>Loading</Box>;
+    }
     return (
         <Box width='100%'>
             <Header isBack point={myCoins} profilePicture='/icons/dummy/profile-2.png' paddingX='20px' />
@@ -74,10 +78,10 @@ const GameTournament = () => {
                         </Typography>
                         <ArrowForwardIcon sx={{ color: '#373737' }} />
                     </Box>
-                    <LeaderboardPodium dataLeaderboard={dataLeaderboard} />
+                    <LeaderboardPodium dataLeaderboard={listingGame.leaderboards} />
                 </Box>
                 <Box component='section' marginBottom='40px'>
-                    <TableRank dataLeaderboard={dataLeaderboard} />
+                    <TableRank dataLeaderboard={listingGame.leaderboards} />
                 </Box>
             </Box>
             <Box sx={{ padding: '20px', position: 'sticky', bottom: '10px' }}>
