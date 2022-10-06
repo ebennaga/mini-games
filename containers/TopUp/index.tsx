@@ -391,18 +391,24 @@ const TopUp = () => {
                         mt: '20px',
                         display: 'flex',
                         justifyContent: 'space-between',
-                        mr: '18px',
-                        height: '33px'
+                        height: '33px',
+                        padding: '0px 20px'
                     }}
                 >
-                    <Box sx={{ borderRadius: '6px', width: '48px', height: '48px', ml: 2 }}>
-                        <img
-                            src='/images/ask.png'
-                            width={30}
-                            height={30}
-                            alt='maskot-logo'
-                            style={{ marginLeft: '20%', marginTop: '5%' }}
-                        />
+                    <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', gap: '30px' }}>
+                        <Box>
+                            <img
+                                src='/images/ask.png'
+                                width={30}
+                                height={30}
+                                alt='maskot-logo'
+                                style={{ marginLeft: '20%', marginTop: '5%' }}
+                            />
+                        </Box>
+                        <Typography sx={{ fontSize: '14px', fontWeight: 700, textAlign: 'start' }}>Help & Support</Typography>
+                    </Box>
+                    <Box sx={{ mt: 1, mr: 0 }}>
+                        <ChevronRight sx={{ color: '#8634C1' }} />
                     </Box>
                 </Box>
             )}
