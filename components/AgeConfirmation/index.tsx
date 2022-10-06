@@ -121,7 +121,7 @@ const AgeConfirmation: React.FC<IAgeConfirmation> = ({ form, nameDate, nameMonth
                         Month
                     </Typography>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Typography component='span' fontSize='14px' fontWeight={700} sx={{ color: '#A54CE5' }}>
+                        <Typography component='span' fontWeight={700} sx={{ color: '#A54CE5', fontSize: { xs: '12px', ms: '14px' } }}>
                             {monthConditional.value}
                         </Typography>
                         <KeyboardArrowDownIcon

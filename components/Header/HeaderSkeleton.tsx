@@ -8,7 +8,7 @@ const HeaderSkeleton = () => {
                 <Skeleton sx={{ width: '75px', height: '48px' }} />
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Skeleton sx={{ width: '75px', height: '38px' }} />
-                    <Skeleton sx={{ width: '35px', height: '48px', borderRadius: '100px', marginLeft: '10px' }} />
+                    <Skeleton variant='circular' sx={{ width: '40px', height: '40px', marginLeft: '10px' }} />
                 </Box>
             </Box>
         </Box>

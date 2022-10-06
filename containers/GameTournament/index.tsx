@@ -1,9 +1,12 @@
-import { Box, Typography } from '@mui/material';
+/* eslint-disable no-unused-vars */
+import { Box, Typography, Skeleton } from '@mui/material';
 import React from 'react';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useRouter } from 'next/router';
 import NotifDialog from 'components/Dialog/notifDialog';
 import Header from 'components/Header';
+import useAPICaller from 'hooks/useAPICaller';
+import useNotify from 'hooks/useNotify';
 import HeaderTournament from './HeaderTournament';
 import ButtonPlay from './ButtonPlay';
 import LeaderboardPodium from './LeaderboardPodium';
@@ -13,6 +16,9 @@ const GameTournament = () => {
     const router = useRouter();
     const myCoins = 10;
     const coins = 20;
+    const notify = useNotify();
+    const [listingGame, setListingGame] = React.useState<any>(null);
+    const { fetchAPI, isLoading } = useAPICaller();
     const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
     const dataLeaderboard = [
         { image: '/icons/dummy/profile-2.png', username: 'rinto', point: 246000, prize: 2000 },
@@ -28,7 +34,28 @@ const GameTournament = () => {
         { image: '/icons/dummy/profile.png', username: 'yanto', point: 132, prize: 150 },
         { image: '/icons/dummy/profile-3.png', username: 'beban', point: 10, prize: 10 }
     ];
+    const fetchData = async (id: number) => {
+        try {
+            const res = await fetchAPI({
+                endpoint: `/tournamets/${id}`,
+                method: 'GET'
+            });
 
+            if (res.status === 200) {
+                setListingGame(res.data.data);
+            }
+        } catch (e) {
+            notify('failed data', 'e');
+        }
+    };
+
+    React.useEffect(() => {
+        fetchData(listingGame);
+    }, []);
+
+    // if (isLoading || !listingGame) {
+    //     return <Box>Loading</Box>;
+    // }
     return (
         <Box width='100%'>
             <Header isBack point={myCoins} profilePicture='/icons/dummy/profile-2.png' paddingX='20px' />
@@ -43,18 +70,32 @@ const GameTournament = () => {
                 playerImg3='/icons/dummy/user-2.png'
             />
             <Box component='main' padding='20px' color='#373737'>
-                <Box component='section' padding='28px 0'>
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '37px' }}>
-                        <Typography component='h2' fontSize='24px' fontWeight={700}>
-                            Leaderboard
-                        </Typography>
-                        <ArrowForwardIcon sx={{ color: '#373737' }} />
+                {isLoading || !listingGame ? (
+                    <Box>
+                        <Skeleton animation='wave' variant='rectangular' width='100%' />
                     </Box>
-                    <LeaderboardPodium dataLeaderboard={dataLeaderboard} />
-                </Box>
-                <Box component='section' marginBottom='40px'>
-                    <TableRank dataLeaderboard={dataLeaderboard} />
-                </Box>
+                ) : (
+                    <Box component='section' padding='28px 0'>
+                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '37px' }}>
+                            <Typography component='h2' fontSize='24px' fontWeight={700}>
+                                Leaderboard
+                            </Typography>
+                            <ArrowForwardIcon sx={{ color: '#373737' }} />
+                        </Box>
+                        <LeaderboardPodium dataLeaderboard={listingGame.leaderboards} />
+                    </Box>
+                )}
+                {isLoading || !listingGame ? (
+                    <Box>
+                        {[...Array(10)].map((index: any) => {
+                            return <Skeleton key={index} variant='rectangular' sx={{ my: 4, mx: 1 }} />;
+                        })}
+                    </Box>
+                ) : (
+                    <Box component='section' marginBottom='40px'>
+                        <TableRank dataLeaderboard={listingGame.leaderboards} />
+                    </Box>
+                )}
             </Box>
             <Box sx={{ padding: '20px', position: 'sticky', bottom: '10px' }}>
                 <ButtonPlay

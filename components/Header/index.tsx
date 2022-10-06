@@ -3,12 +3,14 @@ import { Box, ButtonBase, Typography } from '@mui/material';
 import React from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import numberFormat from 'helper/numberFormat';
+import useApiCaller from 'hooks/useAPICaller';
+import useNotify from 'hooks/useNotify';
 import { useRouter } from 'next/router';
 import useStyles from './useStyle';
 
 interface HeaderProps {
     logo?: string;
-    point: number;
+    point?: number;
     profilePicture: string;
     widthLogo?: any;
     heightLogo?: any;
@@ -31,6 +33,27 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
     const classes = useStyles();
     const router = useRouter();
+    const [userData, setUserData] = React.useState<any>(null);
+    const { fetchAPI, isLoading } = useApiCaller();
+    const notify = useNotify();
+
+    const fetchData = async () => {
+        try {
+            const result = await fetchAPI({
+                endpoint: 'accounts',
+                method: 'GET'
+            });
+            if (result?.data?.data) {
+                setUserData(result.data.data);
+            }
+        } catch (error) {
+            notify('Fetch account data failed!', 'error');
+        }
+    };
+
+    React.useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <Box
@@ -97,7 +120,7 @@ const Header: React.FC<HeaderProps> = ({
                             className={classes.pointText}
                             sx={{ fontWeight: 'bold', fontSize: '14px', color: '#373737' }}
                         >
-                            {numberFormat(point)}
+                            {numberFormat(router.pathname.includes('/shops') && !isLoading ? userData?.point : userData?.coin)}
                         </Typography>
                     </Box>
                 </Box>

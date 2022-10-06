@@ -2,6 +2,7 @@ import { Box, Typography, ImageList, ImageListItem } from '@mui/material';
 import React from 'react';
 import Header from 'components/Header';
 import { useRouter } from 'next/router';
+import PrizeSkeleton from './PrizeSkeleton';
 
 const itemData = [
     { id: 1, image: '/images/keyboard.png', label: 'Rexus Daxa Mechanical Keyboard RGB', points: 5000 },
@@ -15,6 +16,8 @@ const itemData = [
 const PrizeContainer = () => {
     const router = useRouter();
     const [borderValue, setBorderValue] = React.useState<string>('none');
+    const [isLoading, setIsLoading] = React.useState<boolean>(true);
+
     const handleScroll = () => {
         if (window.scrollY === 0) {
             return setBorderValue('none');
@@ -31,6 +34,17 @@ const PrizeContainer = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
+    React.useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
+    }, []);
+
+    if (isLoading) {
+        return <PrizeSkeleton />;
+    }
+
     return (
         <Box sx={{ width: '100%' }}>
             <Box

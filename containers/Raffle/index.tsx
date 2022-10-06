@@ -8,15 +8,18 @@ import StatusRoundDialog from 'components/Dialog/StatusRoundDialog';
 import RewardDialog from 'components/Dialog/RewardDialog';
 import RaffleWinners from './RaffleWinnersList';
 import BuyTicketDialog from './BuyTicketDialog';
+import RaffleSkeleton from './RaffleSkeleton';
 
 const RaffleContainer = () => {
     const [quantity, setQuantity] = React.useState<number>(0);
     const [openBuyDialog, setOpenBuyDialog] = React.useState<any>(false);
     const [openRewardDialog, setOpenRewardDialog] = React.useState<any>(false);
-    const [openStatusRoundDialog, setOpenStatusRoundDialog] = React.useState<any>(false);
-    const [isWinner, setIsWinner] = React.useState<boolean>(false);
-    const [roundDay, setRoundDay] = React.useState<boolean>(false);
+    const [openStatusRoundDialog, setOpenStatusRoundDialog] = React.useState<any>(true);
+    const [isWinner, setIsWinner] = React.useState<boolean>(true);
+    const [roundDay, setRoundDay] = React.useState<boolean>(true);
     const [borderValue, setBorderValue] = React.useState<string>('none');
+    const [isLoading, setIsLoading] = React.useState<boolean>(true);
+    const [myTickets, setMytickets] = React.useState<number>(10);
 
     const dataList = [
         { image: '/icons/dummy/profile-2.png', username: 'rinto', tickets: 246000, prize: 2000 },
@@ -53,7 +56,15 @@ const RaffleContainer = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+    React.useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
+    }, []);
 
+    if (isLoading) {
+        return <RaffleSkeleton roundDay={roundDay} />;
+    }
     return (
         <Box sx={{ width: '100%' }}>
             <Box
@@ -220,7 +231,7 @@ const RaffleContainer = () => {
                         >
                             <Grid item xs={4}>
                                 <Typography sx={{ fontSize: roundDay ? '13px' : '20px', fontWeight: 700 }}>
-                                    {roundDay ? '285' : '10'}
+                                    {roundDay ? '285' : String(myTickets)}
                                 </Typography>
                             </Grid>
                             <Grid
@@ -260,6 +271,7 @@ const RaffleContainer = () => {
                                     onClick={() => {
                                         if (quantity !== 0) {
                                             setQuantity(quantity - 1);
+                                            setMytickets(myTickets + 1);
                                         }
                                     }}
                                     sx={{
@@ -276,8 +288,9 @@ const RaffleContainer = () => {
                                 <ButtonBase
                                     disableRipple
                                     onClick={() => {
-                                        if (quantity >= 0) {
+                                        if (quantity >= 0 && myTickets !== 0) {
                                             setQuantity(quantity + 1);
+                                            setMytickets(myTickets - 1);
                                         }
                                     }}
                                     sx={{
@@ -345,6 +358,7 @@ const RaffleContainer = () => {
                 body={`Successfully purchased ${quantity} tickets in raffle round 284`}
                 open={openRewardDialog}
                 setOpenDialog={setOpenRewardDialog}
+                path='/shops/lucky-raffle'
             />
             <StatusRoundDialog isWinner={isWinner} open={openStatusRoundDialog} setOpen={setOpenStatusRoundDialog} />
         </Box>
