@@ -23,10 +23,9 @@ const HomeContainer = () => {
     const userData = useSelector((state: any) => state.webpage?.user?.user);
     const router = useRouter();
     const [borderValue, setBorderValue] = useState<string>('none');
-    const [isLoading, setIsLoading] = useState<boolean>(true);
     const notify = useNotify();
     const [datasHome, setDatasHome] = React.useState<any>(null);
-    const { fetchAPI } = useAPICaller();
+    const { fetchAPI, isLoading } = useAPICaller();
 
     const form = useForm({
         mode: 'all',
@@ -69,18 +68,12 @@ const HomeContainer = () => {
         };
     }, []);
 
-    useEffect(() => {
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
-    }, []);
-
     const handleSearch = (data: any) => {
         console.log(data);
     };
     const isNotif = true;
 
-    if (isLoading) {
+    if (isLoading || !datasHome) {
         return <HomeSkeleton />;
     }
     return (
