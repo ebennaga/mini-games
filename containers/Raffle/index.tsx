@@ -14,9 +14,9 @@ const RaffleContainer = () => {
     const [quantity, setQuantity] = React.useState<number>(0);
     const [openBuyDialog, setOpenBuyDialog] = React.useState<any>(false);
     const [openRewardDialog, setOpenRewardDialog] = React.useState<any>(false);
-    const [openStatusRoundDialog, setOpenStatusRoundDialog] = React.useState<any>(true);
-    const [isWinner, setIsWinner] = React.useState<boolean>(true);
-    const [roundDay, setRoundDay] = React.useState<boolean>(true);
+    const [openStatusRoundDialog, setOpenStatusRoundDialog] = React.useState<any>(false);
+    const [isWinner, setIsWinner] = React.useState<boolean>(false);
+    const [roundDay, setRoundDay] = React.useState<boolean>(false);
     const [borderValue, setBorderValue] = React.useState<string>('none');
     const [isLoading, setIsLoading] = React.useState<boolean>(true);
     const [myTickets, setMytickets] = React.useState<number>(10);
@@ -121,8 +121,8 @@ const RaffleContainer = () => {
                             >
                                 <Box>
                                     <Typography sx={{ fontSize: '12px', color: 'white', fontWeight: 500 }}>Price Worth</Typography>
-                                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                        <img src='/icons/points.png' alt='point' />
+                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                        <img src='/images/lg-points.png' alt='point' width={60} />
                                         <Typography sx={{ fontSize: '40px', color: 'white', fontWeight: 700 }}>350.000</Typography>
                                     </Box>
                                 </Box>
@@ -243,7 +243,14 @@ const RaffleContainer = () => {
                                 }}
                             >
                                 {roundDay ? (
-                                    <Box sx={{ display: 'flex', aligItems: 'center', justifyContent: 'center', gap: '2px' }}>
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            gap: '5px'
+                                        }}
+                                    >
                                         <Box>
                                             <img src='/images/point-shops.png' alt='points' />
                                         </Box>
