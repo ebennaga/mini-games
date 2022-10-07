@@ -1,28 +1,39 @@
+/* eslint-disable no-unused-vars */
 import { Box, ButtonBase, Typography } from '@mui/material';
+import getRemainingTimes from 'helper/getRemainingTime';
 // import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface TournamentCardProps {
     image: string;
+    imageGame: string;
     onClick: any;
     totalUser: number;
-    rank: number;
-    prize: number;
     prizePool: number;
-    totalMedal: number;
     point: number;
     time: string;
+    dataLength?: number;
 }
 
-const TournamentCard: React.FC<TournamentCardProps> = ({ image, onClick, totalUser, rank, prize, prizePool, totalMedal, point, time }) => {
-    const rankSup = (rank === 1 && 'st') || (rank === 2 && 'nd') || (rank === 3 && 'rd') || (rank > 3 && 'th');
+const TournamentCard: React.FC<TournamentCardProps> = ({ image, imageGame, onClick, totalUser, prizePool, point, time, dataLength }) => {
+    const [timeTournament, setTimeTournament] = useState<string>('');
+
+    useEffect(() => {
+        if (time && !timeTournament) {
+            setTimeTournament(getRemainingTimes(time));
+        }
+        setInterval(() => {
+            setTimeTournament(getRemainingTimes(time));
+        }, 60000);
+    }, []);
+
     return (
         <ButtonBase
             onClick={onClick}
             sx={{
-                width: '95%',
+                width: dataLength && dataLength === 1 ? '100%' : '95%',
                 height: '372px',
-                backgroundImage: `url('${image}')`,
+                backgroundImage: `url('${image}'), url(/images/img_error_bg.png)`,
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
                 borderRadius: '24px',
@@ -36,97 +47,65 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ image, onClick, totalUs
                     width: '100%',
                     height: '100%',
                     background: 'linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 65%)',
-                    borderRadius: '24px'
+                    borderRadius: '24px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between'
                 }}
             >
+                <Box sx={{ padding: '17px', alignSelf: 'flex-end' }}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            background: 'rgba(55, 55, 55, 0.5)',
+                            width: 'fit-content',
+                            padding: '4.3px 11px',
+                            borderRadius: '10.5px',
+                            color: '#fff'
+                        }}
+                    >
+                        <img src='/icons/clock.png' alt='clock timer' width='14px' height='14px' />
+                        <Typography component='span' height='15px' sx={{ fontSize: '12px', paddingLeft: '4px' }}>
+                            {timeTournament}
+                        </Typography>
+                    </Box>
+                </Box>
                 <Box
                     sx={{
-                        padding: '25px 22px',
+                        padding: '17px',
                         display: 'flex',
-                        flexDirection: 'column',
+                        flexDirection: 'row',
                         justifyContent: 'space-between',
-                        height: '86%'
+                        alignItems: 'center'
+                        // height: '86%'
                     }}
                 >
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                background: '#FFDD50',
-                                borderRadius: '19px',
-                                padding: '4px 5px',
-                                width: 'fit-content'
-                            }}
-                        >
-                            <Box
-                                sx={{
-                                    background: `url(${'/icons/dummy/main-ikan.png'})`,
-                                    backgroundPosition: 'center',
-                                    backgroundSize: 'cover',
-                                    width: '16.71px',
-                                    height: '16.71px',
-                                    borderRadius: '22px'
-                                }}
-                            />
-                            <Box
-                                sx={{
-                                    background: `url(${'/icons/dummy/user-1.png'})`,
-                                    backgroundPosition: 'center',
-                                    backgroundSize: 'cover',
-                                    width: '16.71px',
-                                    height: '16.71px',
-                                    borderRadius: '22px',
-                                    marginLeft: '-10px'
-                                }}
-                            />
-                            <Box
-                                sx={{
-                                    background: `url(${'/icons/dummy/user-2.png'})`,
-                                    backgroundPosition: 'center',
-                                    backgroundSize: 'cover',
-                                    width: '16.71px',
-                                    height: '16.71px',
-                                    borderRadius: '22px',
-                                    marginLeft: '-10px'
-                                }}
-                            />
-                            <Typography component='span' sx={{ fontSize: '12px', fontWeight: 'bold', paddingLeft: '4px' }}>
-                                {totalUser}
-                            </Typography>
-                        </Box>
-                        <Box sx={{ display: 'flex' }}>
-                            <Box
-                                sx={{
-                                    background: '#FFDD50',
-                                    borderRadius: '19px',
-                                    width: 'fit-content',
-                                    padding: '2px 5px'
-                                }}
-                            >
-                                <Typography component='span' sx={{ fontSize: '12px', fontWeight: 'bold', paddingLeft: '4px' }}>
-                                    {rank} <sup>{rankSup}</sup>
-                                </Typography>
-                            </Box>
-                            <Box
-                                sx={{
-                                    background: '#FFDD50',
-                                    borderRadius: '19px',
-                                    width: 'fit-content',
-                                    padding: '2px 5px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    marginLeft: 1
-                                }}
-                            >
-                                <img src='/icons/star.png' width={17} height={17} alt='star' />
-                                <Typography component='span' sx={{ fontSize: '12px', fontWeight: 'bold', paddingLeft: '4px' }}>
-                                    {prize}
-                                </Typography>
-                            </Box>
-                        </Box>
-                    </Box>
-
-                    <Box>
+                    <Box
+                        sx={{
+                            background: `url(${imageGame}), url(/images/img_error.svg)`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            borderRadius: '8px',
+                            width: '78px',
+                            height: '78px',
+                            '@media (max-width:400px)': {
+                                width: '65px',
+                                height: '65px'
+                            }
+                        }}
+                    />
+                    <Box
+                        sx={{
+                            width: '75%',
+                            '@media (max-width:470px)': {
+                                width: '70%'
+                            },
+                            '@media (max-width:400px)': {
+                                width: '70%'
+                            }
+                        }}
+                    >
                         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                 <img src='/icons/star.png' width={31} height={31} alt='star' />
@@ -138,30 +117,75 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ image, onClick, totalUs
                                         color: '#fff',
                                         display: 'flex',
                                         alignItems: 'center',
-                                        paddingLeft: 0.5
+                                        paddingLeft: 0.5,
+                                        '@media (max-width:400px)': {
+                                            fontSize: '18px'
+                                        }
                                     }}
                                 >
                                     {prizePool}
-                                    <Typography component='span' sx={{ fontSize: '12px', fontWeight: 'bold', paddingLeft: '4px' }}>
+                                    <Typography
+                                        component='span'
+                                        sx={{
+                                            fontSize: '12px',
+                                            fontWeight: 'bold',
+                                            paddingLeft: '4px',
+                                            '@media (max-width:400px)': { fontSize: '10px' }
+                                        }}
+                                    >
                                         Pool
                                     </Typography>
                                 </Typography>
                             </Box>
-                            <Box sx={{ color: '#fff', display: 'flex', alignItems: 'center' }}>
-                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                    <img src='/icons/trophy.png' width='14px' height='10px' alt='trophy' />
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        background: '#FFDD50',
+                                        borderRadius: '19px',
+                                        padding: '4px 5px',
+                                        width: 'fit-content'
+                                    }}
+                                >
+                                    <Box
+                                        sx={{
+                                            background: `url(${'/icons/dummy/main-ikan.png'})`,
+                                            backgroundPosition: 'center',
+                                            backgroundSize: 'cover',
+                                            width: '16.71px',
+                                            height: '16.71px',
+                                            borderRadius: '22px'
+                                        }}
+                                    />
+                                    <Box
+                                        sx={{
+                                            background: `url(${'/icons/dummy/user-1.png'})`,
+                                            backgroundPosition: 'center',
+                                            backgroundSize: 'cover',
+                                            width: '16.71px',
+                                            height: '16.71px',
+                                            borderRadius: '22px',
+                                            marginLeft: '-10px'
+                                        }}
+                                    />
+                                    <Box
+                                        sx={{
+                                            background: `url(${'/icons/dummy/user-2.png'})`,
+                                            backgroundPosition: 'center',
+                                            backgroundSize: 'cover',
+                                            width: '16.71px',
+                                            height: '16.71px',
+                                            borderRadius: '22px',
+                                            marginLeft: '-10px'
+                                        }}
+                                    />
                                     <Typography component='span' sx={{ fontSize: '12px', fontWeight: 'bold', paddingLeft: '4px' }}>
-                                        {totalMedal}
-                                    </Typography>
-                                </Box>
-                                <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: 1.5 }}>
-                                    <img src='/images/coin.png' width='13.81px' height='13.17px' alt='trophy' />
-                                    <Typography component='span' sx={{ fontSize: '12px', fontWeight: 'bold', paddingLeft: '4px' }}>
-                                        {point}
+                                        {totalUser}
                                     </Typography>
                                 </Box>
                             </Box>
                         </Box>
+
                         <Box
                             sx={{
                                 color: '#fff',
@@ -173,28 +197,28 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ image, onClick, totalUs
                                 marginTop: '9px'
                             }}
                         >
-                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                <img src='/icons/clock.png' alt='clock timer' width='14px' height='14px' />
-                                <Typography component='span' sx={{ fontSize: '12px', paddingLeft: '4px' }}>
-                                    {time}
-                                </Typography>
-                            </Box>
-                            <Typography fontSize='11px' fontWeight={600} component='span' sx={{ color: '#fff' }}>
+                            <Typography
+                                fontSize='11px'
+                                fontWeight={600}
+                                component='span'
+                                sx={{ color: '#fff', '@media (max-width:400px)': { fontSize: '10px' } }}
+                            >
                                 View Tournaments
                             </Typography>
-                            {/* <Link href={`/games/${index + 1}/tournament`}>
-                                <a
-                                    style={{
-                                        textDecoration: 'none !important',
-                                        fontWeight: 600,
-                                        color: '#fff',
-                                        fontSize: '11px',
-                                        textDecorationLine: 'none'
+                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                <img src='/images/coin.png' width='13.81px' height='13.17px' alt='trophy' />
+                                <Typography
+                                    component='span'
+                                    sx={{
+                                        fontSize: '12px',
+                                        fontWeight: 'bold',
+                                        paddingLeft: '4px',
+                                        '@media (max-width:400px)': { fontSize: '10px' }
                                     }}
                                 >
-                                    View Tournaments
-                                </a>
-                            </Link> */}
+                                    {point}
+                                </Typography>
+                            </Box>
                         </Box>
                     </Box>
                 </Box>

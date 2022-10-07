@@ -1,12 +1,14 @@
 import { Box, ButtonBase } from '@mui/material';
+import { useRouter } from 'next/router';
 import React from 'react';
 import Slider from 'react-slick';
 
 interface EventCarouselProps {
     customMaxWidth?: string;
+    data: any;
 }
 
-const EventCarousel: React.FC<EventCarouselProps> = ({ customMaxWidth }) => {
+const EventCarousel: React.FC<EventCarouselProps> = ({ customMaxWidth, data }) => {
     const settings = {
         className: 'center',
         centerMode: true,
@@ -17,6 +19,9 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ customMaxWidth }) => {
         dots: true,
         swipeToSlide: true
     };
+
+    const router = useRouter();
+
     return (
         <Box
             sx={{
@@ -66,102 +71,35 @@ const EventCarousel: React.FC<EventCarouselProps> = ({ customMaxWidth }) => {
                 }}
             >
                 <Slider {...settings}>
-                    <Box>
-                        <ButtonBase
-                            sx={{
-                                background: `url(${'/icons/dummy/slider-1.png'})`,
-                                backgroundPosition: 'center',
-                                backgroundSize: 'cover',
-                                backgroundRepeat: 'no-repeat',
-                                // width: '282px',
-                                width: '90%',
-                                // height: '154px',
-                                height: { xs: '154px', sm: '200px' },
-                                borderRadius: '22px',
-                                '@media (max-width:430px)': {
-                                    height: '140px'
-                                },
-                                '@media (max-width:399px)': {
-                                    height: '130px'
-                                },
-                                '@media (max-width:375px)': {
-                                    height: '120px'
-                                }
-                            }}
-                        />
-                    </Box>
-                    <Box>
-                        <ButtonBase
-                            sx={{
-                                background: `url(${'/icons/dummy/slider-2.png'})`,
-                                backgroundPosition: 'center',
-                                backgroundSize: 'cover',
-                                backgroundRepeat: 'no-repeat',
-                                // width: '282px',
-                                width: '90%',
-                                // height: '154px',
-                                height: { xs: '154px', sm: '200px' },
-                                borderRadius: '22px',
-                                '@media (max-width:430px)': {
-                                    height: '140px'
-                                },
-                                '@media (max-width:399px)': {
-                                    height: '130px'
-                                },
-                                '@media (max-width:375px)': {
-                                    height: '120px'
-                                }
-                            }}
-                        />
-                    </Box>
-                    <Box>
-                        <ButtonBase
-                            sx={{
-                                background: `url(${'/icons/dummy/slider-3.png'})`,
-                                backgroundPosition: 'center',
-                                backgroundSize: 'cover',
-                                backgroundRepeat: 'no-repeat',
-                                // width: '282px',
-                                width: '90%',
-                                // height: '154px',
-                                height: { xs: '154px', sm: '200px' },
-                                borderRadius: '22px',
-                                '@media (max-width:430px)': {
-                                    height: '140px'
-                                },
-                                '@media (max-width:399px)': {
-                                    height: '130px'
-                                },
-                                '@media (max-width:375px)': {
-                                    height: '120px'
-                                }
-                            }}
-                        />
-                    </Box>
-                    <Box>
-                        <ButtonBase
-                            sx={{
-                                background: `url(${'/icons/dummy/slider-4.png'})`,
-                                backgroundPosition: 'center',
-                                backgroundSize: 'cover',
-                                backgroundRepeat: 'no-repeat',
-                                // width: '282px',
-                                width: '90%',
-                                // height: '154px',
-                                height: { xs: '154px', sm: '200px' },
-                                borderRadius: '22px',
-                                '@media (max-width:430px)': {
-                                    height: '140px'
-                                },
-                                '@media (max-width:399px)': {
-                                    height: '130px'
-                                },
-                                '@media (max-width:375px)': {
-                                    height: '120px'
-                                }
-                            }}
-                        />
-                    </Box>
+                    {data.map((item: any) => {
+                        return (
+                            <Box key={item.id}>
+                                <ButtonBase
+                                    onClick={() => router.push(item.link)}
+                                    sx={{
+                                        background: `url(${item.image_url}), url(${'/images/img_error_bg.png'})`,
+                                        backgroundPosition: 'center',
+                                        backgroundSize: 'cover',
+                                        backgroundRepeat: 'no-repeat',
+                                        // width: '282px',
+                                        width: '90%',
+                                        // height: '154px',
+                                        height: { xs: '154px', sm: '200px' },
+                                        borderRadius: '22px',
+                                        '@media (max-width:430px)': {
+                                            height: '140px'
+                                        },
+                                        '@media (max-width:399px)': {
+                                            height: '130px'
+                                        },
+                                        '@media (max-width:375px)': {
+                                            height: '120px'
+                                        }
+                                    }}
+                                />
+                            </Box>
+                        );
+                    })}
                 </Slider>
             </Box>
         </Box>
