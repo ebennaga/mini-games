@@ -28,7 +28,7 @@ const SendOtp = () => {
         e.preventDefault();
         const response = await fetchAPI({
             method: 'POST',
-            endpoint: 'accounts/register/otp',
+            endpoint: 'auths/register/otp',
             data: {
                 email: userState.email,
                 otp_token: data.otp
