@@ -9,6 +9,7 @@ import TournamentSlider from 'components/TournamentSlider/TournamentSliderGD';
 import { useRouter } from 'next/router';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
+import GameDetailSkeleton from './GameDetailSkeleton';
 
 const GameDetailContainer = () => {
     const isBack = true;
@@ -16,6 +17,8 @@ const GameDetailContainer = () => {
     const { fetchAPI } = useAPICaller();
     const notify = useNotify();
     const [listingGame, setListingGame] = React.useState<any>(null);
+    const [isLoading, setIsLoading] = React.useState<boolean>(true);
+
     const fetchData = async (id: number) => {
         try {
             const res = await fetchAPI({
@@ -37,6 +40,17 @@ const GameDetailContainer = () => {
     const handleClick = async () => {
         router.push(`/games/${router.query.id}/tournament`);
     };
+
+    React.useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
+    }, []);
+
+    if (isLoading) {
+        return <GameDetailSkeleton />;
+    }
+
     return (
         <Box width='100%'>
             <Box

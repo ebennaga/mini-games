@@ -63,15 +63,15 @@ const ShopsContainer = () => {
                 <Header isShops logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Grid container justifyContent='center' alignItems='center'>
-                <Grid container padding='0 20px' justifyContent='space-between' alignItems='baseline'>
+                <Grid container padding='0 20px' justifyContent='space-between' alignItems='center'>
                     <Grid item xs={7} sm={7}>
                         <Typography variant='h5' sx={{ fontWeight: '700' }}>
                             Redeem Prize
                         </Typography>
                     </Grid>
                     <Grid item xs={2} sm={2} sx={{ textAlign: 'end' }}>
-                        <ButtonBase href='/shops/prize'>
-                            <Typography sx={{ color: '#A54CE5', fontSize: '12px', fontWeight: '600' }}>See All</Typography>
+                        <ButtonBase>
+                            <img src='/images/redeem-icon.png' alt='redeem-icon' />
                         </ButtonBase>
                     </Grid>
                 </Grid>
@@ -89,7 +89,17 @@ const ShopsContainer = () => {
                         />
                     ))}
                 </ShopsSlider>
-                <Box width='100%' padding='0 20px'>
+                <Box width='100%' padding='0 20px' margin='20px 0px'>
+                    <Grid container justifyContent='space-between' alignItems='center'>
+                        <Grid item xs={7} sm={7}>
+                            <Typography sx={{ fontSize: '18px', fontWeight: '700' }}>Prizes</Typography>
+                        </Grid>
+                        <Grid item xs={2} sm={2} sx={{ textAlign: 'end' }}>
+                            <ButtonBase href='/shops/prize'>
+                                <Typography sx={{ color: '#A54CE5', fontSize: '12px', fontWeight: '600' }}>See All</Typography>
+                            </ButtonBase>
+                        </Grid>
+                    </Grid>
                     <ImageList variant='masonry' cols={2} gap={10}>
                         {itemData.map((item, idx: number) => (
                             <ImageListItem sx={{ cursor: 'pointer' }} key={idx}>

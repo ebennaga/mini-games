@@ -69,7 +69,9 @@ export default function CustomizedProgressBars() {
 
     React.useEffect(() => {
         const timer = setInterval(() => {
-            setProgress((prevProgress) => (prevProgress <= 0 ? 75 : prevProgress - 25));
+            if (progress !== 0) {
+                setProgress((prevProgress) => (prevProgress <= 0 ? 75 : prevProgress - 25));
+            }
         }, 1000);
         return () => {
             clearInterval(timer);
