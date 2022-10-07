@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Typography, Box, ButtonBase } from '@mui/material';
 import Layout from 'components/Layout/Index';
@@ -33,7 +34,7 @@ const Login = () => {
     const handleSubmit = async (data: any) => {
         const response = await fetchAPI({
             method: 'POST',
-            endpoint: 'accounts/login',
+            endpoint: 'auths/login',
             data: {
                 email: data.email,
                 password: data.password
