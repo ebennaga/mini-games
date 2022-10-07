@@ -18,6 +18,7 @@ interface HeaderProps {
     hrefBack?: any;
     paddingX?: string;
     isShops?: boolean;
+    dataLocal?: any;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -29,7 +30,8 @@ const Header: React.FC<HeaderProps> = ({
     paddingX,
     widthLogo = '75px',
     heightLogo = '39px',
-    isShops = false
+    isShops = false,
+    dataLocal
 }) => {
     const classes = useStyles();
     const router = useRouter();
@@ -64,6 +66,7 @@ const Header: React.FC<HeaderProps> = ({
                 width: paddingX ? '-webkit-fill-available' : '100%',
                 position: 'sticky',
                 top: paddingX ? 0 : 10,
+                // zIndex: dataLocal && dataLocal?.isTutorial && dataLocal?.listTutorial.welcome ? 1 : 999,
                 zIndex: 999,
                 paddingY: paddingX ? '20px' : 0,
                 paddingX: paddingX || 0

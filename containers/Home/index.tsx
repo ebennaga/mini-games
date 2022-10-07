@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Box, ButtonBase, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Header from 'components/Header';
@@ -8,6 +9,9 @@ import { useRouter } from 'next/router';
 import InfoCard from 'components/InfoCard';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
+import getLocalData from 'helper/getLocalData';
+import WelcomeDialog from 'components/DialogTutorial/WelcomeDialog';
+import CoinsDialog from 'components/DialogTutorial/CoinsDialog';
 import Search from './Search';
 import Mission from './Mission';
 import GamesCard from './GamesCard';
@@ -19,8 +23,13 @@ import HomeSkeleton from './HomeSkeleton';
 const HomeContainer = () => {
     const router = useRouter();
     const [borderValue, setBorderValue] = useState<string>('none');
-    const notify = useNotify();
     const [datasHome, setDatasHome] = React.useState<any>(null);
+
+    const [dataTutorial, setDataTutorial] = useState<any>(null);
+    const [isWelcome, setIsWelcome] = useState<boolean>(false);
+    const [isCoins, setIsCoins] = useState<boolean>(false);
+
+    const notify = useNotify();
     const { fetchAPI, isLoading } = useAPICaller();
 
     const form = useForm({
@@ -29,16 +38,25 @@ const HomeContainer = () => {
             search: ''
         }
     });
+
     const fetchData = async () => {
         try {
             const res = await fetchAPI({
                 endpoint: '/home/feeds',
                 method: 'GET'
             });
+
+            const data: any = await getLocalData();
+            setDataTutorial(data);
+
             if (res.status === 200) {
+                if (data.isTutorial) {
+                    setIsWelcome(true);
+                }
                 setDatasHome(res.data.data);
             }
-        } catch (e) {
+        } catch (e: any) {
+            // console.log('error', e.message);
             notify('failed data', 'e');
         }
     };
@@ -74,18 +92,20 @@ const HomeContainer = () => {
     }
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
+            <WelcomeDialog open={isWelcome} setOpen={setIsWelcome} dataLocal={dataTutorial} setDataLocal={setDataTutorial} />
             <Box
                 sx={{
                     width: '-webkit-fill-available',
                     position: 'sticky',
-                    zIndex: 9999,
-                    backgroundColor: 'white',
+                    zIndex: dataTutorial?.isTutorial ? 1 : 9999,
+                    // zIndex: 9999,
+                    backgroundColor: dataTutorial?.isTutorial ? 'rgba(0, 0, 0, 0)' : 'white',
                     top: 0,
                     paddingY: '25px',
                     borderBottom: borderValue
                 }}
             >
-                <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
+                <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' dataLocal={dataTutorial} />
             </Box>
             <Box component='section' sx={{ display: 'flex', alignItems: 'center' }}>
                 <Search form={form} name='search' placeholder='Search Games' onSubmit={handleSearch} />
