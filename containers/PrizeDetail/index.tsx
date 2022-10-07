@@ -7,9 +7,11 @@ import Paragraph from 'components/Paragraph';
 import NotifDialog from 'components/Dialog/notifDialog';
 import AgeConfirmationDialog from 'components/Dialog/AgeConfirmationDialog';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import PrizeSkeletonDetail from './PrizeDetailSkeleton';
 
 const PrizeDetailContainer = () => {
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
     const [isFavorite, setIsFavorite] = React.useState<boolean>(false);
     const [open, setOpen] = React.useState<boolean>(false);
     const [dialogConfirm, setDialogConfirm] = React.useState<boolean>(false);
@@ -23,7 +25,7 @@ const PrizeDetailContainer = () => {
         }
     });
 
-    const point = 90_000;
+    const { point } = userState;
     const prize = 10_000;
     const [borderValue, setBorderValue] = React.useState<string>('none');
     const handleScroll = () => {

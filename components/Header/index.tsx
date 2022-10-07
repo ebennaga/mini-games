@@ -3,8 +3,10 @@ import { Box, ButtonBase, Typography } from '@mui/material';
 import React from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import numberFormat from 'helper/numberFormat';
+import useAuthReducer from 'hooks/useAuthReducer';
 import useApiCaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
+import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import useStyles from './useStyle';
 
@@ -31,9 +33,11 @@ const Header: React.FC<HeaderProps> = ({
     heightLogo = '39px',
     isShops = false
 }) => {
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
     const classes = useStyles();
     const router = useRouter();
     const [userData, setUserData] = React.useState<any>(null);
+    const { setUser } = useAuthReducer();
     const { fetchAPI, isLoading } = useApiCaller();
     const notify = useNotify();
 
@@ -44,6 +48,7 @@ const Header: React.FC<HeaderProps> = ({
                 method: 'GET'
             });
             if (result?.data?.data) {
+                setUser({ ...userState, ...result.data.data });
                 setUserData(result.data.data);
             }
         } catch (error) {
@@ -85,9 +90,8 @@ const Header: React.FC<HeaderProps> = ({
                 <Box
                     className={classes.pointContainer}
                     sx={{
-                        background: isShops ? '#DDFFDC' : '#FFF5CD',
-                        borderRadius: '27px',
-                        // width: '100%',
+                        background: isShops ? '#C7E7FF' : '#FFF5CD',
+                        borderRadius: isShops ? '10px' : '27px',
                         height: '30px',
                         position: 'relative',
                         marginRight: '11px'
@@ -110,7 +114,7 @@ const Header: React.FC<HeaderProps> = ({
                         }}
                     >
                         {isShops ? (
-                            <img src='/images/point-shops.png' width='21px' height='20.02px' alt='point icon' />
+                            <img src='/images/point-shops.png' width='20px' height='20.02px' alt='point icon' />
                         ) : (
                             <img src='/icons/point.png' width='21px' height='20.02px' alt='point icon' />
                         )}

@@ -70,7 +70,7 @@ const StatusRoundDialog: React.FC<StatusRoundDialogProps> = ({ open, setOpen, is
                         <Typography sx={{ fontSize: '20px', fontWeight: 700, mt: '30px' }}>Arya Stark</Typography>
                         <Typography sx={{ fontSize: '16px', fontWeight: 700, mt: '60px' }}>Prize</Typography>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: '25px', gap: '2px' }}>
-                            <img src='/icons/points.png' alt='points' style={{ width: '40px' }} />
+                            <img src='/images/md-point-shops.png' alt='points' style={{ width: '40px' }} />
                             <Typography sx={{ fontSize: '40px', fontWeight: 700 }}>350.000</Typography>
                         </Box>
                         <Typography sx={{ fontWeight: 500, fontSize: '12px', color: '#949494', mt: '135px' }}>
