@@ -40,7 +40,7 @@ const Header: React.FC<HeaderProps> = ({
     const fetchData = async () => {
         try {
             const result = await fetchAPI({
-                endpoint: 'accounts',
+                endpoint: 'auths',
                 method: 'GET'
             });
             if (result?.data?.data) {
