@@ -111,7 +111,7 @@ const RedeemHistoryContainer = () => {
                                 </Box>
                             </Box>
                         </Box>
-                        <Box sx={{ border: '1px solid rgba(0, 0, 0, 0.1)', ml: '20px', mr: '21px', mt: '20px' }} />
+                        <Box sx={{ border: '1px solid rgba(40, 38, 38, 0.1)', ml: '20px', mr: '21px', mt: '20px' }} />
                     </>
                 );
             })}
