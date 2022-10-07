@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 
 interface ButtonProps {
-    title: string;
+    title: any;
     icon?: any;
     backgoundColor: string;
     color: string;
@@ -10,6 +10,8 @@ interface ButtonProps {
     onClick?: any;
     height?: string;
     disabled?: boolean;
+    type?: 'button' | 'submit' | 'reset';
+    loading?: boolean;
 }
 
 const ButtonLanding: React.FC<ButtonProps> = ({
@@ -20,14 +22,22 @@ const ButtonLanding: React.FC<ButtonProps> = ({
     backgoundColor,
     color,
     border = 'none',
-    onClick
+    onClick,
+    type = 'submit',
+    loading = false
 }) => {
     return (
         <Button
+            type={type}
             disabled={disabled}
             startIcon={icon}
             onClick={onClick}
             sx={{
+                '&:disabled': {
+                    backgroundColor: '#949494',
+                    color: 'white',
+                    border: 'none'
+                },
                 textTransform: 'none',
                 position: 'relative',
                 border,
@@ -46,7 +56,7 @@ const ButtonLanding: React.FC<ButtonProps> = ({
             }}
             variant='outlined'
         >
-            {title}
+            {loading ? <CircularProgress sx={{ color: 'white' }} /> : title}
         </Button>
     );
 };

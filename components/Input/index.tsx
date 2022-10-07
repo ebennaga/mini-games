@@ -1,6 +1,5 @@
 /* eslint-disable no-nested-ternary */
-/* eslint-disable no-unused-vars */
-import { TextField, IconButton, Typography } from '@mui/material';
+import { TextField, IconButton, Typography, ButtonBase } from '@mui/material';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -12,10 +11,11 @@ interface InputProps {
     placeholder: string;
     type?: 'text' | 'number' | 'password' | 'email' | 'tel';
     color?: 'primary' | 'secondary';
-    validator: any;
+    validator?: any;
+    component?: any;
 }
 
-const Input: React.FC<InputProps> = ({ name, form, placeholder, validator, color = 'primary', type = 'text' }) => {
+const Input: React.FC<InputProps> = ({ name, form, placeholder, validator, color = 'primary', type = 'text', component }) => {
     const [showPwd, setShowPwd] = React.useState<boolean>(false);
 
     const {
@@ -30,6 +30,8 @@ const Input: React.FC<InputProps> = ({ name, form, placeholder, validator, color
         helperText = `${placeholder} - exceed maximum length`;
     } else if (errType === 'required') {
         helperText = `${placeholder} - is required`;
+    } else if (errType === 'minLength') {
+        helperText = type === 'password' ? `Password minimum 8 characters` : `${placeholder} - exceed minimum length`;
     }
     if (error?.message) {
         helperText = `${placeholder} - ${error.message}`;
@@ -97,15 +99,18 @@ const Input: React.FC<InputProps> = ({ name, form, placeholder, validator, color
                                     +62
                                 </Typography>
                             ),
-                            endAdornment: type === 'password' && (
-                                <IconButton onClick={() => setShowPwd(!showPwd)}>
-                                    {!showPwd ? (
-                                        <VisibilityIcon sx={{ color: '#A54CE5' }} />
-                                    ) : (
-                                        <VisibilityOffIcon sx={{ color: '#A54CE5' }} />
-                                    )}
-                                </IconButton>
-                            )
+                            endAdornment:
+                                type === 'password' ? (
+                                    <IconButton onClick={() => setShowPwd(!showPwd)}>
+                                        {!showPwd ? (
+                                            <VisibilityIcon sx={{ color: '#A54CE5' }} />
+                                        ) : (
+                                            <VisibilityOffIcon sx={{ color: '#A54CE5' }} />
+                                        )}
+                                    </IconButton>
+                                ) : (
+                                    <ButtonBase>{component}</ButtonBase>
+                                )
                         }}
                         helperText={helperText}
                         error={!!errType}

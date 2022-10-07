@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { Grid, Typography, ButtonBase, Tab, Tabs, Box } from '@mui/material';
-import { ArrowCircleLeft, WatchLater, Verified } from '@mui/icons-material';
+import { ArrowCircleLeft, WatchLater } from '@mui/icons-material';
 import TabPanel from 'components/TabPanel';
 import Layout from 'components/Layout/Index';
 import MissionCard from 'components/MissionCard';
@@ -76,14 +76,140 @@ const MissionPage = () => {
                             </Grid>
                             <Typography sx={{ fontSize: '30px', fontWeight: 'bold', my: 4 }}>Progress Mission</Typography>
                             {[...Array(3)].map((item, index) => (
-                                <MissionCard isCompleted={isCompleted} key={index} />
+                                <MissionCard
+                                    achievMission='5/5'
+                                    descMission='Play 5 Games Banana jump'
+                                    statusMission='Mission Complete'
+                                    isCompleted={isCompleted}
+                                    key={index}
+                                >
+                                    {!isClaimed ? (
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                width: '50%',
+                                                backgroundColor: '#FFF5CD',
+                                                padding: '8px',
+                                                justifyContent: 'space-around',
+                                                borderRadius: '10px'
+                                            }}
+                                        >
+                                            <Typography sx={{ fontWeight: 'bold', fontSize: '19.5px' }}>Claimed</Typography>
+                                        </Box>
+                                    ) : (
+                                        <>
+                                            {' '}
+                                            <Box
+                                                sx={{
+                                                    display: 'flex',
+                                                    width: '25%',
+                                                    backgroundColor: '#E8DEFF',
+                                                    padding: '8px',
+                                                    justifyContent: 'space-around',
+                                                    borderRadius: '10px',
+                                                    alignItems: 'center'
+                                                }}
+                                            >
+                                                <Typography
+                                                    sx={{ fontWeight: 'bold', color: '#9163F6', fontSize: { xs: '13px', sm: '19.5px' } }}
+                                                >
+                                                    XP
+                                                </Typography>
+                                                <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '13px', sm: '19.5px' } }}>
+                                                    10
+                                                </Typography>
+                                            </Box>
+                                            {isCompleted && <Typography fontWeight='bold'> + </Typography>}
+                                            <Box
+                                                sx={{
+                                                    display: 'flex',
+                                                    width: '25%',
+                                                    backgroundColor: '#FFF5CD',
+                                                    padding: '8px',
+                                                    justifyContent: 'space-between',
+                                                    borderRadius: '10px',
+                                                    fontWeight: 'bold',
+                                                    alignItems: 'center'
+                                                }}
+                                            >
+                                                <img src='/images/coin.png' alt='coin-img' />
+                                                <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '13px', sm: '19.5px' } }}>
+                                                    10
+                                                </Typography>
+                                            </Box>
+                                        </>
+                                    )}
+                                </MissionCard>
                             ))}
                         </Box>
                         <Box sx={{ width: '100%', height: '1px', backgroundColor: 'rgba(40, 38, 38, 0.2)', marginTop: '40px' }} />
                         <Box sx={{ margin: '20px' }}>
                             <Typography sx={{ fontSize: '30px', fontWeight: 'bold', my: 4 }}>Completed Mission</Typography>
                             {[...Array(2)].map((item, index) => (
-                                <MissionCard isClaimed={isClaimed} isCompleted={isCompleted} key={index} />
+                                <MissionCard
+                                    achievMission='5/5'
+                                    statusMission='Mission Complete'
+                                    descMission='Play 5 Games Banana jump'
+                                    isClaimed={isClaimed}
+                                    isCompleted={isCompleted}
+                                    key={index}
+                                >
+                                    {isClaimed ? (
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                width: '50%',
+                                                backgroundColor: '#FFF5CD',
+                                                padding: '8px',
+                                                justifyContent: 'space-around',
+                                                borderRadius: '10px'
+                                            }}
+                                        >
+                                            <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '13px', sm: '19.5px' } }}>
+                                                Claimed
+                                            </Typography>
+                                        </Box>
+                                    ) : (
+                                        <>
+                                            {' '}
+                                            <Box
+                                                sx={{
+                                                    display: 'flex',
+                                                    width: '25%',
+                                                    backgroundColor: '#E8DEFF',
+                                                    padding: '8px',
+                                                    justifyContent: 'space-around',
+                                                    borderRadius: '10px'
+                                                }}
+                                            >
+                                                <Typography
+                                                    sx={{ fontWeight: 'bold', color: '#9163F6', fontSize: { xs: '13px', sm: '19.5px' } }}
+                                                >
+                                                    XP
+                                                </Typography>
+                                                <Typography sx={{ fontWeight: 'bold', fontSize: '19.5px' }}>10</Typography>
+                                            </Box>
+                                            {isCompleted && <Typography> + </Typography>}
+                                            <Box
+                                                sx={{
+                                                    display: 'flex',
+                                                    width: '25%',
+                                                    backgroundColor: '#FFF5CD',
+                                                    padding: '8px',
+                                                    justifyContent: 'space-between',
+                                                    borderRadius: '10px',
+                                                    fontWeight: 'bold',
+                                                    alignItems: 'center'
+                                                }}
+                                            >
+                                                <img src='/images/coin.png' alt='coin-img' />
+                                                <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '13px', sm: '19.5px' } }}>
+                                                    10
+                                                </Typography>
+                                            </Box>
+                                        </>
+                                    )}
+                                </MissionCard>
                             ))}
                             <Box sx={{ marginTop: '120px' }}>
                                 <Button
