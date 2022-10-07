@@ -70,7 +70,11 @@ const ShopsContainer = () => {
                         </Typography>
                     </Grid>
                     <Grid item xs={2} sm={2} sx={{ textAlign: 'end' }}>
-                        <ButtonBase>
+                        <ButtonBase
+                            onClick={() => {
+                                router.push('/shops/redeem-history');
+                            }}
+                        >
                             <img src='/images/redeem-icon.png' alt='redeem-icon' />
                         </ButtonBase>
                     </Grid>
