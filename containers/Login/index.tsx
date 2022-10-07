@@ -34,7 +34,7 @@ const Login = () => {
     const handleSubmit = async (data: any) => {
         const response = await fetchAPI({
             method: 'POST',
-            endpoint: 'accounts/login',
+            endpoint: 'auths/login',
             data: {
                 email: data.email,
                 password: data.password

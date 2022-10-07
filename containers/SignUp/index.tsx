@@ -45,7 +45,7 @@ const SignUp = () => {
     const handleSubmit = async (data: any) => {
         const response = await fetchAPI({
             method: 'POST',
-            endpoint: 'accounts/register',
+            endpoint: 'auths/register',
             data: {
                 email: data.email,
                 password: data.password,
