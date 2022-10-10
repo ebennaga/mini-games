@@ -115,7 +115,7 @@ const Profile = () => {
                         </Box>
                         <Typography sx={{ fontWeight: 'bold' }}>8</Typography>
                     </Box>
-                    <ButtonBase href=''>
+                    <ButtonBase href='/shops/redeem-history'>
                         <Typography sx={{ color: '#A54CE5', fontSize: '11px', fontWeight: 'bolder' }}>View Exchanged Prize</Typography>
                     </ButtonBase>
                 </Box>
@@ -129,7 +129,7 @@ const Profile = () => {
             </Box>
 
             <Box sx={{ height: '1px', width: '100%', background: '#E6E6E6', my: '24px' }} />
-            <ButtonBase>
+            <ButtonBase href='/profile/high-scores'>
                 <Typography
                     component='span'
                     fontSize='12px'
