@@ -185,7 +185,9 @@ const SignUp = () => {
                         }}
                     >
                         <Typography sx={{ color: '#A54CE5' }}>Already have an Account?</Typography>
-                        <ButtonBase sx={{ fontSize: '16px', fontWeight: 'bold', color: '#A54CE5' }}>Log in!</ButtonBase>
+                        <ButtonBase onClick={() => router.push('/login')} sx={{ fontSize: '16px', fontWeight: 'bold', color: '#A54CE5' }}>
+                            Log in!
+                        </ButtonBase>
                     </Grid>
                 </Grid>
             </Box>
