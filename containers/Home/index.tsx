@@ -82,7 +82,7 @@ const HomeContainer = () => {
         console.log(data);
     };
     const isNotif = true;
-    // console.log('datagamesHome', [...datasHome.games, ...datasHome.games]);
+
     if (isLoading || !datasHome) {
         return <HomeSkeleton />;
     }
