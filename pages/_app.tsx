@@ -8,9 +8,30 @@ import { wrapper } from 'redux/store';
 import { SnackbarProvider } from 'notistack';
 import Router from 'next/router';
 import useAuthReducer from 'hooks/useAuthReducer';
+import React from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
     const { user } = useAuthReducer();
+
+    React.useEffect(() => {
+        if (!localStorage.getItem('tutorial')) {
+            const dataLocal = {
+                isTutorial: true,
+                listTutorial: {
+                    welcome: true,
+                    coins: true,
+                    profile: true,
+                    games: true,
+                    tournaments: true,
+                    listOfGames: true,
+                    prizes: true,
+                    topUpCoins: true
+                }
+            };
+            localStorage.setItem('tutorial', JSON.stringify(dataLocal));
+        }
+    }, []);
+
     return (
         <SnackbarProvider
             maxSnack={3}
