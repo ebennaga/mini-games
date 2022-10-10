@@ -1,8 +1,5 @@
-/* eslint-disable no-unused-vars */
-import { Dialog, Box, Typography, Avatar } from '@mui/material';
-import React, { useState } from 'react';
-import CloseIcon from '@mui/icons-material/Close';
-import numberFormat from 'helper/numberFormat';
+import { Dialog, Box, Avatar } from '@mui/material';
+import React from 'react';
 import CardDialog from './CardDialog';
 
 interface IProfileDialog {
@@ -16,9 +13,12 @@ const ProfileDialog: React.FC<IProfileDialog> = ({ onClose, open }) => {
             open={open}
             sx={{
                 zIndex: 999,
+                '& .MuiBackdrop-root': {
+                    background: 'rgba(0, 0, 0, 0.75)'
+                },
                 '& .MuiPaper-root': {
                     width: '-webkit-fill-available',
-                    padding: '50px 30px',
+                    padding: '50px 20px',
                     margin: 0,
                     top: 30,
                     position: 'absolute',
@@ -27,7 +27,18 @@ const ProfileDialog: React.FC<IProfileDialog> = ({ onClose, open }) => {
                 }
             }}
         >
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'absolute', top: -4, right: '24px' }}>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    overflow: 'hidden',
+                    position: 'absolute',
+                    top: -4,
+                    right: '29px',
+                    '@media (max-width:600px)': { right: '24px' }
+                }}
+            >
                 <Box
                     sx={{
                         borderRadius: '27px',
@@ -48,7 +59,7 @@ const ProfileDialog: React.FC<IProfileDialog> = ({ onClose, open }) => {
                     }}
                 />
             </Box>
-            <Box sx={{ mt: '5px' }}>
+            <Box sx={{ mt: '15px' }}>
                 <CardDialog
                     title='Profile'
                     info='Here is your Profile ,you can set up your profile, see statistic & History'

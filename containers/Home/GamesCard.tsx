@@ -14,7 +14,7 @@ const GamesCard: React.FC<GamesCardProps> = ({ image, title, totalUser, href }) 
     const router = useRouter();
 
     return (
-        <ButtonBase onClick={() => router.push(href)} sx={{ display: 'flex', flexDirection: 'column', marginTop: '27px' }}>
+        <ButtonBase onClick={() => router.push(href)} sx={{ display: 'flex', flexDirection: 'column', marginTop: '27px', pl: '10px' }}>
             <Box
                 sx={{
                     background: `url(${image}), url(/images/img_error.svg)`,

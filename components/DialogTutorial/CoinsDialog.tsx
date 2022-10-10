@@ -1,8 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { Dialog, Box, Typography } from '@mui/material';
-import React, { useState } from 'react';
-import CloseIcon from '@mui/icons-material/Close';
-import numberFormat from 'helper/numberFormat';
+import React from 'react';
 import CardDialog from './CardDialog';
 
 interface ICoinsDialog {
@@ -16,9 +13,12 @@ const CoinsDialog: React.FC<ICoinsDialog> = ({ onClose, open }) => {
             open={open}
             sx={{
                 zIndex: 999,
+                '& .MuiBackdrop-root': {
+                    background: 'rgba(0, 0, 0, 0.75)'
+                },
                 '& .MuiPaper-root': {
                     width: '-webkit-fill-available',
-                    padding: '50px 30px',
+                    padding: '50px 20px',
                     margin: 0,
                     top: 30,
                     position: 'absolute',
@@ -27,7 +27,17 @@ const CoinsDialog: React.FC<ICoinsDialog> = ({ onClose, open }) => {
                 }
             }}
         >
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'absolute', top: 4, right: '73px' }}>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    position: 'absolute',
+                    top: 4,
+                    right: '83px',
+                    '@media (max-width:600px)': { right: '73px' }
+                }}
+            >
                 <Box
                     sx={{
                         background: '#FFF5CD',
@@ -64,11 +74,13 @@ const CoinsDialog: React.FC<ICoinsDialog> = ({ onClose, open }) => {
                         background: '#2D3037',
                         transform: 'rotate(45deg)',
                         borderRadius: '4px',
-                        marginTop: '5px'
+                        marginTop: '15px',
+                        position: 'absolute',
+                        top: '40px'
                     }}
                 />
             </Box>
-            <Box sx={{ mt: '5px' }}>
+            <Box sx={{ mt: '15px' }}>
                 <CardDialog title='Prize Play Coins' info='Here is your Coins Balance' onClose={onClose} />
             </Box>
         </Dialog>

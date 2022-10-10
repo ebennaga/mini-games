@@ -1,22 +1,29 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-multi-assign */
-import { Dialog, IconButton, Box, Typography, ButtonBase } from '@mui/material';
+import { Dialog, Box, Typography, ButtonBase } from '@mui/material';
 import React, { useState } from 'react';
-import CloseIcon from '@mui/icons-material/Close';
-import CardDialog from './CardDialog';
 import CoinsDialog from './CoinsDialog';
 import ProfileDialog from './ProfileDialog';
+import GamesDialog from './GamesDialog';
+import TournamentDialog from './TournamentDialog';
+import ListOfGamesDialog from './ListOfGamesDialog';
+import PrizesDialog from './PrizesDialog';
+import TopUpCoinsDialog from './TopUpCoinsDialog';
 
 interface IWelcomeDialog {
     open: boolean;
     setOpen: any;
     dataLocal: any;
     setDataLocal: any;
+    setPrevTutorial: any;
 }
 
-const WelcomeDialog: React.FC<IWelcomeDialog> = ({ open, setOpen, dataLocal, setDataLocal }) => {
+const WelcomeDialog: React.FC<IWelcomeDialog> = ({ open, setOpen, dataLocal, setDataLocal, setPrevTutorial }) => {
     const [coinsDialog, setCoinsDialog] = useState<boolean>(false);
     const [profileDialog, setProfileDialog] = useState<boolean>(false);
+    const [gamesDialog, setGamesDialog] = useState<boolean>(false);
+    const [tournamentDialog, setTournamentDialog] = useState<boolean>(false);
+    const [listGamesDialog, setListGamesDialog] = useState<boolean>(false);
+    const [prizesDialog, setPrizesDialog] = useState<boolean>(false);
+    const [topUpDialog, setTopUpDialog] = useState<boolean>(false);
 
     const handleClose = () => {
         const local: any = localStorage.getItem('tutorial');
@@ -36,12 +43,23 @@ const WelcomeDialog: React.FC<IWelcomeDialog> = ({ open, setOpen, dataLocal, set
         setCoinsDialog(true);
     };
 
-    const handleCloseDialog = (name: string, currentSetDialog: any, nextSetDialog: any) => {
+    const handleCloseDialog = (name: string, currentSetDialog: any, nextSetDialog: any, scrollY: number = 0) => {
+        setPrevTutorial(name);
         const local: any = dataLocal;
         local.listTutorial[name] = false;
-        setDataLocal(local);
         currentSetDialog(false);
         nextSetDialog(true);
+        setDataLocal(local);
+        window.scrollTo(0, scrollY);
+    };
+
+    const handleTopUp = () => {
+        const local: any = dataLocal;
+        local.listTutorial.topUpCoins = false;
+        local.isTutorial = false;
+        setDataLocal(local);
+        localStorage.setItem('tutorial', JSON.stringify(local));
+        setTopUpDialog(false);
     };
 
     return (
@@ -49,6 +67,9 @@ const WelcomeDialog: React.FC<IWelcomeDialog> = ({ open, setOpen, dataLocal, set
             <Dialog
                 open={dataLocal.isTutorial && dataLocal.listTutorial.welcome && open}
                 sx={{
+                    '& .MuiBackdrop-root': {
+                        background: 'rgba(0, 0, 0, 0.75)'
+                    },
                     '& .MuiPaper-root': {
                         width: '-webkit-fill-available',
                         padding: '18px 30px',
@@ -84,7 +105,18 @@ const WelcomeDialog: React.FC<IWelcomeDialog> = ({ open, setOpen, dataLocal, set
             </Dialog>
 
             <CoinsDialog open={coinsDialog} onClose={() => handleCloseDialog('coins', setCoinsDialog, setProfileDialog)} />
-            <ProfileDialog open={profileDialog} onClose={() => handleCloseDialog('profile', setProfileDialog, setCoinsDialog)} />
+            <ProfileDialog open={profileDialog} onClose={() => handleCloseDialog('profile', setProfileDialog, setGamesDialog, 250)} />
+            <GamesDialog open={gamesDialog} onClose={() => handleCloseDialog('games', setGamesDialog, setTournamentDialog, 600)} />
+            <TournamentDialog
+                open={tournamentDialog}
+                onClose={() => handleCloseDialog('tournaments', setTournamentDialog, setListGamesDialog)}
+            />
+            <ListOfGamesDialog
+                open={listGamesDialog}
+                onClose={() => handleCloseDialog('listOfGames', setListGamesDialog, setPrizesDialog)}
+            />
+            <PrizesDialog open={prizesDialog} onClose={() => handleCloseDialog('prizes', setPrizesDialog, setTopUpDialog)} />
+            <TopUpCoinsDialog open={topUpDialog} onClose={handleTopUp} />
         </>
     );
 };

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Box, ButtonBase, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Header from 'components/Header';
@@ -11,9 +10,7 @@ import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import getLocalData from 'helper/getLocalData';
 import WelcomeDialog from 'components/DialogTutorial/WelcomeDialog';
-import CoinsDialog from 'components/DialogTutorial/CoinsDialog';
 import Search from './Search';
-import Mission from './Mission';
 import GamesCard from './GamesCard';
 import EventCarousel from './EventCarousel';
 import GamesSlider from './GamesSlider';
@@ -27,7 +24,7 @@ const HomeContainer = () => {
 
     const [dataTutorial, setDataTutorial] = useState<any>(null);
     const [isWelcome, setIsWelcome] = useState<boolean>(false);
-    const [isCoins, setIsCoins] = useState<boolean>(false);
+    const [prevTutorial, setPrevTutorial] = useState<string>('');
 
     const notify = useNotify();
     const { fetchAPI, isLoading } = useAPICaller();
@@ -56,7 +53,6 @@ const HomeContainer = () => {
                 setDatasHome(res.data.data);
             }
         } catch (e: any) {
-            // console.log('error', e.message);
             notify('failed data', 'e');
         }
     };
@@ -86,13 +82,19 @@ const HomeContainer = () => {
         console.log(data);
     };
     const isNotif = true;
-
+    // console.log('datagamesHome', [...datasHome.games, ...datasHome.games]);
     if (isLoading || !datasHome) {
         return <HomeSkeleton />;
     }
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
-            <WelcomeDialog open={isWelcome} setOpen={setIsWelcome} dataLocal={dataTutorial} setDataLocal={setDataTutorial} />
+            <WelcomeDialog
+                open={isWelcome}
+                setOpen={setIsWelcome}
+                dataLocal={dataTutorial}
+                setDataLocal={setDataTutorial}
+                setPrevTutorial={setPrevTutorial}
+            />
             <Box
                 sx={{
                     width: '-webkit-fill-available',
@@ -127,12 +129,23 @@ const HomeContainer = () => {
                 </ButtonBase>
             </Box>
             <EventCarousel customMaxWidth='91vw' data={datasHome?.banners} />
-            <Mission />
-            <Box sx={{ marginTop: '32px' }}>
+            {/* <Mission /> */}
+            <Box
+                id='games'
+                sx={{
+                    marginTop: '32px',
+                    position: prevTutorial === 'profile' ? 'relative' : 'unset',
+                    px: prevTutorial === 'profile' ? 1 : 0,
+                    zIndex: 1000,
+                    background: '#fff',
+                    borderRadius: '5px'
+                }}
+            >
                 <Typography variant='h6' fontWeight='bold' component='h2'>
                     Games
                 </Typography>
-                <GamesSlider customMaxWidth='91vw' data={datasHome?.games}>
+
+                <GamesSlider customMaxWidth='91vw' data={datasHome.games}>
                     {datasHome.games.map((item: any) => {
                         return (
                             <GamesCard
@@ -146,7 +159,16 @@ const HomeContainer = () => {
                     })}
                 </GamesSlider>
             </Box>
-            <Box sx={{ mt: '36px' }}>
+            <Box
+                sx={{
+                    mt: '36px',
+                    position: prevTutorial === 'games' ? 'relative' : 'unset',
+                    p: prevTutorial === 'games' ? 1 : 0,
+                    background: '#fff',
+                    zIndex: 1000,
+                    borderRadius: '5px'
+                }}
+            >
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: '17px' }}>
                     <Typography variant='h6' fontWeight='bold' component='h2'>
                         Tournaments
@@ -160,24 +182,26 @@ const HomeContainer = () => {
 
                 {/* Tournament Card Start */}
 
-                <TournamentSlider customMaxWidth='91vw'>
-                    {datasHome.tournaments.map((item: any) => {
-                        return (
-                            <TournamentCard
-                                key={item.id}
-                                image={item.banner_url}
-                                imageGame={item.game.banner_url}
-                                onClick={() => router.push(`/games/${item.game.id}/tournament`)}
-                                totalUser={item.total_users}
-                                prizePool={item.total_price}
-                                point={item.entry_coin}
-                                // time='6d 13h 23m'
-                                time={item.start_time}
-                                dataLength={datasHome?.tournaments.length}
-                            />
-                        );
-                    })}
-                </TournamentSlider>
+                <Box id='tournaments'>
+                    <TournamentSlider customMaxWidth='91vw'>
+                        {datasHome.tournaments.map((item: any) => {
+                            return (
+                                <TournamentCard
+                                    key={item.id}
+                                    image={item.banner_url}
+                                    imageGame={item.game.banner_url}
+                                    onClick={() => router.push(`/games/${item.game.id}/tournament`)}
+                                    totalUser={item.total_users}
+                                    prizePool={item.total_price}
+                                    point={item.entry_coin}
+                                    // time='6d 13h 23m'
+                                    time={item.start_time}
+                                    dataLength={datasHome?.tournaments.length}
+                                />
+                            );
+                        })}
+                    </TournamentSlider>
+                </Box>
 
                 {/* Tournament Card End */}
             </Box>

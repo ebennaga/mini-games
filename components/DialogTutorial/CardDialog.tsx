@@ -10,7 +10,16 @@ interface ICardDialog {
 
 const CardDialog: React.FC<ICardDialog> = ({ title, info, onClose }) => {
     return (
-        <Box sx={{ background: '#2D3037', color: '#fff', padding: '17px 26px', borderRadius: '16px', position: 'relative' }}>
+        <Box
+            sx={{
+                width: '-webkit-fill-available',
+                background: '#2D3037',
+                color: '#fff',
+                padding: '17px 26px',
+                borderRadius: '16px',
+                position: 'relative'
+            }}
+        >
             <Box sx={{ position: 'absolute', top: -30, left: 0, zIndex: 99999 }}>
                 <img src='/icons/mission.png' width='53px' height='46px' alt='Welcome Prize Play' />
             </Box>
