@@ -31,7 +31,7 @@ const Input: React.FC<InputProps> = ({ name, form, placeholder, validator, color
     } else if (errType === 'required') {
         helperText = `${placeholder} - is required`;
     } else if (errType === 'minLength') {
-        helperText = type === 'password' ? `Password minimum 8 characters` : `${placeholder} - exceed minimum length`;
+        helperText = type === 'password' ? `Password minimum 6 characters` : `${placeholder} - exceed minimum length`;
     }
     if (error?.message) {
         helperText = `${placeholder} - ${error.message}`;
@@ -88,7 +88,7 @@ const Input: React.FC<InputProps> = ({ name, form, placeholder, validator, color
                         fullWidth
                         InputProps={{
                             id: `input-${name}`,
-                            disableUnderline: true,
+                            // disableUnderline: true,
                             startAdornment: type === 'tel' && (
                                 <Typography
                                     variant='subtitle1'
