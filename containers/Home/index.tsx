@@ -239,7 +239,7 @@ const HomeContainer = () => {
                 subTitle='Reedem your Points'
                 infoText='*Terms and Conditions'
                 background='/images/points-bg.png'
-                image='/icons/point.svg'
+                image='/images/lg-points.png'
             />
         </Box>
     );

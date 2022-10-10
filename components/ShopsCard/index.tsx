@@ -28,7 +28,7 @@ const ShopsCard: React.FC<ShopsCardProps> = ({ title, image, point, onClick, pro
                     <Box sx={{ position: 'absolute', bottom: '35px', right: '10px', zIndex: 9999 }}>
                         <img src={image} alt='ps5-icon' style={{ width: '200px' }} />
                         <Typography sx={{ fontWeight: 'bold', color: 'white' }}>{productName}</Typography>
-                        <Box sx={{ display: 'flex', gap: '10px' }}>
+                        <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                             <img src='/images/point-shops.png' alt='point-shops' />
                             <Typography sx={{ fontWeight: 'bold', color: 'white', fontSize: '12px' }}>{point}</Typography>
                         </Box>

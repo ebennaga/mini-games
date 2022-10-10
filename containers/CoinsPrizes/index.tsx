@@ -20,7 +20,7 @@ const CoinsPrizes = () => {
                     buttonColor='#FF4566'
                 />
                 <GetCard
-                    icon='/icons/points.png'
+                    icon='/images/md-point-shops.png'
                     title='Point'
                     paragraph='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.'
                     secondParagraph='Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip'

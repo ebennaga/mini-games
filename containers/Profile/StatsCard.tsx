@@ -25,7 +25,7 @@ const StatsCard: React.FC<StatsCardProps> = ({ title, icon, value }) => {
                 {title}
             </Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', margin: '16px 0 11px 0' }}>
-                <img src={icon} width={25} height={24} alt='coins' />
+                <img src={icon} width={24} height={24} alt='coins' />
                 <Typography component='p' sx={{ fontSize: '19px', marginLeft: 1, fontWeight: 700 }}>
                     {numberFormat(value)}
                 </Typography>
