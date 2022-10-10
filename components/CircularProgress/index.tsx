@@ -79,7 +79,7 @@ export default function CustomizedProgressBars() {
     React.useEffect(() => {
         if (progress === 0) {
             setTimeout(() => {
-                router.push('/casual/result');
+                router.push('/casual/game');
             }, 500);
         }
     }, [progress]);

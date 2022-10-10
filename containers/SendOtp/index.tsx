@@ -34,6 +34,7 @@ const SendOtp = () => {
                 otp_token: data.otp
             }
         });
+        console.log('response', response);
         if (tempOTP !== data.otp) {
             return notfiy('OTP Doesn`t match!', 'error');
         }
