@@ -29,9 +29,10 @@ const PrizesDialog: React.FC<PrizesDialogProps> = ({ open, onClose }) => {
         >
             <CardDialog title='Prizes' info='Here is Prizes , you can redeem many prize in here' onClose={onClose} />
             <Grid container sx={{ position: 'absolute', bottom: 35, zIndex: -1 }}>
-                <Grid xs={3} />
-                <Grid xs={3} />
+                <Grid xs={3} item />
+                <Grid xs={3} item />
                 <Grid
+                    item
                     xs={3}
                     sx={{
                         display: 'flex',

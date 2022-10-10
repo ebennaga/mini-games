@@ -60,6 +60,7 @@ const WelcomeDialog: React.FC<IWelcomeDialog> = ({ open, setOpen, dataLocal, set
         setDataLocal(local);
         localStorage.setItem('tutorial', JSON.stringify(local));
         setTopUpDialog(false);
+        window.scrollTo(0, 0);
     };
 
     return (

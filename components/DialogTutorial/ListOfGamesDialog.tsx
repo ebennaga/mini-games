@@ -29,8 +29,9 @@ const ListOfGamesDialog: React.FC<ListOfGamesDialogProps> = ({ open, onClose }) 
         >
             <CardDialog title='List of Games' info='You also can find list of Games in here' onClose={onClose} />
             <Grid container sx={{ position: 'absolute', bottom: 35, zIndex: -1 }}>
-                <Grid xs={3} />
+                <Grid xs={3} item />
                 <Grid
+                    item
                     xs={3}
                     sx={{
                         display: 'flex',
