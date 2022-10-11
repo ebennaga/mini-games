@@ -79,7 +79,7 @@ const TopUp = () => {
                         zIndex: 9999,
                         backgroundColor: 'white',
                         width: '-webkit-fill-available',
-                        top: 0,
+                        top: '-1px',
                         borderBottom: borderValue
                     }}
                 >
@@ -164,6 +164,9 @@ const TopUp = () => {
                         {cards.map((item: any, index: number) => {
                             return (
                                 <Box
+                                    onClick={() => {
+                                        router.push('/topup/payment-confirmation');
+                                    }}
                                     key={index}
                                     sx={{
                                         width: '182px',
