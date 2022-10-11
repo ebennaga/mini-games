@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Box, ButtonBase, Typography } from '@mui/material';
+import { Box, ButtonBase, Skeleton, Typography } from '@mui/material';
 import React from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import numberFormat from 'helper/numberFormat';
@@ -9,6 +9,7 @@ import useNotify from 'hooks/useNotify';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import useStyles from './useStyle';
+import HeaderSkeleton from './HeaderSkeleton';
 
 interface HeaderProps {
     logo?: string;
@@ -62,6 +63,9 @@ const Header: React.FC<HeaderProps> = ({
         fetchData();
     }, []);
 
+    if (isLoading) {
+        return <HeaderSkeleton />;
+    }
     return (
         <Box
             sx={{
@@ -85,56 +89,90 @@ const Header: React.FC<HeaderProps> = ({
                     <ArrowBackIcon sx={{ color: '#fff', width: '20px', height: '20px', fontWeight: 'bold' }} />
                 </ButtonBase>
             ) : (
-                <ButtonBase onClick={() => router.push('/home')}>
+                <ButtonBase onClick={() => router.push('/')}>
                     <img src={logo} width={widthLogo} height={heightLogo} alt='prize play' />
                 </ButtonBase>
             )}
-            <Box className={classes.headerRight} sx={{ display: 'flex', alignItems: 'center' }}>
-                <Box
-                    className={classes.pointContainer}
-                    sx={{
-                        background: isShops ? '#C7E7FF' : '#FFF5CD',
-                        borderRadius: isShops ? '10px' : '27px',
-                        height: '30px',
-                        position: 'relative',
-                        marginRight: '11px'
-                    }}
-                >
-                    {!isShops && (
-                        <Box sx={{ position: 'absolute', top: '-7px' }}>
-                            <img src='/icons/plus-point.png' width='16px' height='16px' alt='plus point' />
-                        </Box>
-                    )}
+            {userState ? (
+                <Box className={classes.headerRight} sx={{ display: 'flex', alignItems: 'center' }}>
                     <Box
-                        className={classes.pointSection}
+                        className={classes.pointContainer}
                         sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            padding: '0 9px',
-                            paddingTop: '2px',
-                            gap: '5px'
+                            background: isShops ? '#C7E7FF' : '#FFF5CD',
+                            borderRadius: isShops ? '10px' : '27px',
+                            height: '30px',
+                            position: 'relative',
+                            marginRight: '11px'
                         }}
                     >
-                        {isShops ? (
-                            <img src='/images/point-shops.png' width='20px' height='20.02px' alt='point icon' />
-                        ) : (
-                            <img src='/icons/point.png' width='21px' height='20.02px' alt='point icon' />
+                        {!isShops && (
+                            <Box sx={{ position: 'absolute', top: '-7px' }}>
+                                <img src='/icons/plus-point.png' width='16px' height='16px' alt='plus point' />
+                            </Box>
                         )}
-                        <Typography
-                            variant='subtitle1'
-                            component='span'
-                            className={classes.pointText}
-                            sx={{ fontWeight: 'bold', fontSize: '14px', color: '#373737' }}
+                        <Box
+                            className={classes.pointSection}
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                padding: '0 9px',
+                                paddingTop: '2px',
+                                gap: '5px'
+                            }}
                         >
-                            {numberFormat(router.pathname.includes('/shops') && !isLoading ? userData?.point : userData?.coin)}
-                        </Typography>
+                            {isShops ? (
+                                <img src='/images/point-shops.png' width='20px' height='20.02px' alt='point icon' />
+                            ) : (
+                                <img src='/icons/point.png' width='21px' height='20.02px' alt='point icon' />
+                            )}
+                            <Typography
+                                variant='subtitle1'
+                                component='span'
+                                className={classes.pointText}
+                                sx={{ fontWeight: 'bold', fontSize: '14px', color: '#373737' }}
+                            >
+                                {numberFormat(router.pathname.includes('/shops') && !isLoading ? userData?.point : userData?.coin)}
+                            </Typography>
+                        </Box>
                     </Box>
+                    <ButtonBase onClick={() => router.push('/profile')}>
+                        <img src={profilePicture} width='46px' height='46px' alt='profile' />
+                    </ButtonBase>
                 </Box>
-                <ButtonBase onClick={() => router.push('/profile')}>
-                    <img src={profilePicture} width='46px' height='46px' alt='profile' />
-                </ButtonBase>
-            </Box>
+            ) : (
+                <Box>
+                    <ButtonBase
+                        onClick={() => router.push('/login')}
+                        sx={{
+                            border: '1px solid #A54CE5',
+                            borderRadius: '8px',
+                            padding: '14px',
+                            width: '108px',
+                            '@media(max-width: 360px)': { width: '80px' }
+                        }}
+                    >
+                        <Typography component='span' fontSize='12px' fontWeight={700} sx={{ color: '#A54CE5' }}>
+                            Log in
+                        </Typography>
+                    </ButtonBase>
+                    <ButtonBase
+                        onClick={() => router.push('/signup')}
+                        sx={{
+                            background: '#A54CE5',
+                            borderRadius: '8px',
+                            padding: '14px',
+                            width: '108px',
+                            ml: '8px',
+                            '@media(max-width: 360px)': { width: '80px' }
+                        }}
+                    >
+                        <Typography component='span' fontSize='12px' fontWeight={700} sx={{ color: '#fff' }}>
+                            Sign Up
+                        </Typography>
+                    </ButtonBase>
+                </Box>
+            )}
         </Box>
     );
 };

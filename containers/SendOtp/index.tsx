@@ -57,7 +57,7 @@ const SendOtp = () => {
 
         if (response.status === 200) {
             await handleLogin(dataGlobal.emailOtp, dataGlobal.password);
-            return router.push('/home');
+            return router.push('/');
         }
         return notfiy(response.data.message, 'error');
     };
