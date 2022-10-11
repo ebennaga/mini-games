@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { Box, Typography, Checkbox, FormControlLabel } from '@mui/material';
 import Button from 'components/Button/Index';
 import Header from 'components/Header';
@@ -36,7 +37,7 @@ const PaymentConfirmationContainer = () => {
             check: false
         }
     });
-
+    const router = useRouter();
     const handleCheckbox = (e: any) => {
         form.setValue('check', e.target.check);
     };
@@ -107,7 +108,15 @@ const PaymentConfirmationContainer = () => {
                 <CheckboxController name='check' form={form} onClick={handleCheckbox} checked={form.watch('check')} />
             </Box>
             <Box sx={{ padding: '20px', position: 'sticky', bottom: '0px', zIndex: 99, mt: '100px' }}>
-                <Button title='Confirm to pay' backgoundColor='#A54CE5' color='white' onClick={() => {}} />
+                <Button
+                    disabled={!form.watch('check')}
+                    title='Confirm to pay'
+                    backgoundColor='#A54CE5'
+                    color='white'
+                    onClick={() => {
+                        router.push(`${router.asPath}/pay-form`);
+                    }}
+                />
             </Box>
         </Box>
     );

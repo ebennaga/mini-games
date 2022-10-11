@@ -10,21 +10,35 @@ interface TextFieldProps {
     form: any;
     name: string;
     label: string;
+    validator?: any;
+    type: 'text';
 }
 
-const TextFieldInput: React.FC<TextFieldProps> = ({ form, name, label }) => {
+const TextFieldInput: React.FC<TextFieldProps> = ({ form, name, label, validator, type = 'text' }) => {
+    const { errors } = form.formState;
+    const error = errors[name] ? errors[name] : null;
+
+    const errType: string = error?.type;
+    let helperText: string = '';
+    if (errType === 'required') {
+        helperText = `${name} is required`;
+    }
+
     return (
         <Controller
             name={name}
             control={form.control}
+            rules={validator}
             render={({ field }) => {
                 return (
                     <TextField
+                        helperText={helperText.charAt(0).toUpperCase() + helperText.slice(1)}
                         {...field}
                         id='standard-basic'
                         label={label}
                         variant='standard'
                         fullWidth
+                        type={type}
                         sx={{
                             my: '20px',
                             '& .MuiInputBase-input': {
@@ -36,6 +50,10 @@ const TextFieldInput: React.FC<TextFieldProps> = ({ form, name, label }) => {
                                 fontSize: '12px',
                                 fontWeight: 600,
                                 color: '#949494'
+                            },
+                            '& .MuiFormHelperText-root': {
+                                color: 'red',
+                                fontWeight: 400
                             }
                         }}
                     />
@@ -58,6 +76,8 @@ const PrizeConfirmationContainer = () => {
     const [openDialog, setOpenDialog] = React.useState<boolean>(false);
     const [borderValue, setBorderValue] = React.useState<string>('none');
     const [isLoading, setIsLoading] = React.useState<boolean>(true);
+    const [isDisabled, setIsDisabled] = React.useState<boolean>(true);
+    const rules = { required: true };
 
     const handleScroll = () => {
         if (window.scrollY === 0) {
@@ -65,6 +85,21 @@ const PrizeConfirmationContainer = () => {
         }
         return setBorderValue('0.5px solid rgba(148, 148, 148, 0.35)');
     };
+
+    const formValue = (name: any) => {
+        return form.watch(name);
+    };
+
+    React.useEffect(() => {
+        ['address', 'recipient', 'phone'].forEach((item: any) => {
+            if (formValue(item) !== '') {
+                setIsDisabled(false);
+            }
+            if (formValue(item) === '') {
+                setIsDisabled(true);
+            }
+        });
+    }, [form.watch(), isDisabled]);
 
     React.useEffect(() => {
         const watchScroll = () => {
@@ -134,10 +169,10 @@ const PrizeConfirmationContainer = () => {
                         Address
                     </Typography>
                     <form style={{ position: 'relative', zIndex: 0, marginBottom: '185px' }} onSubmit={form.handleSubmit(() => {})}>
-                        <TextFieldInput label='Address' form={form} name='address' />
-                        <TextFieldInput label='Notes' form={form} name='notes' />
-                        <TextFieldInput label={`Recipient's Name`} form={form} name='recipient' />
-                        <TextFieldInput label='Phone Number' form={form} name='phone' />
+                        <TextFieldInput type='text' label='Address' form={form} name='address' validator={rules} />
+                        <TextFieldInput type='text' label='Notes' form={form} name='notes' />
+                        <TextFieldInput type='text' label={`Recipient's Name`} form={form} name='recipient' validator={rules} />
+                        <TextFieldInput type='text' label='Phone Number' form={form} name='phone' validator={rules} />
                     </form>
                 </Box>
             </Box>
@@ -150,6 +185,7 @@ const PrizeConfirmationContainer = () => {
                     title='Proceed to Reedem'
                     backgoundColor='#A54CE5'
                     color='white'
+                    disabled={isDisabled}
                 />
             </Box>
             <RewardDialog
