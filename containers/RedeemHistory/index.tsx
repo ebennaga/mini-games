@@ -1,10 +1,11 @@
 import React from 'react';
-import { Box, Tabs, Tab, ButtonBase, Typography } from '@mui/material';
-import { ArrowCircleLeft } from '@mui/icons-material';
-import { useRouter } from 'next/router';
+import { Box, Tabs, Tab, Typography } from '@mui/material';
+// import { ArrowCircleLeft } from '@mui/icons-material';
+// import { useRouter } from 'next/router';
+import HeaderBack from 'components/HeaderBack';
 
 const RedeemHistoryContainer = () => {
-    const router = useRouter();
+    // const router = useRouter();
     const cards = [
         {
             id: 1,
@@ -42,71 +43,119 @@ const RedeemHistoryContainer = () => {
 
     return (
         <Box sx={{ width: '100%' }}>
-            <Box sx={{ ml: '20px' }}>
-                <ButtonBase
-                    onClick={() => {
-                        router.push('/shops');
-                    }}
-                    sx={{ mt: 5 }}
-                >
-                    <ArrowCircleLeft sx={{ width: '35px', height: '35px', color: '#A54CE5' }} />
-                </ButtonBase>
+            <Box padding='20px 20px 0px'>
+                <HeaderBack title='Redeem History' />
             </Box>
-
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: -10 }}>
-                <Typography sx={{ fontWeight: 'bold', fontSize: '24px', mt: 5 }}>Redeem History</Typography>
-            </Box>
-
             <Box sx={{ mt: '20px', maxWidth: { xs: 370, sm: 480 }, bgcolor: 'background.paper' }}>
                 <Tabs
+                    indicatorColor='secondary'
+                    textColor='inherit'
                     value={value}
                     onChange={handleChange}
                     variant='scrollable'
                     scrollButtons={false}
                     aria-label='scrollable prevent tabs example'
                 >
-                    <Tab label='Semua' />
-                    <Tab label='Diproses' />
-                    <Tab label='Dikemas' />
-                    <Tab label='Dikirim' />
-                    <Tab label='Selesai' />
+                    <Tab
+                        disableRipple
+                        sx={{
+                            textTransform: 'none',
+                            '&.Mui-selected': {
+                                fontWeight: 'bold'
+                            }
+                        }}
+                        label='Semua'
+                    />
+                    <Tab
+                        disableRipple
+                        sx={{
+                            textTransform: 'none',
+                            '&.Mui-selected': {
+                                fontWeight: 'bold'
+                            }
+                        }}
+                        label='Diproses'
+                    />
+                    <Tab
+                        disableRipple
+                        sx={{
+                            textTransform: 'none',
+                            '&.Mui-selected': {
+                                fontWeight: 'bold'
+                            }
+                        }}
+                        label='Dikemas'
+                    />
+                    <Tab
+                        disableRipple
+                        sx={{
+                            textTransform: 'none',
+                            '&.Mui-selected': {
+                                fontWeight: 'bold'
+                            }
+                        }}
+                        label='Dikirim'
+                    />
+                    <Tab
+                        disableRipple
+                        sx={{
+                            textTransform: 'none',
+                            '&.Mui-selected': {
+                                fontWeight: 'bold'
+                            }
+                        }}
+                        label='Selesai'
+                    />
                 </Tabs>
             </Box>
             <Box sx={{ border: '1px solid rgba(0, 0, 0, 0.1)' }} />
-            {cards.map((index: any) => {
+            {cards.map((item: any, idx: number) => {
                 return (
                     <>
-                        <Box key={index} sx={{ display: 'flex', justifyContent: 'space-between', ml: '20px', mr: '21px', mt: '20px' }}>
+                        <Box
+                            key={idx}
+                            sx={{ display: 'flex', justifyContent: 'space-between', ml: '20px', mr: '21px', mt: '20px', gap: '15px' }}
+                        >
                             <Box sx={{ width: '86px', height: '86px', background: '#F4F1FF', borderRadius: '4px' }}>
                                 <img
-                                    src={index.image || '/images/tablet.png'}
+                                    src={item.image || '/images/tablet.png'}
                                     height={60}
                                     width={60}
                                     style={{ marginTop: '12px', marginLeft: '13px', marginRight: '12px' }}
                                     alt='tablet-redeem'
                                 />
                             </Box>
-                            <Box sx={{ ml: 1.5, width: '100%' }}>
+                            <Box sx={{ width: '100%' }}>
                                 <Box>
-                                    <Typography sx={{ fontSize: '14px', fontWeight: 700 }}>{index.title}</Typography>
+                                    <Typography sx={{ fontSize: '14px', fontWeight: 700 }}>{item.title}</Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', alignItems: 'flex-end', width: '100%', mt: '3px' }}>
                                     <Typography sx={{ fontSize: '12px', fontWeight: 400, color: '#949494' }}>Redeem Date</Typography>
                                     <Typography sx={{ fontSize: '12px', fontWeight: 'bold', color: '#949494', ml: 1 }}>
-                                        {index.redeemDate}
+                                        {item.redeemDate}
                                     </Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', alignItems: 'flex-end', width: '100%', mt: '3px' }}>
                                     <Typography sx={{ fontSize: '12px', fontWeight: 400, color: '#949494' }}>Courier:</Typography>
                                     <Typography sx={{ fontSize: '12px', fontWeight: 'bold', color: '#949494', ml: 1 }}>Sicepat</Typography>
                                 </Box>
-                                <Box sx={{ display: 'flex', alignItems: 'flex-end', width: '100%', mt: '3px' }}>
-                                    <img src='/images/new-point.png' height={21} width={21} alt='tablet-redeem' />
-                                    <Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#373737', ml: 1 }}>
-                                        {index.price}
-                                    </Typography>
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        width: '100%',
+                                        mt: '3px',
+                                        justifyContent: 'space-between'
+                                    }}
+                                >
+                                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                        <img src='/images/new-point.png' height={21} width={21} alt='tablet-redeem' />
+                                        <Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#373737', ml: 1 }}>
+                                            {item.price}
+                                        </Typography>
+                                    </Box>
                                     <Box sx={{ ml: 10 }}>
-                                        <Typography sx={{ color: '#A54CE5', fontWeight: 500 }}>On Delivery</Typography>
+                                        <Typography sx={{ color: '#A54CE5', fontWeight: 600, fontSize: '12px' }}>On Delivery</Typography>
                                     </Box>
                                 </Box>
                             </Box>

@@ -13,7 +13,7 @@ const GamesSlider: React.FC<GamesSliderProps> = ({ children, customMaxWidth, dat
         dots: false,
         infinite: true,
         speed: 500,
-        slidesToShow: 3,
+        slidesToShow: data?.length <= 2 ? data.length : 3,
         swipeToSlide: true
     };
 
