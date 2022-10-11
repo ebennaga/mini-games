@@ -80,10 +80,10 @@ MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ ctx, Comp
     // if login page && userData
     if (ctx.pathname === '/login' && userData) {
         if (ctx.res) {
-            ctx.res.writeHead(302, { Location: '/home' });
+            ctx.res.writeHead(302, { Location: '/' });
             ctx.res.end();
         } else {
-            Router.push('/home');
+            Router.push('/');
         }
     }
 

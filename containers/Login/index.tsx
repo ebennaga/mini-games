@@ -42,7 +42,7 @@ const Login = () => {
         });
         if (response.status === 200) {
             setUser(response.data.data);
-            router.push('/home');
+            router.push('/');
         } else {
             notify('Login Failed', 'error');
         }
