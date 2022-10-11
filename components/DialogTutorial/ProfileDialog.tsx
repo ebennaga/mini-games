@@ -18,9 +18,9 @@ const ProfileDialog: React.FC<IProfileDialog> = ({ onClose, open }) => {
                 },
                 '& .MuiPaper-root': {
                     width: '-webkit-fill-available',
-                    padding: '50px 20px',
+                    padding: '60px 20px',
                     margin: 0,
-                    top: 30,
+                    top: 20,
                     position: 'absolute',
                     background: 'rgba(0,0,0,0.0)',
                     boxShadow: 'none'
@@ -34,7 +34,7 @@ const ProfileDialog: React.FC<IProfileDialog> = ({ onClose, open }) => {
                     alignItems: 'center',
                     overflow: 'hidden',
                     position: 'absolute',
-                    top: -4,
+                    top: 4,
                     right: '29px',
                     '@media (max-width:600px)': { right: '24px' }
                 }}
