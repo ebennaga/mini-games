@@ -1,15 +1,18 @@
 import { Box, ButtonBase, Typography } from '@mui/material';
 import Button from 'components/Button/Index';
 import Input from 'components/Input';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import { useSelector } from 'react-redux';
 import useAuthReducer from 'hooks/useAuthReducer';
+import ResendSuccessDialog from './ResendSuccessDialog';
 
 const SendOtp = () => {
+    const [dialogResend, setDialogResend] = useState<boolean>(false);
+
     const dataGlobal = useSelector((state: any) => state.webpage?.user?.user);
     const { isLoading, fetchAPI } = useAPICaller();
     const { isLoading: resendIsLoading, fetchAPI: fetchResendOtp } = useAPICaller();
@@ -70,7 +73,7 @@ const SendOtp = () => {
         });
 
         if (response.status === 200) {
-            notfiy('OTP code has been sent to your email');
+            setDialogResend(true);
         } else if (response.data.message) {
             notfiy(response.data.message, 'error');
         } else {
@@ -109,6 +112,7 @@ const SendOtp = () => {
                     </ButtonBase>
                 )}
             </Typography>
+            <ResendSuccessDialog open={dialogResend} setOpen={setDialogResend} />
         </Box>
     );
 };
