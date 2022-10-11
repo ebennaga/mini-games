@@ -37,7 +37,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                         }}
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center', alignSelf: 'end', marginRight: '9px', marginTop: '9px' }}>
-                            <img src='/icons/point.svg' width='21px' height='22px' alt='prize' />
+                            <img src='/images/point-shops.png' width='21px' height='22px' alt='prize' />
                             <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
                                 {dataLeaderboard[1].user.total_score}
                             </Typography>
@@ -80,7 +80,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                         }}
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center', alignSelf: 'end', marginRight: '9px', marginTop: '9px' }}>
-                            <img src='/icons/point.svg' width='21px' height='22px' alt='prize' />
+                            <img src='/images/point-shops.png' width='21px' height='22px' alt='prize' />
                             <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
                                 {dataLeaderboard[0].user.total_score}
                             </Typography>
@@ -123,7 +123,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                         }}
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center', alignSelf: 'end', marginRight: '9px', marginTop: '9px' }}>
-                            <img src='/icons/point.svg' width='21px' height='22px' alt='prize' />
+                            <img src='/images/point-shops.png' width='21px' height='22px' alt='prize' />
                             <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
                                 {dataLeaderboard[2].user.total_score}
                             </Typography>

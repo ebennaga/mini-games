@@ -33,7 +33,7 @@ const SignUp = () => {
 
     useEffect(() => {
         const value = form.watch();
-        if (value.password.length >= 8) {
+        if (value.password.length >= 6) {
             if (value.password === value.confirmPassword) {
                 setIsSamePwd(true);
             } else {
@@ -52,11 +52,15 @@ const SignUp = () => {
                 password_confirmation: data.confirmPassword
             }
         });
-        if (response.data.status) {
-            const registerData = { emailOtp: data.email };
+
+        if (response.data.status === 200) {
+            const registerData = { emailOtp: data.email, password: data.password };
             setUser(registerData);
             router.push('/send-otp');
         } else {
+            if (response.data.message) {
+                notify(response.data.message, 'error');
+            }
             notify('Signup Error', 'error');
         }
     };
@@ -86,15 +90,15 @@ const SignUp = () => {
                                 name='password'
                                 form={form}
                                 placeholder='Insert Your Password'
-                                validator={{ minLength: 8 }}
+                                validator={{ minLength: 6 }}
                                 type='password'
                             />
                         </Grid>
                         <Grid item xs={12} sx={{ mt: 3 }}>
                             <Input name='confirmPassword' form={form} placeholder='Confirm Your Password' type='password' />
                             {!isSamePwd && (
-                                <Box mt={2}>
-                                    <Typography component='span' sx={{ color: '#CD1719', ml: '1em' }}>
+                                <Box mt={2} ml='1em'>
+                                    <Typography component='span' sx={{ color: '#CD1719' }}>
                                         Password and Confirm Password does not match
                                     </Typography>
                                 </Box>
@@ -107,7 +111,7 @@ const SignUp = () => {
                                 color='#FFF'
                                 type='submit'
                                 loading={isLoading}
-                                disabled={!dataInput.email || dataInput.password.length < 8 || !isSamePwd}
+                                disabled={!dataInput.email || dataInput.password.length < 6 || !isSamePwd}
                             />
                         </Grid>
                     </Grid>
@@ -185,7 +189,9 @@ const SignUp = () => {
                         }}
                     >
                         <Typography sx={{ color: '#A54CE5' }}>Already have an Account?</Typography>
-                        <ButtonBase sx={{ fontSize: '16px', fontWeight: 'bold', color: '#A54CE5' }}>Log in!</ButtonBase>
+                        <ButtonBase onClick={() => router.push('/login')} sx={{ fontSize: '16px', fontWeight: 'bold', color: '#A54CE5' }}>
+                            Log in!
+                        </ButtonBase>
                     </Grid>
                 </Grid>
             </Box>

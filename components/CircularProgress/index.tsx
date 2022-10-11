@@ -69,9 +69,7 @@ export default function CustomizedProgressBars() {
 
     React.useEffect(() => {
         const timer = setInterval(() => {
-            if (progress !== 0) {
-                setProgress((prevProgress) => (prevProgress <= 0 ? 75 : prevProgress - 25));
-            }
+            setProgress((prevProgress) => (prevProgress === 0 ? 0 : prevProgress - 25));
         }, 1000);
         return () => {
             clearInterval(timer);
@@ -81,7 +79,7 @@ export default function CustomizedProgressBars() {
     React.useEffect(() => {
         if (progress === 0) {
             setTimeout(() => {
-                router.push('/casual/result');
+                router.push('/casual/game');
             }, 500);
         }
     }, [progress]);

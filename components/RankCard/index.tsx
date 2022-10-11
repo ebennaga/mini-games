@@ -48,7 +48,7 @@ const RankCard: React.FC<IRankCard> = ({ hash = '#', key, rank, image, username,
                     </Typography>
                 </Grid>
                 <Grid item xs={3} sx={{ display: 'flex', alignItems: 'center' }}>
-                    <img src='/icons/point.svg' width='19.95px' height='19.95px' alt='prize' />
+                    <img src='/images/point-shops.png' width='19.95px' height='19.95px' alt='prize' />
                     <Typography component='h3' fontSize='12px' fontWeight={600} paddingLeft='6px'>
                         {prize}
                     </Typography>

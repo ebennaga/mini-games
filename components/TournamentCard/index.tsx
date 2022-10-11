@@ -118,7 +118,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, champion, coin, p
                     <Box>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                <img src='/icons/star.png' width={31} height={31} alt='star' />
+                                <img src='/images/point-shops.png' width={29} height={30} alt='star' />
                                 <Typography
                                     component='span'
                                     sx={{

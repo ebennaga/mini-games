@@ -62,7 +62,7 @@ const Profile = () => {
                             value={2340}
                             onClick={() => router.push('/shops')}
                             buttonText='Redeem Points'
-                            icon='/icons/points.png'
+                            icon='/images/point-shops.png'
                         />
                     </Grid>
                 </Grid>
@@ -77,7 +77,7 @@ const Profile = () => {
             >
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginBottom: '24px' }}>
                     <Typography component='h3' fontWeight='bold' fontSize='18px'>
-                        Your Stats
+                        Game Stats
                     </Typography>
                     <Link href='/history'>
                         <a style={{ textDecoration: 'unset', fontSize: '14px', fontWeight: 600, color: '#A54CE5' }}>View History</a>
@@ -85,14 +85,41 @@ const Profile = () => {
                 </Box>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
-                        <StatsCard title='Total Earns' icon='/icons/points.png' value={1020} />
+                        <StatsCard title='Total Earns' icon='/images/point-shops.png' value={1020} />
                     </Grid>
                     <Grid item xs={6}>
                         <StatsCard title='Total Plays' icon='/icons/plays.png' value={230} />
                     </Grid>
                 </Grid>
             </Box>
-
+            <Box sx={{ height: '1px', width: '100%', background: '#E6E6E6', my: '24px' }} />
+            <Box sx={{ width: '100%' }}>
+                <Typography component='h3' fontWeight='bold' fontSize='18px'>
+                    Redeemed Stats
+                </Typography>
+                <Box
+                    sx={{
+                        border: '0.5px solid #E6E6E6',
+                        padding: '30px 20px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        borderRadius: '15px',
+                        mt: '20px',
+                        gap: '8px'
+                    }}
+                >
+                    <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <Typography sx={{ fontWeight: 'bold' }}>Total Prize</Typography>
+                        <Box>
+                            <img src='/icons/redeem-active.svg' alt='redeem' width={20} />
+                        </Box>
+                        <Typography sx={{ fontWeight: 'bold' }}>8</Typography>
+                    </Box>
+                    <ButtonBase href='/shops/redeem-history'>
+                        <Typography sx={{ color: '#A54CE5', fontSize: '11px', fontWeight: 'bolder' }}>View Exchanged Prize</Typography>
+                    </ButtonBase>
+                </Box>
+            </Box>
             <Box sx={{ height: '1px', width: '100%', background: '#E6E6E6', my: '24px' }} />
             <Box sx={{ width: '100%' }}>
                 <Typography component='h3' fontWeight='bold' fontSize='18px' alignItems='start' marginBottom='24px'>
@@ -102,7 +129,7 @@ const Profile = () => {
             </Box>
 
             <Box sx={{ height: '1px', width: '100%', background: '#E6E6E6', my: '24px' }} />
-            <ButtonBase>
+            <ButtonBase href='/profile/high-scores'>
                 <Typography
                     component='span'
                     fontSize='12px'
@@ -114,7 +141,7 @@ const Profile = () => {
             </ButtonBase>
             <ButtonBase
                 sx={{
-                    background: 'url(/images/dummy/banner-1.png)',
+                    background: 'url(/images/dummy/banner-4.png)',
                     backgroundPosition: 'right',
                     backgroundSize: 'cover',
                     height: '90px',
