@@ -27,7 +27,7 @@ const TopUpCoinsDialog: React.FC<TopUpCoinsDialogProps> = ({ open, onClose }) =>
                 }
             }}
         >
-            <CardDialog title='Top Up Coins' info='Needs more coins to play, you can Top Up in here!' onClose={onClose} />
+            <CardDialog title='Top Up Coins' info='Needs more coins to play, you can Top Up in here!' onClose={onClose} isTab />
             <Grid container sx={{ position: 'absolute', bottom: 35, zIndex: -1 }}>
                 <Grid xs={3} item />
                 <Grid xs={3} item />

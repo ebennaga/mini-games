@@ -20,7 +20,7 @@ const Mission = () => {
         >
             <Box sx={{ position: 'relative' }}>
                 <Box sx={{ position: 'absolute', top: '-14px' }}>
-                    <img src='/icons/mission.png' alt='mission' width='81.8px' height='71px' />
+                    <img src='/icons/mission.svg' alt='mission' width='81.8px' height='71px' />
                 </Box>
                 <Box sx={{ paddingLeft: '95px' }}>
                     <Typography variant='subtitle1' component='h2' fontWeight='bold'>
