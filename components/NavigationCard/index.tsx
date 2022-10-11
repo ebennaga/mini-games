@@ -12,6 +12,7 @@ interface INavigationCard {
 const NavigationCard: React.FC<INavigationCard> = ({ icon, title, onClick, isBorder = false, body = '' }) => {
     return (
         <ButtonBase
+            disableRipple
             onClick={onClick}
             sx={{
                 width: '100%',
