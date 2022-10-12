@@ -72,7 +72,9 @@ const Login = () => {
                             <Input name='password' form={form} placeholder=' Password' validator={rules} type='password' />
                         </Box>
                         <Box sx={{ textAlign: 'right', mt: 2, color: '#A54CE5' }}>
-                            <ButtonBase sx={{ fontWeight: 'bold' }}>Forgot Password</ButtonBase>
+                            <ButtonBase onClick={() => router.push('/forgot')} sx={{ fontWeight: 'bold' }}>
+                                Forgot Password
+                            </ButtonBase>
                         </Box>
                         <Box sx={{ mt: 3 }}>
                             <Button
