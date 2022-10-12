@@ -2,14 +2,17 @@ import { Box, ButtonBase, Typography } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import NavigationCard from 'components/NavigationCard';
 import SwitchCard from 'components/SwitchCard';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import useAuthReducer from 'hooks/useAuthReducer';
+import DeleteAccountDialog from './DeleteAccountDialog';
 
 const ProfileSetting = () => {
     const { clearUser } = useAuthReducer();
     const router = useRouter();
+
+    const [deleteDialog, setDeleteDialog] = useState(false);
 
     const form = useForm({
         mode: 'all',
@@ -122,7 +125,7 @@ const ProfileSetting = () => {
                     Sign Out
                 </Typography>
             </ButtonBase>
-            <ButtonBase onClick={handleDelete} sx={{ width: '100%' }}>
+            <ButtonBase onClick={() => setDeleteDialog(true)} sx={{ width: '100%' }}>
                 <Typography component='span' fontSize='14px' fontWeight={700} sx={{ color: '#A54CE5' }}>
                     Delete Account
                 </Typography>
@@ -132,6 +135,7 @@ const ProfileSetting = () => {
                     0.3.1
                 </Typography>
             </Box>
+            <DeleteAccountDialog open={deleteDialog} setOpen={setDeleteDialog} handleDelete={handleDelete} />
         </Box>
     );
 };
