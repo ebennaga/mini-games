@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { Box, ButtonBase, Typography } from '@mui/material';
 import getRemainingTimes from 'helper/getRemainingTime';
-// import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 interface TournamentCardProps {
