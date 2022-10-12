@@ -7,6 +7,8 @@ import NotifDialog from 'components/Dialog/notifDialog';
 import Header from 'components/Header';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
+import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
+import { useSelector } from 'react-redux';
 import HeaderTournament from './HeaderTournament';
 import ButtonPlay from './ButtonPlay';
 import LeaderboardPodium from './LeaderboardPodium';
@@ -17,9 +19,14 @@ const GameTournament = () => {
     const myCoins = 10;
     const coins = 20;
     const notify = useNotify();
-    const [listingGame, setListingGame] = React.useState<any>(null);
     const { fetchAPI, isLoading } = useAPICaller();
+
+    const [listingGame, setListingGame] = React.useState<any>(null);
     const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
+    const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
+
+    const userState = useSelector((state: any) => state.webpage.user.user);
+
     const dataLeaderboard = [
         { image: '/icons/dummy/profile-2.png', username: 'rinto', point: 246000, prize: 2000 },
         { image: '/icons/dummy/profile.png', username: 'eben', point: 13200, prize: 1500 },
@@ -52,6 +59,16 @@ const GameTournament = () => {
     React.useEffect(() => {
         fetchData(listingGame);
     }, []);
+
+    const handlePlay = () => {
+        if (userState) {
+            if (myCoins < coins) {
+                return setOpenNotifDialog(!openNotifDialog);
+            }
+            return router.push(`/games/${router.query.id}/tournament/result`);
+        }
+        return setSignupLoginDialog(true);
+    };
 
     // if (isLoading || !listingGame) {
     //     return <Box>Loading</Box>;
@@ -98,16 +115,7 @@ const GameTournament = () => {
                 )}
             </Box>
             <Box sx={{ padding: '20px', position: 'sticky', bottom: '10px' }}>
-                <ButtonPlay
-                    onClick={() => {
-                        if (myCoins < coins) {
-                            return setOpenNotifDialog(!openNotifDialog);
-                        }
-                        return router.push(`/games/${router.query.id}/tournament/result`);
-                    }}
-                    title='Play Tournament'
-                    points={coins}
-                />
+                <ButtonPlay onClick={handlePlay} title='Play Tournament' points={coins} />
             </Box>
             <NotifDialog
                 open={openNotifDialog}
@@ -115,6 +123,7 @@ const GameTournament = () => {
                 body='You don’t have Coins in your balance. 
 Top up Coins to continue'
             />
+            <SignupLoginDialog open={signupLoginDialog} setOpen={setSignupLoginDialog} />
         </Box>
     );
 };

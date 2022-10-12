@@ -8,6 +8,7 @@ import NotifDialog from 'components/Dialog/notifDialog';
 import AgeConfirmationDialog from 'components/Dialog/AgeConfirmationDialog';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
+import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import PrizeSkeletonDetail from './PrizeDetailSkeleton';
 
 const PrizeDetailContainer = () => {
@@ -15,6 +16,7 @@ const PrizeDetailContainer = () => {
     const [isFavorite, setIsFavorite] = React.useState<boolean>(false);
     const [open, setOpen] = React.useState<boolean>(false);
     const [dialogConfirm, setDialogConfirm] = React.useState<boolean>(false);
+    const [dialogSignupLogin, setDialogSignupLogin] = React.useState<boolean>(false);
     const [isLoading, setIsLoading] = React.useState<boolean>(true);
     const form = useForm({
         mode: 'all',
@@ -25,7 +27,7 @@ const PrizeDetailContainer = () => {
         }
     });
 
-    const { point } = userState;
+    // const { point } = userState;
     const prize = 10_000;
     const [borderValue, setBorderValue] = React.useState<string>('none');
     const handleScroll = () => {
@@ -45,10 +47,13 @@ const PrizeDetailContainer = () => {
         };
     }, []);
     const handleReedem = () => {
-        if (point < prize) {
-            return setOpen(!open);
+        if (userState) {
+            if (userState?.point < prize) {
+                return setOpen(!open);
+            }
+            return setDialogConfirm(true);
         }
-        return setDialogConfirm(true);
+        return setDialogSignupLogin(true);
     };
 
     React.useEffect(() => {
@@ -75,7 +80,7 @@ const PrizeDetailContainer = () => {
                     width: '-webkit-fill-available'
                 }}
             >
-                <Header isShops hrefBack='/shops' isBack point={point} profilePicture='/icons/dummy/profile.png' />
+                <Header isShops hrefBack='/shops' isBack point={userState?.point} profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Box padding='10px 20px'>
                 <Box sx={{ backgroundColor: '#F4F1FF', padding: '20px', borderRadius: '10px' }}>
@@ -144,6 +149,7 @@ Play Tournament and get points to continue'
                 open={dialogConfirm}
                 setOpen={setDialogConfirm}
             />
+            <SignupLoginDialog open={dialogSignupLogin} setOpen={setDialogSignupLogin} />
         </Box>
     );
 };
