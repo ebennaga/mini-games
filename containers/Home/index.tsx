@@ -150,7 +150,8 @@ const HomeContainer = () => {
                         return (
                             <GamesCard
                                 key={item.id}
-                                href={item.game_url}
+                                // href={item.game_url}
+                                href={`/games/${item.id}`}
                                 image={item.banner_url}
                                 title={item.name}
                                 totalUser={item.user_sessions}
