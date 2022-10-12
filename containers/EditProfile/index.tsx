@@ -4,14 +4,13 @@ import React from 'react';
 import CreateIcon from '@mui/icons-material/Create';
 import InputEdit from 'components/InputEdit';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
 import DialogPicture from './DialogPicture';
+import DialogSuccess from './DialogSuccess';
 
 const EditProfile = () => {
     const [dialogPicture, setDialogPicture] = React.useState<boolean>(false);
+    const [dialogSuccess, setDialogSuccess] = React.useState<boolean>(false);
     const [selectedAvatar, setSelectedAvatar] = React.useState('');
-
-    const router = useRouter();
 
     const form = useForm({
         mode: 'all',
@@ -21,11 +20,11 @@ const EditProfile = () => {
     });
 
     const handleSaveChanges = async () => {
-        router.push('/profile');
+        setDialogSuccess(true);
     };
 
     return (
-        <Box component='main' sx={{ width: '-webkit-fill-available', padding: '0 20px', color: '#373737' }}>
+        <Box component='main' sx={{ width: '-webkit-fill-available', padding: '0 20px', color: '#373737', height: '85%' }}>
             <HeaderBack title='Edit Profile' />
             <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
                 <Box>
@@ -61,6 +60,7 @@ const EditProfile = () => {
                 </ButtonBase>
             </Box>
             <DialogPicture open={dialogPicture} setOpen={setDialogPicture} setSelectedAvatar={setSelectedAvatar} />
+            <DialogSuccess open={dialogSuccess} setOpen={setDialogSuccess} />
         </Box>
     );
 };
