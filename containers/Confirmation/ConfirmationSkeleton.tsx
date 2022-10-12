@@ -33,7 +33,7 @@ const ConfirmSkeleton = () => {
             </Box>
             <Box padding='20px' margin='20px 0px' sx={{ display: 'flex', gap: '2px', flexDirection: 'column' }}>
                 <Skeleton variant='rounded' width={110} height={25} sx={{ mb: '25px' }} />
-                {[...Array(3)].map((idx: any) => (
+                {[...Array(4)].map((i: any, idx: any) => (
                     <Box key={idx} sx={{ mt: '40px' }}>
                         <Skeleton variant='rounded' width={70} height={15} sx={{ mb: '10px' }} />
                         <Skeleton variant='rounded' width='100%' height={1} />

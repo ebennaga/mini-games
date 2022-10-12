@@ -90,7 +90,8 @@ const CasualContainer = () => {
             <Box sx={{ padding: '20px', position: 'sticky', bottom: '20px' }}>
                 <ButtonBase
                     onClick={() => {
-                        router.push('/casual/loading');
+                        // router.push('/casual/loading');
+                        router.push('/casual/ads');
                     }}
                     sx={{
                         textTransform: 'none',

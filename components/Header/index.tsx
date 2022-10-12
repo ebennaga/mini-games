@@ -124,7 +124,7 @@ const Header: React.FC<HeaderProps> = ({
                             {isShops ? (
                                 <img src='/images/point-shops.png' width='20px' height='20.02px' alt='point icon' />
                             ) : (
-                                <img src='/icons/point.png' width='21px' height='20.02px' alt='point icon' />
+                                <img src='/images/xs-coin.png' width='21px' height='20.02px' alt='point icon' />
                             )}
                             <Typography
                                 variant='subtitle1'
