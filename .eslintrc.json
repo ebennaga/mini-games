@@ -4,7 +4,7 @@
       "es2021": true,
       "jest": true
   },
-  "extends": ["next/core-web-vitals", "eslint:recommended", "plugin:react/recommended", "airbnb", "plugin:prettier/recommended"],
+  "extends": ["next", "eslint:recommended", "plugin:react/recommended", "airbnb", "plugin:prettier/recommended"],
   "parserOptions": {
       "project": ["tsconfig.json"],
       "ecmaFeatures": {

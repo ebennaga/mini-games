@@ -172,14 +172,12 @@ const GameDetailContainer = () => {
                             {[...Array(6)].map((item, idx) => (
                                 <TournamentCard
                                     key={idx}
-                                    time='6d 13h 23m'
+                                    time='2022-10-11T00:00:00.000Z'
                                     pool='3500'
-                                    champion='250'
-                                    coin='100'
-                                    stars='5.25'
                                     users='376'
-                                    position='35'
                                     onClick={handleClick}
+                                    imageGame='/icons/dummy/menara.png'
+                                    coin={208}
                                 />
                             ))}
                         </TournamentSlider>
