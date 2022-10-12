@@ -146,6 +146,7 @@ const Header: React.FC<HeaderProps> = ({
                         onClick={() => router.push('/login')}
                         sx={{
                             border: '1px solid #A54CE5',
+                            background: '#fff',
                             borderRadius: '8px',
                             padding: '14px',
                             width: '108px',
