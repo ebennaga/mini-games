@@ -132,7 +132,7 @@ const GameDetailContainer = () => {
                                         <HelpOutline sx={{ width: '14px', fontWeight: 'bold' }} />
                                     </ButtonBase>
                                 </Grid>
-                                <Grid container xs={5} alignItems='center' gap='10px'>
+                                <Grid container alignItems='center' gap='10px'>
                                     <Grid item xs={6}>
                                         <img src='/images/users-img.png' alt='user-img' />
                                     </Grid>
@@ -245,18 +245,21 @@ const GameDetailContainer = () => {
                         mt='18px'
                         container
                         justifyContent='space-between'
-                        xs={12}
                         gap='10px'
                         sx={{ backgroundColor: '#F4F1FF', padding: '18px 25px', borderRadius: '15px' }}
                     >
-                        <Grid container xs={5} justifyContent='space-between'>
-                            <img src='/icons/tape-stats.png' alt='ribbon' />
-                            <Typography sx={{ fontSize: '14px', fontWeight: '700' }}>High scores</Typography>
+                        <Grid item xs={5} justifyContent='space-between'>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <img src='/icons/tape-stats.png' alt='ribbon' />
+                                <Typography sx={{ fontSize: '14px', fontWeight: '700' }}>High scores</Typography>
+                            </Box>
                         </Grid>
-                        <Grid container xs={5} justifyContent='space-between'>
-                            <EmojiEvents />
-                            <Typography sx={{ fontWeight: '700' }}>211.876</Typography>
-                            <Share />
+                        <Grid item xs={5} justifyContent='space-between'>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                <EmojiEvents />
+                                <Typography sx={{ fontWeight: '700' }}>211.876</Typography>
+                                <Share />
+                            </Box>
                         </Grid>
                     </Grid>
                 </Grid>

@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import RewardDialog from 'components/Dialog/RewardDialog';
 import Header from 'components/Header';
 import Button from 'components/Button/Index';
 import PayInput from './PayInput';
@@ -17,13 +18,16 @@ const PayFormContainer = () => {
             cvv: ''
         }
     });
+    const [openRewardDialog, setOpenRewardDialog] = React.useState<any>(false);
 
     const rules = { required: true };
 
     const formValue = (name: any) => {
         return form.watch(name);
     };
-
+    const handleBuyRaffle = () => {
+        setOpenRewardDialog(!openRewardDialog);
+    };
     React.useEffect(() => {
         ['email', 'phone', 'card', 'expiry', 'cvv'].forEach((item: any) => {
             if (formValue(item) !== '') {
@@ -107,8 +111,14 @@ const PayFormContainer = () => {
                 </Box>
             </Box>
             <Box sx={{ marginTop: '200px', padding: '20px', position: 'sticky', bottom: '20px', zIndex: 99 }}>
-                <Button title='Pay now' backgoundColor='#A54CE5' color='white' disabled={isDisabled} />
+                <Button onClick={handleBuyRaffle} title='Pay now' backgoundColor='#A54CE5' color='white' disabled={isDisabled} />
             </Box>
+            <RewardDialog
+                body='The redeem completed. Your prize will arrive soon.'
+                open={openRewardDialog}
+                setOpenDialog={setOpenRewardDialog}
+                path='/topup'
+            />
         </Box>
     );
 };
