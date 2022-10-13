@@ -1,8 +1,47 @@
-import { Box, Typography, ImageList, ImageListItem } from '@mui/material';
+import { Box, Typography, ImageList, ImageListItem, TextField, InputAdornment } from '@mui/material';
+import { Search } from '@mui/icons-material';
 import React from 'react';
 import Header from 'components/Header';
+import { Controller, useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import PrizeSkeleton from './PrizeSkeleton';
+
+interface InputPrizesProps {
+    placeholder: string;
+    form: any;
+    name: string;
+}
+
+const InputPrizes: React.FC<InputPrizesProps> = ({ placeholder, form, name }) => {
+    return (
+        <Controller
+            control={form.control}
+            name={name}
+            render={({ field }) => {
+                return (
+                    <TextField
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position='start'>
+                                    <Search sx={{ color: '#373737', width: '50px' }} />
+                                </InputAdornment>
+                            )
+                        }}
+                        sx={{
+                            '& .MuiInputBase-input': { outline: 'none', border: 'none !important', paddingY: '10px' },
+                            '& .MuiOutlinedInput-notchedOutline': { border: 'none !important' },
+                            backgroundColor: '#F4F1FF',
+                            width: '100%',
+                            borderRadius: '33px'
+                        }}
+                        placeholder={placeholder}
+                        {...field}
+                    />
+                );
+            }}
+        />
+    );
+};
 
 const itemData = [
     { id: 1, image: '/images/keyboard.png', label: 'Rexus Daxa Mechanical Keyboard RGB', points: 5000 },
@@ -17,7 +56,12 @@ const PrizeContainer = () => {
     const router = useRouter();
     const [borderValue, setBorderValue] = React.useState<string>('none');
     const [isLoading, setIsLoading] = React.useState<boolean>(true);
-
+    const form = useForm({
+        mode: 'all',
+        defaultValues: {
+            search: ''
+        }
+    });
     const handleScroll = () => {
         if (window.scrollY === 0) {
             return setBorderValue('none');
@@ -63,6 +107,7 @@ const PrizeContainer = () => {
             </Box>
             <Box padding='10px 20px'>
                 <Typography sx={{ fontSize: '24px', fontWeight: '700' }}>Prizes</Typography>
+                <InputPrizes form={form} placeholder='Search prize' name='search' />
                 <ImageList variant='masonry' cols={2} gap={30}>
                     {itemData.map((item) => (
                         <ImageListItem sx={{ cursor: 'pointer' }} key={item.id}>
