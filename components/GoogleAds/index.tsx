@@ -1,6 +1,13 @@
 /* eslint-disable no-undef */
 import React, { useEffect } from 'react';
 
+declare global {
+    // eslint-disable-next-line no-unused-vars
+    interface Window {
+        adsbygoogle: any;
+    }
+}
+
 interface GoogleAdsProps {
     currentPath: any;
 }
