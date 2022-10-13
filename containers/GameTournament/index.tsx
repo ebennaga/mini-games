@@ -8,6 +8,7 @@ import NotifDialog from 'components/Dialog/notifDialog';
 import Header from 'components/Header';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
+import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import HeaderTournament from './HeaderTournament';
 import ButtonPlay from './ButtonPlay';
 import LeaderboardPodium from './LeaderboardPodium';
@@ -20,9 +21,12 @@ const GameTournament = () => {
     const coin = userState?.coin;
     const coins = 200;
     const notify = useNotify();
-    const [listingGame, setListingGame] = React.useState<any>(null);
     const { fetchAPI, isLoading } = useAPICaller();
+
+    const [listingGame, setListingGame] = React.useState<any>(null);
     const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
+    const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
+
     const dataLeaderboard = [
         { image: '/icons/dummy/profile-2.png', username: 'rinto', point: 246000, prize: 2000 },
         { image: '/icons/dummy/profile.png', username: 'eben', point: 13200, prize: 1500 },
@@ -55,6 +59,16 @@ const GameTournament = () => {
     React.useEffect(() => {
         fetchData(listingGame);
     }, []);
+
+    const handlePlay = () => {
+        if (userState) {
+            if (userState?.coin < coins) {
+                return setOpenNotifDialog(!openNotifDialog);
+            }
+            return router.push(`/games/${router.query.id}/tournament/result`);
+        }
+        return setSignupLoginDialog(true);
+    };
 
     // if (isLoading || !listingGame) {
     //     return <Box>Loading</Box>;
@@ -122,6 +136,7 @@ const GameTournament = () => {
                 body='You don’t have Coins in your balance. 
 Top up Coins to continue'
             />
+            <SignupLoginDialog open={signupLoginDialog} setOpen={setSignupLoginDialog} />
         </Box>
     );
 };

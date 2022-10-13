@@ -12,7 +12,7 @@ const DialogSuccess: React.FC<DialogSuccessProps> = ({ open, setOpen }) => {
 
     const handleClose = () => {
         setOpen(false);
-        router.back();
+        router.push('/profile/settings');
     };
 
     return (
