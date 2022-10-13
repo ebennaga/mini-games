@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import PrizeSkeletonDetail from './PrizeDetailSkeleton';
+import PrizeDetailSlider from './PrizeDetailSlider';
 
 const PrizeDetailContainer = () => {
     const userState = useSelector((state: any) => state.webpage?.user?.user);
@@ -72,7 +73,6 @@ const PrizeDetailContainer = () => {
                 padding='25px'
                 sx={{
                     borderBottom: borderValue,
-                    mb: 2,
                     position: 'sticky',
                     top: -1,
                     backgroundColor: 'white',
@@ -82,19 +82,21 @@ const PrizeDetailContainer = () => {
             >
                 <Header isShops hrefBack='/shops' isBack point={userState?.point} profilePicture='/icons/dummy/profile.png' />
             </Box>
+            <PrizeDetailSlider>
+                {[...Array(3)].map((item: any, idx: number) => (
+                    <Box key={idx} sx={{ backgroundColor: '#F4F1FF' }}>
+                        <img src='/images/ps5-3.png' alt='ps5-icon' style={{ width: '90%' }} />
+                    </Box>
+                ))}
+            </PrizeDetailSlider>
             <Box padding='10px 20px'>
-                <Box sx={{ backgroundColor: '#F4F1FF', padding: '20px', borderRadius: '10px' }}>
-                    <img src='/images/ps5-3.png' alt='ps5-icon' style={{ width: '100%' }} />
-                </Box>
                 <Box sx={{ mt: '15px' }}>
                     <Grid container justifyContent='space-between'>
-                        <Grid item xs={4}>
-                            <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                                <Box>
-                                    <img src='/images/point-shops.png' alt='pointshops' />
-                                </Box>
-                                <Typography sx={{ fontWeight: 'bold', fontSize: '20px' }}>{prize}</Typography>
-                            </Box>
+                        <Grid item xs={6}>
+                            <Typography sx={{ fontWeight: 'bold', fontSize: '24px' }}>Playstation 5</Typography>
+                            <Typography sx={{ fontWeight: '600', fontSize: '12px' }}>
+                                Lorem ipsum dolor sit consectetur adipiscing
+                            </Typography>
                         </Grid>
                         <Grid
                             item
@@ -110,8 +112,14 @@ const PrizeDetailContainer = () => {
                             )}
                         </Grid>
                     </Grid>
-                    <Typography sx={{ fontWeight: 'bold', fontSize: '18px' }}>Playstation 5</Typography>
-                    <Typography sx={{ fontWeight: '600', fontSize: '12px' }}>Lorem ipsum dolor sit consectetur adipiscing</Typography>
+                    <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center', mt: '40px' }}>
+                        <Box>
+                            <img src='/images/point-shops.png' alt='pointshops' />
+                        </Box>
+                        <Typography sx={{ fontWeight: 'bold', fontSize: '24px' }}>
+                            {`${String(prize).slice(0, 2)}.${String(prize).slice(2)}`}
+                        </Typography>
+                    </Box>
                 </Box>
             </Box>
             <Divider sx={{ my: '25px' }} />

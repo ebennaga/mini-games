@@ -2,13 +2,13 @@
 import { Box, Typography, Skeleton } from '@mui/material';
 import React from 'react';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import NotifDialog from 'components/Dialog/notifDialog';
 import Header from 'components/Header';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
-import { useSelector } from 'react-redux';
 import HeaderTournament from './HeaderTournament';
 import ButtonPlay from './ButtonPlay';
 import LeaderboardPodium from './LeaderboardPodium';
@@ -16,16 +16,16 @@ import TableRank from './TableRank';
 
 const GameTournament = () => {
     const router = useRouter();
-    const myCoins = 10;
-    const coins = 20;
+    // const myCoins = 10;
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
+    const coin = userState?.coin;
+    const coins = 200;
     const notify = useNotify();
     const { fetchAPI, isLoading } = useAPICaller();
 
     const [listingGame, setListingGame] = React.useState<any>(null);
     const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
     const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
-
-    const userState = useSelector((state: any) => state.webpage.user.user);
 
     const dataLeaderboard = [
         { image: '/icons/dummy/profile-2.png', username: 'rinto', point: 246000, prize: 2000 },
@@ -62,7 +62,7 @@ const GameTournament = () => {
 
     const handlePlay = () => {
         if (userState) {
-            if (myCoins < coins) {
+            if (userState?.coin < coins) {
                 return setOpenNotifDialog(!openNotifDialog);
             }
             return router.push(`/games/${router.query.id}/tournament/result`);
@@ -73,9 +73,10 @@ const GameTournament = () => {
     // if (isLoading || !listingGame) {
     //     return <Box>Loading</Box>;
     // }
+
     return (
         <Box width='100%'>
-            <Header isBack point={myCoins} profilePicture='/icons/dummy/profile-2.png' paddingX='20px' />
+            <Header isBack point={coin} profilePicture='/icons/dummy/profile-2.png' paddingX='20px' />
             <HeaderTournament
                 backgroundImage='/images/dummy/game-hopup.svg'
                 titleGame='Hop Up'
@@ -97,15 +98,18 @@ const GameTournament = () => {
                             <Typography component='h2' fontSize='24px' fontWeight={700}>
                                 Leaderboard
                             </Typography>
-                            <ArrowForwardIcon sx={{ color: '#373737' }} />
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+                                <img src='/icons/xs-troffy.png' alt='troffy' />
+                                <Typography sx={{ fontSize: '14px', fontWeight: 'bold' }}>250</Typography>
+                            </Box>
                         </Box>
                         <LeaderboardPodium dataLeaderboard={listingGame.leaderboards} />
                     </Box>
                 )}
                 {isLoading || !listingGame ? (
                     <Box>
-                        {[...Array(10)].map((index: any) => {
-                            return <Skeleton key={index} variant='rectangular' sx={{ my: 4, mx: 1 }} />;
+                        {[...Array(10)].map((index: any, item: any) => {
+                            return <Skeleton key={item} variant='rectangular' sx={{ my: 4, mx: 1 }} />;
                         })}
                     </Box>
                 ) : (
@@ -115,7 +119,16 @@ const GameTournament = () => {
                 )}
             </Box>
             <Box sx={{ padding: '20px', position: 'sticky', bottom: '10px' }}>
-                <ButtonPlay onClick={handlePlay} title='Play Tournament' points={coins} />
+                <ButtonPlay
+                    onClick={() => {
+                        if (coin < coins) {
+                            return setOpenNotifDialog(!openNotifDialog);
+                        }
+                        return router.push(`/games/${router.query.id}/tournament/result`);
+                    }}
+                    title='Play Tournament'
+                    points={coins}
+                />
             </Box>
             <NotifDialog
                 open={openNotifDialog}

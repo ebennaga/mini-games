@@ -332,7 +332,7 @@ const TopUp = () => {
                     })}
                 </Box>
             ) : (
-                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
                     <ButtonBase
                         onClick={() => {
                             router.push('/transaction');
@@ -389,7 +389,9 @@ const TopUp = () => {
                 </Box>
             ) : (
                 <Box
-                    onClick={() => {}}
+                    onClick={() => {
+                        router.push('/help-support');
+                    }}
                     sx={{
                         mt: '20px',
                         display: 'flex',
