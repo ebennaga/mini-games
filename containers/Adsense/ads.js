@@ -21,7 +21,7 @@ const addAdsense = () => {
      * Sets up IMA ad display container, ads loader, and makes an ad request.
      */
     function setUpIMA() {
-        google.ima.settings.setDisableCustomPlaybackForIOS10Plus(true);
+        google?.ima.settings.setDisableCustomPlaybackForIOS10Plus(true);
         // Create the ad display container.
         createAdDisplayContainer();
         // Create ads loader.

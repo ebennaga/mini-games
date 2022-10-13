@@ -10,6 +10,24 @@ const Document = () => {
                 <link rel='manifest' href='/manifest.json' />
                 <link rel='apple-touch-icon' href='/icon.png' />
                 <meta name='theme-color' content='#fff' />
+                <script
+                    async
+                    onError={(e) => {
+                        console.error('Script failed to load', e);
+                    }}
+                    src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6117296389444443'
+                    crossOrigin='anonymous'
+                />
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+                            (adsbygoogle = window.adsbygoogle || []).push({
+                                google_ad_client: "ca-pub-6117296389444443",
+                                enable_page_level_ads: true
+                                });
+                                `
+                    }}
+                />
             </Head>
             <body>
                 <Main />
