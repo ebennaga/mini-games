@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import React, { useEffect } from 'react';
 import { Typography, Box, ButtonBase, Grid } from '@mui/material';
 import Layout from 'components/Layout/Index';
@@ -24,6 +25,7 @@ const SignUp = () => {
     const dataInput = form.watch();
 
     const rules = { required: true };
+    // eslint-disable-next-line no-unused-vars
     const [changeInput, setChangeInput] = React.useState<boolean>(false);
     const [isSamePwd, setIsSamePwd] = React.useState<boolean>(true);
 
@@ -59,9 +61,9 @@ const SignUp = () => {
             router.push('/send-otp');
         } else {
             if (response.data.message) {
-                notify(response.data.message, 'error');
+                return notify(response.data.message, 'error');
             }
-            notify('Signup Error', 'error');
+            return notify('Signup Error', 'error');
         }
     };
 
@@ -143,7 +145,7 @@ const SignUp = () => {
                         />
                     </Grid>
                 </Grid> */}
-                <Box sx={{ textAlign: 'center', mt: 2, color: '#A54CE5' }}>
+                {/* <Box sx={{ textAlign: 'center', mt: 2, color: '#A54CE5' }}>
                     <ButtonBase
                         onClick={() => {
                             setChangeInput(!changeInput);
@@ -152,7 +154,7 @@ const SignUp = () => {
                     >
                         {changeInput ? 'Sign up with phone email' : 'Sign up with phone number'}
                     </ButtonBase>
-                </Box>
+                </Box> */}
                 <Grid container sx={{ mt: '75px', textAlign: 'center' }}>
                     <Grid item xs={12}>
                         <Typography sx={{ color: '#949494', fontSize: '15px', mb: 2 }}>or you can:</Typography>
