@@ -119,7 +119,7 @@ const GameTournament = () => {
                 )}
             </Box>
             <Box sx={{ padding: '20px', position: 'sticky', bottom: '10px' }}>
-                <ButtonPlay
+                {/* <ButtonPlay
                     onClick={() => {
                         if (coin < coins) {
                             return setOpenNotifDialog(!openNotifDialog);
@@ -128,7 +128,8 @@ const GameTournament = () => {
                     }}
                     title='Play Tournament'
                     points={coins}
-                />
+                /> */}
+                <ButtonPlay onClick={handlePlay} title='Play Tournament' points={coins} />
             </Box>
             <NotifDialog
                 open={openNotifDialog}
