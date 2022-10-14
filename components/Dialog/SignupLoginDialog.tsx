@@ -37,7 +37,7 @@ const SignupLoginDialog: React.FC<SignupLoginDialogProps> = ({ open, setOpen }) 
                 sx={{ color: '#fff', background: '#A54CE5', width: '100%', padding: '20px', borderRadius: '15px', mt: '31px' }}
             >
                 <Typography component='span' fontSize='14px' fontWeight={700}>
-                    Sing up
+                    Sign up
                 </Typography>
             </ButtonBase>
             <ButtonBase onClick={() => router.push('/login')} sx={{ mt: '18px' }}>
