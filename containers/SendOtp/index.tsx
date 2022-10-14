@@ -1,17 +1,19 @@
 import { Box, ButtonBase, Typography } from '@mui/material';
 import Button from 'components/Button/Index';
 import Input from 'components/Input';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import { useSelector } from 'react-redux';
 import useAuthReducer from 'hooks/useAuthReducer';
+import getMinuteSecond from 'helper/getMinuteSecond';
 import ResendSuccessDialog from './ResendSuccessDialog';
 
 const SendOtp = () => {
     const [dialogResend, setDialogResend] = useState<boolean>(false);
+    const [remainingTime, setRemainingTime] = useState<number>(120);
 
     const dataGlobal = useSelector((state: any) => state.webpage?.user?.user);
     const { isLoading, fetchAPI } = useAPICaller();
@@ -25,6 +27,15 @@ const SendOtp = () => {
             otp: ''
         }
     });
+
+    useEffect(() => {
+        const setTime = () =>
+            setInterval(() => {
+                setRemainingTime((currentValue: any) => (currentValue > 0 ? currentValue - 1 : 0));
+            }, 1000);
+
+        setTime();
+    }, []);
 
     const handleLogin = async (email: string, password: string) => {
         const response = await fetchAPI({
@@ -91,8 +102,12 @@ const SendOtp = () => {
                     A OTP Code has been sent via email to <br />{' '}
                     <span style={{ fontWeight: 'bold', color: 'black' }}>nopalism1313@gmail.com</span>
                 </Typography>
-                <Typography variant='subtitle1' component='p' sx={{ color: '#A54CE5', fontWeight: 'bold', my: 2 }}>
-                    00:58
+                <Typography
+                    variant='subtitle1'
+                    component='p'
+                    sx={{ color: remainingTime === 0 ? '#FF4566' : '#A54CE5', fontWeight: 'bold', my: 2 }}
+                >
+                    {getMinuteSecond(remainingTime)}
                 </Typography>
                 <form onSubmit={form.handleSubmit(handleSubmit)} style={{ width: '100%' }}>
                     <Box sx={{ width: '100%', margin: 'auto' }}>
