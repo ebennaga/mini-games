@@ -8,6 +8,7 @@ import useApiCaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import { signIn } from 'next-auth/react';
 import useStyles from './useStyle';
 import HeaderSkeleton from './HeaderSkeleton';
 
@@ -144,6 +145,7 @@ const Header: React.FC<HeaderProps> = ({
                 <Box>
                     <ButtonBase
                         onClick={() => router.push('/login')}
+                        // onClick={() => signIn()}
                         sx={{
                             border: '1px solid #A54CE5',
                             background: '#fff',

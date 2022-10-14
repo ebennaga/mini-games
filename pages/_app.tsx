@@ -9,6 +9,7 @@ import { SnackbarProvider } from 'notistack';
 import Router from 'next/router';
 import useAuthReducer from 'hooks/useAuthReducer';
 import React from 'react';
+import { SessionProvider } from 'next-auth/react';
 
 function MyApp({ Component, pageProps }: AppProps) {
     const { user } = useAuthReducer();
@@ -33,25 +34,28 @@ function MyApp({ Component, pageProps }: AppProps) {
     }, []);
 
     return (
-        <SnackbarProvider
-            maxSnack={3}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'center'
-            }}
-            TransitionComponent={Slide}
-        >
-            <ThemeProvider theme={theme}>
-                <GlobalStyles
-                    styles={{
-                        // body: { margin: '0 auto', display: 'flex', justifyContent: 'center' }
-                        body: { margin: '0 auto' }
-                    }}
-                />
-                {/* <Component {...pageProps} /> */}
-                <Component userData={user} {...pageProps} />
-            </ThemeProvider>
-        </SnackbarProvider>
+        <SessionProvider session={pageProps.session}>
+            <SnackbarProvider
+                maxSnack={3}
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center'
+                }}
+                TransitionComponent={Slide}
+            >
+                <ThemeProvider theme={theme}>
+                    <GlobalStyles
+                        styles={{
+                            // body: { margin: '0 auto', display: 'flex', justifyContent: 'center' }
+                            body: { margin: '0 auto' }
+                        }}
+                    />
+                    {/* <Component {...pageProps} /> */}
+
+                    <Component userData={user} {...pageProps} />
+                </ThemeProvider>
+            </SnackbarProvider>
+        </SessionProvider>
     );
 }
 

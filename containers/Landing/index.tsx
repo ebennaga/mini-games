@@ -2,6 +2,7 @@ import { Box, ButtonBase, Typography } from '@mui/material';
 import Layout from 'components/Layout/Index';
 import React from 'react';
 import ButtonCustom from 'components/Button/Index';
+
 import { Google, Facebook } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 

@@ -10,6 +10,8 @@ import { useRouter } from 'next/router';
 import useAPICaller from 'hooks/useAPICaller';
 import useAuthReducer from 'hooks/useAuthReducer';
 import useNotify from 'hooks/useNotify';
+import Link from 'next/link';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 const Login = () => {
     const router = useRouter();
@@ -21,6 +23,7 @@ const Login = () => {
             password: ''
         }
     });
+    const { data: session } = useSession();
     const dataInput = form.watch();
 
     const rules = { required: true };
@@ -30,6 +33,8 @@ const Login = () => {
     const { fetchAPI, isLoading } = useAPICaller();
     const { setUser } = useAuthReducer();
     const notify = useNotify();
+
+    console.log('data session', session);
 
     const handleSubmit = async (data: any) => {
         const response = await fetchAPI({
@@ -101,12 +106,17 @@ const Login = () => {
                         <Typography sx={{ color: '#949494', fontSize: '15px', mb: 2 }}>or you can:</Typography>
                         <Box sx={{ mb: 2 }}>
                             <Button
+                                // onClick={(e: any) => {
+                                //     e.preventDefault();
+                                //     signIn();
+                                //     console.log('ad');
+                                // }}
+                                onClick={() => signIn()}
                                 icon={<Google sx={{ color: '#A54CE5', position: 'absolute', left: '20px', bottom: '20px' }} />}
-                                title='Log in with Google'
+                                title='Log in with Google '
                                 backgoundColor='#FFF'
                                 color='#000'
                                 border='2px solid #F4F1FF'
-                                onClick={() => {}}
                             />
                         </Box>
                         <Box>
