@@ -4,7 +4,7 @@ import { Grid, Typography, Box } from '@mui/material';
 interface ShopsCardProps {
     title: string;
     image: any;
-    point: number;
+    point: string;
     onClick: any;
     productName: string;
 }

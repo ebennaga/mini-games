@@ -13,7 +13,7 @@ import HeaderSkeleton from './HeaderSkeleton';
 
 interface HeaderProps {
     logo?: string;
-    point?: number;
+    point?: number | string;
     profilePicture: string;
     widthLogo?: any;
     heightLogo?: any;
