@@ -84,7 +84,9 @@ const SendOtp = () => {
     return (
         <Box sx={{ textAlign: 'center', width: '100%' }}>
             <Box padding='0px 20px'>
-                <img src='/images/otp-img.png' width={201} height={201} alt='icon sending otp' />
+                <Box sx={{ mb: '50px' }}>
+                    <img src='/images/otp-img.png' width={219} alt='icon sending otp' />
+                </Box>
                 <Typography variant='subtitle1' component='p' textAlign='center' sx={{ color: '#949494', fontWeight: 400 }}>
                     A OTP Code has been sent via email to <br />{' '}
                     <span style={{ fontWeight: 'bold', color: 'black' }}>nopalism1313@gmail.com</span>
