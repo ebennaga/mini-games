@@ -82,37 +82,40 @@ const SendOtp = () => {
     };
 
     return (
-        <Box sx={{ padding: '20px', textAlign: 'center' }}>
-            <img src='/icons/sending-otp.svg' width={201} height={201} alt='icon sending otp' />
-            <Typography variant='subtitle1' component='p' textAlign='center' sx={{ color: '#949494', fontWeight: 400 }}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.s
-            </Typography>
-            <Typography variant='subtitle1' component='p' sx={{ color: '#A54CE5', fontWeight: 'bold', my: 2 }}>
-                00:58
-            </Typography>
-            <form onSubmit={form.handleSubmit(handleSubmit)} style={{ width: '100%' }}>
-                <Box sx={{ width: '100%', margin: 'auto' }}>
-                    <Input name='otp' form={form} placeholder='Insert OTP Number' validator={{ require }} type='number' />
-                </Box>
-                <Box sx={{ width: '100%', margin: 'auto', paddingTop: 3 }}>
-                    <Button loading={isLoading} disabled={isLoading} title='Confirm' backgoundColor='#A54CE5' color='#fff' />
-                </Box>
-            </form>
-            <Typography component='p' fontSize='12px' fontWeight={400} marginTop='17px' sx={{ color: '#949494' }}>
-                If you don`t receive OTP.
-                {resendIsLoading ? (
-                    <Typography component='span' fontSize='12px' fontWeight={700} pl='5px' sx={{ color: '#A54CE5' }}>
-                        Please Wait...
-                    </Typography>
-                ) : (
-                    <ButtonBase onClick={handleResendOtp}>
+        <Box sx={{ textAlign: 'center', width: '100%' }}>
+            <Box padding='0px 20px'>
+                <img src='/images/otp-img.png' width={201} height={201} alt='icon sending otp' />
+                <Typography variant='subtitle1' component='p' textAlign='center' sx={{ color: '#949494', fontWeight: 400 }}>
+                    A OTP Code has been sent via email to <br />{' '}
+                    <span style={{ fontWeight: 'bold', color: 'black' }}>nopalism1313@gmail.com</span>
+                </Typography>
+                <Typography variant='subtitle1' component='p' sx={{ color: '#A54CE5', fontWeight: 'bold', my: 2 }}>
+                    00:58
+                </Typography>
+                <form onSubmit={form.handleSubmit(handleSubmit)} style={{ width: '100%' }}>
+                    <Box sx={{ width: '100%', margin: 'auto' }}>
+                        <Input name='otp' form={form} placeholder='Insert OTP Number' validator={{ require }} type='number' />
+                    </Box>
+                    <Box sx={{ width: '100%', margin: 'auto', paddingTop: 3 }}>
+                        <Button loading={isLoading} disabled={isLoading} title='Confirm' backgoundColor='#A54CE5' color='#fff' />
+                    </Box>
+                </form>
+                <Typography component='p' fontSize='12px' fontWeight={400} marginTop='17px' sx={{ color: '#949494' }}>
+                    If you don`t receive OTP.
+                    {resendIsLoading ? (
                         <Typography component='span' fontSize='12px' fontWeight={700} pl='5px' sx={{ color: '#A54CE5' }}>
-                            Resend OTP
+                            Please Wait...
                         </Typography>
-                    </ButtonBase>
-                )}
-            </Typography>
-            <ResendSuccessDialog open={dialogResend} setOpen={setDialogResend} />
+                    ) : (
+                        <ButtonBase onClick={handleResendOtp}>
+                            <Typography component='span' fontSize='12px' fontWeight={700} pl='5px' sx={{ color: '#A54CE5' }}>
+                                Resend OTP
+                            </Typography>
+                        </ButtonBase>
+                    )}
+                </Typography>
+                <ResendSuccessDialog open={dialogResend} setOpen={setDialogResend} />
+            </Box>
         </Box>
     );
 };
