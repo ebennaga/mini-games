@@ -20,7 +20,26 @@ const ForgotPasswordPage = () => {
     const [openDialog, setOpenDialog] = React.useState<boolean>(false);
     const [isConfirmed, setIsConfirmed] = React.useState<boolean>(false);
     const [dialogChanged, setDialogChanged] = React.useState<boolean>(false);
+    const [disabled, setDisabled] = React.useState<any>(true);
+    const [disabledChange, setDisabledChange] = React.useState<any>(true);
     const rules = { required: true };
+
+    React.useEffect(() => {
+        if (form.watch('email') === '') {
+            setDisabled(true);
+        } else {
+            setDisabled(false);
+        }
+    }, [form.watch('email'), disabled]);
+
+    React.useEffect(() => {
+        if (form.watch('Confirm password') === '' && form.watch('New password') === '') {
+            setDisabledChange(true);
+        } else {
+            setDisabledChange(false);
+        }
+    }, [form.watch('Confirm password'), form.watch('New password'), disabled]);
+
     return (
         <Box sx={{ width: '100%', height: '90vh' }}>
             <Box
@@ -81,19 +100,29 @@ const ForgotPasswordPage = () => {
                     </Box>
                 </Box>
                 <Box sx={{ position: 'sticky', zIndex: 999, bottom: '20px' }}>
-                    <Button
-                        onClick={() => {
-                            if (isConfirmed) {
+                    {isConfirmed ? (
+                        <Button
+                            onClick={() => {
                                 setDialogChanged(!dialogChanged);
-                            } else {
+                            }}
+                            type='submit'
+                            title='Confirm'
+                            backgoundColor='#A54CE5'
+                            color='white'
+                            disabled={disabledChange}
+                        />
+                    ) : (
+                        <Button
+                            onClick={() => {
                                 setOpenDialog(!openDialog);
-                            }
-                        }}
-                        type='submit'
-                        title={isConfirmed ? 'Confirm' : 'Send Verification Code'}
-                        backgoundColor='#A54CE5'
-                        color='white'
-                    />
+                            }}
+                            type='submit'
+                            title='Send Verification Code'
+                            backgoundColor='#A54CE5'
+                            color='white'
+                            disabled={disabled}
+                        />
+                    )}
                 </Box>
             </Box>
             <DialogOtp setIsConfirmed={setIsConfirmed} isConfirmed={isConfirmed} open={openDialog} setOpenDialog={setOpenDialog} />
