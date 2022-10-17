@@ -35,6 +35,7 @@ const PrizeDetailSlider: React.FC<PrizeDetailSliderProps> = ({ children }) => {
                 '& .slick-dots li': {
                     margin: 0
                 },
+                '& .slick-slider': { maxWidth: '80vw', width: '100%' },
                 padding: '50px',
                 backgroundColor: '#F4F1FF'
             }}

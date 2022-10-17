@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { Box, Typography, Grid, ButtonBase, ImageList, ImageListItem } from '@mui/material';
 import { WatchLater } from '@mui/icons-material';
 import Button from 'components/Button/Index';
@@ -8,23 +9,51 @@ import React, { useEffect, useState } from 'react';
 import ShopsSlider from 'components/ShopsSlider';
 import ShopsCard from 'components/ShopsCard';
 import { useRouter } from 'next/router';
+import useAPICaller from 'hooks/useAPICaller';
+import useNotify from 'hooks/useNotify';
+import getRemainingTimes from 'helper/getRemainingTime';
 import ShopsSkeleton from './ShopsSkeleton';
-
-const itemData = [
-    { id: 1, image: '/images/keyboard.png', label: 'Rexus Daxa Mechanical', points: 5000 },
-    { id: 2, image: '/images/tablet.png', label: 'Lorem Ipsum', points: 5000 },
-    { id: 3, image: '/images/ps5.png', label: 'Playstation 5', points: 5000 },
-    { id: 4, image: '/images/smartphone.png', label: 'Realme Narzo 20 Pro 4/64GB', points: 5000 },
-    { id: 5, image: '/images/smartphone.png', label: 'Realme Narzo 20 Pro 4/64GB', points: 5000 },
-    { id: 6, image: '/images/tablet.png', label: 'Lorem Ipsum', points: 5000 }
-];
 
 const ShopsContainer = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [borderValue, setBorderValue] = useState<string>('none');
+    const [dataRedemptions, setDataRedemptions] = useState<any>(null);
+    const [timeLuckyRaffle, setTimeLuckyRaffle] = useState<string>('');
+
     const router = useRouter();
+    const notify = useNotify();
+
+    const { fetchAPI } = useAPICaller();
+
+    const getRedemptions = async () => {
+        setIsLoading(true);
+        try {
+            const response = await fetchAPI({
+                method: 'GET',
+                endpoint: 'home/redemptions'
+            });
+            if (response.status === 200) {
+                setDataRedemptions(response.data.data);
+                if (response.data.data?.lucky_raffle?.start_time) {
+                    if (timeLuckyRaffle) {
+                        setInterval(() => setTimeLuckyRaffle(getRemainingTimes(response.data.data?.lucky_raffle?.start_time)), 6000);
+                    } else {
+                        setTimeLuckyRaffle(getRemainingTimes(response.data.data?.lucky_raffle?.start_time));
+                    }
+                }
+            } else {
+                notify(response.data.message, 'error');
+            }
+            setIsLoading(false);
+        } catch (err: any) {
+            notify(err.message, 'error');
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
-        setTimeout(() => setIsLoading(false), 2000);
+        // setTimeout(() => setIsLoading(false), 2000);
+        getRedemptions();
     }, []);
 
     const handleScroll = () => {
@@ -64,7 +93,7 @@ const ShopsContainer = () => {
                 <Header isShops logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Grid container justifyContent='center' alignItems='center'>
-                <Grid container padding='0 20px' justifyContent='space-between' alignItems='center'>
+                <Grid container padding='0 20px' justifyContent='space-between' alignItems='center' mb='40px'>
                     <Grid item xs={7} sm={7}>
                         <Typography variant='h5' sx={{ fontWeight: '700' }}>
                             Redeem Prize
@@ -81,16 +110,16 @@ const ShopsContainer = () => {
                     </Grid>
                 </Grid>
                 <ShopsSlider>
-                    {itemData.map((item) => (
+                    {dataRedemptions?.banners.map((item: any) => (
                         <ShopsCard
-                            productName={item.label}
+                            // productName={itemData[index].label}
                             onClick={() => {
                                 router.push(`/shops/prize/${item.id}`);
                             }}
                             key={item.id}
                             point={numberFormat(item.points)}
-                            image='/images/ps5-2.png'
-                            title='HOT ITEM'
+                            image={item.image_url}
+                            title={item.title}
                         />
                     ))}
                 </ShopsSlider>
@@ -105,8 +134,8 @@ const ShopsContainer = () => {
                             </ButtonBase>
                         </Grid>
                     </Grid>
-                    <ImageList variant='masonry' cols={2} gap={10}>
-                        {itemData.map((item, idx: number) => (
+                    <ImageList variant='masonry' cols={2} gap={10} sx={{ '& .MuiImageListItem-root': { overflow: 'auto' } }}>
+                        {dataRedemptions?.catalogues.map((item: any, idx: number) => (
                             <ImageListItem sx={{ cursor: 'pointer' }} key={idx}>
                                 <Box
                                     onClick={() => {
@@ -114,13 +143,21 @@ const ShopsContainer = () => {
                                     }}
                                 >
                                     <Box sx={{ backgroundColor: '#F4F1FF', padding: '25px', borderRadius: '14px' }}>
-                                        <img src={item.image} alt={item.label} style={{ width: '100%' }} />
+                                        <img
+                                            src={item.image_url}
+                                            alt={item.name}
+                                            style={{ width: '100%' }}
+                                            onError={({ currentTarget }) => {
+                                                currentTarget.onerror = null;
+                                                currentTarget.src = '/images/img_error.svg';
+                                            }}
+                                        />
                                     </Box>
                                     <Box>
-                                        <Typography sx={{ fontSize: '16px', fontWeight: '700', mt: 1 }}>{item.label}</Typography>
+                                        <Typography sx={{ fontSize: '16px', fontWeight: '700', mt: 1 }}>{item.name}</Typography>
                                         <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                                             <img src='/images/point-shops.png' alt='point-shop' loading='lazy' />
-                                            <Typography sx={{ fontSize: '13px', fontWeight: '700' }}>{item.points}</Typography>
+                                            <Typography sx={{ fontSize: '13px', fontWeight: '700' }}>{item.price}</Typography>
                                         </Box>
                                     </Box>
                                 </Box>
@@ -146,7 +183,7 @@ const ShopsContainer = () => {
                             </Typography>
                             <Box sx={{ display: 'flex', my: 2, color: 'white', gap: '5px' }}>
                                 <WatchLater />
-                                <Typography sx={{ fontSize: '12px' }}>6d 13h 23m</Typography>
+                                <Typography sx={{ fontSize: '12px' }}>{timeLuckyRaffle}</Typography>
                             </Box>
                             <Button
                                 onClick={() => {
