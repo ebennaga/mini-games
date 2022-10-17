@@ -8,6 +8,8 @@ import React, { useEffect, useState } from 'react';
 import ShopsSlider from 'components/ShopsSlider';
 import ShopsCard from 'components/ShopsCard';
 import { useRouter } from 'next/router';
+import useAPICaller from 'hooks/useAPICaller';
+import useNotify from 'hooks/useNotify';
 import ShopsSkeleton from './ShopsSkeleton';
 
 const itemData = [
@@ -22,9 +24,36 @@ const itemData = [
 const ShopsContainer = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [borderValue, setBorderValue] = useState<string>('none');
+    const [dataRedemptions, setDataRedemptions] = useState<any>(null);
+
     const router = useRouter();
+    const notify = useNotify();
+
+    const { fetchAPI } = useAPICaller();
+
+    const getRedemptions = async () => {
+        setIsLoading(true);
+        try {
+            const response = await fetchAPI({
+                method: 'GET',
+                endpoint: 'home/redemptions'
+            });
+            console.log('response', response);
+            if (response.status === 200) {
+                setDataRedemptions(response.data.data);
+            } else {
+                notify(response.data.message, 'error');
+            }
+            setIsLoading(false);
+        } catch (err: any) {
+            notify(err.message, 'error');
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
-        setTimeout(() => setIsLoading(false), 2000);
+        // setTimeout(() => setIsLoading(false), 2000);
+        getRedemptions();
     }, []);
 
     const handleScroll = () => {
@@ -64,7 +93,7 @@ const ShopsContainer = () => {
                 <Header isShops logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Grid container justifyContent='center' alignItems='center'>
-                <Grid container padding='0 20px' justifyContent='space-between' alignItems='center'>
+                <Grid container padding='0 20px' justifyContent='space-between' alignItems='center' mb='40px'>
                     <Grid item xs={7} sm={7}>
                         <Typography variant='h5' sx={{ fontWeight: '700' }}>
                             Redeem Prize
@@ -81,16 +110,16 @@ const ShopsContainer = () => {
                     </Grid>
                 </Grid>
                 <ShopsSlider>
-                    {itemData.map((item) => (
+                    {dataRedemptions?.banners.map((item: any) => (
                         <ShopsCard
-                            productName={item.label}
+                            // productName={itemData[index].label}
                             onClick={() => {
                                 router.push(`/shops/prize/${item.id}`);
                             }}
                             key={item.id}
                             point={numberFormat(item.points)}
-                            image='/images/ps5-2.png'
-                            title='HOT ITEM'
+                            image={item.image_url}
+                            title={item.title}
                         />
                     ))}
                 </ShopsSlider>
