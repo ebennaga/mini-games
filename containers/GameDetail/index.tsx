@@ -172,7 +172,7 @@ const GameDetailContainer = () => {
                             {[...Array(6)].map((item, idx) => (
                                 <TournamentCard
                                     key={idx}
-                                    time='2022-10-11T00:00:00.000Z'
+                                    time='2022-10-20T00:00:00.000Z'
                                     pool='3500'
                                     users='376'
                                     onClick={handleClick}
