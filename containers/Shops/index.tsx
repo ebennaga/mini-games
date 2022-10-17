@@ -1,6 +1,7 @@
 import { Box, Typography, Grid, ButtonBase, ImageList, ImageListItem } from '@mui/material';
 import { WatchLater } from '@mui/icons-material';
 import Button from 'components/Button/Index';
+import numberFormat from 'helper/numberFormat';
 import NavigationCard from 'components/NavigationCard';
 import Header from 'components/Header';
 import React, { useEffect, useState } from 'react';
@@ -87,7 +88,7 @@ const ShopsContainer = () => {
                                 router.push(`/shops/prize/${item.id}`);
                             }}
                             key={item.id}
-                            point={80_000}
+                            point={numberFormat(item.points)}
                             image='/images/ps5-2.png'
                             title='HOT ITEM'
                         />

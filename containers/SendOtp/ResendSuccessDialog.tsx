@@ -32,6 +32,7 @@ const ResendSuccessDialog: React.FC<ResendSuccessDialogProps> = ({ open, setOpen
                 Your OTP has been resend
             </Typography>
             <ButtonBase
+                onClick={handleClose}
                 sx={{
                     color: '#A54CE5',
                     border: '1px solid #A54CE5',

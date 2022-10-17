@@ -353,7 +353,7 @@ const TopUp = () => {
             ) : (
                 <Box
                     onClick={() => {
-                        router.push('/topup/support');
+                        router.push('/coins-prizes');
                     }}
                     sx={{
                         mt: '20px',

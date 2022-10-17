@@ -2,6 +2,7 @@ import { Box, Typography, Divider, Grid } from '@mui/material';
 import React from 'react';
 import Header from 'components/Header';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
+import numberFormat from 'helper/numberFormat';
 import Button from 'components/Button/Index';
 import Paragraph from 'components/Paragraph';
 import NotifDialog from 'components/Dialog/notifDialog';
@@ -80,12 +81,12 @@ const PrizeDetailContainer = () => {
                     width: '-webkit-fill-available'
                 }}
             >
-                <Header isShops hrefBack='/shops' isBack point={userState?.point} profilePicture='/icons/dummy/profile.png' />
+                <Header isShops hrefBack='/shops' isBack point={numberFormat(userState?.point)} profilePicture='/icons/dummy/profile.png' />
             </Box>
             <PrizeDetailSlider>
                 {[...Array(3)].map((item: any, idx: number) => (
-                    <Box key={idx} sx={{ backgroundColor: '#F4F1FF' }}>
-                        <img src='/images/ps5-3.png' alt='ps5-icon' style={{ width: '90%' }} />
+                    <Box key={idx} sx={{}}>
+                        <img src='/images/ps5-3.png' alt='ps5-icon' style={{ width: '100%' }} />
                     </Box>
                 ))}
             </PrizeDetailSlider>
@@ -116,9 +117,7 @@ const PrizeDetailContainer = () => {
                         <Box>
                             <img src='/images/point-shops.png' alt='pointshops' />
                         </Box>
-                        <Typography sx={{ fontWeight: 'bold', fontSize: '24px' }}>
-                            {`${String(prize).slice(0, 2)}.${String(prize).slice(2)}`}
-                        </Typography>
+                        <Typography sx={{ fontWeight: 'bold', fontSize: '24px' }}>{numberFormat(prize)}</Typography>
                     </Box>
                 </Box>
             </Box>

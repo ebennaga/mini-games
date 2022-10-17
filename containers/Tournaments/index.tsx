@@ -32,6 +32,7 @@ const Tournaments = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
     if (isLoading) {
         return <TournamentsSkeleton />;
     }
