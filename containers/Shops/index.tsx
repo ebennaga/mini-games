@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { Box, Typography, Grid, ButtonBase, ImageList, ImageListItem } from '@mui/material';
 import { WatchLater } from '@mui/icons-material';
 import Button from 'components/Button/Index';
@@ -12,13 +13,14 @@ import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import ShopsSkeleton from './ShopsSkeleton';
 
+// eslint-disable-next-line no-unused-vars
 const itemData = [
     { id: 1, image: '/images/keyboard.png', label: 'Rexus Daxa Mechanical', points: 5000 },
     { id: 2, image: '/images/tablet.png', label: 'Lorem Ipsum', points: 5000 },
-    { id: 3, image: '/images/ps5.png', label: 'Playstation 5', points: 5000 },
-    { id: 4, image: '/images/smartphone.png', label: 'Realme Narzo 20 Pro 4/64GB', points: 5000 },
-    { id: 5, image: '/images/smartphone.png', label: 'Realme Narzo 20 Pro 4/64GB', points: 5000 },
-    { id: 6, image: '/images/tablet.png', label: 'Lorem Ipsum', points: 5000 }
+    { id: 3, image: '/images/ps5.png', label: 'Playstation 5', points: 5000 }
+    // { id: 4, image: '/images/smartphone.png', label: 'Realme Narzo 20 Pro 4/64GB', points: 5000 },
+    // { id: 5, image: '/images/smartphone.png', label: 'Realme Narzo 20 Pro 4/64GB', points: 5000 },
+    // { id: 6, image: '/images/tablet.png', label: 'Lorem Ipsum', points: 5000 }
 ];
 
 const ShopsContainer = () => {
@@ -134,8 +136,8 @@ const ShopsContainer = () => {
                             </ButtonBase>
                         </Grid>
                     </Grid>
-                    <ImageList variant='masonry' cols={2} gap={10}>
-                        {itemData.map((item, idx: number) => (
+                    <ImageList variant='masonry' cols={2} gap={10} sx={{ '& .MuiImageListItem-root': { overflow: 'auto' } }}>
+                        {dataRedemptions?.catalogues.map((item: any, idx: number) => (
                             <ImageListItem sx={{ cursor: 'pointer' }} key={idx}>
                                 <Box
                                     onClick={() => {
@@ -143,13 +145,21 @@ const ShopsContainer = () => {
                                     }}
                                 >
                                     <Box sx={{ backgroundColor: '#F4F1FF', padding: '25px', borderRadius: '14px' }}>
-                                        <img src={item.image} alt={item.label} style={{ width: '100%' }} />
+                                        <img
+                                            src={item.image_url}
+                                            alt={item.name}
+                                            style={{ width: '100%' }}
+                                            onError={({ currentTarget }) => {
+                                                currentTarget.onerror = null;
+                                                currentTarget.src = '/images/img_error.svg';
+                                            }}
+                                        />
                                     </Box>
                                     <Box>
-                                        <Typography sx={{ fontSize: '16px', fontWeight: '700', mt: 1 }}>{item.label}</Typography>
+                                        <Typography sx={{ fontSize: '16px', fontWeight: '700', mt: 1 }}>{item.name}</Typography>
                                         <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                                             <img src='/images/point-shops.png' alt='point-shop' loading='lazy' />
-                                            <Typography sx={{ fontSize: '13px', fontWeight: '700' }}>{item.points}</Typography>
+                                            <Typography sx={{ fontSize: '13px', fontWeight: '700' }}>{item.price}</Typography>
                                         </Box>
                                     </Box>
                                 </Box>

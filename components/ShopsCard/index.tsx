@@ -32,7 +32,7 @@ const ShopsCard: React.FC<ShopsCardProps> = ({ title, image, point, onClick, pro
                 </Box>
                 <Box>
                     <Box sx={{ display: 'flex' }}>
-                        <Typography sx={{ fontWeight: '800', fontSize: '36px', color: 'white', lineHeight: '38px' }}>
+                        <Typography sx={{ fontWeight: '800', fontSize: '36px', color: 'white', lineHeight: '38px', mr: 0.5 }}>
                             {title.split(' ')[0]}
                         </Typography>
                         <img src='/icons/fire-icon-white.svg' alt='fire-icon' />
