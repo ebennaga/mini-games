@@ -91,7 +91,7 @@ const Input: React.FC<InputProps> = ({
                             },
                             '& .MuiFormHelperText-root': {
                                 color: '#FF4242',
-                                fontSize: ' 18px',
+                                fontSize: ' 14px',
                                 fontWeight: 'bold',
                                 marginTop: '10px',
                                 '&.Mui-error': {
