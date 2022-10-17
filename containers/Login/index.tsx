@@ -106,12 +106,7 @@ const Login = () => {
                         <Typography sx={{ color: '#949494', fontSize: '15px', mb: 2 }}>or you can:</Typography>
                         <Box sx={{ mb: 2 }}>
                             <Button
-                                // onClick={(e: any) => {
-                                //     e.preventDefault();
-                                //     signIn();
-                                //     console.log('ad');
-                                // }}
-                                onClick={() => signIn()}
+                                // onClick={() => signIn('google')}
                                 icon={<Google sx={{ color: '#A54CE5', position: 'absolute', left: '20px', bottom: '20px' }} />}
                                 title='Log in with Google '
                                 backgoundColor='#FFF'
