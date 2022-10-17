@@ -11,22 +11,14 @@ import ShopsCard from 'components/ShopsCard';
 import { useRouter } from 'next/router';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
+import getRemainingTimes from 'helper/getRemainingTime';
 import ShopsSkeleton from './ShopsSkeleton';
-
-// eslint-disable-next-line no-unused-vars
-const itemData = [
-    { id: 1, image: '/images/keyboard.png', label: 'Rexus Daxa Mechanical', points: 5000 },
-    { id: 2, image: '/images/tablet.png', label: 'Lorem Ipsum', points: 5000 },
-    { id: 3, image: '/images/ps5.png', label: 'Playstation 5', points: 5000 }
-    // { id: 4, image: '/images/smartphone.png', label: 'Realme Narzo 20 Pro 4/64GB', points: 5000 },
-    // { id: 5, image: '/images/smartphone.png', label: 'Realme Narzo 20 Pro 4/64GB', points: 5000 },
-    // { id: 6, image: '/images/tablet.png', label: 'Lorem Ipsum', points: 5000 }
-];
 
 const ShopsContainer = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [borderValue, setBorderValue] = useState<string>('none');
     const [dataRedemptions, setDataRedemptions] = useState<any>(null);
+    const [timeLuckyRaffle, setTimeLuckyRaffle] = useState<string>('');
 
     const router = useRouter();
     const notify = useNotify();
@@ -40,9 +32,15 @@ const ShopsContainer = () => {
                 method: 'GET',
                 endpoint: 'home/redemptions'
             });
-            console.log('response', response);
             if (response.status === 200) {
                 setDataRedemptions(response.data.data);
+                if (response.data.data?.lucky_raffle?.start_time) {
+                    if (timeLuckyRaffle) {
+                        setInterval(() => setTimeLuckyRaffle(getRemainingTimes(response.data.data?.lucky_raffle?.start_time)), 6000);
+                    } else {
+                        setTimeLuckyRaffle(getRemainingTimes(response.data.data?.lucky_raffle?.start_time));
+                    }
+                }
             } else {
                 notify(response.data.message, 'error');
             }
@@ -185,7 +183,7 @@ const ShopsContainer = () => {
                             </Typography>
                             <Box sx={{ display: 'flex', my: 2, color: 'white', gap: '5px' }}>
                                 <WatchLater />
-                                <Typography sx={{ fontSize: '12px' }}>6d 13h 23m</Typography>
+                                <Typography sx={{ fontSize: '12px' }}>{timeLuckyRaffle}</Typography>
                             </Box>
                             <Button
                                 onClick={() => {
