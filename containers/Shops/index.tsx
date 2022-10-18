@@ -13,8 +13,8 @@ import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import getRemainingTimes from 'helper/getRemainingTime';
 import ShopsSkeleton from './ShopsSkeleton';
-import dataComingSoon from './dataComingSoon';
-import ImageListItemComingSoon from './ImageListItemComingSoon';
+import dataComingSoon from '../../utils/dataComingSoon';
+import ImageListItemComingSoon from '../../components/ImageListComingSoon';
 
 const ShopsContainer = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -24,7 +24,7 @@ const ShopsContainer = () => {
 
     // const isComingSoon = process.env.NEXT_PRIZES_COMING_SOON;
     const isComingSoon = true;
-    console.log('response', dataRedemptions);
+
     const router = useRouter();
     const notify = useNotify();
 
@@ -134,7 +134,7 @@ const ShopsContainer = () => {
                             <Typography sx={{ fontSize: '18px', fontWeight: '700' }}>Prizes</Typography>
                         </Grid>
                         <Grid item xs={2} sm={2} sx={{ textAlign: 'end' }}>
-                            <ButtonBase href='/shops/prize'>
+                            <ButtonBase onClick={() => router.push('/shops/prize')}>
                                 <Typography sx={{ color: '#A54CE5', fontSize: '12px', fontWeight: '600' }}>See All</Typography>
                             </ButtonBase>
                         </Grid>
