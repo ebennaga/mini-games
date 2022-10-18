@@ -211,7 +211,7 @@ const GameDetailContainer = () => {
                                 <Typography sx={{ color: 'white', fontWeight: 'bold', fontSize: '32px' }}>Free</Typography>
                                 <Button
                                     onClick={() => {
-                                        router.push('/casual');
+                                        router.push(`/games/${router.query.id}/casual`);
                                     }}
                                     height='40px'
                                     title='Play Casual'
