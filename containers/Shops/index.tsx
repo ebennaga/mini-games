@@ -15,6 +15,7 @@ import getRemainingTimes from 'helper/getRemainingTime';
 import ShopsSkeleton from './ShopsSkeleton';
 import dataComingSoon from '../../utils/dataComingSoon';
 import ImageListItemComingSoon from '../../components/ImageListComingSoon';
+import SurveyDialog from './SurveyDialog';
 
 const ShopsContainer = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -25,6 +26,7 @@ const ShopsContainer = () => {
     // const isComingSoon = process.env.NEXT_PRIZES_COMING_SOON;
     const isComingSoon = true;
 
+    const [surveyDialog, setSurveyDialog] = useState<boolean>(true);
     const router = useRouter();
     const notify = useNotify();
 
@@ -272,6 +274,7 @@ const ShopsContainer = () => {
                     </Grid>
                 </Box>
             </Grid>
+            <SurveyDialog open={surveyDialog} setOpenDialog={setSurveyDialog} />
         </Box>
     );
 };

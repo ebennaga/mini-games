@@ -19,7 +19,14 @@ const TabPanelPoints: React.FC<TabPanelPointsProps> = ({ value, index, isAnyTran
             )}
             <Typography sx={{ fontWeight: 'bold', mt: '15px' }}>Today</Typography>
             {[...Array(2)].map((i: any, idx: number) => (
-                <TransactionCard key={idx} title='Cashback' amount={20} isCoin={false} subtitle='Expired 31 Oct 2022 ' isDot />
+                <TransactionCard
+                    key={idx}
+                    title='Cashback'
+                    amount={20}
+                    isCoin={false}
+                    subtitle='Expired 31 Oct 2022'
+                    created='2022-10-10 00:00:00'
+                />
             ))}
         </TabPanelTransaction>
     );

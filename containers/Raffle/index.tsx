@@ -48,11 +48,10 @@ const RaffleContainer = () => {
     const fetchData = async () => {
         try {
             const res = await fetchAPI({
-                endpoint: '/raffles/id',
+                endpoint: 'raffles/id',
                 method: 'GET'
             });
             notify(res.data?.message, 'success');
-            console.log(res.data.data);
             if (res.data?.data) {
                 setRafflesData(res.data.data);
                 setMytickets(res.data.data.auths?.your_tickets);
