@@ -13,13 +13,14 @@ import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import getRemainingTimes from 'helper/getRemainingTime';
 import ShopsSkeleton from './ShopsSkeleton';
+import SurveyDialog from './SurveyDialog';
 
 const ShopsContainer = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [borderValue, setBorderValue] = useState<string>('none');
     const [dataRedemptions, setDataRedemptions] = useState<any>(null);
     const [timeLuckyRaffle, setTimeLuckyRaffle] = useState<string>('');
-
+    const [surveyDialog, setSurveyDialog] = useState<boolean>(true);
     const router = useRouter();
     const notify = useNotify();
 
@@ -229,6 +230,7 @@ const ShopsContainer = () => {
                     </Grid>
                 </Box>
             </Grid>
+            <SurveyDialog open={surveyDialog} setOpenDialog={setSurveyDialog} />
         </Box>
     );
 };
