@@ -81,7 +81,7 @@ const ForgotPasswordPage = () => {
                                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                                             <Input
                                                 isOTP={false}
-                                                validator={{ minLength: 6 }}
+                                                validator={{ minLength: 6, required: true }}
                                                 type='password'
                                                 name='New password'
                                                 form={form}
@@ -89,7 +89,7 @@ const ForgotPasswordPage = () => {
                                             />
                                             <Input
                                                 isOTP={false}
-                                                validator={{ minLength: 6 }}
+                                                validator={{ minLength: 6, required: true }}
                                                 type='password'
                                                 name='Confirm password'
                                                 form={form}
