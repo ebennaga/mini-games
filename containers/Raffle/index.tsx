@@ -7,7 +7,7 @@ import getTimeRaffle from 'helper/getTimeRaffle';
 import { useSelector } from 'react-redux';
 import { Box, Grid, Typography, ButtonBase } from '@mui/material';
 import Header from 'components/Header';
-import { WatchLater, Add, Remove, ArrowBack, ArrowForward, HelpOutline } from '@mui/icons-material';
+import { WatchLater, Add, Remove, HelpOutline } from '@mui/icons-material';
 import Button from 'components/Button/Index';
 import StatusRoundDialog from 'components/Dialog/StatusRoundDialog';
 import RewardDialog from 'components/Dialog/RewardDialog';
@@ -367,32 +367,6 @@ const RaffleContainer = () => {
                         </Grid>
                     )}
                     <RaffleWinners dataList={dataList} />
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '30px', my: '30px' }}>
-                        <ButtonBase
-                            disableRipple
-                            sx={{
-                                ':active': { backgroundColor: '#D9D9D9' },
-                                cursor: 'pointer',
-                                padding: '10px',
-                                border: '1.3px solid #D9D9D9',
-                                borderRadius: '100%'
-                            }}
-                        >
-                            <ArrowBack sx={{ color: '#A54CE5' }} />
-                        </ButtonBase>
-                        <ButtonBase
-                            disableRipple
-                            sx={{
-                                ':active': { backgroundColor: '#D9D9D9' },
-                                cursor: 'pointer',
-                                padding: '10px',
-                                border: '1.3px solid #D9D9D9',
-                                borderRadius: '100%'
-                            }}
-                        >
-                            <ArrowForward sx={{ color: '#A54CE5' }} />
-                        </ButtonBase>
-                    </Box>
                 </Grid>
                 {!roundDay && (
                     <Box sx={{ position: 'sticky', bottom: '20px' }}>
