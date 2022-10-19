@@ -19,10 +19,14 @@ const PlayGameContainer = () => {
             }
         });
         console.log('response', response);
-        if (response.status === 200) {
-            setSessionGame(response.data.data);
-        } else {
-            notify('failed error', 'error');
+        try {
+            if (response.status === 200) {
+                setSessionGame(response.data.data);
+            } else {
+                notify('failed error', 'error');
+            }
+        } catch (e) {
+            console.log('failed', e);
         }
     };
     React.useEffect(() => {
