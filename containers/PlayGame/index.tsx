@@ -45,7 +45,7 @@ const PlayGameContainer = () => {
         webhookGames();
         getGameDetail();
     }, []);
-    console.log('gamedetail', gameDetail);
+
     return (
         <Box sx={{ width: '100%' }}>
             <iframe
