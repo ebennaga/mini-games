@@ -54,7 +54,7 @@ const PlayGameContainer = () => {
                 //     `${gameDetail?.game_url}?=${sessionGame}` ||
                 //     `http://prizeplay-minigames.s3-website.ap-southeast-3.amazonaws.com/swords?=${sessionGame}`
                 // }
-                src='http://prizeplay-minigames.s3-website.ap-southeast-3.amazonaws.com/swords'
+                src='https://aesthetic-kleicha-2fce21.netlify.app/'
                 style={{
                     // border: '1px solid red',
                     // backgroundColor: 'red',
