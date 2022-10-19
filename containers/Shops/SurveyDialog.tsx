@@ -14,8 +14,11 @@ interface SelectGameTypeProps {
 const SelectGameType: React.FC<SelectGameTypeProps> = ({ form, name }) => {
     const [type, setType] = React.useState('');
     const menuItem = [
-        { value: 'tournament', title: 'Tournament' },
-        { value: 'casual', title: 'Casual' }
+        { value: 1, title: 'Real Time Strategy(RTS)' },
+        { value: 2, title: 'First Person Shooter(FPS)' },
+        { value: 3, title: 'Role Playing Games RPG' },
+        { value: 4, title: 'Simulation' },
+        { value: 5, title: 'Arcade' }
     ];
     const handleChange = (event: SelectChangeEvent) => {
         setType(event.target.value as string);
@@ -93,8 +96,8 @@ const SurveyDialog: React.FC<SurveyDialogProps> = ({ open, setOpenDialog }) => {
                 sx={{
                     textAlign: 'center',
                     p: '20px',
-                    maxWidth: { sm: '600px', xs: '300px' },
-                    width: { xs: '300px', sm: '500px' }
+                    maxWidth: { sm: '500px', xs: '300px' },
+                    width: { xs: '270px', sm: '500px' }
                 }}
             >
                 {!isConfirmed ? (

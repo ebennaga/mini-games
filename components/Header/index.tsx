@@ -37,7 +37,7 @@ const Header: React.FC<HeaderProps> = ({
     isShops = false,
     dataLocal
 }) => {
-    const userState = useSelector((state: any) => state.webpage?.user?.user);
+    const userState = useSelector((state: any) => state.webpage.user.user);
     const classes = useStyles();
     const router = useRouter();
     const [userData, setUserData] = React.useState<any>(null);
