@@ -1,3 +1,4 @@
+/* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import useAPICaller from 'hooks/useAPICaller';
@@ -7,7 +8,7 @@ import getTimeRaffle from 'helper/getTimeRaffle';
 import { useSelector } from 'react-redux';
 import { Box, Grid, Typography, ButtonBase } from '@mui/material';
 import Header from 'components/Header';
-import { WatchLater, Add, Remove, ArrowBack, ArrowForward, HelpOutline } from '@mui/icons-material';
+import { WatchLater, Add, Remove, HelpOutline } from '@mui/icons-material';
 import Button from 'components/Button/Index';
 import StatusRoundDialog from 'components/Dialog/StatusRoundDialog';
 import RewardDialog from 'components/Dialog/RewardDialog';
@@ -17,16 +18,16 @@ import RaffleSkeleton from './RaffleSkeleton';
 
 const RaffleContainer = () => {
     const userState = useSelector((state: any) => state.webpage?.user?.user);
-    const [quantity, setQuantity] = React.useState<number>(0);
+    const [winChance, setWinChance] = React.useState<any>(null);
     const [openBuyDialog, setOpenBuyDialog] = React.useState<any>(false);
     const [rafflesData, setRafflesData] = React.useState<any>(null);
     const [openRewardDialog, setOpenRewardDialog] = React.useState<any>(false);
     const [openStatusRoundDialog, setOpenStatusRoundDialog] = React.useState<any>(false);
-    const [isWinner, setIsWinner] = React.useState<boolean>(false);
     const [roundDay, setRoundDay] = React.useState<boolean>(false);
+    const [buttonRaffle, setButtonRaffle] = React.useState<boolean>(false);
     const [borderValue, setBorderValue] = React.useState<string>('none');
-    // const [isLoading, setIsLoading] = React.useState<boolean>(true);
     const [myTickets, setMytickets] = React.useState<number>(0);
+    const [totalTickets, setTotalTickets] = React.useState<number>(0);
     const { fetchAPI, isLoading } = useAPICaller();
     const notify = useNotify();
 
@@ -36,6 +37,13 @@ const RaffleContainer = () => {
         { image: '/icons/dummy/profile-3.png', username: 'arya', tickets: 10000, prize: 1000 },
         { image: '/icons/dummy/profile.png', username: 'amang', tickets: 900, prize: 900 },
         { image: '/icons/dummy/profile.png', username: 'nofal', tickets: 200, prize: 200 },
+        { image: '/icons/dummy/profile-3.png', username: 'ricky', tickets: 500, prize: 550 },
+        { image: '/icons/dummy/profile.png', username: 'wisnu', tickets: 250, prize: 250 },
+        { image: '/icons/dummy/profile.png', username: 'ihsan', tickets: 300, prize: 300 },
+        { image: '/icons/dummy/profile-3.png', username: 'warteg', tickets: 800, prize: 800 },
+        { image: '/icons/dummy/profile.png', username: 'ihsan', tickets: 246, prize: 246 },
+        { image: '/icons/dummy/profile.png', username: 'yanto', tickets: 132, prize: 150 },
+        { image: '/icons/dummy/profile-3.png', username: 'beban', tickets: 10, prize: 10 },
         { image: '/icons/dummy/profile-3.png', username: 'ricky', tickets: 500, prize: 550 },
         { image: '/icons/dummy/profile.png', username: 'wisnu', tickets: 250, prize: 250 },
         { image: '/icons/dummy/profile.png', username: 'ihsan', tickets: 300, prize: 300 },
@@ -55,6 +63,7 @@ const RaffleContainer = () => {
             if (res.data?.data) {
                 setRafflesData(res.data.data);
                 setMytickets(res.data.data.auths?.your_tickets);
+                setTotalTickets(res.data.data.auths?.total_tickets);
             }
         } catch (e) {
             notify('failed data', e);
@@ -63,17 +72,19 @@ const RaffleContainer = () => {
 
     const handleBuyRaffle = async () => {
         const response = await fetchAPI({
-            method: 'POST',
-            endpoint: 'raffles/id/redeem',
+            method: 'PUT',
+            endpoint: `raffles/${rafflesData.id}/redeem`,
             data: {
-                total_tickets: quantity
+                total_tickets: myTickets
             }
         });
-        console.log(response);
+        setTotalTickets(totalTickets + myTickets);
+        setWinChance(myTickets / totalTickets);
         notify(response.data?.message, 'success');
         setOpenBuyDialog(!openBuyDialog);
         setOpenRewardDialog(!openRewardDialog);
     };
+
     const handleScroll = () => {
         if (window.scrollY === 0) {
             return setBorderValue('none');
@@ -92,9 +103,13 @@ const RaffleContainer = () => {
         };
     }, []);
 
-    // React.useEffect(() => {
-    //     setMytickets(rafflesData?.auths?.your_tickets);
-    // }, []);
+    React.useEffect(() => {
+        if (myTickets === 0) {
+            setButtonRaffle(true);
+        } else {
+            setButtonRaffle(false);
+        }
+    }, [myTickets, buttonRaffle]);
 
     if (isLoading) {
         return <RaffleSkeleton roundDay={roundDay} />;
@@ -113,7 +128,7 @@ const RaffleContainer = () => {
                     zIndex: 999
                 }}
             >
-                <Header isBack isShops logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
+                <Header isBack isShops logo='/icons/logo.svg' profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Box padding='20px'>
                 <Grid container sx={{ width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -295,14 +310,12 @@ const RaffleContainer = () => {
                                         <Typography sx={{ fontSize: '13px', fontWeight: 700 }}>350.000</Typography>
                                     </Box>
                                 ) : (
-                                    <Typography sx={{ fontSize: '13px', fontWeight: 600 }}>
-                                        {numberFormat(rafflesData?.auths?.total_tickets)}
-                                    </Typography>
+                                    <Typography sx={{ fontSize: '13px', fontWeight: 600 }}>{numberFormat(totalTickets)}</Typography>
                                 )}
                             </Grid>
                             <Grid item xs={4}>
                                 <Typography sx={{ fontSize: '13px', fontWeight: 600 }}>
-                                    {roundDay ? myTickets : `${rafflesData?.auths?.win_chances}%`}
+                                    {roundDay ? myTickets : `${!winChance ? String(myTickets / totalTickets).slice(0, 6) : winChance}%`}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -318,9 +331,8 @@ const RaffleContainer = () => {
                                 <ButtonBase
                                     disableRipple
                                     onClick={() => {
-                                        if (quantity !== 0) {
-                                            setQuantity(quantity - 1);
-                                            setMytickets(myTickets + 1);
+                                        if (myTickets !== 0) {
+                                            setMytickets(myTickets - 1);
                                         }
                                     }}
                                     sx={{
@@ -333,14 +345,11 @@ const RaffleContainer = () => {
                                 >
                                     <Remove sx={{ fontWeight: 'bold' }} />
                                 </ButtonBase>
-                                <Typography sx={{ fontSize: '50px', fontWeight: 'bold', color: '#373737' }}>{quantity}</Typography>
+                                <Typography sx={{ fontSize: '50px', fontWeight: 'bold', color: '#373737' }}>{myTickets}</Typography>
                                 <ButtonBase
                                     disableRipple
                                     onClick={() => {
-                                        if (quantity >= 0 && myTickets !== 0) {
-                                            setQuantity(quantity + 1);
-                                            setMytickets(myTickets - 1);
-                                        }
+                                        setMytickets(myTickets + 1);
                                     }}
                                     sx={{
                                         ':active': { backgroundColor: '#D9D9D9' },
@@ -364,32 +373,6 @@ const RaffleContainer = () => {
                         </Grid>
                     )}
                     <RaffleWinners dataList={dataList} />
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '30px', my: '30px' }}>
-                        <ButtonBase
-                            disableRipple
-                            sx={{
-                                ':active': { backgroundColor: '#D9D9D9' },
-                                cursor: 'pointer',
-                                padding: '10px',
-                                border: '1.3px solid #D9D9D9',
-                                borderRadius: '100%'
-                            }}
-                        >
-                            <ArrowBack sx={{ color: '#A54CE5' }} />
-                        </ButtonBase>
-                        <ButtonBase
-                            disableRipple
-                            sx={{
-                                ':active': { backgroundColor: '#D9D9D9' },
-                                cursor: 'pointer',
-                                padding: '10px',
-                                border: '1.3px solid #D9D9D9',
-                                borderRadius: '100%'
-                            }}
-                        >
-                            <ArrowForward sx={{ color: '#A54CE5' }} />
-                        </ButtonBase>
-                    </Box>
                 </Grid>
                 {!roundDay && (
                     <Box sx={{ position: 'sticky', bottom: '20px' }}>
@@ -398,13 +381,20 @@ const RaffleContainer = () => {
                             title='Buy Raffle'
                             backgoundColor='#A54CE5'
                             color='white'
+                            disabled={buttonRaffle}
                         />
                     </Box>
                 )}
             </Box>
-            <BuyTicketDialog handleBuyRaffle={handleBuyRaffle} count={quantity} open={openBuyDialog} setOpen={setOpenBuyDialog} />
+            <BuyTicketDialog
+                handleBuyRaffle={handleBuyRaffle}
+                point={userState.point}
+                count={myTickets}
+                open={openBuyDialog}
+                setOpen={setOpenBuyDialog}
+            />
             <RewardDialog
-                body={`Successfully purchased ${quantity} tickets in raffle round ${rafflesData?.raffle_no}`}
+                body={`Successfully purchased ${myTickets} tickets in raffle round ${rafflesData?.raffle_no}`}
                 open={openRewardDialog}
                 setOpenDialog={setOpenRewardDialog}
                 path='/shops/lucky-raffle'
