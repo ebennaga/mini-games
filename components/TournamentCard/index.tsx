@@ -35,7 +35,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, coin, pool, users
             sx={{
                 width: customWidth || '90%',
                 height: '320px',
-                backgroundImage: `url('/icons/dummy/menara.png')`,
+                backgroundImage: `url(${imageGame})`,
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
                 borderRadius: '24px'

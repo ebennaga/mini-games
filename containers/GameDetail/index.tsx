@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Box, ButtonBase, Grid, Typography } from '@mui/material';
 import React from 'react';
+import numberFormat from 'helper/numberFormat';
 import Header from 'components/Header';
 import { HelpOutline, EmojiEvents, Share } from '@mui/icons-material';
 import Button from 'components/Button/Index';
@@ -17,23 +18,23 @@ import GameDetailSkeleton from './GameDetailSkeleton';
 const GameDetailContainer = () => {
     const isBack = true;
     const router = useRouter();
-    const { fetchAPI } = useAPICaller();
+    const { fetchAPI, isLoading } = useAPICaller();
     const notify = useNotify();
-    const coins = 200;
-    const [listingGame, setListingGame] = React.useState<any>(null);
+    const [detailGame, setDetailGame] = React.useState<any>(null);
     const userState = useSelector((state: any) => state.webpage?.user?.user);
-    const [isLoading, setIsLoading] = React.useState<boolean>(true);
+    // const [isLoading, setIsLoading] = React.useState<boolean>(true);
     const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
     const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
+
     const fetchData = async (id: number) => {
         try {
             const res = await fetchAPI({
                 endpoint: `/games/${id}`,
                 method: 'GET'
             });
-            console.log('res game detail', res);
-            if (res.data?.data?.data) {
-                setListingGame(res.data.data);
+            console.log('res game detail', res.data.data);
+            if (res.data?.data) {
+                setDetailGame(res.data.data);
             }
         } catch (e) {
             notify('failed data', 'e');
@@ -41,17 +42,19 @@ const GameDetailContainer = () => {
     };
 
     React.useEffect(() => {
-        fetchData(listingGame);
+        fetchData(Number(router.query.id));
     }, []);
+
     const handleClick = async () => {
         router.push(`/games/${router.query.id}/tournament`);
     };
 
-    React.useEffect(() => {
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
-    }, []);
+    // React.useEffect(() => {
+    //     setTimeout(() => {
+    //         setIsLoading(false);
+    //     }, 3000);
+    // }, []);
+
     const handlePlay = () => {
         if (userState) {
             return router.push(`/games/${router.query.id}/casual/`);
@@ -79,7 +82,7 @@ const GameDetailContainer = () => {
             </Box>
             <Box
                 sx={{
-                    backgroundImage: `url(${'/images/bg-gamedetail.png'})`,
+                    backgroundImage: `url(${detailGame?.banner_url})`,
                     height: '50vh',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
@@ -106,7 +109,7 @@ const GameDetailContainer = () => {
                 <Grid container padding='10px 20px' justifyContent='center' gap={2} position='relative' zIndex={2}>
                     <Grid item xs={5}>
                         <Box>
-                            <img src='/images/game-img.png' alt='game-img' style={{ borderRadius: '10px', width: '100%' }} />
+                            <img src={detailGame?.banner_url} alt='game-img' style={{ borderRadius: '10px', width: '100%' }} />
                         </Box>
                     </Grid>
                     <Grid item xs={6} padding='10px'>
@@ -124,10 +127,10 @@ const GameDetailContainer = () => {
                                 <Typography
                                     sx={{ fontWeight: 'bold', color: 'white', fontSize: { xs: '23px', sm: '27px' }, lineHeight: '30px' }}
                                 >
-                                    Menara Dingdong
+                                    {detailGame?.name}
                                 </Typography>
                             </Box>
-                            <Grid container justifyContent='space-between' sx={{ marginTop: { xs: '5%', sm: '10%' } }}>
+                            <Grid container justifyContent='space-between' sx={{ marginTop: { xs: '5%', sm: '10%' } }} gap='10px'>
                                 <Grid item xs={6}>
                                     <ButtonBase
                                         sx={{
@@ -149,7 +152,9 @@ const GameDetailContainer = () => {
                                         <img src='/images/users-img.png' alt='user-img' />
                                     </Grid>
                                     <Grid item xs={4}>
-                                        <Typography sx={{ fontSize: '11px', color: 'white' }}>45.652</Typography>
+                                        <Typography sx={{ fontSize: '11px', color: 'white' }}>
+                                            {numberFormat(detailGame?.user_sessions)}
+                                        </Typography>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -181,15 +186,15 @@ const GameDetailContainer = () => {
                     </Grid>
                     <Grid item xs={12}>
                         <TournamentSlider>
-                            {[...Array(6)].map((item, idx) => (
+                            {detailGame?.tournaments.map((item: any, idx: number) => (
                                 <TournamentCard
-                                    key={idx}
-                                    time='2022-10-20T00:00:00.000Z'
-                                    pool='3500'
-                                    users='376'
+                                    key={item.id}
+                                    time={item.end_time}
+                                    pool={item.total_price}
+                                    users={item.total_users}
                                     onClick={handleClick}
-                                    imageGame='/icons/dummy/menara.png'
-                                    coin={208}
+                                    imageGame={item.banner_url}
+                                    coin={item.entry_coin}
                                 />
                             ))}
                         </TournamentSlider>
@@ -210,7 +215,7 @@ const GameDetailContainer = () => {
                         <Box
                             sx={{
                                 borderRadius: '20px',
-                                backgroundImage: `url(${'/images/bg-casual.png'})`,
+                                backgroundImage: `url(${detailGame?.banner_url})`,
                                 height: '260px',
                                 display: 'flex',
                                 flexDirection: 'column-reverse',
@@ -256,10 +261,10 @@ const GameDetailContainer = () => {
                                 <Typography sx={{ fontSize: '14px', fontWeight: '700' }}>High scores</Typography>
                             </Box>
                         </Grid>
-                        <Grid item xs={5} justifyContent='space-between'>
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                        <Grid item xs={4}>
+                            <Box justifyContent='space-between' sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                                 <EmojiEvents />
-                                <Typography sx={{ fontWeight: '700' }}>211.876</Typography>
+                                <Typography sx={{ fontWeight: '700' }}>{numberFormat(detailGame?.auths.highscore)}</Typography>
                                 <Share />
                             </Box>
                         </Grid>
