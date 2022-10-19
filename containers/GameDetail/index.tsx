@@ -4,11 +4,14 @@ import React from 'react';
 import Header from 'components/Header';
 import { HelpOutline, EmojiEvents, Share } from '@mui/icons-material';
 import Button from 'components/Button/Index';
+import { useSelector } from 'react-redux';
 import TournamentCard from 'components/TournamentCard';
 import TournamentSlider from 'components/TournamentSlider/TournamentSliderGD';
 import { useRouter } from 'next/router';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
+import NotifDialog from 'components/Dialog/notifDialog';
+import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import GameDetailSkeleton from './GameDetailSkeleton';
 
 const GameDetailContainer = () => {
@@ -16,9 +19,12 @@ const GameDetailContainer = () => {
     const router = useRouter();
     const { fetchAPI } = useAPICaller();
     const notify = useNotify();
+    const coins = 200;
     const [listingGame, setListingGame] = React.useState<any>(null);
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
     const [isLoading, setIsLoading] = React.useState<boolean>(true);
-
+    const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
+    const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
     const fetchData = async (id: number) => {
         try {
             const res = await fetchAPI({
@@ -46,6 +52,12 @@ const GameDetailContainer = () => {
             setIsLoading(false);
         }, 3000);
     }, []);
+    const handlePlay = () => {
+        if (userState) {
+            return router.push(`/games/${router.query.id}/casual/`);
+        }
+        return setSignupLoginDialog(true);
+    };
 
     if (isLoading) {
         return <GameDetailSkeleton />;
@@ -209,15 +221,7 @@ const GameDetailContainer = () => {
                         >
                             <Box position='relative' zIndex={2} margin='20px'>
                                 <Typography sx={{ color: 'white', fontWeight: 'bold', fontSize: '32px' }}>Free</Typography>
-                                <Button
-                                    onClick={() => {
-                                        router.push(`/games/${router.query.id}/casual`);
-                                    }}
-                                    height='40px'
-                                    title='Play Casual'
-                                    backgoundColor='#A54CE5'
-                                    color='white'
-                                />
+                                <Button onClick={handlePlay} height='40px' title='Play Casual' backgoundColor='#A54CE5' color='white' />
                             </Box>
                             <Box
                                 sx={{
@@ -261,6 +265,13 @@ const GameDetailContainer = () => {
                         </Grid>
                     </Grid>
                 </Grid>
+                <NotifDialog
+                    open={openNotifDialog}
+                    setOpenDialog={setOpenNotifDialog}
+                    body='You don’t have Coins in your balance. 
+Top up Coins to continue'
+                />
+                <SignupLoginDialog open={signupLoginDialog} setOpen={setSignupLoginDialog} />
             </Box>
         </Box>
     );

@@ -45,7 +45,7 @@ const PlayGameContainer = () => {
         webhookGames();
         getGameDetail();
     }, []);
-    console.log('gamedetail', gameDetail);
+
     return (
         <Box sx={{ width: '100%' }}>
             <iframe
@@ -54,7 +54,7 @@ const PlayGameContainer = () => {
                 //     `${gameDetail?.game_url}?=${sessionGame}` ||
                 //     `http://prizeplay-minigames.s3-website.ap-southeast-3.amazonaws.com/swords?=${sessionGame}`
                 // }
-                src='https://aesthetic-kleicha-2fce21.netlify.app/'
+                src='https://minigames.prizeplay.io/swords/'
                 style={{
                     // border: '1px solid red',
                     // backgroundColor: 'red',
