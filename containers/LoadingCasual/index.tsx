@@ -32,7 +32,7 @@ const LoadingCasual = () => {
         <Box sx={{ textAlign: 'center', padding: '0px 30px 40px' }}>
             <Typography sx={{ fontWeight: 700, fontSize: '24px' }}>{detailGame?.name}</Typography>
             <Box sx={{ textAlign: 'center', my: '32px' }}>
-                <img src={detailGame?.banner_url} alt='loading-casual' style={{ width: '50%', borderRadius: '15px' }} />
+                <img src={detailGame?.banner_url} alt='loading-casual' style={{ width: '50%', borderRadius: '15px   ' }} />
             </Box>
             <Typography sx={{ fontWeight: 400, fontSize: '14px', color: '#949494', mb: '100px' }}>{detailGame?.description}</Typography>
             <Typography sx={{ fontWeight: 700, fontSize: '16px' }}>
