@@ -79,7 +79,7 @@ const HomeContainer = () => {
     }, []);
 
     const handleSearch = (data: any) => {
-        console.log(data);
+        router.push(`/games?search=${data.search}`);
     };
     const isNotif = true;
 
