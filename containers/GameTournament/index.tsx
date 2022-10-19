@@ -21,10 +21,12 @@ const GameTournament = () => {
     const coin = userState?.coin;
     const coins = 200;
     const notify = useNotify();
-    const { fetchAPI, isLoading } = useAPICaller();
+    const { fetchAPI } = useAPICaller();
 
     const [listingGame, setListingGame] = React.useState<any>(null);
     const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
+    const [isLoading, isSetLoading] = React.useState<boolean>(false);
+
     const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
 
     const dataLeaderboard = [
@@ -42,6 +44,7 @@ const GameTournament = () => {
         { image: '/icons/dummy/profile-3.png', username: 'beban', point: 10, prize: 10 }
     ];
     const fetchData = async (id: number) => {
+        isSetLoading(true);
         try {
             const res = await fetchAPI({
                 endpoint: `/tournamets/${id}`,
@@ -51,8 +54,10 @@ const GameTournament = () => {
             if (res.status === 200) {
                 setListingGame(res.data.data);
             }
+            isSetLoading(false);
         } catch (e) {
             notify('failed data', 'e');
+            isSetLoading(false);
         }
     };
 
@@ -88,7 +93,7 @@ const GameTournament = () => {
                 playerImg3='/icons/dummy/user-2.png'
             />
             <Box component='main' padding='20px' color='#373737'>
-                {isLoading || !listingGame ? (
+                {isLoading ? (
                     <Box>
                         <Skeleton animation='wave' variant='rectangular' width='100%' />
                     </Box>
@@ -103,10 +108,10 @@ const GameTournament = () => {
                                 <Typography sx={{ fontSize: '14px', fontWeight: 'bold' }}>250</Typography>
                             </Box>
                         </Box>
-                        <LeaderboardPodium dataLeaderboard={listingGame.leaderboards} />
+                        {listingGame?.leaderboards && <LeaderboardPodium dataLeaderboard={listingGame?.leaderboards} />}
                     </Box>
                 )}
-                {isLoading || !listingGame ? (
+                {isLoading ? (
                     <Box>
                         {[...Array(10)].map((index: any, item: any) => {
                             return <Skeleton key={item} variant='rectangular' sx={{ my: 4, mx: 1 }} />;
@@ -114,7 +119,7 @@ const GameTournament = () => {
                     </Box>
                 ) : (
                     <Box component='section' marginBottom='40px'>
-                        <TableRank dataLeaderboard={listingGame.leaderboards} />
+                        {listingGame?.leaderboards && <TableRank dataLeaderboard={listingGame?.leaderboards} />}
                     </Box>
                 )}
             </Box>
