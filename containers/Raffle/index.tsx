@@ -22,10 +22,8 @@ const RaffleContainer = () => {
     const [rafflesData, setRafflesData] = React.useState<any>(null);
     const [openRewardDialog, setOpenRewardDialog] = React.useState<any>(false);
     const [openStatusRoundDialog, setOpenStatusRoundDialog] = React.useState<any>(false);
-    const [isWinner, setIsWinner] = React.useState<boolean>(false);
     const [roundDay, setRoundDay] = React.useState<boolean>(false);
     const [borderValue, setBorderValue] = React.useState<string>('none');
-    // const [isLoading, setIsLoading] = React.useState<boolean>(true);
     const [myTickets, setMytickets] = React.useState<number>(0);
     const { fetchAPI, isLoading } = useAPICaller();
     const notify = useNotify();
@@ -36,6 +34,13 @@ const RaffleContainer = () => {
         { image: '/icons/dummy/profile-3.png', username: 'arya', tickets: 10000, prize: 1000 },
         { image: '/icons/dummy/profile.png', username: 'amang', tickets: 900, prize: 900 },
         { image: '/icons/dummy/profile.png', username: 'nofal', tickets: 200, prize: 200 },
+        { image: '/icons/dummy/profile-3.png', username: 'ricky', tickets: 500, prize: 550 },
+        { image: '/icons/dummy/profile.png', username: 'wisnu', tickets: 250, prize: 250 },
+        { image: '/icons/dummy/profile.png', username: 'ihsan', tickets: 300, prize: 300 },
+        { image: '/icons/dummy/profile-3.png', username: 'warteg', tickets: 800, prize: 800 },
+        { image: '/icons/dummy/profile.png', username: 'ihsan', tickets: 246, prize: 246 },
+        { image: '/icons/dummy/profile.png', username: 'yanto', tickets: 132, prize: 150 },
+        { image: '/icons/dummy/profile-3.png', username: 'beban', tickets: 10, prize: 10 },
         { image: '/icons/dummy/profile-3.png', username: 'ricky', tickets: 500, prize: 550 },
         { image: '/icons/dummy/profile.png', username: 'wisnu', tickets: 250, prize: 250 },
         { image: '/icons/dummy/profile.png', username: 'ihsan', tickets: 300, prize: 300 },
@@ -318,9 +323,8 @@ const RaffleContainer = () => {
                                 <ButtonBase
                                     disableRipple
                                     onClick={() => {
-                                        if (quantity !== 0) {
-                                            setQuantity(quantity - 1);
-                                            setMytickets(myTickets + 1);
+                                        if (myTickets !== 0) {
+                                            setMytickets(myTickets - 1);
                                         }
                                     }}
                                     sx={{
@@ -333,13 +337,12 @@ const RaffleContainer = () => {
                                 >
                                     <Remove sx={{ fontWeight: 'bold' }} />
                                 </ButtonBase>
-                                <Typography sx={{ fontSize: '50px', fontWeight: 'bold', color: '#373737' }}>{quantity}</Typography>
+                                <Typography sx={{ fontSize: '50px', fontWeight: 'bold', color: '#373737' }}>{myTickets}</Typography>
                                 <ButtonBase
                                     disableRipple
                                     onClick={() => {
-                                        if (quantity >= 0 && myTickets !== 0) {
-                                            setQuantity(quantity + 1);
-                                            setMytickets(myTickets - 1);
+                                        if (myTickets !== 0) {
+                                            setMytickets(myTickets + 1);
                                         }
                                     }}
                                     sx={{
