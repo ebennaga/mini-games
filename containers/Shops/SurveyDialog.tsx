@@ -96,8 +96,8 @@ const SurveyDialog: React.FC<SurveyDialogProps> = ({ open, setOpenDialog }) => {
                 sx={{
                     textAlign: 'center',
                     p: '20px',
-                    maxWidth: { sm: '600px', xs: '300px' },
-                    width: { xs: '300px', sm: '500px' }
+                    maxWidth: { sm: '500px', xs: '300px' },
+                    width: { xs: '270px', sm: '500px' }
                 }}
             >
                 {!isConfirmed ? (

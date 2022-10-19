@@ -46,6 +46,7 @@ const ProfileSetting = () => {
         clearUser();
         router.push('/');
     };
+
     const handleDelete = () => router.push('/signup');
 
     const generalItem = [
