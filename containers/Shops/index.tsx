@@ -23,8 +23,7 @@ const ShopsContainer = () => {
     const [dataRedemptions, setDataRedemptions] = useState<any>(null);
     const [timeLuckyRaffle, setTimeLuckyRaffle] = useState<string>('');
 
-    // const isComingSoon = process.env.NEXT_PRIZES_COMING_SOON;
-    const isComingSoon = true;
+    const isComingSoon = process.env.NEXT_PUBLIC_PRIZES_COMING_SOON === 'true';
 
     const [surveyDialog, setSurveyDialog] = useState<boolean>(true);
     const router = useRouter();

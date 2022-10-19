@@ -20,7 +20,7 @@ const Layout: React.FC<LayoutProps> = ({
     border = '1px solid #D9D9D9'
 }) => {
     const router = useRouter();
-
+    console.log('router', router.pathname);
     return (
         <Box
             sx={{
@@ -93,7 +93,11 @@ const Layout: React.FC<LayoutProps> = ({
                             }}
                         >
                             <img
-                                src={`/icons/${router.pathname === '/shops' ? 'redeem-active' : 'redeem-not-active'}.svg`}
+                                src={`/icons/${
+                                    router.pathname === '/shops' || router.pathname === '/shops/prize'
+                                        ? 'redeem-active'
+                                        : 'redeem-not-active'
+                                }.svg`}
                                 alt='home-icon'
                             />
                         </ButtonBase>
