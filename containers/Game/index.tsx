@@ -2,12 +2,13 @@
 import Header from 'components/Header';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import { Box, Typography, Stack, Skeleton, Grid } from '@mui/material';
+import { Box, Typography, Stack, Skeleton, Grid, IconButton } from '@mui/material';
 import BadgeImages from 'components/BadgeImages';
 import HeaderSkeleton from 'components/Header/HeaderSkeleton';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import { Mms } from '@mui/icons-material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 interface GameProps {
     playerImg1: string;
@@ -116,6 +117,14 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
                 >
                     <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
                 </Box>
+            )}
+            {!loading && searchData && (
+                <IconButton
+                    onClick={() => router.back()}
+                    sx={{ width: '24px', height: '24px', ml: '20px', mb: '-15px', background: '#A54CE5' }}
+                >
+                    <ArrowBackIcon sx={{ color: '#fff', fontSize: '20px' }} />
+                </IconButton>
             )}
             {loading ? (
                 <Skeleton sx={{ width: '75px', height: '38px', ml: '20px', mt: '20px' }} />
