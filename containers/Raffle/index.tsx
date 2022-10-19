@@ -72,8 +72,8 @@ const RaffleContainer = () => {
 
     const handleBuyRaffle = async () => {
         const response = await fetchAPI({
-            method: 'POST',
-            endpoint: 'raffles/id/redeem',
+            method: 'PUT',
+            endpoint: `raffles/${rafflesData.id}/redeem`,
             data: {
                 total_tickets: myTickets
             }
@@ -110,8 +110,6 @@ const RaffleContainer = () => {
             setButtonRaffle(false);
         }
     }, [myTickets, buttonRaffle]);
-
-    console.log(userState.point);
 
     if (isLoading) {
         return <RaffleSkeleton roundDay={roundDay} />;
@@ -317,9 +315,7 @@ const RaffleContainer = () => {
                             </Grid>
                             <Grid item xs={4}>
                                 <Typography sx={{ fontSize: '13px', fontWeight: 600 }}>
-                                    {roundDay
-                                        ? myTickets
-                                        : `${totalTickets ? String(myTickets / totalTickets).slice(0, 6) : totalTickets}%`}
+                                    {roundDay ? myTickets : `${!winChance ? String(myTickets / totalTickets).slice(0, 6) : winChance}%`}
                                 </Typography>
                             </Grid>
                         </Grid>
