@@ -21,8 +21,20 @@ const ForgotPasswordPage = () => {
     const [isConfirmed, setIsConfirmed] = React.useState<boolean>(false);
     const [dialogChanged, setDialogChanged] = React.useState<boolean>(false);
     const [disabled, setDisabled] = React.useState<any>(true);
+    const [isSamePwd, setIsSamePwd] = React.useState<boolean>(true);
     const [disabledChange, setDisabledChange] = React.useState<any>(true);
     const rules = { required: true };
+
+    React.useEffect(() => {
+        const value = form.watch();
+        if (value['New password'].length >= 6) {
+            if (value['New password'] === value['Confirm password']) {
+                setIsSamePwd(true);
+            } else {
+                setIsSamePwd(false);
+            }
+        }
+    }, [form.watch('New password'), form.watch('Confirm password')]);
 
     React.useEffect(() => {
         if (form.watch('email') === '') {
@@ -69,7 +81,7 @@ const ForgotPasswordPage = () => {
                                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                                             <Input
                                                 isOTP={false}
-                                                validator={rules}
+                                                validator={{ minLength: 6 }}
                                                 type='password'
                                                 name='New password'
                                                 form={form}
@@ -77,12 +89,22 @@ const ForgotPasswordPage = () => {
                                             />
                                             <Input
                                                 isOTP={false}
-                                                validator={rules}
+                                                validator={{ minLength: 6 }}
                                                 type='password'
                                                 name='Confirm password'
                                                 form={form}
                                                 placeholder='Insert your Confirm Password'
                                             />
+                                            {!isSamePwd && (
+                                                <Box ml='1em'>
+                                                    <Typography
+                                                        component='span'
+                                                        sx={{ color: '#CD1719', fontSize: '14px', fontWeight: 'bold' }}
+                                                    >
+                                                        Password and Confirm Password does not match
+                                                    </Typography>
+                                                </Box>
+                                            )}
                                         </Box>
                                     ) : (
                                         <Input
