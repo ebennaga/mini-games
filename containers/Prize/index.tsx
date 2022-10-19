@@ -74,21 +74,24 @@ const PrizeContainer = () => {
 
     const getDataPrizes = async () => {
         setIsLoading(true);
-        try {
-            const response = await fetchAPI({
-                method: 'GET',
-                endpoint: 'home/redemptions'
-            });
-            if (response.status === 200) {
-                setData(response.data.data.catalogues);
-            } else {
-                notify(response.data.message, 'error');
+        if (!isComingSoon) {
+            try {
+                const response = await fetchAPI({
+                    method: 'GET',
+                    endpoint: 'home/redemptions'
+                });
+                if (response.status === 200) {
+                    setData(response.data.data.catalogues);
+                } else {
+                    notify(response.data.message, 'error');
+                }
+                setIsLoading(false);
+            } catch (err: any) {
+                notify(err.message, 'error');
+                setIsLoading(false);
             }
-            setIsLoading(false);
-        } catch (err: any) {
-            notify(err.message, 'error');
-            setIsLoading(false);
         }
+        setIsLoading(false);
     };
 
     React.useEffect(() => {

@@ -33,28 +33,34 @@ const ShopsContainer = () => {
 
     const getRedemptions = async () => {
         setIsLoading(true);
-        try {
-            const response = await fetchAPI({
-                method: 'GET',
-                endpoint: 'home/redemptions'
-            });
-            if (response.status === 200) {
-                setDataRedemptions(response.data.data);
-                if (response.data.data?.lucky_raffle?.start_time) {
-                    if (timeLuckyRaffle) {
-                        setInterval(() => setTimeLuckyRaffle(getRemainingTimes(response.data.data?.lucky_raffle?.start_time)), 6000);
-                    } else {
-                        setTimeLuckyRaffle(getRemainingTimes(response.data.data?.lucky_raffle?.start_time));
-                    }
+        if (!isComingSoon) {
+            try {
+                const response = await fetchAPI({
+                    method: 'GET',
+                    endpoint: 'home/redemptions'
+                });
+                if (!response) {
+                    throw new Error('Data is Empty');
                 }
-            } else {
-                notify(response.data.message, 'error');
+                if (response.status === 200) {
+                    setDataRedemptions(response.data.data);
+                    if (response.data.data?.lucky_raffle?.start_time) {
+                        if (timeLuckyRaffle) {
+                            setInterval(() => setTimeLuckyRaffle(getRemainingTimes(response.data.data?.lucky_raffle?.start_time)), 6000);
+                        } else {
+                            setTimeLuckyRaffle(getRemainingTimes(response.data.data?.lucky_raffle?.start_time));
+                        }
+                    }
+                } else {
+                    notify(response.data.message, 'error');
+                }
+                setIsLoading(false);
+            } catch (err: any) {
+                notify(err.message, 'error');
+                setIsLoading(false);
             }
-            setIsLoading(false);
-        } catch (err: any) {
-            notify(err.message, 'error');
-            setIsLoading(false);
         }
+        setIsLoading(false);
     };
 
     useEffect(() => {
@@ -115,20 +121,22 @@ const ShopsContainer = () => {
                         </ButtonBase>
                     </Grid>
                 </Grid>
-                <ShopsSlider>
-                    {dataRedemptions?.banners.map((item: any) => (
-                        <ShopsCard
-                            // productName={itemData[index].label}
-                            onClick={() => {
-                                router.push(`/shops/prize/${item.id}`);
-                            }}
-                            key={item.id}
-                            point={numberFormat(item.points)}
-                            image={item.image_url}
-                            title={item.title}
-                        />
-                    ))}
-                </ShopsSlider>
+                {!isComingSoon && (
+                    <ShopsSlider>
+                        {dataRedemptions?.banners.map((item: any) => (
+                            <ShopsCard
+                                // productName={itemData[index].label}
+                                onClick={() => {
+                                    router.push(`/shops/prize/${item.id}`);
+                                }}
+                                key={item.id}
+                                point={numberFormat(item.points)}
+                                image={item.image_url}
+                                title={item.title}
+                            />
+                        ))}
+                    </ShopsSlider>
+                )}
                 <Box width='100%' padding='0 20px' margin='20px 0px'>
                     <Grid container justifyContent='space-between' alignItems='center'>
                         <Grid item xs={7} sm={7}>
