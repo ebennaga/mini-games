@@ -1,3 +1,4 @@
+/* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import useAPICaller from 'hooks/useAPICaller';
@@ -17,7 +18,7 @@ import RaffleSkeleton from './RaffleSkeleton';
 
 const RaffleContainer = () => {
     const userState = useSelector((state: any) => state.webpage?.user?.user);
-    const [quantity, setQuantity] = React.useState<number>(0);
+    const [winChance, setWinChance] = React.useState<any>(null);
     const [openBuyDialog, setOpenBuyDialog] = React.useState<any>(false);
     const [rafflesData, setRafflesData] = React.useState<any>(null);
     const [openRewardDialog, setOpenRewardDialog] = React.useState<any>(false);
@@ -26,6 +27,7 @@ const RaffleContainer = () => {
     const [buttonRaffle, setButtonRaffle] = React.useState<boolean>(false);
     const [borderValue, setBorderValue] = React.useState<string>('none');
     const [myTickets, setMytickets] = React.useState<number>(0);
+    const [totalTickets, setTotalTickets] = React.useState<number>(0);
     const { fetchAPI, isLoading } = useAPICaller();
     const notify = useNotify();
 
@@ -61,24 +63,29 @@ const RaffleContainer = () => {
             if (res.data?.data) {
                 setRafflesData(res.data.data);
                 setMytickets(res.data.data.auths?.your_tickets);
+                setTotalTickets(res.data.data.auths?.total_tickets);
             }
         } catch (e) {
             notify('failed data', e);
         }
     };
 
-    const handleBuyRaffle = async () => {
+    const handleBuyRaffle = async (e: any) => {
+        e.preventDefault();
         const response = await fetchAPI({
             method: 'POST',
             endpoint: 'raffles/id/redeem',
             data: {
-                total_tickets: quantity
+                total_tickets: myTickets
             }
         });
+        setTotalTickets(totalTickets + myTickets);
+        setWinChance(myTickets / totalTickets);
         notify(response.data?.message, 'success');
         setOpenBuyDialog(!openBuyDialog);
         setOpenRewardDialog(!openRewardDialog);
     };
+
     const handleScroll = () => {
         if (window.scrollY === 0) {
             return setBorderValue('none');
@@ -304,14 +311,14 @@ const RaffleContainer = () => {
                                         <Typography sx={{ fontSize: '13px', fontWeight: 700 }}>350.000</Typography>
                                     </Box>
                                 ) : (
-                                    <Typography sx={{ fontSize: '13px', fontWeight: 600 }}>
-                                        {numberFormat(rafflesData?.auths?.total_tickets)}
-                                    </Typography>
+                                    <Typography sx={{ fontSize: '13px', fontWeight: 600 }}>{numberFormat(totalTickets)}</Typography>
                                 )}
                             </Grid>
                             <Grid item xs={4}>
                                 <Typography sx={{ fontSize: '13px', fontWeight: 600 }}>
-                                    {roundDay ? myTickets : `${rafflesData?.auths?.win_chances}%`}
+                                    {roundDay
+                                        ? myTickets
+                                        : `${totalTickets ? String(myTickets / totalTickets).slice(0, 6) : totalTickets}%`}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -382,9 +389,9 @@ const RaffleContainer = () => {
                     </Box>
                 )}
             </Box>
-            <BuyTicketDialog handleBuyRaffle={handleBuyRaffle} count={quantity} open={openBuyDialog} setOpen={setOpenBuyDialog} />
+            <BuyTicketDialog handleBuyRaffle={handleBuyRaffle} count={myTickets} open={openBuyDialog} setOpen={setOpenBuyDialog} />
             <RewardDialog
-                body={`Successfully purchased ${quantity} tickets in raffle round ${rafflesData?.raffle_no}`}
+                body={`Successfully purchased ${myTickets} tickets in raffle round ${rafflesData?.raffle_no}`}
                 open={openRewardDialog}
                 setOpenDialog={setOpenRewardDialog}
                 path='/shops/lucky-raffle'
