@@ -9,7 +9,19 @@ const PlayGameContainer = () => {
     const { fetchAPI } = useAPICaller();
     const notify = useNotify();
     const [sessionGame, setSessionGame] = useState();
+    const [gameDetail, setGameDetail] = useState<any>();
     const router = useRouter();
+    const getGameDetail = async () => {
+        const response = await fetchAPI({
+            method: 'GET',
+            endpoint: `games/${router.query.id}`
+        });
+        if (response.status === 200) {
+            setGameDetail(response.data.data);
+        } else {
+            notify('failed data', 'e');
+        }
+    };
     const webhookGames = async () => {
         const response = await fetchAPI({
             method: 'POST',
@@ -31,12 +43,18 @@ const PlayGameContainer = () => {
     };
     React.useEffect(() => {
         webhookGames();
+        getGameDetail();
     }, []);
+    console.log('gamedetail', gameDetail);
     return (
         <Box sx={{ width: '100%' }}>
             <iframe
-                // src='https://verdantegames.com/Hopup/'
-                src='https://aesthetic-kleicha-2fce21.netlify.app/'
+                // src={gameDetail?.game_url}
+                // src={
+                //     `${gameDetail?.game_url}?=${sessionGame}` ||
+                //     `http://prizeplay-minigames.s3-website.ap-southeast-3.amazonaws.com/swords?=${sessionGame}`
+                // }
+                src='http://prizeplay-minigames.s3-website.ap-southeast-3.amazonaws.com/swords'
                 style={{
                     // border: '1px solid red',
                     // backgroundColor: 'red',
