@@ -2,7 +2,7 @@ import { Box, ButtonBase, Typography } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import NavigationCard from 'components/NavigationCard';
 import SwitchCard from 'components/SwitchCard';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import useAuthReducer from 'hooks/useAuthReducer';
@@ -39,7 +39,6 @@ const ProfileSetting = () => {
         } else {
             form.setValue('gameSound', true);
         }
-        alert(gameSound);
     };
 
     const handleSignOut = () => {
@@ -64,6 +63,10 @@ const ProfileSetting = () => {
     const handleHref = (href: string) => {
         router.push(href);
     };
+
+    useEffect(() => {
+        localStorage.setItem('prizePlaySound', JSON.stringify(form.watch('gameSound')));
+    }, [form.watch('gameSound')]);
 
     return (
         <Box component='main' sx={{ width: '-webkit-fill-available', padding: '0 20px', color: '#373737' }}>
