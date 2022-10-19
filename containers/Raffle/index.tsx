@@ -70,8 +70,7 @@ const RaffleContainer = () => {
         }
     };
 
-    const handleBuyRaffle = async (e: any) => {
-        e.preventDefault();
+    const handleBuyRaffle = async () => {
         const response = await fetchAPI({
             method: 'POST',
             endpoint: 'raffles/id/redeem',
@@ -112,6 +111,8 @@ const RaffleContainer = () => {
         }
     }, [myTickets, buttonRaffle]);
 
+    console.log(userState.point);
+
     if (isLoading) {
         return <RaffleSkeleton roundDay={roundDay} />;
     }
@@ -129,7 +130,7 @@ const RaffleContainer = () => {
                     zIndex: 999
                 }}
             >
-                <Header isBack isShops logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
+                <Header isBack isShops logo='/icons/logo.svg' profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Box padding='20px'>
                 <Grid container sx={{ width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -389,7 +390,13 @@ const RaffleContainer = () => {
                     </Box>
                 )}
             </Box>
-            <BuyTicketDialog handleBuyRaffle={handleBuyRaffle} count={myTickets} open={openBuyDialog} setOpen={setOpenBuyDialog} />
+            <BuyTicketDialog
+                handleBuyRaffle={handleBuyRaffle}
+                point={userState.point}
+                count={myTickets}
+                open={openBuyDialog}
+                setOpen={setOpenBuyDialog}
+            />
             <RewardDialog
                 body={`Successfully purchased ${myTickets} tickets in raffle round ${rafflesData?.raffle_no}`}
                 open={openRewardDialog}
