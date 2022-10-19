@@ -102,7 +102,7 @@ const HomeContainer = () => {
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
             <WelcomeDialog
-                open={isWelcome}
+                open={isWelcome && userState}
                 setOpen={setIsWelcome}
                 dataLocal={dataTutorial}
                 setDataLocal={setDataTutorial}
