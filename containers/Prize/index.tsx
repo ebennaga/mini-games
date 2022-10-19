@@ -7,6 +7,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
+import dataComingSoon from 'utils/dataComingSoon';
+import ImageListItemComingSoon from 'components/ImageListComingSoon';
 import PrizeSkeleton from './PrizeSkeleton';
 
 interface InputPrizesProps {
@@ -51,6 +53,8 @@ const PrizeContainer = () => {
     const [borderValue, setBorderValue] = React.useState<string>('none');
     const [isLoading, setIsLoading] = React.useState<boolean>(true);
     const [data, setData] = React.useState<any>(null);
+
+    const isComingSoon = process.env.NEXT_PUBLIC_PRIZES_COMING_SOON === 'true';
 
     const { fetchAPI } = useAPICaller();
     const notify = useNotify();
@@ -122,37 +126,41 @@ const PrizeContainer = () => {
                 <Header isShops hrefBack='/shops' isBack point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Box padding='10px 20px'>
-                <Typography sx={{ fontSize: '24px', fontWeight: '700' }}>Prizes</Typography>
+                <Typography sx={{ fontSize: '24px', fontWeight: '700', mb: 2 }}>Prizes</Typography>
                 <InputPrizes form={form} placeholder='Search prize' name='search' />
-                <ImageList variant='masonry' cols={2} gap={30} sx={{ '& .MuiImageListItem-root': { overflow: 'auto' } }}>
-                    {data.map((item: any) => (
-                        <ImageListItem sx={{ cursor: 'pointer' }} key={item.id}>
-                            <Box
-                                onClick={() => {
-                                    router.push(`/shops/prize/${item.id}`);
-                                }}
-                            >
-                                <Box sx={{ backgroundColor: '#F4F1FF', padding: { xs: '20px', sm: '45px' }, borderRadius: '14px' }}>
-                                    <img
-                                        src={item.image_url}
-                                        alt={item.name}
-                                        style={{ width: '100%' }}
-                                        onError={({ currentTarget }) => {
-                                            currentTarget.onerror = null;
-                                            currentTarget.src = '/images/img_error.svg';
-                                        }}
-                                    />
-                                </Box>
-                                <Box>
-                                    <Typography sx={{ fontSize: '12px', fontWeight: '700', mt: 1 }}>{item.name}</Typography>
-                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                                        <img src='/images/point-shops.png' alt='point-shop' loading='lazy' />
-                                        <Typography sx={{ fontSize: '12px', fontWeight: '700' }}>{item.price}</Typography>
-                                    </Box>
-                                </Box>
-                            </Box>
-                        </ImageListItem>
-                    ))}
+                <ImageList variant='masonry' cols={2} gap={30} sx={{ mt: 4, '& .MuiImageListItem-root': { overflow: 'auto' } }}>
+                    {isComingSoon
+                        ? dataComingSoon.map((item: any) => {
+                              return <ImageListItemComingSoon key={item.name} image={item.image_url} name={item.name} />;
+                          })
+                        : data.map((item: any) => (
+                              <ImageListItem sx={{ cursor: 'pointer' }} key={item.id}>
+                                  <Box
+                                      onClick={() => {
+                                          router.push(`/shops/prize/${item.id}`);
+                                      }}
+                                  >
+                                      <Box sx={{ backgroundColor: '#F4F1FF', padding: { xs: '20px', sm: '45px' }, borderRadius: '14px' }}>
+                                          <img
+                                              src={item.image_url}
+                                              alt={item.name}
+                                              style={{ width: '100%' }}
+                                              onError={({ currentTarget }) => {
+                                                  currentTarget.onerror = null;
+                                                  currentTarget.src = '/images/img_error.svg';
+                                              }}
+                                          />
+                                      </Box>
+                                      <Box>
+                                          <Typography sx={{ fontSize: '12px', fontWeight: '700', mt: 1 }}>{item.name}</Typography>
+                                          <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                              <img src='/images/point-shops.png' alt='point-shop' loading='lazy' />
+                                              <Typography sx={{ fontSize: '12px', fontWeight: '700' }}>{item.price}</Typography>
+                                          </Box>
+                                      </Box>
+                                  </Box>
+                              </ImageListItem>
+                          ))}
                 </ImageList>
             </Box>
         </Box>
