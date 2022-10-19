@@ -29,7 +29,7 @@ const HomeContainer = () => {
     const [prevTutorial, setPrevTutorial] = useState<string>('');
     const [dialogLogin, setDialogLogin] = useState<boolean>(false);
 
-    const userState = useSelector((state: any) => state?.webpage.user?.user);
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
 
     const notify = useNotify();
     const { fetchAPI, isLoading } = useAPICaller();
