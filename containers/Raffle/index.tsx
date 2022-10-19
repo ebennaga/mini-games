@@ -23,6 +23,7 @@ const RaffleContainer = () => {
     const [openRewardDialog, setOpenRewardDialog] = React.useState<any>(false);
     const [openStatusRoundDialog, setOpenStatusRoundDialog] = React.useState<any>(false);
     const [roundDay, setRoundDay] = React.useState<boolean>(false);
+    const [buttonRaffle, setButtonRaffle] = React.useState<boolean>(false);
     const [borderValue, setBorderValue] = React.useState<string>('none');
     const [myTickets, setMytickets] = React.useState<number>(0);
     const { fetchAPI, isLoading } = useAPICaller();
@@ -74,7 +75,6 @@ const RaffleContainer = () => {
                 total_tickets: quantity
             }
         });
-        console.log(response);
         notify(response.data?.message, 'success');
         setOpenBuyDialog(!openBuyDialog);
         setOpenRewardDialog(!openRewardDialog);
@@ -97,9 +97,13 @@ const RaffleContainer = () => {
         };
     }, []);
 
-    // React.useEffect(() => {
-    //     setMytickets(rafflesData?.auths?.your_tickets);
-    // }, []);
+    React.useEffect(() => {
+        if (myTickets === 0) {
+            setButtonRaffle(true);
+        } else {
+            setButtonRaffle(false);
+        }
+    }, [myTickets, buttonRaffle]);
 
     if (isLoading) {
         return <RaffleSkeleton roundDay={roundDay} />;
@@ -341,9 +345,7 @@ const RaffleContainer = () => {
                                 <ButtonBase
                                     disableRipple
                                     onClick={() => {
-                                        if (myTickets !== 0) {
-                                            setMytickets(myTickets + 1);
-                                        }
+                                        setMytickets(myTickets + 1);
                                     }}
                                     sx={{
                                         ':active': { backgroundColor: '#D9D9D9' },
@@ -375,6 +377,7 @@ const RaffleContainer = () => {
                             title='Buy Raffle'
                             backgoundColor='#A54CE5'
                             color='white'
+                            disabled={buttonRaffle}
                         />
                     </Box>
                 )}
