@@ -20,13 +20,17 @@ interface GameProps {
 const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3, totalPlayer }) => {
     const [loading, setLoading] = useState(true);
     const [borderValue, setBorderValue] = useState<string>('none');
+    const [listingGame, setListingGame] = React.useState<any>(null);
+    const [searchData, setSearchData] = useState<any>(null);
+
     const router = useRouter();
     const notify = useNotify();
-    const [listingGame, setListingGame] = React.useState<any>(null);
     const { fetchAPI } = useAPICaller();
+
     React.useEffect(() => {
         setTimeout(() => setLoading(false), 3000);
     }, []);
+
     const handleScroll = () => {
         if (window.scrollY === 0) {
             return setBorderValue('none');
@@ -34,19 +38,35 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
         return setBorderValue('0.5px solid rgba(148, 148, 148, 0.35)');
     };
 
+    const handleSearch = (key: any, array: any) => {
+        return new Promise((resolve, reject) => {
+            const result = array.filter((item: any) => item.name.toLowerCase().includes(key.toLowerCase()));
+            resolve(result);
+        });
+    };
+
     const fetchData = async () => {
+        setLoading(true);
         try {
             const res = await fetchAPI({
                 endpoint: '/games/home',
                 method: 'GET'
             });
 
-            if (res.data?.data?.data) {
+            if (res.status === 200 && router.query.search) {
+                const resSearch = await handleSearch(router.query.search, res.data.data);
+                setSearchData(resSearch);
+            }
+
+            if (res.status === 200) {
                 setListingGame(res.data.data);
+            } else {
+                notify(res.message, 'error');
             }
         } catch (e) {
             notify('failed data', 'e');
         }
+        setLoading(false);
     };
 
     React.useEffect(() => {
@@ -134,7 +154,7 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
                     </Grid>
                 ) : (
                     <Stack direction='row' spacing={2}>
-                        {cards.map((item: any) => {
+                        {(searchData || listingGame).map((item: any) => {
                             return (
                                 <Box
                                     onClick={() => {
@@ -145,25 +165,32 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
                                         width: '172px',
                                         height: '172px',
                                         borderRadius: '11px',
-                                        backgroundImage: `url(${'/images/hopup.png'})`
+                                        backgroundImage: `url(${item.banner_url})`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center'
                                     }}
                                 >
                                     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 23 }}>
-                                        <Typography sx={{ fontSize: '18px', fontWeight: 700 }}>{item.title}</Typography>
+                                        <Typography sx={{ fontSize: '18px', fontWeight: 700 }}>{item.name}</Typography>
                                     </Box>
                                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                                         <BadgeImages
                                             backgroundColor='white'
                                             size='large'
-                                            images1={'/images/dingdong.png' || playerImg1}
-                                            images2={'/images/wanita.png' || playerImg2}
-                                            images3={playerImg3}
-                                            total={item.person}
+                                            images1={playerImg1 || '/images/dingdong.png'}
+                                            images2={playerImg2 || '/images/wanita.png'}
+                                            images3={playerImg3 || '/images/dingdong.png'}
+                                            total={item.user_sessions}
                                         />
                                     </Box>
                                 </Box>
                             );
                         })}
+                        {searchData && searchData.length === 0 && (
+                            <Typography component='h3' fontWeight={600} textAlign='center'>
+                                Search data not found
+                            </Typography>
+                        )}
                     </Stack>
                 )}
             </Box>

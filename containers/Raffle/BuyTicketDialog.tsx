@@ -7,9 +7,11 @@ interface BuyTicketDialogProps {
     setOpen: any;
     count: number;
     handleBuyRaffle: any;
+    point: any;
 }
 
-const BuyTicketDialog: React.FC<BuyTicketDialogProps> = ({ open, setOpen, count, handleBuyRaffle }) => {
+const BuyTicketDialog: React.FC<BuyTicketDialogProps> = ({ point, open, setOpen, count, handleBuyRaffle }) => {
+    const totalPoint = count * 100;
     return (
         <Dialog
             sx={{
@@ -32,28 +34,51 @@ const BuyTicketDialog: React.FC<BuyTicketDialogProps> = ({ open, setOpen, count,
                     borderRadius: '15px'
                 }}
             >
-                <Typography sx={{ fontWeight: 'bold' }}>Awesome!</Typography>
-                <Typography sx={{ fontWeight: '400', mt: '23px', fontSize: '14px', alignItems: 'center' }}>
-                    Reedem points of{' '}
-                    <span style={{ fontWeight: 'bold' }}>
-                        {' '}
-                        <img src='/images/point-shops.png' alt='point' /> {` ${count * 100} Points`}
-                    </span>{' '}
-                    for <span style={{ fontWeight: 'bold' }}>{`${count} Tickets Raffle ?`}</span>
-                </Typography>
-                <img src='/images/raffle-img.png' alt='dialog-img' />
-                <Box sx={{ mt: '30px', width: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <Button onClick={handleBuyRaffle} title='Buy' border='1px solid #A54CE5' color='white' backgoundColor='#A54CE5' />
-                    <Button
-                        onClick={() => {
-                            setOpen(!open);
-                        }}
-                        title='Close'
-                        border='1px solid #A54CE5'
-                        color='#A54CE5'
-                        backgoundColor='white'
-                    />
-                </Box>
+                {totalPoint > point ? (
+                    <Box>
+                        <Typography sx={{ fontWeight: 'bold', mb: '20px' }}>Sorry, your point is not enough to buy Tickets.</Typography>
+                        <Button
+                            onClick={() => {
+                                setOpen(!open);
+                            }}
+                            title='Close'
+                            border='1px solid #A54CE5'
+                            color='#A54CE5'
+                            backgoundColor='white'
+                        />
+                    </Box>
+                ) : (
+                    <>
+                        <Typography sx={{ fontWeight: 'bold' }}>Awesome!</Typography>
+                        <Typography sx={{ fontWeight: '400', mt: '23px', fontSize: '14px', alignItems: 'center' }}>
+                            Reedem points of{' '}
+                            <span style={{ fontWeight: 'bold' }}>
+                                {' '}
+                                <img src='/images/point-shops.png' alt='point' /> {` ${count * 100} Points`}
+                            </span>{' '}
+                            for <span style={{ fontWeight: 'bold' }}>{`${count} Tickets Raffle ?`}</span>
+                        </Typography>
+                        <img src='/images/raffle-img.png' alt='dialog-img' />
+                        <Box sx={{ mt: '30px', width: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                            <Button
+                                onClick={handleBuyRaffle}
+                                title='Buy'
+                                border='1px solid #A54CE5'
+                                color='white'
+                                backgoundColor='#A54CE5'
+                            />
+                            <Button
+                                onClick={() => {
+                                    setOpen(!open);
+                                }}
+                                title='Close'
+                                border='1px solid #A54CE5'
+                                color='#A54CE5'
+                                backgoundColor='white'
+                            />
+                        </Box>
+                    </>
+                )}
             </Box>
         </Dialog>
     );
