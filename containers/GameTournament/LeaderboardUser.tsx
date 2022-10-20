@@ -5,10 +5,10 @@ import React from 'react';
 interface LeaderboardUserProps {
     image: string;
     username: string;
-    point: number;
+    score: number;
 }
 
-const LeaderboardUser: React.FC<LeaderboardUserProps> = ({ image, username, point }) => {
+const LeaderboardUser: React.FC<LeaderboardUserProps> = ({ image, username, score }) => {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Avatar alt={username} src={image} />
@@ -16,7 +16,7 @@ const LeaderboardUser: React.FC<LeaderboardUserProps> = ({ image, username, poin
                 {username}
             </Typography>
             <Typography component='h4' fontSize='12px' fontWeight={400}>
-                {numberFormat(point)}
+                {numberFormat(score)}
             </Typography>
         </Box>
     );
