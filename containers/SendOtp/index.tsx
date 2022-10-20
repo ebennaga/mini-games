@@ -14,8 +14,7 @@ import ResendSuccessDialog from './ResendSuccessDialog';
 const SendOtp = () => {
     const [dialogResend, setDialogResend] = useState<boolean>(false);
     const [remainingTime, setRemainingTime] = useState<number>(120);
-
-    const dataGlobal = useSelector((state: any) => state.webpage?.user?.user);
+    const dataGlobal = useSelector((state: any) => state?.webpage?.user?.user);
     const { isLoading, fetchAPI } = useAPICaller();
     const { isLoading: resendIsLoading, fetchAPI: fetchResendOtp } = useAPICaller();
     const notfiy = useNotify();
@@ -100,7 +99,7 @@ const SendOtp = () => {
                 </Box>
                 <Typography variant='subtitle1' component='p' textAlign='center' sx={{ color: '#949494', fontWeight: 400 }}>
                     A OTP Code has been sent via email to <br />{' '}
-                    <span style={{ fontWeight: 'bold', color: 'black' }}>nopalism1313@gmail.com</span>
+                    <span style={{ fontWeight: 'bold', color: 'black' }}>{dataGlobal.emailOtp}</span>
                 </Typography>
                 <Typography
                     variant='subtitle1'

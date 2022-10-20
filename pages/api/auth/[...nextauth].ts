@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-unused-vars */
 import NextAuth from 'next-auth';
 import Auth0Provider from 'next-auth/providers/auth0';
 import FacebookProvider from 'next-auth/providers/facebook';
@@ -114,6 +117,32 @@ export default NextAuth({
         // async redirect({ url, baseUrl }) { return baseUrl },
         // async session({ session, token, user }) { return session },
         // async jwt({ token, user, account, profile, isNewUser }) { return token }
+        // async jwt({ token, user, account }) {
+        //     // Persist the OAuth access_token to the token right after signin
+        //     if (account) {
+        //         token.id_token = account.id_token;
+        //     }
+        //     return token;
+        // },
+        // async session({ session, token }) {
+        //     // Send properties to the client, like an access_token from a provider.
+        //     session.id_token = token.id_token;
+        //     return session;
+        // }
+        // async jwt({ token, user, account, profile, isNewUser }) {
+        //     user && (token.user = user);
+        //     return token;
+        // },
+        // async session({ session, token, user }) {
+        //     session = {
+        //         ...session,
+        //         user: {
+        //             id: user.id,
+        //             ...session.user
+        //         }
+        //     };
+        //     return session;
+        // }
     },
 
     // Events are useful for logging
