@@ -27,7 +27,6 @@ const PlayTournamentContainer = () => {
                 src={`${userState?.gameUrl}?sessionIDGame=${userState.sessionGame}&token=${userState?.api_token}&userID=${userState?.id}&isSound=${soundGame}`}
                 // src={`http://192.168.0.137/swords_web/?sessionIDGame=${userState.sessionGame}&token=${userState?.api_token}&userID=${userState?.id}&isSound=${soundGame}`}
                 style={{
-                    border: '1px solid red',
                     width: '100%',
                     height: '100vh',
                     padding: '0px'

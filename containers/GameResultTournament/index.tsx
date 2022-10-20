@@ -1,34 +1,46 @@
 import { Box, ButtonBase, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import useAPICaller from 'hooks/useAPICaller';
+import useNotify from 'hooks/useNotify';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import numberFormat from 'helper/numberFormat';
 import RankCard from 'components/RankCard';
 
 const GameResultTournament = () => {
+    const userState = useSelector((state: any) => state?.webpage?.user?.user);
     const router = useRouter();
+    const [authsData, setAuthsData] = React.useState<any>(null);
     const { fetchAPI } = useAPICaller();
-    const dataLeaderboard = [
-        { image: '/icons/dummy/profile.png', username: 'eben', point: 246000, prize: 1500, rank: 13 },
-        { image: '/icons/dummy/profile-2.png', username: 'rinto', point: 236000, prize: 2000, rank: 14 },
-        { image: '/icons/dummy/profile-3.png', username: 'arya', point: 10000, prize: 1000, rank: 15 }
-    ];
+    const notify = useNotify();
+    // const dataLeaderboard = [
+    //     { image: '/icons/dummy/profile.png', username: 'eben', point: 246000, prize: 1500, rank: 13 },
+    //     { image: '/icons/dummy/profile-2.png', username: 'rinto', point: 236000, prize: 2000, rank: 14 },
+    //     { image: '/icons/dummy/profile-3.png', username: 'arya', point: 10000, prize: 1000, rank: 15 }
+    // ];
 
-    const getTournamentAuth = () => {
-        const response = fetchAPI({
-            method: 'GET',
-            endpoint: 'tournamets/id'
-        });
-        console.log(response);
+    const getTournamentAuth = async () => {
+        try {
+            const response = await fetchAPI({
+                method: 'GET',
+                endpoint: `tournaments/${router.query['id-tournament']}`
+            });
+            console.log(response);
+            if (response?.data.status === 200) {
+                setAuthsData(response?.data.data.auths);
+            }
+        } catch (error: any) {
+            notify(error.message, 'error');
+        }
     };
 
     React.useEffect(() => {
         getTournamentAuth();
     }, []);
 
-    const username = 'rinto';
-
+    // const username = 'rinto';
+    // console.log(authsData);
     return (
         <Box component='main' width='100%'>
             <Box padding='0 20px'>
@@ -52,7 +64,7 @@ const GameResultTournament = () => {
                     New High Score
                 </Typography>
                 <Typography component='h3' fontSize='40px' fontWeight={700}>
-                    {numberFormat(108324)}
+                    {numberFormat(authsData?.total_score)}
                 </Typography>
             </Box>
             <Box component='section' color='#373737' padding='0 20px'>
@@ -60,9 +72,16 @@ const GameResultTournament = () => {
                     Your Rank
                 </Typography>
                 <Typography component='h3' textAlign='center' fontSize='40px' fontWeight={700} marginTop='7px'>
-                    34#
+                    {`${authsData?.position}#`}
                 </Typography>
-                <RankCard rank={1} image='/icons/dummy/profile-2.png' username='Rinto' point={792730} prize={3430} disabledUnderline />
+                <RankCard
+                    rank={1}
+                    image='/icons/dummy/profile-2.png'
+                    username={userState.username}
+                    point={authsData.total_score}
+                    prize={100}
+                    disabledUnderline
+                />
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', my: '10px' }}>
                     {[...Array(3)].map((_item: any, index: number) => (
                         <Box
@@ -71,17 +90,17 @@ const GameResultTournament = () => {
                         />
                     ))}
                 </Box>
-                {dataLeaderboard.map((item: any) => {
+                {authsData?.adjacent_leaderboards.map((item: any) => {
                     return (
                         <RankCard
-                            isYourRank={item.username === username}
+                            isYourRank={item.username === userState.username}
                             disabledUnderline
-                            key={item.rank}
-                            rank={item.rank}
+                            key={item.id}
+                            rank={item.position}
                             image={item.image}
                             username={item.username}
-                            point={item.point}
-                            prize={item.prize}
+                            point={item.total_score}
+                            prize={item.point_prize}
                         />
                     );
                 })}
