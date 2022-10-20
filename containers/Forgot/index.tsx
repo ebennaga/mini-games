@@ -133,7 +133,7 @@ const ForgotPasswordPage = () => {
                             </Grid>
                             <Grid item xs={12} sx={{ mt: '10px' }}>
                                 <Typography sx={{ fontSize: '13px', color: '#949494' }}>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, explicabo?
+                                    Please input your email to reset password !
                                 </Typography>
                                 <form onSubmit={form.handleSubmit(() => {})} style={{ marginTop: '20px' }}>
                                     {isConfirmed ? (
