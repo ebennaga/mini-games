@@ -80,10 +80,10 @@ export default function CustomizedProgressBars() {
         if (progress === 0) {
             setTimeout(() => {
                 if (router.asPath.includes('tournament')) {
-                    router.push(`/games/${router.query.id}/tournament/game`);
+                    router.push(`/games/${router.query.id}/tournament/${router.query['id-tournament']}/game`);
                 }
                 if (router.asPath.includes('casual')) {
-                    router.push(`/games/${router.query.id}/tournament/game`);
+                    router.push(`/games/${router.query.id}/casual/game`);
                 }
                 // router.push('/casual/game');
                 // router.push(`/games/${router.query.id}/casual/game`);
