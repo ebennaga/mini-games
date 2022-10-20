@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 
-const PlayGameContainer = () => {
+const PlayTournamentContainer = () => {
     const [soundGame, setSoundGame] = React.useState<any>('');
 
     const userState = useSelector((state: any) => state.webpage?.user?.user);
@@ -38,4 +38,4 @@ const PlayGameContainer = () => {
     );
 };
 
-export default PlayGameContainer;
+export default PlayTournamentContainer;

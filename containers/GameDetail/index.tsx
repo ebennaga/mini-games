@@ -64,6 +64,25 @@ const GameDetailContainer = () => {
         }
     };
 
+    //   const getGameSession = async () => {
+    //     const response = await fetchAPI({
+    //         method: 'POST',
+    //         endpoint: `webhook/game-sessions`,
+    //         data: {
+    //             game_id: router.query.id
+    //         }
+    //     });
+    //     try {
+    //         if (response.status === 200) {
+    //             setSessionGame(response.data.data);
+    //         } else {
+    //             notify('failed error', 'error');
+    //         }
+    //     } catch (e: any) {
+    //         notify(e.message, 'error');
+    //     }
+    // };
+
     React.useEffect(() => {
         const fetchAllData = async () => {
             await fetchData(Number(router.query.id));

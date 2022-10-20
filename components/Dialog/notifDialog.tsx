@@ -61,7 +61,7 @@ const RewardDialog: React.FC<RewardDialogProps> = ({ open, setOpenDialog, body }
                             }
                             return router.push('/tournaments');
                         }}
-                        title='Show Tournaments'
+                        title='Top up Now!'
                         border='1px solid #A54CE5'
                         color='white'
                         backgoundColor='#A54CE5'

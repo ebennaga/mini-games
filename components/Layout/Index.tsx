@@ -24,7 +24,7 @@ const Layout: React.FC<LayoutProps> = ({
     return (
         <Box
             sx={{
-                backgroundColor: '#FFF',
+                backgroundColor: 'black',
                 display: 'flex',
                 justifyContent: { xs: isCarousel || isBackground ? 'flex-start' : 'center', sm: 'center' },
                 fontFamily: 'Epilogue'
