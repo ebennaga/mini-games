@@ -116,7 +116,7 @@ const GameTournament = () => {
             if (userState?.coin < listingGame.entry_coin) {
                 return setOpenNotifDialog(!openNotifDialog);
             }
-            return router.push(`/games/${router.query.id}/tournament/result`);
+            return router.push(`/games/${router.query.id}/tournament/loading`);
         }
         return setSignupLoginDialog(true);
     };
