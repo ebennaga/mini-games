@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Box, Typography, ButtonBase } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import { SmartDisplay } from '@mui/icons-material';
@@ -52,9 +53,9 @@ const ResultContainer = () => {
                     }}
                 >
                     Watch Ads{' '}
-                    <span style={{ margin: '0px 5px' }}>
+                    <Box sx={{ margin: '0px 5px' }}>
                         <SmartDisplay />
-                    </span>{' '}
+                    </Box>{' '}
                     to Play Again
                 </ButtonBase>
             </Box>

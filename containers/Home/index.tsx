@@ -204,7 +204,7 @@ const HomeContainer = () => {
                                     key={item.id}
                                     image={item.banner_url}
                                     imageGame={item.game.banner_url}
-                                    onClick={() => router.push(`/games/${item.game.id}/tournament`)}
+                                    onClick={() => router.push(`/games/${item.game.id}/tournament/${item.id}`)}
                                     totalUser={item.total_users}
                                     prizePool={item.total_price}
                                     point={item.entry_coin}
