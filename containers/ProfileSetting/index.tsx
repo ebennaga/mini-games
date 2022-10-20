@@ -50,7 +50,7 @@ const ProfileSetting = () => {
 
     const generalItem = [
         { title: 'Avatar & Nickname', icon: '/icons/dummy/profile-2.png', href: '/profile/edit-profile' },
-        { title: 'Email & Address', icon: '/icons/email.svg', href: '/profile/settings/email-address' }
+        { title: 'Account & Address', icon: '/icons/email.svg', href: '/profile/settings/email-address' }
     ];
     const supportData = [
         { title: 'About Prize Play', icon: '/icons/about.svg', href: '/about-us' },
