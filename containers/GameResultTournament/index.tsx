@@ -1,18 +1,31 @@
 import { Box, ButtonBase, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import React from 'react';
+import useAPICaller from 'hooks/useAPICaller';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import numberFormat from 'helper/numberFormat';
 import RankCard from 'components/RankCard';
 
 const GameResultTournament = () => {
     const router = useRouter();
-
+    const { fetchAPI } = useAPICaller();
     const dataLeaderboard = [
         { image: '/icons/dummy/profile.png', username: 'eben', point: 246000, prize: 1500, rank: 13 },
         { image: '/icons/dummy/profile-2.png', username: 'rinto', point: 236000, prize: 2000, rank: 14 },
         { image: '/icons/dummy/profile-3.png', username: 'arya', point: 10000, prize: 1000, rank: 15 }
     ];
+
+    const getTournamentAuth = () => {
+        const response = fetchAPI({
+            method: 'GET',
+            endpoint: 'tournamets/id'
+        });
+        console.log(response);
+    };
+
+    React.useEffect(() => {
+        getTournamentAuth();
+    }, []);
 
     const username = 'rinto';
 
