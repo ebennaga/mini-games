@@ -114,8 +114,8 @@ const GameDetailContainer = () => {
         }
     }, [userState, sessionGame, detailGame]);
 
-    const handleClick = async () => {
-        router.push(`/games/${router.query.id}/tournament`);
+    const handleClick = async (idTournament: any) => {
+        router.push(`/games/${router.query.id}/tournament/${idTournament}`);
     };
 
     const handlePlay = () => {
@@ -272,7 +272,7 @@ const GameDetailContainer = () => {
                                         time={item.end_time}
                                         pool={item.total_price}
                                         users={item.total_users}
-                                        onClick={handleClick}
+                                        onClick={() => handleClick(item.id)}
                                         imageGame={item.banner_url}
                                         coin={item.entry_coin}
                                     />
