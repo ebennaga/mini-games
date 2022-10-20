@@ -14,7 +14,7 @@ import ResendSuccessDialog from './ResendSuccessDialog';
 const SendOtp = () => {
     const [dialogResend, setDialogResend] = useState<boolean>(false);
     const [remainingTime, setRemainingTime] = useState<number>(120);
-    const dataGlobal = useSelector((state: any) => state.webpage?.user?.user);
+    const dataGlobal = useSelector((state: any) => state?.webpage?.user?.user);
     const { isLoading, fetchAPI } = useAPICaller();
     const { isLoading: resendIsLoading, fetchAPI: fetchResendOtp } = useAPICaller();
     const notfiy = useNotify();

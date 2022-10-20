@@ -1,5 +1,6 @@
 import { Box, ButtonBase, Grid, Typography } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
+import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import React from 'react';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -14,6 +15,7 @@ import StatsCard from './StatsCard';
 
 const Profile = () => {
     const router = useRouter();
+    const userState = useSelector((state: any) => state?.webpage?.user?.user);
     const listNavigation = [
         { title: 'Input Promo Code', icon: '/icons/promo-code.png', onclick: () => router.push('/promo') },
         { title: 'Give us Ratings', icon: '/icons/rating.png', onclick: () => router.push('/ratingas') }
@@ -33,7 +35,7 @@ const Profile = () => {
             <HeaderBack title='Profile' isSetting />
             <ProfilePicture image='/icons/dummy/profile-2.png' />
             <Typography component='h3' fontWeight='bold' fontSize='18px' mt='26px'>
-                Rinto Kun
+                {!userState?.username ? userState?.email : userState?.username}
             </Typography>
             <BarExp labelBar='10018/25000' value={70} />
             <Box sx={{ height: '1px', width: '100%', background: '#E6E6E6', my: '24px' }} />
@@ -50,7 +52,7 @@ const Profile = () => {
                     <Grid item xs={6}>
                         <BalanceCard
                             title='Coins'
-                            value={102003}
+                            value={userState?.coin}
                             onClick={() => router.push('/topup')}
                             buttonText='Top up Coins'
                             icon='/icons/coins.png'
@@ -59,7 +61,7 @@ const Profile = () => {
                     <Grid item xs={6}>
                         <BalanceCard
                             title='Points'
-                            value={2340}
+                            value={userState?.point}
                             onClick={() => router.push('/shops')}
                             buttonText='Redeem Points'
                             icon='/images/point-shops.png'
