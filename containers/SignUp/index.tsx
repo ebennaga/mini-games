@@ -18,6 +18,7 @@ const SignUp = () => {
         defaultValues: {
             tel: '',
             email: '',
+            // username: '',
             password: '',
             confirmPassword: ''
         }
@@ -50,6 +51,7 @@ const SignUp = () => {
             endpoint: 'auths/register',
             data: {
                 email: data.email,
+                // username: data.username,
                 password: data.password,
                 password_confirmation: data.confirmPassword
             }
@@ -85,6 +87,15 @@ const SignUp = () => {
                                 <Input name='tel' form={form} placeholder='Insert Your Phone Number' validator={rules} type='tel' />
                             </Grid>
                         )}
+                        {/* <Grid item xs={12} sx={{ mt: 3 }}>
+                            <Input
+                                name='username'
+                                form={form}
+                                placeholder='Username (Max 12 Character)'
+                                validator={{ minLength: 6, required: true }}
+                                type='email'
+                            />
+                        </Grid> */}
                         <Grid item xs={12} sx={{ mt: 3 }}>
                             <Input
                                 name='password'
@@ -153,7 +164,7 @@ const SignUp = () => {
                         {changeInput ? 'Sign up with phone email' : 'Sign up with phone number'}
                     </ButtonBase>
                 </Box> */}
-                <Grid container sx={{ mt: '75px', textAlign: 'center' }}>
+                <Grid container sx={{ mt: '15px', textAlign: 'center' }}>
                     <Grid item xs={12}>
                         <Typography sx={{ color: '#949494', fontSize: '15px', mb: 2 }}>or you can:</Typography>
                     </Grid>

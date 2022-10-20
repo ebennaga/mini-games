@@ -54,8 +54,8 @@ const SelectGameType: React.FC<SelectGameTypeProps> = ({ form, name }) => {
                             <MenuItem disabled value=''>
                                 <Typography sx={{ color: '#9A9A9B', fontSize: '14px', fontWeight: 600 }}>Game Type</Typography>
                             </MenuItem>
-                            {menuItem.map((item: any) => (
-                                <MenuItem value={item.value}>
+                            {menuItem.map((item: any, idx: number) => (
+                                <MenuItem key={idx} value={item.value}>
                                     <Typography sx={{ color: '#9A9A9B', fontSize: '14px', fontWeight: 600 }}>{item.title}</Typography>
                                 </MenuItem>
                             ))}

@@ -1,34 +1,21 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Box, Typography, Dialog, ButtonBase } from '@mui/material';
 import Input from 'components/Input';
 import { useForm } from 'react-hook-form';
 import Button from 'components/Button/Index';
+import useAPICaller from 'hooks/useAPICaller';
 
 interface DialogOtpProps {
     open: any;
     setOpenDialog: any;
-    setIsConfirmed: any;
-    isConfirmed: any;
+    form: any;
+    onClick: any;
+    isMatch: any;
+    isLoading: any;
 }
 
-const DialogOtp: React.FC<DialogOtpProps> = ({ open, setOpenDialog, setIsConfirmed, isConfirmed }) => {
-    const otp = '12345';
-    const [isMatch, setIsMatch] = React.useState<boolean>(false);
-    const form = useForm({
-        mode: 'all',
-        defaultValues: {
-            otp: ''
-        }
-    });
-    const handleConfirmOtp = () => {
-        if (otp === form.watch('otp')) {
-            setIsMatch(false);
-            setIsConfirmed(!isConfirmed);
-            setOpenDialog(false);
-        } else {
-            setIsMatch(true);
-        }
-    };
+const DialogOtp: React.FC<DialogOtpProps> = ({ form, open, setOpenDialog, onClick, isMatch, isLoading }) => {
     return (
         <Dialog
             sx={{
@@ -55,11 +42,13 @@ const DialogOtp: React.FC<DialogOtpProps> = ({ open, setOpenDialog, setIsConfirm
                     <Typography sx={{ fontWeight: 'bold' }}>Insert OTP Number to Continue</Typography>
                 </Box>
                 <Box sx={{ mt: '30px', width: '100%' }}>
-                    {isMatch && <Typography sx={{ color: '#FF4242' }}>OTP Number is not invalid !</Typography>}
+                    {isMatch && <Typography sx={{ color: '#FF4242' }}>OTP Number is not valid !</Typography>}
                     <Input isMatch={isMatch} isOTP name='otp' type='text' form={form} placeholder='Insert Your OTP Number' />
                     <Box sx={{ mt: '10px' }}>
                         <Button
-                            onClick={handleConfirmOtp}
+                            isWhite
+                            loading={isLoading}
+                            onClick={onClick}
                             border='1px solid #A54CE5'
                             title='Confirm'
                             backgoundColor='white'

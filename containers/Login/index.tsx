@@ -56,9 +56,10 @@ const Login = () => {
             notify('Login Failed', 'error');
         }
     };
-    const handleLoginGoogle = () => {
+
+    const handleLoginGoogle = async () => {
         signInWithPopup(auth, provider)
-            .then((result) => {
+            .then(async (result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 const credential: any = GoogleAuthProvider.credentialFromResult(result);
                 const token = credential.accessToken;
@@ -66,7 +67,22 @@ const Login = () => {
                 const { user } = result;
 
                 console.log('user', user.uid);
-                console.log('token', token);
+                const response = await fetchAPI({
+                    method: 'POST',
+                    endpoint: 'auths/login/google',
+                    data: {
+                        email: user.email,
+                        username: user.displayName,
+                        google_id: user.uid
+                    }
+                });
+                if (response.status === 200) {
+                    setUser(response.data.data);
+                    router.push('/');
+                } else {
+                    notify('Login Failed', 'error');
+                }
+
                 // ...
             })
             .catch((error) => {
@@ -78,7 +94,7 @@ const Login = () => {
                 // The AuthCredential type that was used.
                 // const credential = GoogleAuthProvider.credentialFromError(error);
                 // ...
-                console.log('error', 'error');
+                console.log('error', error.message);
             });
     };
 
