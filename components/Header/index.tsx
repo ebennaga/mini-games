@@ -46,17 +46,19 @@ const Header: React.FC<HeaderProps> = ({
     const notify = useNotify();
 
     const fetchData = async () => {
-        try {
-            const result = await fetchAPI({
-                endpoint: 'auths',
-                method: 'GET'
-            });
-            if (result?.data?.data) {
-                setUser({ ...userState, ...result.data.data });
-                setUserData(result.data.data);
+        if (userState?.api_token) {
+            try {
+                const result = await fetchAPI({
+                    endpoint: 'auths',
+                    method: 'GET'
+                });
+                if (result?.data?.data) {
+                    setUser({ ...userState, ...result.data.data });
+                    setUserData(result.data.data);
+                }
+            } catch (error) {
+                notify('Fetch account data failed!', 'error');
             }
-        } catch (error) {
-            notify('Fetch account data failed!', 'error');
         }
     };
 
