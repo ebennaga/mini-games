@@ -32,7 +32,6 @@ const GameDetailContainer = () => {
                 endpoint: `/games/${id}`,
                 method: 'GET'
             });
-            console.log('res game detail', res.data.data);
             if (res.data?.data) {
                 setDetailGame(res.data.data);
             }
