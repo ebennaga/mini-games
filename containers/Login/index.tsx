@@ -66,7 +66,7 @@ const Login = () => {
                 const { user } = result;
 
                 console.log('user', user.uid);
-                console.log('token', token);
+
                 // ...
             })
             .catch((error) => {
