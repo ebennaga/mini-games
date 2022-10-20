@@ -66,6 +66,12 @@ const ProfileSetting = () => {
     };
 
     useEffect(() => {
+        if (typeof window !== 'undefined') {
+            form.setValue('gameSound', localStorage.getItem('prizePlaySound') === 'true');
+        }
+    }, []);
+
+    useEffect(() => {
         localStorage.setItem('prizePlaySound', JSON.stringify(form.watch('gameSound')));
     }, [form.watch('gameSound')]);
 

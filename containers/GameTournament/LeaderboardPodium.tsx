@@ -7,16 +7,16 @@ interface LeaderboardPodiumProps {
 }
 
 const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }) => {
-    // const sorting = dataLeaderboard && dataLeaderboard.sort((a: any, b: any) => b.point - a.point).slice(0, 3);
-
     return (
         <Grid container alignItems='end'>
             <Grid item xs={4} sx={{ overflow: 'hidden', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                <LeaderboardUser
-                    image={dataLeaderboard[1].image}
-                    username={dataLeaderboard[1].user.username}
-                    point={dataLeaderboard[1].user.point_prize}
-                />
+                {dataLeaderboard.length > 1 && (
+                    <LeaderboardUser
+                        image={dataLeaderboard[1].image}
+                        username={dataLeaderboard[1].user.username}
+                        score={dataLeaderboard[1].user.total_score}
+                    />
+                )}
                 <Box sx={{ width: '100%' }}>
                     <Box
                         sx={{
@@ -38,9 +38,11 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center', alignSelf: 'end', marginRight: '9px', marginTop: '9px' }}>
                             <img src='/images/point-shops.png' width='21px' height='22px' alt='prize' />
-                            <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
-                                {dataLeaderboard[1].user.total_score}
-                            </Typography>
+                            {dataLeaderboard.length > 1 && (
+                                <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
+                                    {dataLeaderboard[1].user.point_prize}
+                                </Typography>
+                            )}
                         </Box>
                         <Typography
                             marginLeft='13px'
@@ -55,11 +57,13 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                 </Box>
             </Grid>
             <Grid item xs={4} sx={{ overflow: 'hidden', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                <LeaderboardUser
-                    image={dataLeaderboard[0].image}
-                    username={dataLeaderboard[0].user.username}
-                    point={dataLeaderboard[0].user.point_prize}
-                />
+                {dataLeaderboard.length > 0 && (
+                    <LeaderboardUser
+                        image={dataLeaderboard[0].image}
+                        username={dataLeaderboard[0].user.username}
+                        score={dataLeaderboard[0].user.total_score}
+                    />
+                )}
                 <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <Box
                         sx={{
@@ -81,9 +85,11 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center', alignSelf: 'end', marginRight: '9px', marginTop: '9px' }}>
                             <img src='/images/point-shops.png' width='21px' height='22px' alt='prize' />
-                            <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
-                                {dataLeaderboard[0].user.total_score}
-                            </Typography>
+                            {dataLeaderboard.length > 0 && (
+                                <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
+                                    {dataLeaderboard[0].user.point_prize}
+                                </Typography>
+                            )}
                         </Box>
                         <Typography
                             marginLeft='13px'
@@ -98,11 +104,13 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                 </Box>
             </Grid>
             <Grid item xs={4} sx={{ overflow: 'hidden', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                <LeaderboardUser
-                    image={dataLeaderboard[2].image}
-                    username={dataLeaderboard[2].user.username}
-                    point={dataLeaderboard[2].user.point_prize}
-                />
+                {dataLeaderboard.length > 2 && (
+                    <LeaderboardUser
+                        image={dataLeaderboard[2].image}
+                        username={dataLeaderboard[2].user.username}
+                        score={dataLeaderboard[2].user.total_score}
+                    />
+                )}
                 <Box sx={{ width: '100%' }}>
                     <Box
                         sx={{
@@ -124,9 +132,11 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center', alignSelf: 'end', marginRight: '9px', marginTop: '9px' }}>
                             <img src='/images/point-shops.png' width='21px' height='22px' alt='prize' />
-                            <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
-                                {dataLeaderboard[2].user.total_score}
-                            </Typography>
+                            {dataLeaderboard.length > 2 && (
+                                <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
+                                    {dataLeaderboard[2].user.point_prize}
+                                </Typography>
+                            )}
                         </Box>
                         <Typography
                             marginLeft='13px'

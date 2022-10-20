@@ -17,7 +17,7 @@ const ResultContainer = () => {
                     padding: '0px 20px'
                 }}
             >
-                <HeaderBack />
+                <HeaderBack handleBack={() => router.push(`/games/${router.query.id}`)} />
             </Box>
             <Box sx={{ padding: '0px 20px', textAlign: 'center', m: '0px 0px 300px' }}>
                 <Box sx={{ textAlign: 'center', margin: '20px' }}>
