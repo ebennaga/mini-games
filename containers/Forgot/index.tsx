@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Typography, Box } from '@mui/material';
 // import { ArrowCircleLeft } from '@mui/icons-material';
+import useAPICaller from 'hooks/useAPICaller';
 import { useForm } from 'react-hook-form';
 import Input from 'components/Input';
 import HeaderBack from 'components/HeaderBack';
@@ -9,12 +10,16 @@ import RewardDialog from 'components/Dialog/RewardDialog';
 import DialogOtp from './DialogOtp';
 
 const ForgotPasswordPage = () => {
+    const { fetchAPI: postForgot, isLoading: loadingForgot } = useAPICaller();
+    const { fetchAPI: postReset, isLoading: loadingReset } = useAPICaller();
+    const { fetchAPI: postOtp, isLoading: loadingOtp } = useAPICaller();
     const form = useForm({
         mode: 'all',
         defaultValues: {
             email: '',
             'New password': '',
-            'Confirm password': ''
+            'Confirm password': '',
+            otp: ''
         }
     });
     const [openDialog, setOpenDialog] = React.useState<boolean>(false);
@@ -22,8 +27,62 @@ const ForgotPasswordPage = () => {
     const [dialogChanged, setDialogChanged] = React.useState<boolean>(false);
     const [disabled, setDisabled] = React.useState<any>(true);
     const [isSamePwd, setIsSamePwd] = React.useState<boolean>(true);
+    const [isMatch, setIsMatch] = React.useState<boolean>(false);
+    const [isError, setIsError] = React.useState<boolean>(false);
+    const [errMsg, setErrMsg] = React.useState<string>('');
     const [disabledChange, setDisabledChange] = React.useState<any>(true);
     const rules = { required: true };
+
+    const postForgotHandler = async () => {
+        const response = await postForgot({
+            method: 'POST',
+            endpoint: 'auths/forgotPassword',
+            data: {
+                email: form.watch('email')
+            }
+        });
+        if (response?.data.status === 200) {
+            setIsError(false);
+            setOpenDialog(!openDialog);
+        } else {
+            setIsError(true);
+            setErrMsg(response?.data.message);
+        }
+    };
+
+    const postResetHandler = async () => {
+        const response = await postReset({
+            method: 'POST',
+            endpoint: 'auths/forgotPassword/reset',
+            data: {
+                email: form.watch('email'),
+                forgot_password_token: form.watch('otp'),
+                password: form.watch('New password'),
+                password_confirmation: form.watch('Confirm password')
+            }
+        });
+        if (response?.data.status === 200) {
+            setDialogChanged(!dialogChanged);
+        }
+    };
+
+    const postCheckOtpHandler = async () => {
+        const response = await postOtp({
+            method: 'POST',
+            endpoint: 'auths/forgotPassword/check',
+            data: {
+                email: form.watch('email'),
+                forgot_password_token: form.watch('otp')
+            }
+        });
+        if (response?.data.status === 200) {
+            setIsMatch(false);
+            setIsConfirmed(!isConfirmed);
+            setOpenDialog(false);
+        } else {
+            setIsMatch(true);
+        }
+    };
 
     React.useEffect(() => {
         const value = form.watch();
@@ -107,14 +166,23 @@ const ForgotPasswordPage = () => {
                                             )}
                                         </Box>
                                     ) : (
-                                        <Input
-                                            isOTP={false}
-                                            validator={rules}
-                                            type='email'
-                                            name='email'
-                                            form={form}
-                                            placeholder='Insert your email'
-                                        />
+                                        <>
+                                            <Input
+                                                isOTP={false}
+                                                validator={rules}
+                                                type='email'
+                                                name='email'
+                                                form={form}
+                                                placeholder='Insert your email'
+                                            />
+                                            {isError && (
+                                                <Typography
+                                                    sx={{ color: 'red', fontWeight: 'bold', fontSize: '14px', mt: '10px', ml: '10px' }}
+                                                >
+                                                    {`${errMsg}!`}
+                                                </Typography>
+                                            )}
+                                        </>
                                     )}
                                 </form>
                             </Grid>
@@ -124,9 +192,8 @@ const ForgotPasswordPage = () => {
                 <Box sx={{ position: 'sticky', zIndex: 999, bottom: '20px' }}>
                     {isConfirmed ? (
                         <Button
-                            onClick={() => {
-                                setDialogChanged(!dialogChanged);
-                            }}
+                            loading={loadingReset}
+                            onClick={postResetHandler}
                             type='submit'
                             title='Confirm'
                             backgoundColor='#A54CE5'
@@ -135,9 +202,8 @@ const ForgotPasswordPage = () => {
                         />
                     ) : (
                         <Button
-                            onClick={() => {
-                                setOpenDialog(!openDialog);
-                            }}
+                            loading={loadingForgot}
+                            onClick={postForgotHandler}
                             type='submit'
                             title='Send Verification Code'
                             backgoundColor='#A54CE5'
@@ -147,7 +213,14 @@ const ForgotPasswordPage = () => {
                     )}
                 </Box>
             </Box>
-            <DialogOtp setIsConfirmed={setIsConfirmed} isConfirmed={isConfirmed} open={openDialog} setOpenDialog={setOpenDialog} />
+            <DialogOtp
+                isLoading={loadingOtp}
+                form={form}
+                isMatch={isMatch}
+                onClick={postCheckOtpHandler}
+                open={openDialog}
+                setOpenDialog={setOpenDialog}
+            />
             <RewardDialog path='/login' open={dialogChanged} setOpenDialog={setDialogChanged} body='Your password changed successfully !' />
         </Box>
     );

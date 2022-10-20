@@ -12,6 +12,7 @@ interface ButtonProps {
     disabled?: boolean;
     type?: 'button' | 'submit' | 'reset';
     loading?: boolean;
+    isWhite?: boolean;
 }
 
 const ButtonLanding: React.FC<ButtonProps> = ({
@@ -24,7 +25,8 @@ const ButtonLanding: React.FC<ButtonProps> = ({
     border = 'none',
     onClick,
     type = 'submit',
-    loading = false
+    loading = false,
+    isWhite = false
 }) => {
     return (
         <Button
@@ -56,7 +58,7 @@ const ButtonLanding: React.FC<ButtonProps> = ({
             }}
             variant='outlined'
         >
-            {loading ? <CircularProgress sx={{ color: 'white' }} /> : title}
+            {loading ? <CircularProgress sx={{ color: isWhite ? '#A54CE5' : 'white' }} /> : title}
         </Button>
     );
 };
