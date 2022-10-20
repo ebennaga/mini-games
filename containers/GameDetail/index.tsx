@@ -49,12 +49,6 @@ const GameDetailContainer = () => {
         router.push(`/games/${router.query.id}/tournament`);
     };
 
-    // React.useEffect(() => {
-    //     setTimeout(() => {
-    //         setIsLoading(false);
-    //     }, 3000);
-    // }, []);
-
     const handlePlay = () => {
         if (userState) {
             return router.push(`/games/${router.query.id}/casual/`);
@@ -108,9 +102,17 @@ const GameDetailContainer = () => {
                 <Grid container padding='0px 20px' />
                 <Grid container padding='10px 20px' justifyContent='center' gap={2} position='relative' zIndex={2}>
                     <Grid item xs={5}>
-                        <Box>
-                            <img src={detailGame?.banner_url} alt='game-img' style={{ borderRadius: '10px', width: '100%' }} />
-                        </Box>
+                        <Box
+                            sx={{
+                                width: '142px',
+                                height: '142px',
+                                overflow: 'hidden',
+                                backgroundImage: `url(${detailGame?.banner_url})`,
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                                borderRadius: '8px'
+                            }}
+                        />
                     </Grid>
                     <Grid item xs={6} padding='10px'>
                         <Box
@@ -172,34 +174,36 @@ const GameDetailContainer = () => {
                     }}
                 />
             </Box>
-            <Box>
-                <Grid container padding='10px 20px' gap='10px' my={3} overflow='hidden'>
-                    <Grid item xs={6}>
-                        <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
-                            Tournaments
-                        </Typography>
+            <Box mt={3}>
+                {detailGame?.tournaments.length > 0 && (
+                    <Grid container padding='10px 20px' gap='10px' my={3} overflow='hidden'>
+                        <Grid item xs={6}>
+                            <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
+                                Tournaments
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography sx={{ fontSize: '12px', fontWeight: '600' }}>
+                                Join tournaments and get points for reedem prize
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TournamentSlider>
+                                {detailGame?.tournaments.map((item: any, idx: number) => (
+                                    <TournamentCard
+                                        key={item.id}
+                                        time={item.end_time}
+                                        pool={item.total_price}
+                                        users={item.total_users}
+                                        onClick={handleClick}
+                                        imageGame={item.banner_url}
+                                        coin={item.entry_coin}
+                                    />
+                                ))}
+                            </TournamentSlider>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12}>
-                        <Typography sx={{ fontSize: '12px', fontWeight: '600' }}>
-                            Join tournaments and get points for reedem prize
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TournamentSlider>
-                            {detailGame?.tournaments.map((item: any, idx: number) => (
-                                <TournamentCard
-                                    key={item.id}
-                                    time={item.end_time}
-                                    pool={item.total_price}
-                                    users={item.total_users}
-                                    onClick={handleClick}
-                                    imageGame={item.banner_url}
-                                    coin={item.entry_coin}
-                                />
-                            ))}
-                        </TournamentSlider>
-                    </Grid>
-                </Grid>
+                )}
                 <Grid container padding='0px 20px' direction='column'>
                     <Grid item xs={6}>
                         <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
