@@ -69,6 +69,7 @@ const ForgotPasswordPage = () => {
                 forgot_password_token: form.watch('otp')
             }
         });
+        console.log(response);
         if (response?.data.status === 200) {
             setIsMatch(false);
             setIsConfirmed(!isConfirmed);

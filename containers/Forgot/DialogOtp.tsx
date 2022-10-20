@@ -42,7 +42,7 @@ const DialogOtp: React.FC<DialogOtpProps> = ({ form, open, setOpenDialog, onClic
                     <Typography sx={{ fontWeight: 'bold' }}>Insert OTP Number to Continue</Typography>
                 </Box>
                 <Box sx={{ mt: '30px', width: '100%' }}>
-                    {isMatch && <Typography sx={{ color: '#FF4242' }}>OTP Number is not invalid !</Typography>}
+                    {isMatch && <Typography sx={{ color: '#FF4242' }}>OTP Number is not valid !</Typography>}
                     <Input isMatch={isMatch} isOTP name='otp' type='text' form={form} placeholder='Insert Your OTP Number' />
                     <Box sx={{ mt: '10px' }}>
                         <Button
