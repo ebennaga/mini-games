@@ -298,6 +298,7 @@ const GameDetailContainer = () => {
                                             Free
                                         </Typography>
                                         <ButtonBase
+                                            onClick={handlePlay}
                                             sx={{
                                                 backgroundColor: '#A54CE5',
                                                 borderRadius: '15px',
