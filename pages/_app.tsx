@@ -31,6 +31,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             };
             localStorage.setItem('tutorial', JSON.stringify(dataLocal));
         }
+        if (!localStorage.getItem('prizePlaySound')) {
+            localStorage.setItem('prizePlaySound', 'true');
+        }
     }, []);
 
     return (

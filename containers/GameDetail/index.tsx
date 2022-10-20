@@ -13,6 +13,7 @@ import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import NotifDialog from 'components/Dialog/notifDialog';
 import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
+import useAuthReducer from 'hooks/useAuthReducer';
 import GameDetailSkeleton from './GameDetailSkeleton';
 
 const GameDetailContainer = () => {
@@ -25,6 +26,9 @@ const GameDetailContainer = () => {
     // const [isLoading, setIsLoading] = React.useState<boolean>(true);
     const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
     const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
+    const [sessionGame, setSessionGame] = React.useState<any>(null);
+
+    const { setUser, clearUser } = useAuthReducer();
 
     const fetchData = async (id: number) => {
         try {
@@ -34,15 +38,62 @@ const GameDetailContainer = () => {
             });
             if (res.data?.data) {
                 setDetailGame(res.data.data);
+                // sessionStorage.setItem('prizeplayGameData', )
             }
         } catch (e) {
             notify('failed data', 'e');
         }
     };
 
+    const getGameSession = async () => {
+        const response = await fetchAPI({
+            method: 'POST',
+            endpoint: `webhook/game-sessions`,
+            data: {
+                game_id: router.query.id
+            }
+        });
+        try {
+            if (response.status === 200) {
+                setSessionGame(response.data.data);
+            } else {
+                notify('failed error', 'error');
+            }
+        } catch (e: any) {
+            notify(e.message, 'error');
+        }
+    };
+
     React.useEffect(() => {
-        fetchData(Number(router.query.id));
+        const fetchAllData = async () => {
+            await fetchData(Number(router.query.id));
+            await getGameSession();
+        };
+        fetchAllData();
     }, []);
+
+    React.useEffect(() => {
+        if (userState && detailGame && sessionGame) {
+            const dataGames = {
+                imageGame: detailGame.banner_url,
+                titleGame: detailGame.name,
+                sessionGame: sessionGame.session_code,
+                gameUrl: detailGame.game_url,
+                descriptionGame: detailGame.description
+            };
+            const newState = { ...userState, ...dataGames };
+
+            if (
+                (!userState.imageGame || userState.imageGame !== detailGame.banner_url) &&
+                (!userState.sessionGame || userState.sessionGame !== sessionGame.session_code) &&
+                (!userState.gameUrl || userState.gameUrl !== detailGame.game_url) &&
+                (!userState.description || userState.description !== detailGame.description)
+            ) {
+                clearUser();
+                setUser(newState);
+            }
+        }
+    }, [userState, sessionGame, detailGame]);
 
     const handleClick = async () => {
         router.push(`/games/${router.query.id}/tournament`);
