@@ -28,6 +28,8 @@ const ForgotPasswordPage = () => {
     const [disabled, setDisabled] = React.useState<any>(true);
     const [isSamePwd, setIsSamePwd] = React.useState<boolean>(true);
     const [isMatch, setIsMatch] = React.useState<boolean>(false);
+    const [isError, setIsError] = React.useState<boolean>(false);
+    const [errMsg, setErrMsg] = React.useState<string>('');
     const [disabledChange, setDisabledChange] = React.useState<any>(true);
     const rules = { required: true };
 
@@ -40,7 +42,11 @@ const ForgotPasswordPage = () => {
             }
         });
         if (response?.data.status === 200) {
+            setIsError(false);
             setOpenDialog(!openDialog);
+        } else {
+            setIsError(true);
+            setErrMsg(response?.data.message);
         }
     };
 
@@ -69,7 +75,6 @@ const ForgotPasswordPage = () => {
                 forgot_password_token: form.watch('otp')
             }
         });
-        console.log(response);
         if (response?.data.status === 200) {
             setIsMatch(false);
             setIsConfirmed(!isConfirmed);
@@ -161,14 +166,23 @@ const ForgotPasswordPage = () => {
                                             )}
                                         </Box>
                                     ) : (
-                                        <Input
-                                            isOTP={false}
-                                            validator={rules}
-                                            type='email'
-                                            name='email'
-                                            form={form}
-                                            placeholder='Insert your email'
-                                        />
+                                        <>
+                                            <Input
+                                                isOTP={false}
+                                                validator={rules}
+                                                type='email'
+                                                name='email'
+                                                form={form}
+                                                placeholder='Insert your email'
+                                            />
+                                            {isError && (
+                                                <Typography
+                                                    sx={{ color: 'red', fontWeight: 'bold', fontSize: '14px', mt: '10px', ml: '10px' }}
+                                                >
+                                                    {`${errMsg}!`}
+                                                </Typography>
+                                            )}
+                                        </>
                                     )}
                                 </form>
                             </Grid>
