@@ -109,10 +109,14 @@ const GameDetailContainer = () => {
                 <Grid container padding='10px 20px' justifyContent='center' gap={2} position='relative' zIndex={2}>
                     <Grid item xs={5}>
                         <Box>
-                            <img src={detailGame?.banner_url} alt='game-img' style={{ borderRadius: '10px', width: '100%' }} />
+                            <img
+                                src={`/images/hopup.png` || detailGame?.banner_url}
+                                alt='game-img'
+                                style={{ borderRadius: '10px', width: '100%' }}
+                            />
                         </Box>
                     </Grid>
-                    <Grid item xs={6} padding='10px'>
+                    <Grid item xs={6}>
                         <Box
                             sx={{
                                 display: 'flex',
@@ -130,7 +134,13 @@ const GameDetailContainer = () => {
                                     {detailGame?.name}
                                 </Typography>
                             </Box>
-                            <Grid container justifyContent='space-between' sx={{ marginTop: { xs: '5%', sm: '10%' } }} gap='10px'>
+                            <Grid
+                                container
+                                justifyContent='space-between'
+                                sx={{ marginTop: { xs: '5%', sm: '10%' } }}
+                                gap='10px'
+                                width='100%'
+                            >
                                 <Grid item xs={6}>
                                     <ButtonBase
                                         sx={{
@@ -147,14 +157,16 @@ const GameDetailContainer = () => {
                                         <HelpOutline sx={{ width: '14px', fontWeight: 'bold' }} />
                                     </ButtonBase>
                                 </Grid>
-                                <Grid container alignItems='center' gap='10px'>
-                                    <Grid item xs={6}>
-                                        <img src='/images/users-img.png' alt='user-img' />
-                                    </Grid>
-                                    <Grid item xs={4}>
-                                        <Typography sx={{ fontSize: '11px', color: 'white' }}>
-                                            {numberFormat(detailGame?.user_sessions)}
-                                        </Typography>
+                                <Grid item xs={5}>
+                                    <Grid container alignItems='center' justifyContent='space-between'>
+                                        <Grid item xs={6}>
+                                            <img src='/images/users-img.png' alt='user-img' />
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <Typography sx={{ fontSize: '11px', color: 'white' }}>
+                                                {numberFormat(detailGame?.user_sessions)}
+                                            </Typography>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -224,10 +236,33 @@ const GameDetailContainer = () => {
                                 zIndex: 0
                             }}
                         >
-                            <Box position='relative' zIndex={2} margin='20px'>
-                                <Typography sx={{ color: 'white', fontWeight: 'bold', fontSize: '32px' }}>Free</Typography>
-                                <Button onClick={handlePlay} height='40px' title='Play Casual' backgoundColor='#A54CE5' color='white' />
-                            </Box>
+                            <Grid container sx={{ padding: '15px' }} spacing={1} alignItems='center'>
+                                <Grid item xs={3}>
+                                    <Box sx={{ height: '100%' }}>
+                                        <img src='/images/hopup.png' alt='banner' style={{ width: '100%' }} />
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={9}>
+                                    <Box position='relative' zIndex={2}>
+                                        <Typography sx={{ color: 'white', fontWeight: 'bold', fontSize: '32px', lineHeight: 1 }}>
+                                            Free
+                                        </Typography>
+                                        <ButtonBase
+                                            sx={{
+                                                backgroundColor: '#A54CE5',
+                                                borderRadius: '15px',
+                                                width: '100%',
+                                                height: '40px'
+                                            }}
+                                        >
+                                            <Typography sx={{ color: 'white', fontWeight: 'bold', gontSize: '14px' }}>
+                                                Play Casual
+                                            </Typography>
+                                        </ButtonBase>
+                                        {/* <Button onClick={handlePlay} height='40px' title='Play Casual' backgoundColor='#A54CE5' color='white' /> */}
+                                    </Box>
+                                </Grid>
+                            </Grid>
                             <Box
                                 sx={{
                                     backgroundImage: 'linear-gradient(transparent, black)',
