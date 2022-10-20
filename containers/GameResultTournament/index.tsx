@@ -45,7 +45,7 @@ const GameResultTournament = () => {
         <Box component='main' width='100%'>
             <Box padding='0 20px'>
                 <ButtonBase
-                    onClick={() => router.back()}
+                    onClick={() => router.push(`/games/${router.query.id}/tournament`)}
                     sx={{ background: '#A54CE5', width: '24px', height: '24px', borderRadius: '50px', marginBottom: '12px' }}
                 >
                     <ArrowBackIcon sx={{ color: '#fff', fontSize: '19px' }} />
@@ -120,6 +120,7 @@ const GameResultTournament = () => {
                     </Typography>
                 </Box>
                 <ButtonBase
+                    onClick={() => {}}
                     sx={{ background: '#A54CE5', width: '100%', padding: '23px 0', borderRadius: '15px', color: '#fff', mb: '30px' }}
                 >
                     <Typography component='span' fontSize='14px' fontWeight={700}>
