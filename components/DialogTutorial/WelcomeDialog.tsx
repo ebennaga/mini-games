@@ -7,6 +7,7 @@ import TournamentDialog from './TournamentDialog';
 import ListOfGamesDialog from './ListOfGamesDialog';
 import PrizesDialog from './PrizesDialog';
 import TopUpCoinsDialog from './TopUpCoinsDialog';
+import ReadyDialog from './ReadyDialog';
 
 interface IWelcomeDialog {
     open: boolean;
@@ -24,6 +25,7 @@ const WelcomeDialog: React.FC<IWelcomeDialog> = ({ open, setOpen, dataLocal, set
     const [listGamesDialog, setListGamesDialog] = useState<boolean>(false);
     const [prizesDialog, setPrizesDialog] = useState<boolean>(false);
     const [topUpDialog, setTopUpDialog] = useState<boolean>(false);
+    const [readyDialog, setReadyDialog] = useState<boolean>(false);
 
     const handleClose = () => {
         const local: any = localStorage.getItem('tutorial');
@@ -53,13 +55,14 @@ const WelcomeDialog: React.FC<IWelcomeDialog> = ({ open, setOpen, dataLocal, set
         window.scrollTo(0, scrollY);
     };
 
-    const handleTopUp = () => {
+    // eslint-disable-next-line no-unused-vars
+    const handleReady = () => {
         const local: any = dataLocal;
         local.listTutorial.topUpCoins = false;
         local.isTutorial = false;
         setDataLocal(local);
         localStorage.setItem('tutorial', JSON.stringify(local));
-        setTopUpDialog(false);
+        setReadyDialog(false);
         window.scrollTo(0, 0);
     };
 
@@ -81,13 +84,12 @@ const WelcomeDialog: React.FC<IWelcomeDialog> = ({ open, setOpen, dataLocal, set
                 }}
             >
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#373737' }}>
-                    <img src='/icons/mission.png' width='163.6px' height='142px' alt='Welcome Prize Play' />
                     <Typography component='h2' fontSize='24px' marginTop='58px' marginBottom='25px' fontWeight={700}>
-                        Welcome Friend
+                        Welcome!
                     </Typography>
-                    <Typography component='p' fontSize='14px' lineHeight='14px' width='80%' fontWeight={400} textAlign='center'>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio
-                        mattis.
+                    <img src='/icons/mission.svg' width='270px' height='223px' alt='Welcome Prize Play' />
+                    <Typography component='p' fontSize='14px' lineHeight='14px' width='80%' mt='29px' fontWeight={400} textAlign='center'>
+                        Welcome! Here are some quick tips to get you started !
                     </Typography>
                     <ButtonBase
                         onClick={handleStart}
@@ -117,7 +119,9 @@ const WelcomeDialog: React.FC<IWelcomeDialog> = ({ open, setOpen, dataLocal, set
                 onClose={() => handleCloseDialog('listOfGames', setListGamesDialog, setPrizesDialog)}
             />
             <PrizesDialog open={prizesDialog} onClose={() => handleCloseDialog('prizes', setPrizesDialog, setTopUpDialog)} />
-            <TopUpCoinsDialog open={topUpDialog} onClose={handleTopUp} />
+            {/* <TopUpCoinsDialog open={topUpDialog} onClose={handleTopUp} /> */}
+            <TopUpCoinsDialog open={topUpDialog} onClose={() => handleCloseDialog('topUpCoins', setTopUpDialog, setReadyDialog)} />
+            <ReadyDialog open={readyDialog} onClose={handleReady} />
         </>
     );
 };

@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import React, { useEffect } from 'react';
 import { Typography, Box, ButtonBase, Grid } from '@mui/material';
 import Layout from 'components/Layout/Index';
@@ -17,6 +18,7 @@ const SignUp = () => {
         defaultValues: {
             tel: '',
             email: '',
+            // username: '',
             password: '',
             confirmPassword: ''
         }
@@ -24,6 +26,7 @@ const SignUp = () => {
     const dataInput = form.watch();
 
     const rules = { required: true };
+    // eslint-disable-next-line no-unused-vars
     const [changeInput, setChangeInput] = React.useState<boolean>(false);
     const [isSamePwd, setIsSamePwd] = React.useState<boolean>(true);
 
@@ -48,6 +51,7 @@ const SignUp = () => {
             endpoint: 'auths/register',
             data: {
                 email: data.email,
+                // username: data.username,
                 password: data.password,
                 password_confirmation: data.confirmPassword
             }
@@ -59,9 +63,9 @@ const SignUp = () => {
             router.push('/send-otp');
         } else {
             if (response.data.message) {
-                notify(response.data.message, 'error');
+                return notify(response.data.message, 'error');
             }
-            notify('Signup Error', 'error');
+            return notify('Signup Error', 'error');
         }
     };
 
@@ -71,9 +75,7 @@ const SignUp = () => {
                 <Typography sx={{ fontWeight: 700, fontSize: '46px' }} component='h1'>
                     Start Your Account. It’s Free !
                 </Typography>
-                <Typography sx={{ fontSize: '21px', color: '#949494' }}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.
-                </Typography>
+                <Typography sx={{ fontSize: '21px', color: '#949494' }}>Hey there!, to play our games, go and register now.</Typography>
                 <form onSubmit={form.handleSubmit(handleSubmit)}>
                     <Grid container direction='row'>
                         {!changeInput ? (
@@ -85,6 +87,15 @@ const SignUp = () => {
                                 <Input name='tel' form={form} placeholder='Insert Your Phone Number' validator={rules} type='tel' />
                             </Grid>
                         )}
+                        {/* <Grid item xs={12} sx={{ mt: 3 }}>
+                            <Input
+                                name='username'
+                                form={form}
+                                placeholder='Username (Max 12 Character)'
+                                validator={{ minLength: 6, required: true }}
+                                type='email'
+                            />
+                        </Grid> */}
                         <Grid item xs={12} sx={{ mt: 3 }}>
                             <Input
                                 name='password'
@@ -143,7 +154,7 @@ const SignUp = () => {
                         />
                     </Grid>
                 </Grid> */}
-                <Box sx={{ textAlign: 'center', mt: 2, color: '#A54CE5' }}>
+                {/* <Box sx={{ textAlign: 'center', mt: 2, color: '#A54CE5' }}>
                     <ButtonBase
                         onClick={() => {
                             setChangeInput(!changeInput);
@@ -152,8 +163,8 @@ const SignUp = () => {
                     >
                         {changeInput ? 'Sign up with phone email' : 'Sign up with phone number'}
                     </ButtonBase>
-                </Box>
-                <Grid container sx={{ mt: '75px', textAlign: 'center' }}>
+                </Box> */}
+                <Grid container sx={{ mt: '15px', textAlign: 'center' }}>
                     <Grid item xs={12}>
                         <Typography sx={{ color: '#949494', fontSize: '15px', mb: 2 }}>or you can:</Typography>
                     </Grid>

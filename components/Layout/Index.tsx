@@ -24,7 +24,7 @@ const Layout: React.FC<LayoutProps> = ({
     return (
         <Box
             sx={{
-                backgroundColor: '#FFF',
+                backgroundColor: 'black',
                 display: 'flex',
                 justifyContent: { xs: isCarousel || isBackground ? 'flex-start' : 'center', sm: 'center' },
                 fontFamily: 'Epilogue'
@@ -68,10 +68,10 @@ const Layout: React.FC<LayoutProps> = ({
                     <Grid item xs={3}>
                         <ButtonBase
                             onClick={() => {
-                                router.push('/home');
+                                router.push('/');
                             }}
                         >
-                            <img src={`/icons/${router.pathname === '/home' ? 'home-active' : 'home-not-active'}.svg`} alt='home-icon' />
+                            <img src={`/icons/${router.pathname === '/' ? 'home-active' : 'home-not-active'}.svg`} alt='home-icon' />
                         </ButtonBase>
                     </Grid>
                     <Grid item xs={3}>
@@ -93,7 +93,11 @@ const Layout: React.FC<LayoutProps> = ({
                             }}
                         >
                             <img
-                                src={`/icons/${router.pathname === '/shops' ? 'redeem-active' : 'redeem-not-active'}.svg`}
+                                src={`/icons/${
+                                    router.pathname === '/shops' || router.pathname === '/shops/prize'
+                                        ? 'redeem-active'
+                                        : 'redeem-not-active'
+                                }.svg`}
                                 alt='home-icon'
                             />
                         </ButtonBase>

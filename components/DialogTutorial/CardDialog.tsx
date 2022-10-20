@@ -6,9 +6,10 @@ interface ICardDialog {
     title: string;
     info: string;
     onClose: any;
+    isTab?: boolean;
 }
 
-const CardDialog: React.FC<ICardDialog> = ({ title, info, onClose }) => {
+const CardDialog: React.FC<ICardDialog> = ({ title, info, onClose, isTab }) => {
     return (
         <Box
             sx={{
@@ -20,9 +21,15 @@ const CardDialog: React.FC<ICardDialog> = ({ title, info, onClose }) => {
                 position: 'relative'
             }}
         >
-            <Box sx={{ position: 'absolute', top: -30, left: 0, zIndex: 99999 }}>
-                <img src='/icons/mission.png' width='53px' height='46px' alt='Welcome Prize Play' />
-            </Box>
+            {isTab ? (
+                <Box sx={{ position: 'absolute', top: -47, left: 0, zIndex: 99999 }}>
+                    <img src='/icons/mission.svg' width='70px' height='65px' alt='Welcome Prize Play' />
+                </Box>
+            ) : (
+                <Box sx={{ position: 'absolute', bottom: -27, right: 0, zIndex: 99999, transform: 'scaleX(-1)' }}>
+                    <img src='/icons/mission.svg' width='70px' height='65px' alt='Welcome Prize Play' />
+                </Box>
+            )}
             <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
                 <Typography component='h2' fontSize='16px' fontWeight={700}>
                     {title}

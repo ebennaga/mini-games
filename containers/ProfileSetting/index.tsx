@@ -2,14 +2,17 @@ import { Box, ButtonBase, Typography } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import NavigationCard from 'components/NavigationCard';
 import SwitchCard from 'components/SwitchCard';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import useAuthReducer from 'hooks/useAuthReducer';
+import DeleteAccountDialog from './DeleteAccountDialog';
 
 const ProfileSetting = () => {
     const { clearUser } = useAuthReducer();
     const router = useRouter();
+
+    const [deleteDialog, setDeleteDialog] = useState(false);
 
     const form = useForm({
         mode: 'all',
@@ -36,18 +39,18 @@ const ProfileSetting = () => {
         } else {
             form.setValue('gameSound', true);
         }
-        alert(gameSound);
     };
 
     const handleSignOut = () => {
         clearUser();
-        router.push('/login');
+        router.push('/');
     };
+
     const handleDelete = () => router.push('/signup');
 
     const generalItem = [
         { title: 'Avatar & Nickname', icon: '/icons/dummy/profile-2.png', href: '/profile/edit-profile' },
-        { title: 'Email & Address', icon: '/icons/email.svg', href: '/profile/settings/email-address' }
+        { title: 'Account & Address', icon: '/icons/email.svg', href: '/profile/settings/email-address' }
     ];
     const supportData = [
         { title: 'About Prize Play', icon: '/icons/about.svg', href: '/about-us' },
@@ -61,6 +64,16 @@ const ProfileSetting = () => {
     const handleHref = (href: string) => {
         router.push(href);
     };
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            form.setValue('gameSound', localStorage.getItem('prizePlaySound') === 'true');
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('prizePlaySound', JSON.stringify(form.watch('gameSound')));
+    }, [form.watch('gameSound')]);
 
     return (
         <Box component='main' sx={{ width: '-webkit-fill-available', padding: '0 20px', color: '#373737' }}>
@@ -122,7 +135,7 @@ const ProfileSetting = () => {
                     Sign Out
                 </Typography>
             </ButtonBase>
-            <ButtonBase onClick={handleDelete} sx={{ width: '100%' }}>
+            <ButtonBase onClick={() => setDeleteDialog(true)} sx={{ width: '100%' }}>
                 <Typography component='span' fontSize='14px' fontWeight={700} sx={{ color: '#A54CE5' }}>
                     Delete Account
                 </Typography>
@@ -132,6 +145,7 @@ const ProfileSetting = () => {
                     0.3.1
                 </Typography>
             </Box>
+            <DeleteAccountDialog open={deleteDialog} setOpen={setDeleteDialog} handleDelete={handleDelete} />
         </Box>
     );
 };

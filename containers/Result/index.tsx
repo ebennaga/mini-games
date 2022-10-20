@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Box, Typography, ButtonBase } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import { SmartDisplay } from '@mui/icons-material';
@@ -17,7 +18,7 @@ const ResultContainer = () => {
                     padding: '0px 20px'
                 }}
             >
-                <HeaderBack />
+                <HeaderBack handleBack={() => router.push(`/games/${router.query.id}`)} />
             </Box>
             <Box sx={{ padding: '0px 20px', textAlign: 'center', m: '0px 0px 300px' }}>
                 <Box sx={{ textAlign: 'center', margin: '20px' }}>
@@ -33,6 +34,7 @@ const ResultContainer = () => {
                 <ButtonBase
                     onClick={() => {
                         router.push('/casual/loading');
+                        // router.push('/casual/ads');
                     }}
                     sx={{
                         textTransform: 'none',
@@ -51,9 +53,9 @@ const ResultContainer = () => {
                     }}
                 >
                     Watch Ads{' '}
-                    <span style={{ margin: '0px 5px' }}>
+                    <Box sx={{ margin: '0px 5px' }}>
                         <SmartDisplay />
-                    </span>{' '}
+                    </Box>{' '}
                     to Play Again
                 </ButtonBase>
             </Box>

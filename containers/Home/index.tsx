@@ -10,6 +10,8 @@ import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import getLocalData from 'helper/getLocalData';
 import WelcomeDialog from 'components/DialogTutorial/WelcomeDialog';
+import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
+import { useSelector } from 'react-redux';
 import Search from './Search';
 import GamesCard from './GamesCard';
 import EventCarousel from './EventCarousel';
@@ -19,12 +21,15 @@ import HomeSkeleton from './HomeSkeleton';
 
 const HomeContainer = () => {
     const router = useRouter();
+
     const [borderValue, setBorderValue] = useState<string>('none');
     const [datasHome, setDatasHome] = React.useState<any>(null);
-
     const [dataTutorial, setDataTutorial] = useState<any>(null);
     const [isWelcome, setIsWelcome] = useState<boolean>(false);
     const [prevTutorial, setPrevTutorial] = useState<string>('');
+    const [dialogLogin, setDialogLogin] = useState<boolean>(false);
+
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
 
     const notify = useNotify();
     const { fetchAPI, isLoading } = useAPICaller();
@@ -79,9 +84,17 @@ const HomeContainer = () => {
     }, []);
 
     const handleSearch = (data: any) => {
-        console.log(data);
+        router.push(`/games?search=${data.search}`);
     };
-    const isNotif = true;
+
+    const handleMessage = () => {
+        if (userState) {
+            router.push('inbox');
+        } else {
+            setDialogLogin(true);
+        }
+    };
+    const isNotif = false;
 
     if (isLoading || !datasHome) {
         return <HomeSkeleton />;
@@ -89,7 +102,7 @@ const HomeContainer = () => {
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
             <WelcomeDialog
-                open={isWelcome}
+                open={isWelcome && userState}
                 setOpen={setIsWelcome}
                 dataLocal={dataTutorial}
                 setDataLocal={setDataTutorial}
@@ -99,7 +112,7 @@ const HomeContainer = () => {
                 sx={{
                     width: '-webkit-fill-available',
                     position: 'sticky',
-                    zIndex: dataTutorial?.isTutorial ? 1 : 9999,
+                    zIndex: dataTutorial?.isTutorial || dialogLogin ? 1 : 9999,
                     // zIndex: 9999,
                     backgroundColor: dataTutorial?.isTutorial ? 'rgba(0, 0, 0, 0)' : 'white',
                     top: 0,
@@ -111,7 +124,7 @@ const HomeContainer = () => {
             </Box>
             <Box component='section' sx={{ display: 'flex', alignItems: 'center' }}>
                 <Search form={form} name='search' placeholder='Search Games' onSubmit={handleSearch} />
-                <ButtonBase onClick={() => router.push('inbox')} sx={{ marginLeft: '17px', position: 'relative' }}>
+                <ButtonBase onClick={handleMessage} sx={{ marginLeft: '17px', position: 'relative' }}>
                     {isNotif && (
                         <Box
                             sx={{
@@ -150,7 +163,8 @@ const HomeContainer = () => {
                         return (
                             <GamesCard
                                 key={item.id}
-                                href={item.game_url}
+                                // href={item.game_url}
+                                href={`/games/${item.id}`}
                                 image={item.banner_url}
                                 title={item.name}
                                 totalUser={item.user_sessions}
@@ -190,7 +204,7 @@ const HomeContainer = () => {
                                     key={item.id}
                                     image={item.banner_url}
                                     imageGame={item.game.banner_url}
-                                    onClick={() => router.push(`/games/${item.game.id}/tournament`)}
+                                    onClick={() => router.push(`/games/${item.game.id}/tournament/${item.id}`)}
                                     totalUser={item.total_users}
                                     prizePool={item.total_price}
                                     point={item.entry_coin}
@@ -205,7 +219,7 @@ const HomeContainer = () => {
 
                 {/* Tournament Card End */}
             </Box>
-            <InfoCard
+            {/* <InfoCard
                 onClick={undefined}
                 title='Block Stack'
                 subTitle='Game Launch'
@@ -224,7 +238,7 @@ const HomeContainer = () => {
                 background='/images/dummy/hop-up-bg.png'
                 image='/images/hopup.png'
                 linearBackground='linear-gradient(216deg, rgb(25 84 159 / 72%) 14%, rgba(28,37,69,1) 87%)'
-            />
+            /> */}
             <InfoCard
                 onClick={() => router.push('/topup')}
                 title='Coin'
@@ -241,6 +255,7 @@ const HomeContainer = () => {
                 background='/images/points-bg.png'
                 image='/images/lg-points.png'
             />
+            <SignupLoginDialog open={dialogLogin} setOpen={setDialogLogin} />
         </Box>
     );
 };

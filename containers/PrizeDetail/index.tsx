@@ -1,21 +1,35 @@
+/* eslint-disable no-param-reassign */
 import { Box, Typography, Divider, Grid } from '@mui/material';
 import React from 'react';
 import Header from 'components/Header';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
+import numberFormat from 'helper/numberFormat';
 import Button from 'components/Button/Index';
 import Paragraph from 'components/Paragraph';
 import NotifDialog from 'components/Dialog/notifDialog';
 import AgeConfirmationDialog from 'components/Dialog/AgeConfirmationDialog';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
+import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
+import useAPICaller from 'hooks/useAPICaller';
+import { useRouter } from 'next/router';
+import useNotify from 'hooks/useNotify';
 import PrizeSkeletonDetail from './PrizeDetailSkeleton';
+import PrizeDetailSlider from './PrizeDetailSlider';
 
 const PrizeDetailContainer = () => {
     const userState = useSelector((state: any) => state.webpage?.user?.user);
     const [isFavorite, setIsFavorite] = React.useState<boolean>(false);
     const [open, setOpen] = React.useState<boolean>(false);
     const [dialogConfirm, setDialogConfirm] = React.useState<boolean>(false);
+    const [dialogSignupLogin, setDialogSignupLogin] = React.useState<boolean>(false);
     const [isLoading, setIsLoading] = React.useState<boolean>(true);
+    const [data, setData] = React.useState<any>(null);
+
+    const { fetchAPI } = useAPICaller();
+    const router = useRouter();
+    const notify = useNotify();
+
     const form = useForm({
         mode: 'all',
         defaultValues: {
@@ -25,14 +39,23 @@ const PrizeDetailContainer = () => {
         }
     });
 
-    const { point } = userState;
-    const prize = 10_000;
     const [borderValue, setBorderValue] = React.useState<string>('none');
     const handleScroll = () => {
         if (window.scrollY === 0) {
             return setBorderValue('none');
         }
         return setBorderValue('0.5px solid rgba(148, 148, 148, 0.35)');
+    };
+
+    const getDetailRedeem = async () => {
+        setIsLoading(true);
+        const response = await fetchAPI({ method: 'GET', endpoint: `redemptions/${router.query.id}` });
+        if (response.status === 200) {
+            setData(response.data.data);
+        } else {
+            notify(response.data.message, 'error');
+        }
+        setIsLoading(false);
     };
 
     React.useEffect(() => {
@@ -45,29 +68,28 @@ const PrizeDetailContainer = () => {
         };
     }, []);
     const handleReedem = () => {
-        if (point < prize) {
-            return setOpen(!open);
+        if (userState) {
+            if (userState?.point < data.price) {
+                return setOpen(!open);
+            }
+            return setDialogConfirm(true);
         }
-        return setDialogConfirm(true);
+        return setDialogSignupLogin(true);
     };
 
     React.useEffect(() => {
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
+        getDetailRedeem();
     }, []);
 
     if (isLoading) {
         return <PrizeSkeletonDetail />;
     }
-
     return (
         <Box sx={{ width: '100%' }}>
             <Box
                 padding='25px'
                 sx={{
                     borderBottom: borderValue,
-                    mb: 2,
                     position: 'sticky',
                     top: -1,
                     backgroundColor: 'white',
@@ -75,21 +97,29 @@ const PrizeDetailContainer = () => {
                     width: '-webkit-fill-available'
                 }}
             >
-                <Header isShops hrefBack='/shops' isBack point={point} profilePicture='/icons/dummy/profile.png' />
+                <Header isShops hrefBack='/shops' isBack point={numberFormat(userState?.point)} profilePicture='/icons/dummy/profile.png' />
             </Box>
+            <PrizeDetailSlider>
+                {data.images.map((item: any, idx: number) => (
+                    <Box key={idx}>
+                        <img
+                            src={item.image_url}
+                            alt='ps5-icon'
+                            style={{ width: '99%' }}
+                            onError={({ currentTarget }) => {
+                                currentTarget.onerror = null;
+                                currentTarget.src = '/images/img_error.svg';
+                            }}
+                        />
+                    </Box>
+                ))}
+            </PrizeDetailSlider>
             <Box padding='10px 20px'>
-                <Box sx={{ backgroundColor: '#F4F1FF', padding: '20px', borderRadius: '10px' }}>
-                    <img src='/images/ps5-3.png' alt='ps5-icon' style={{ width: '100%' }} />
-                </Box>
                 <Box sx={{ mt: '15px' }}>
                     <Grid container justifyContent='space-between'>
-                        <Grid item xs={4}>
-                            <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                                <Box>
-                                    <img src='/images/point-shops.png' alt='pointshops' />
-                                </Box>
-                                <Typography sx={{ fontWeight: 'bold', fontSize: '20px' }}>{prize}</Typography>
-                            </Box>
+                        <Grid item xs={6}>
+                            <Typography sx={{ fontWeight: 'bold', fontSize: '24px' }}>{data.name}</Typography>
+                            <Typography sx={{ fontWeight: '600', fontSize: '12px' }}>{data.description}</Typography>
                         </Grid>
                         <Grid
                             item
@@ -105,8 +135,12 @@ const PrizeDetailContainer = () => {
                             )}
                         </Grid>
                     </Grid>
-                    <Typography sx={{ fontWeight: 'bold', fontSize: '18px' }}>Playstation 5</Typography>
-                    <Typography sx={{ fontWeight: '600', fontSize: '12px' }}>Lorem ipsum dolor sit consectetur adipiscing</Typography>
+                    <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center', mt: '40px' }}>
+                        <Box>
+                            <img src='/images/point-shops.png' alt='pointshops' />
+                        </Box>
+                        <Typography sx={{ fontWeight: 'bold', fontSize: '24px' }}>{numberFormat(data.price)}</Typography>
+                    </Box>
                 </Box>
             </Box>
             <Divider sx={{ my: '25px' }} />
@@ -116,10 +150,7 @@ const PrizeDetailContainer = () => {
                     paragraph=' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio
                     mattis.Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
                 />
-                <Paragraph
-                    title='Description'
-                    paragraph='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                />
+                <Paragraph title='Description' paragraph={data.description} />
                 <Box sx={{ mb: '180px' }}>
                     <Paragraph
                         title='Terms and Conditions'
@@ -144,6 +175,7 @@ Play Tournament and get points to continue'
                 open={dialogConfirm}
                 setOpen={setDialogConfirm}
             />
+            <SignupLoginDialog open={dialogSignupLogin} setOpen={setDialogSignupLogin} />
         </Box>
     );
 };

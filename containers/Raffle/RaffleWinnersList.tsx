@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography, ButtonBase } from '@mui/material';
+import { ArrowBack, ArrowForward } from '@mui/icons-material';
 import RankRaffle from 'components/RankRaffle';
 
 interface RaffleWinnersProps {
@@ -7,6 +8,24 @@ interface RaffleWinnersProps {
 }
 
 const RaffleWinners: React.FC<RaffleWinnersProps> = ({ dataList }) => {
+    const totalPage = Math.ceil(dataList.length / 7);
+    const [currentPage, setCurrentPage] = React.useState<number>(1);
+
+    const goToNextPage = () => {
+        if (currentPage < totalPage) {
+            setCurrentPage((page) => page + 1);
+        }
+    };
+    const goToPreviousPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage((page) => page - 1);
+        }
+    };
+    const getPaginatedData = () => {
+        const startIndex = currentPage * 7 - 7;
+        const endIndex = startIndex + 7;
+        return dataList.slice(startIndex, endIndex);
+    };
     return (
         <Box sx={{ width: '100vw', mt: '45px' }}>
             <Grid container>
@@ -39,16 +58,49 @@ const RaffleWinners: React.FC<RaffleWinnersProps> = ({ dataList }) => {
                 </Grid>
             </Grid>
             {dataList.length > 0 &&
-                dataList.map((item: any, idx: number) => (
-                    <RankRaffle
-                        key={idx}
-                        image={item.image}
-                        round={284 - idx}
-                        username={item.username}
-                        tickets={item.tickets}
-                        prize={item.prize}
-                    />
+                getPaginatedData().map((item: any, idx: number) => (
+                    <Box key={idx}>
+                        <RankRaffle
+                            image={item.image}
+                            round={
+                                currentPage === 1
+                                    ? dataList.length - idx
+                                    : currentPage > 1 && dataList.length - (idx + (currentPage - 1) * 7)
+                            }
+                            username={item.username}
+                            tickets={item.tickets}
+                            prize={item.prize}
+                        />
+                    </Box>
                 ))}
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: '30px', my: '30px', justifyContent: 'center' }}>
+                <ButtonBase
+                    onClick={goToPreviousPage}
+                    disableRipple
+                    sx={{
+                        ':active': { backgroundColor: '#D9D9D9' },
+                        cursor: 'pointer',
+                        padding: '10px',
+                        border: '1.3px solid #D9D9D9',
+                        borderRadius: '100%'
+                    }}
+                >
+                    <ArrowBack sx={{ color: '#A54CE5' }} />
+                </ButtonBase>
+                <ButtonBase
+                    onClick={goToNextPage}
+                    disableRipple
+                    sx={{
+                        ':active': { backgroundColor: '#D9D9D9' },
+                        cursor: 'pointer',
+                        padding: '10px',
+                        border: '1.3px solid #D9D9D9',
+                        borderRadius: '100%'
+                    }}
+                >
+                    <ArrowForward sx={{ color: '#A54CE5' }} />
+                </ButtonBase>
+            </Box>
         </Box>
     );
 };

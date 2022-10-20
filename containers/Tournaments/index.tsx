@@ -32,6 +32,7 @@ const Tournaments = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
     if (isLoading) {
         return <TournamentsSkeleton />;
     }
@@ -42,7 +43,7 @@ const Tournaments = () => {
                     padding: '20px',
                     borderBottom: borderValue,
                     position: 'sticky',
-                    top: '20px',
+                    top: borderValue === 'none' ? '20px' : 0,
                     zIndex: 2,
                     backgroundColor: 'white',
                     width: '-webkit-fill-available'
@@ -63,14 +64,12 @@ const Tournaments = () => {
                             <TournamentCard
                                 customWidth='99%'
                                 onClick={() => router.push(`/games/${index + 1}/tournament`)}
-                                time='6d 13h 23m'
+                                time='2022-10-11T00:00:00.000Z'
                                 pool='3500'
-                                champion='250'
                                 coin='100'
-                                stars='5.25'
                                 users='376'
-                                position='35'
                                 key={index}
+                                imageGame='/icons/dummy/menara.png'
                             />
                         );
                     })}
@@ -85,14 +84,12 @@ const Tournaments = () => {
                                 <TournamentCard
                                     customWidth='93%'
                                     onClick={() => router.push(`/games/${index + 1}/tournament`)}
-                                    time='6d 13h 23m'
+                                    time='coming soon'
                                     pool='3500'
-                                    champion='250'
                                     coin='100'
-                                    stars='5.25'
                                     users='376'
-                                    position='35'
                                     key={index}
+                                    imageGame='/icons/dummy/menara.png'
                                 />
                             );
                         })}
@@ -108,14 +105,12 @@ const Tournaments = () => {
                                 <TournamentCard
                                     customWidth='93%'
                                     onClick={() => router.push(`/games/${index + 1}/tournament`)}
-                                    time='6d 13h 23m'
+                                    time='coming soon'
                                     pool='3500'
-                                    champion='250'
                                     coin='100'
-                                    stars='5.25'
                                     users='376'
-                                    position='35'
                                     key={index}
+                                    imageGame='/icons/dummy/menara.png'
                                 />
                             );
                         })}

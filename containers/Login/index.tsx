@@ -10,9 +10,15 @@ import { useRouter } from 'next/router';
 import useAPICaller from 'hooks/useAPICaller';
 import useAuthReducer from 'hooks/useAuthReducer';
 import useNotify from 'hooks/useNotify';
+import Link from 'next/link';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 const Login = () => {
     const router = useRouter();
+
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
     const form = useForm({
         mode: 'all',
         defaultValues: {
@@ -21,6 +27,7 @@ const Login = () => {
             password: ''
         }
     });
+    const { data: session } = useSession();
     const dataInput = form.watch();
 
     const rules = { required: true };
@@ -30,6 +37,8 @@ const Login = () => {
     const { fetchAPI, isLoading } = useAPICaller();
     const { setUser } = useAuthReducer();
     const notify = useNotify();
+
+    console.log('data session', session);
 
     const handleSubmit = async (data: any) => {
         const response = await fetchAPI({
@@ -42,10 +51,51 @@ const Login = () => {
         });
         if (response.status === 200) {
             setUser(response.data.data);
-            router.push('/home');
+            router.push('/');
         } else {
             notify('Login Failed', 'error');
         }
+    };
+
+    const handleLoginGoogle = async () => {
+        signInWithPopup(auth, provider)
+            .then(async (result) => {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential: any = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                // The signed-in user info.
+                const { user } = result;
+
+                console.log('user', user.uid);
+                const response = await fetchAPI({
+                    method: 'POST',
+                    endpoint: 'auths/login/google',
+                    data: {
+                        email: user.email,
+                        username: user.displayName,
+                        google_id: user.uid
+                    }
+                });
+                if (response.status === 200) {
+                    setUser(response.data.data);
+                    router.push('/');
+                } else {
+                    notify('Login Failed', 'error');
+                }
+
+                // ...
+            })
+            .catch((error) => {
+                // Handle Errors here.
+                // const errorCode = error.code;
+                // const errorMessage = error.message;
+                // The email of the user's account used.
+                // const { email } = error.customData;
+                // The AuthCredential type that was used.
+                // const credential = GoogleAuthProvider.credentialFromError(error);
+                // ...
+                console.log('error', error.message);
+            });
     };
 
     return (
@@ -55,9 +105,7 @@ const Login = () => {
                     <Typography sx={{ fontWeight: 700, fontSize: '46px' }} component='h1'>
                         Welcome Back
                     </Typography>
-                    <Typography sx={{ fontSize: '21px', color: '#949494' }}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.
-                    </Typography>
+                    <Typography sx={{ fontSize: '21px', color: '#949494' }}>Please Sign In to Continue !</Typography>
                     <form onSubmit={form.handleSubmit(handleSubmit)}>
                         {changeInput ? (
                             <Box sx={{ mt: 3 }}>
@@ -72,7 +120,9 @@ const Login = () => {
                             <Input name='password' form={form} placeholder=' Password' validator={rules} type='password' />
                         </Box>
                         <Box sx={{ textAlign: 'right', mt: 2, color: '#A54CE5' }}>
-                            <ButtonBase sx={{ fontWeight: 'bold' }}>Forgot Password</ButtonBase>
+                            <ButtonBase onClick={() => router.push('/forgot')} sx={{ fontWeight: 'bold' }}>
+                                Forgot Password
+                            </ButtonBase>
                         </Box>
                         <Box sx={{ mt: 3 }}>
                             <Button
@@ -99,12 +149,13 @@ const Login = () => {
                         <Typography sx={{ color: '#949494', fontSize: '15px', mb: 2 }}>or you can:</Typography>
                         <Box sx={{ mb: 2 }}>
                             <Button
+                                // onClick={() => signIn('google')}
+                                onClick={handleLoginGoogle}
                                 icon={<Google sx={{ color: '#A54CE5', position: 'absolute', left: '20px', bottom: '20px' }} />}
-                                title='Log in with Google'
+                                title='Log in with Google '
                                 backgoundColor='#FFF'
                                 color='#000'
                                 border='2px solid #F4F1FF'
-                                onClick={() => {}}
                             />
                         </Box>
                         <Box>

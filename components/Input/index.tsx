@@ -13,9 +13,23 @@ interface InputProps {
     color?: 'primary' | 'secondary';
     validator?: any;
     component?: any;
+    withPH?: any;
+    isMatch?: boolean;
+    isOTP?: boolean;
 }
 
-const Input: React.FC<InputProps> = ({ name, form, placeholder, validator, color = 'primary', type = 'text', component }) => {
+const Input: React.FC<InputProps> = ({
+    withPH = false,
+    name,
+    form,
+    placeholder,
+    validator,
+    color = 'primary',
+    type = 'text',
+    component,
+    isMatch = false,
+    isOTP = false
+}) => {
     const [showPwd, setShowPwd] = React.useState<boolean>(false);
 
     const {
@@ -25,16 +39,17 @@ const Input: React.FC<InputProps> = ({ name, form, placeholder, validator, color
     const error = errors[name] ? errors[name] : null;
 
     const errType: string = error?.type;
+
     let helperText: string = '';
     if (errType === 'maxLength') {
-        helperText = `${placeholder} - exceed maximum length`;
+        helperText = `${withPH ? placeholder : name} - exceed maximum length`;
     } else if (errType === 'required') {
-        helperText = `${placeholder} - is required`;
+        helperText = `${withPH ? placeholder : name} - is required`;
     } else if (errType === 'minLength') {
-        helperText = type === 'password' ? `Password minimum 6 characters` : `${placeholder} - exceed minimum length`;
+        helperText = type === 'password' ? `Password minimum 6 characters` : `${withPH ? placeholder : name} - exceed minimum length`;
     }
     if (error?.message) {
-        helperText = `${placeholder} - ${error.message}`;
+        helperText = `${withPH ? placeholder : name} - ${error.message}`;
     }
 
     return (
@@ -52,7 +67,8 @@ const Input: React.FC<InputProps> = ({ name, form, placeholder, validator, color
                                 background,
                                 color: colorText,
                                 borderRadius: '15px',
-                                height: '60px'
+                                height: '60px',
+                                border: isMatch && isOTP ? '1px solid red' : null
                             },
                             '& .MuiInputBase-input': {
                                 background,
@@ -74,8 +90,9 @@ const Input: React.FC<InputProps> = ({ name, form, placeholder, validator, color
                                 borderRadius: '15px'
                             },
                             '& .MuiFormHelperText-root': {
-                                color: 'rgba(0, 0, 0, 0.7)',
-                                fontSize: ' 18px',
+                                color: '#FF4242',
+                                fontSize: ' 14px',
+                                fontWeight: 'bold',
                                 marginTop: '10px',
                                 '&.Mui-error': {
                                     color: '#CD1719'

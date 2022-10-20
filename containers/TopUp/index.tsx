@@ -79,7 +79,7 @@ const TopUp = () => {
                         zIndex: 9999,
                         backgroundColor: 'white',
                         width: '-webkit-fill-available',
-                        top: 0,
+                        top: '-1px',
                         borderBottom: borderValue
                     }}
                 >
@@ -164,6 +164,9 @@ const TopUp = () => {
                         {cards.map((item: any, index: number) => {
                             return (
                                 <Box
+                                    onClick={() => {
+                                        router.push('/topup/payment-confirmation');
+                                    }}
                                     key={index}
                                     sx={{
                                         width: '182px',
@@ -193,7 +196,7 @@ const TopUp = () => {
                                             {item.poin}
                                         </Typography>
                                     </Box>
-                                    <Box sx={{ ml: 2, mt: 1.5, alignItems: 'center' }}>
+                                    <Box sx={{ ml: 2, mt: 1.5, alignItems: 'center', display: 'none' }}>
                                         <Typography sx={{ fontSize: '10px', fontWeight: 'bold', lineHeight: '10px', color: '#949494' }}>
                                             lorem ipsum
                                         </Typography>
@@ -231,7 +234,7 @@ const TopUp = () => {
                     </Box>
                     <Box sx={{ mt: 2, ml: 1, width: '339px' }}>
                         <Typography sx={{ fontSize: '12px', fontWeight: 600, lineHeight: '33px', color: '#949494' }}>
-                            Lorem ipsum dolor sit amet, sed do.
+                            Need help to top up .Click here
                         </Typography>
                         <Typography sx={{ mt: -4, ml: 28, fontSize: '12px', fontWeight: 600, lineHeight: '33px', color: '#FF4567' }}>
                             click here
@@ -329,7 +332,7 @@ const TopUp = () => {
                     })}
                 </Box>
             ) : (
-                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
                     <ButtonBase
                         onClick={() => {
                             router.push('/transaction');
@@ -350,7 +353,7 @@ const TopUp = () => {
             ) : (
                 <Box
                     onClick={() => {
-                        router.push('/topup/support');
+                        router.push('/coins-prizes');
                     }}
                     sx={{
                         mt: '20px',
@@ -386,7 +389,9 @@ const TopUp = () => {
                 </Box>
             ) : (
                 <Box
-                    onClick={() => {}}
+                    onClick={() => {
+                        router.push('/help-support');
+                    }}
                     sx={{
                         mt: '20px',
                         display: 'flex',

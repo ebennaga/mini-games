@@ -1,30 +1,49 @@
-import { Box, Divider, Grid, Typography, TextField } from '@mui/material';
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-param-reassign */
+import { Box, Divider, Grid, Typography, TextField, Skeleton, CircularProgress } from '@mui/material';
 import React from 'react';
 import Header from 'components/Header';
 import Button from 'components/Button/Index';
 import { useForm, Controller } from 'react-hook-form';
 import RewardDialog from 'components/Dialog/RewardDialog';
+import { useRouter } from 'next/router';
+import useNotify from 'hooks/useNotify';
+import useAPICaller from 'hooks/useAPICaller';
 import ConfirmSkeleton from './ConfirmationSkeleton';
 
 interface TextFieldProps {
     form: any;
     name: string;
     label: string;
+    validator?: any;
+    type: 'text' | 'tel';
 }
 
-const TextFieldInput: React.FC<TextFieldProps> = ({ form, name, label }) => {
+const TextFieldInput: React.FC<TextFieldProps> = ({ form, name, label, validator, type }) => {
+    const { errors } = form.formState;
+    const error = errors[name] ? errors[name] : null;
+
+    const errType: string = error?.type;
+    let helperText: string = '';
+    if (errType === 'required') {
+        helperText = `${name} is required`;
+    }
+
     return (
         <Controller
             name={name}
             control={form.control}
+            rules={validator}
             render={({ field }) => {
                 return (
                     <TextField
+                        helperText={helperText.charAt(0).toUpperCase() + helperText.slice(1)}
                         {...field}
                         id='standard-basic'
                         label={label}
                         variant='standard'
                         fullWidth
+                        type={type}
                         sx={{
                             my: '20px',
                             '& .MuiInputBase-input': {
@@ -36,6 +55,10 @@ const TextFieldInput: React.FC<TextFieldProps> = ({ form, name, label }) => {
                                 fontSize: '12px',
                                 fontWeight: 600,
                                 color: '#949494'
+                            },
+                            '& .MuiFormHelperText-root': {
+                                color: 'red',
+                                fontWeight: 400
                             }
                         }}
                     />
@@ -58,6 +81,16 @@ const PrizeConfirmationContainer = () => {
     const [openDialog, setOpenDialog] = React.useState<boolean>(false);
     const [borderValue, setBorderValue] = React.useState<string>('none');
     const [isLoading, setIsLoading] = React.useState<boolean>(true);
+    const [loadingRedeem, setLoadingRedeem] = React.useState<boolean>(false);
+    const [isDisabled, setIsDisabled] = React.useState<boolean>(true);
+    const [dataGoods, setDataGoods] = React.useState<any>(null);
+
+    const { fetchAPI } = useAPICaller();
+
+    const router = useRouter();
+    const notify = useNotify();
+
+    const rules = { required: true };
 
     const handleScroll = () => {
         if (window.scrollY === 0) {
@@ -65,6 +98,57 @@ const PrizeConfirmationContainer = () => {
         }
         return setBorderValue('0.5px solid rgba(148, 148, 148, 0.35)');
     };
+
+    const formValue = (name: any) => {
+        return form.watch(name);
+    };
+
+    const getDetailGoods = async () => {
+        setIsLoading(true);
+        const response = await fetchAPI({
+            method: 'GET',
+            endpoint: `redemptions/${router.query.id}`
+        });
+
+        if (response.status === 200) {
+            setDataGoods(response.data.data);
+        } else {
+            notify(response.data.message, 'error');
+        }
+        setIsLoading(false);
+    };
+
+    const handleRedeem = async (data: any) => {
+        setLoadingRedeem(true);
+        const { address, notes, recipient, phone } = data;
+        const response = await fetchAPI({
+            method: 'POST',
+            endpoint: `redemptions/${router.query.id}/redeem`,
+            data: {
+                address,
+                notes,
+                recipient_name: recipient,
+                recipient_phone_number: phone
+            }
+        });
+        if (response.status === 200) {
+            setOpenDialog(!openDialog);
+        } else {
+            notify(response.data.message || 'Redeem failed', 'error');
+        }
+        setLoadingRedeem(false);
+    };
+
+    React.useEffect(() => {
+        ['address', 'recipient', 'phone'].forEach((item: any) => {
+            if (formValue(item) !== '') {
+                setIsDisabled(false);
+            }
+            if (formValue(item) === '') {
+                setIsDisabled(true);
+            }
+        });
+    }, [form.watch(), isDisabled]);
 
     React.useEffect(() => {
         const watchScroll = () => {
@@ -77,9 +161,7 @@ const PrizeConfirmationContainer = () => {
     }, []);
 
     React.useEffect(() => {
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
+        getDetailGoods();
     }, []);
 
     if (isLoading) {
@@ -105,53 +187,59 @@ const PrizeConfirmationContainer = () => {
                 <Grid container spacing={2}>
                     <Grid item xs={4}>
                         <Box sx={{ backgroundColor: '#F4F4F4', padding: '10px', borderRadius: '10px' }}>
-                            <img src='/images/ps5-3.png' alt='ps5-icon' style={{ width: '100%' }} />
+                            <img
+                                src={dataGoods.image_url}
+                                alt='ps5-icon'
+                                style={{ width: '100%' }}
+                                onError={({ currentTarget }) => {
+                                    currentTarget.onerror = null;
+                                    currentTarget.src = '/images/img_error.svg';
+                                }}
+                            />
                         </Box>
                     </Grid>
                     <Grid item xs={8}>
-                        <Typography sx={{ fontWeight: 'bold', fontSize: '14px' }}>Playstation 5</Typography>
+                        <Typography sx={{ fontWeight: 'bold', fontSize: '14px' }}>{dataGoods.name}</Typography>
                         <Typography sx={{ fontWeight: '600', fontSize: '12px', mt: '7px', lineHeight: '12px' }}>
-                            Lorem ipsum dolor sit consectetur adipiscing
+                            {dataGoods.description}
                         </Typography>
                         <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center', mt: 2 }}>
                             <Box>
                                 <img src='/images/point-shops.png' alt='pointshops' />
                             </Box>
-                            <Typography sx={{ fontWeight: 'bold', fontSize: '12px' }}>80.000</Typography>
+                            <Typography sx={{ fontWeight: 'bold', fontSize: '12px' }}>{dataGoods.price}</Typography>
                         </Box>
                     </Grid>
                 </Grid>
                 <Typography sx={{ fontSize: '12px', fontWeight: '500', lineHeight: '12px', color: '#949494', mt: '30px' }}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio
-                    mattis.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Nunc vulputate libero et velit interdum, ac aliquet odio mattis.Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    {dataGoods.description}
                 </Typography>
             </Box>
             <Divider sx={{ my: 3 }} />
-            <Box padding='0 20px'>
-                <Box sx={{ mt: '30px', position: 'relative', zIndex: 0 }}>
-                    <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
-                        Address
-                    </Typography>
-                    <form style={{ position: 'relative', zIndex: 0, marginBottom: '185px' }} onSubmit={form.handleSubmit(() => {})}>
-                        <TextFieldInput label='Address' form={form} name='address' />
-                        <TextFieldInput label='Notes' form={form} name='notes' />
-                        <TextFieldInput label={`Recipient's Name`} form={form} name='recipient' />
-                        <TextFieldInput label='Phone Number' form={form} name='phone' />
-                    </form>
+            <form onSubmit={form.handleSubmit(handleRedeem)}>
+                <Box padding='0 20px'>
+                    <Box sx={{ mt: '30px', position: 'relative', zIndex: 0 }}>
+                        <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
+                            Address
+                        </Typography>
+                        <div style={{ position: 'relative', zIndex: 0, marginBottom: '185px' }}>
+                            <TextFieldInput type='text' label='Address' form={form} name='address' validator={rules} />
+                            <TextFieldInput type='text' label='Notes' form={form} name='notes' />
+                            <TextFieldInput type='text' label={`Recipient's Name`} form={form} name='recipient' validator={rules} />
+                            <TextFieldInput type='tel' label='Phone Number' form={form} name='phone' validator={rules} />
+                        </div>
+                    </Box>
                 </Box>
-            </Box>
-            <Box padding='0 20px' sx={{ position: 'sticky', bottom: '20px', zIndex: 1 }}>
-                <Button
-                    onClick={() => {
-                        setOpenDialog(!openDialog);
-                    }}
-                    type='submit'
-                    title='Proceed to Reedem'
-                    backgoundColor='#A54CE5'
-                    color='white'
-                />
-            </Box>
+                <Box padding='0 20px' sx={{ position: 'sticky', bottom: '20px', zIndex: 1 }}>
+                    {loadingRedeem ? (
+                        <Box width='100%' display='flex' justifyContent='center'>
+                            <CircularProgress sx={{ color: '#A54CE5' }} />
+                        </Box>
+                    ) : (
+                        <Button type='submit' title='Proceed to Reedem' backgoundColor='#A54CE5' color='white' disabled={isDisabled} />
+                    )}
+                </Box>
+            </form>
             <RewardDialog
                 path='/shops'
                 open={openDialog}

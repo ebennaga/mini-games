@@ -1,8 +1,14 @@
+/* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable no-unused-vars */
-import { Box, Grid, Typography, ButtonBase } from '@mui/material';
 import React from 'react';
+import useAPICaller from 'hooks/useAPICaller';
+import numberFormat from 'helper/numberFormat';
+import useNotify from 'hooks/useNotify';
+import getTimeRaffle from 'helper/getTimeRaffle';
+import { useSelector } from 'react-redux';
+import { Box, Grid, Typography, ButtonBase } from '@mui/material';
 import Header from 'components/Header';
-import { WatchLater, Add, Remove, ArrowBack, ArrowForward, HelpOutline } from '@mui/icons-material';
+import { WatchLater, Add, Remove, HelpOutline } from '@mui/icons-material';
 import Button from 'components/Button/Index';
 import StatusRoundDialog from 'components/Dialog/StatusRoundDialog';
 import RewardDialog from 'components/Dialog/RewardDialog';
@@ -11,15 +17,19 @@ import BuyTicketDialog from './BuyTicketDialog';
 import RaffleSkeleton from './RaffleSkeleton';
 
 const RaffleContainer = () => {
-    const [quantity, setQuantity] = React.useState<number>(0);
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
+    const [winChance, setWinChance] = React.useState<any>(null);
     const [openBuyDialog, setOpenBuyDialog] = React.useState<any>(false);
+    const [rafflesData, setRafflesData] = React.useState<any>(null);
     const [openRewardDialog, setOpenRewardDialog] = React.useState<any>(false);
     const [openStatusRoundDialog, setOpenStatusRoundDialog] = React.useState<any>(false);
-    const [isWinner, setIsWinner] = React.useState<boolean>(false);
     const [roundDay, setRoundDay] = React.useState<boolean>(false);
+    const [buttonRaffle, setButtonRaffle] = React.useState<boolean>(false);
     const [borderValue, setBorderValue] = React.useState<string>('none');
-    const [isLoading, setIsLoading] = React.useState<boolean>(true);
-    const [myTickets, setMytickets] = React.useState<number>(10);
+    const [myTickets, setMytickets] = React.useState<number>(0);
+    const [totalTickets, setTotalTickets] = React.useState<number>(0);
+    const { fetchAPI, isLoading } = useAPICaller();
+    const notify = useNotify();
 
     const dataList = [
         { image: '/icons/dummy/profile-2.png', username: 'rinto', tickets: 246000, prize: 2000 },
@@ -33,13 +43,48 @@ const RaffleContainer = () => {
         { image: '/icons/dummy/profile-3.png', username: 'warteg', tickets: 800, prize: 800 },
         { image: '/icons/dummy/profile.png', username: 'ihsan', tickets: 246, prize: 246 },
         { image: '/icons/dummy/profile.png', username: 'yanto', tickets: 132, prize: 150 },
+        { image: '/icons/dummy/profile-3.png', username: 'beban', tickets: 10, prize: 10 },
+        { image: '/icons/dummy/profile-3.png', username: 'ricky', tickets: 500, prize: 550 },
+        { image: '/icons/dummy/profile.png', username: 'wisnu', tickets: 250, prize: 250 },
+        { image: '/icons/dummy/profile.png', username: 'ihsan', tickets: 300, prize: 300 },
+        { image: '/icons/dummy/profile-3.png', username: 'warteg', tickets: 800, prize: 800 },
+        { image: '/icons/dummy/profile.png', username: 'ihsan', tickets: 246, prize: 246 },
+        { image: '/icons/dummy/profile.png', username: 'yanto', tickets: 132, prize: 150 },
         { image: '/icons/dummy/profile-3.png', username: 'beban', tickets: 10, prize: 10 }
     ];
 
-    const handleBuyRaffle = () => {
+    const fetchData = async () => {
+        try {
+            const res = await fetchAPI({
+                endpoint: 'raffles/id',
+                method: 'GET'
+            });
+            notify(res.data?.message, 'success');
+            if (res.data?.data) {
+                setRafflesData(res.data.data);
+                setMytickets(res.data.data.auths?.your_tickets);
+                setTotalTickets(res.data.data.auths?.total_tickets);
+            }
+        } catch (e) {
+            notify('failed data', e);
+        }
+    };
+
+    const handleBuyRaffle = async () => {
+        const response = await fetchAPI({
+            method: 'PUT',
+            endpoint: `raffles/${rafflesData.id}/redeem`,
+            data: {
+                total_tickets: myTickets
+            }
+        });
+        setTotalTickets(totalTickets + myTickets);
+        setWinChance(myTickets / totalTickets);
+        notify(response.data?.message, 'success');
         setOpenBuyDialog(!openBuyDialog);
         setOpenRewardDialog(!openRewardDialog);
     };
+
     const handleScroll = () => {
         if (window.scrollY === 0) {
             return setBorderValue('none');
@@ -48,6 +93,7 @@ const RaffleContainer = () => {
     };
 
     React.useEffect(() => {
+        fetchData();
         const watchScroll = () => {
             window.addEventListener('scroll', handleScroll);
         };
@@ -56,11 +102,14 @@ const RaffleContainer = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
     React.useEffect(() => {
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
-    }, []);
+        if (myTickets === 0) {
+            setButtonRaffle(true);
+        } else {
+            setButtonRaffle(false);
+        }
+    }, [myTickets, buttonRaffle]);
 
     if (isLoading) {
         return <RaffleSkeleton roundDay={roundDay} />;
@@ -79,7 +128,7 @@ const RaffleContainer = () => {
                     zIndex: 999
                 }}
             >
-                <Header isBack isShops logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
+                <Header isBack isShops logo='/icons/logo.svg' profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Box padding='20px'>
                 <Grid container sx={{ width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -123,23 +172,27 @@ const RaffleContainer = () => {
                                     <Typography sx={{ fontSize: '12px', color: 'white', fontWeight: 500 }}>Price Worth</Typography>
                                     <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                         <img src='/images/lg-points.png' alt='point' width={60} />
-                                        <Typography sx={{ fontSize: '40px', color: 'white', fontWeight: 700 }}>350.000</Typography>
+                                        <Typography sx={{ fontSize: '40px', color: 'white', fontWeight: 700 }}>
+                                            {numberFormat(rafflesData?.ticket_point_price)}
+                                        </Typography>
                                     </Box>
                                 </Box>
                                 <Box>
                                     <Typography sx={{ fontSize: '12px', color: 'white', fontWeight: 500 }}>
-                                        Lucky Raffle round 285 ends in
+                                        Lucky Raffle round {rafflesData?.raffle_no} ends in
                                     </Typography>
                                     <Box sx={{ display: 'flex', mb: 2, color: 'white', gap: '5px', alignItems: 'center' }}>
                                         <WatchLater />
-                                        <Typography sx={{ fontSize: '15px' }}>6d 13h 23m</Typography>
+                                        <Typography sx={{ fontSize: '15px' }}>
+                                            {getTimeRaffle(rafflesData?.start_time, rafflesData?.end_time)}
+                                        </Typography>
                                     </Box>
                                 </Box>
                             </Box>
                         </Grid>
                         <Grid item xs={6} sx={{ textAlign: 'end' }}>
                             <Typography sx={{ fontSize: '12px', color: 'white', fontWeight: 500, padding: '10px 15px' }}>
-                                No. 284
+                                No. {rafflesData?.raffle_no}
                             </Typography>
                             <img src='/images/lucky-raffle.png' alt='luckyraffle' />
                         </Grid>
@@ -172,8 +225,8 @@ const RaffleContainer = () => {
                                 </Box>
                             </Box>
                             <Typography sx={{ fontSize: '24px', color: '#373737', fontWeight: 700 }}>
-                                Winners of Raffle rounds 285 <br />{' '}
-                                {isWinner ? (
+                                Winners of Raffle rounds {rafflesData?.raffle_no} <br />{' '}
+                                {rafflesData?.auths.is_win ? (
                                     <span style={{ color: '#949494', fontSize: '14px' }}>
                                         The winner is <span style={{ color: '#A54CE5' }}>you</span>
                                     </span>
@@ -182,7 +235,7 @@ const RaffleContainer = () => {
                                 )}
                             </Typography>
                             <Box sx={{ mt: '20px' }}>
-                                <img src={isWinner ? '/images/winner.png' : '/images/not-winner.png'} alt='winner' />
+                                <img src={rafflesData?.auths.is_win ? '/images/winner.png' : '/images/not-winner.png'} alt='winner' />
                                 <Typography sx={{ fontSize: '20px', fontWeight: 700, mt: '30px' }}>Arya Stark</Typography>
                             </Box>
                         </Box>
@@ -231,7 +284,7 @@ const RaffleContainer = () => {
                         >
                             <Grid item xs={4}>
                                 <Typography sx={{ fontSize: roundDay ? '13px' : '20px', fontWeight: 700 }}>
-                                    {roundDay ? '285' : String(myTickets)}
+                                    {roundDay ? '285' : myTickets}
                                 </Typography>
                             </Grid>
                             <Grid
@@ -257,11 +310,13 @@ const RaffleContainer = () => {
                                         <Typography sx={{ fontSize: '13px', fontWeight: 700 }}>350.000</Typography>
                                     </Box>
                                 ) : (
-                                    <Typography sx={{ fontSize: '13px', fontWeight: 600 }}>101.195.723</Typography>
+                                    <Typography sx={{ fontSize: '13px', fontWeight: 600 }}>{numberFormat(totalTickets)}</Typography>
                                 )}
                             </Grid>
                             <Grid item xs={4}>
-                                <Typography sx={{ fontSize: '13px', fontWeight: 600 }}>{roundDay ? '10' : '0.00001976%'}</Typography>
+                                <Typography sx={{ fontSize: '13px', fontWeight: 600 }}>
+                                    {roundDay ? myTickets : `${!winChance ? String(myTickets / totalTickets).slice(0, 6) : winChance}%`}
+                                </Typography>
                             </Grid>
                         </Grid>
                     </Box>
@@ -276,9 +331,8 @@ const RaffleContainer = () => {
                                 <ButtonBase
                                     disableRipple
                                     onClick={() => {
-                                        if (quantity !== 0) {
-                                            setQuantity(quantity - 1);
-                                            setMytickets(myTickets + 1);
+                                        if (myTickets !== 0) {
+                                            setMytickets(myTickets - 1);
                                         }
                                     }}
                                     sx={{
@@ -291,14 +345,11 @@ const RaffleContainer = () => {
                                 >
                                     <Remove sx={{ fontWeight: 'bold' }} />
                                 </ButtonBase>
-                                <Typography sx={{ fontSize: '50px', fontWeight: 'bold', color: '#373737' }}>{quantity}</Typography>
+                                <Typography sx={{ fontSize: '50px', fontWeight: 'bold', color: '#373737' }}>{myTickets}</Typography>
                                 <ButtonBase
                                     disableRipple
                                     onClick={() => {
-                                        if (quantity >= 0 && myTickets !== 0) {
-                                            setQuantity(quantity + 1);
-                                            setMytickets(myTickets - 1);
-                                        }
+                                        setMytickets(myTickets + 1);
                                     }}
                                     sx={{
                                         ':active': { backgroundColor: '#D9D9D9' },
@@ -322,32 +373,6 @@ const RaffleContainer = () => {
                         </Grid>
                     )}
                     <RaffleWinners dataList={dataList} />
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '30px', my: '30px' }}>
-                        <ButtonBase
-                            disableRipple
-                            sx={{
-                                ':active': { backgroundColor: '#D9D9D9' },
-                                cursor: 'pointer',
-                                padding: '10px',
-                                border: '1.3px solid #D9D9D9',
-                                borderRadius: '100%'
-                            }}
-                        >
-                            <ArrowBack sx={{ color: '#A54CE5' }} />
-                        </ButtonBase>
-                        <ButtonBase
-                            disableRipple
-                            sx={{
-                                ':active': { backgroundColor: '#D9D9D9' },
-                                cursor: 'pointer',
-                                padding: '10px',
-                                border: '1.3px solid #D9D9D9',
-                                borderRadius: '100%'
-                            }}
-                        >
-                            <ArrowForward sx={{ color: '#A54CE5' }} />
-                        </ButtonBase>
-                    </Box>
                 </Grid>
                 {!roundDay && (
                     <Box sx={{ position: 'sticky', bottom: '20px' }}>
@@ -356,18 +381,25 @@ const RaffleContainer = () => {
                             title='Buy Raffle'
                             backgoundColor='#A54CE5'
                             color='white'
+                            disabled={buttonRaffle}
                         />
                     </Box>
                 )}
             </Box>
-            <BuyTicketDialog handleBuyRaffle={handleBuyRaffle} count={quantity} open={openBuyDialog} setOpen={setOpenBuyDialog} />
+            <BuyTicketDialog
+                handleBuyRaffle={handleBuyRaffle}
+                point={userState.point}
+                count={myTickets}
+                open={openBuyDialog}
+                setOpen={setOpenBuyDialog}
+            />
             <RewardDialog
-                body={`Successfully purchased ${quantity} tickets in raffle round 284`}
+                body={`Successfully purchased ${myTickets} tickets in raffle round ${rafflesData?.raffle_no}`}
                 open={openRewardDialog}
                 setOpenDialog={setOpenRewardDialog}
                 path='/shops/lucky-raffle'
             />
-            <StatusRoundDialog isWinner={isWinner} open={openStatusRoundDialog} setOpen={setOpenStatusRoundDialog} />
+            <StatusRoundDialog isWinner={rafflesData?.auths.is_win} open={openStatusRoundDialog} setOpen={setOpenStatusRoundDialog} />
         </Box>
     );
 };

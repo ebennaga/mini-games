@@ -1,26 +1,41 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from 'react';
 import { Box, ButtonBase, Typography } from '@mui/material';
+import getRemainingTimes from 'helper/getRemainingTime';
 
 interface TournamentCardProps {
     users: string;
-    position: string;
-    stars: string;
     pool: any;
-    champion: any;
     coin: any;
-    time: any;
+    time: 'coming soon' | string;
     onClick?: any;
     customWidth?: any;
+    imageGame: string;
 }
 
-const TournamentCard: React.FC<TournamentCardProps> = ({ time, champion, coin, pool, stars, users, position, onClick, customWidth }) => {
+const TournamentCard: React.FC<TournamentCardProps> = ({ time, coin, pool, users, onClick, customWidth, imageGame }) => {
+    const [timeTournament, setTimeTournament] = useState<string>('');
+
+    useEffect(() => {
+        if (time && time[4] === '-' && time[7] === '-') {
+            if (!timeTournament) {
+                setTimeTournament(getRemainingTimes(time));
+            }
+            setInterval(() => {
+                setTimeTournament(getRemainingTimes(time));
+            }, 6000);
+        } else {
+            setTimeTournament('Coming Soon');
+        }
+    }, []);
+
     return (
         <Box
             onClick={onClick}
             sx={{
                 width: customWidth || '90%',
                 height: '320px',
-                backgroundImage: `url('/icons/dummy/menara.png')`,
+                backgroundImage: `url(${imageGame})`,
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
                 borderRadius: '24px'
@@ -30,147 +45,189 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, champion, coin, p
                 sx={{
                     width: '100%',
                     height: '100%',
-                    background: 'linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 65%)',
+                    background:
+                        timeTournament === 'Coming Soon'
+                            ? 'rgba(128, 128, 128, 0.85)'
+                            : 'linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 65%)',
                     borderRadius: '24px'
                 }}
             >
                 <Box
                     sx={{
-                        padding: '25px 22px',
+                        padding: '25px 15px',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between',
                         height: '86%'
                     }}
                 >
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                background: '#FFDD50',
-                                borderRadius: '19px',
-                                padding: '4px 5px',
-                                width: 'fit-content'
-                            }}
-                        >
-                            <Box
-                                sx={{
-                                    background: `url(${'/icons/dummy/main-ikan.png'})`,
-                                    backgroundPosition: 'center',
-                                    backgroundSize: 'cover',
-                                    width: '16.71px',
-                                    height: '16.71px',
-                                    borderRadius: '22px'
-                                }}
-                            />
-                            <Box
-                                sx={{
-                                    background: `url(${'/icons/dummy/user-1.png'})`,
-                                    backgroundPosition: 'center',
-                                    backgroundSize: 'cover',
-                                    width: '16.71px',
-                                    height: '16.71px',
-                                    borderRadius: '22px',
-                                    marginLeft: '-10px'
-                                }}
-                            />
-                            <Box
-                                sx={{
-                                    background: `url(${'/icons/dummy/user-2.png'})`,
-                                    backgroundPosition: 'center',
-                                    backgroundSize: 'cover',
-                                    width: '16.71px',
-                                    height: '16.71px',
-                                    borderRadius: '22px',
-                                    marginLeft: '-10px'
-                                }}
-                            />
-                            <Typography component='span' sx={{ fontSize: '12px', fontWeight: 'bold', paddingLeft: '4px' }}>
-                                {users}
-                            </Typography>
-                        </Box>
-                        <Box sx={{ display: 'flex' }}>
-                            <Box sx={{ background: '#FFDD50', borderRadius: '19px', width: 'fit-content', padding: '2px 5px' }}>
-                                <Typography component='span' sx={{ fontSize: '12px', fontWeight: 'bold', paddingLeft: '4px' }}>
-                                    {position}
-                                    <sup>th</sup>
-                                </Typography>
-                            </Box>
-                            <Box
-                                sx={{
-                                    background: '#FFDD50',
-                                    borderRadius: '19px',
-                                    width: 'fit-content',
-                                    padding: '2px 5px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    marginLeft: 1
-                                }}
-                            >
-                                <img src='/icons/star.png' width={17} height={17} alt='star' />
-                                <Typography component='span' sx={{ fontSize: '12px', fontWeight: 'bold', paddingLeft: '4px' }}>
-                                    {stars}
-                                </Typography>
-                            </Box>
-                        </Box>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            background: 'rgba(55, 55, 55, 0.5)',
+                            width: 'fit-content',
+                            padding: '4.3px 11px',
+                            borderRadius: '10.5px',
+                            color: '#fff',
+                            alignSelf: 'end'
+                        }}
+                    >
+                        {timeTournament !== 'Coming Soon' && <img src='/icons/clock.png' alt='clock timer' width='14px' height='14px' />}
+                        <Typography component='span' sx={{ fontSize: '12px', paddingLeft: '4px' }}>
+                            {timeTournament}
+                        </Typography>
                     </Box>
 
-                    <Box>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                <img src='/images/point-shops.png' width={29} height={30} alt='star' />
-                                <Typography
-                                    component='span'
-                                    sx={{
-                                        fontSize: '24px',
-                                        fontWeight: 'bold',
-                                        color: '#fff',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        paddingLeft: 0.5
-                                    }}
-                                >
-                                    {pool}
-                                    <Typography component='span' sx={{ fontSize: '12px', fontWeight: 'bold', paddingLeft: '4px' }}>
-                                        Pool
-                                    </Typography>
-                                </Typography>
-                            </Box>
-                            <Box sx={{ color: '#fff', display: 'flex', alignItems: 'center' }}>
+                    <Box
+                        sx={{
+                            // padding: '17px',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignItems: 'center'
+                            // height: '86%'
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                background: `url(${imageGame}), url(/images/img_error.svg)`,
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                                borderRadius: '8px',
+                                width: '74px',
+                                height: '74px',
+                                '@media (max-width:400px)': {
+                                    width: '65px',
+                                    height: '65px'
+                                }
+                            }}
+                        />
+                        <Box
+                            sx={{
+                                width: '75%',
+                                '@media (max-width:470px)': {
+                                    width: '70%'
+                                },
+                                '@media (max-width:400px)': {
+                                    width: '70%'
+                                }
+                            }}
+                        >
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                    <img src='/icons/trophy.png' width='14px' height='10px' alt='trophy' />
-                                    <Typography component='span' sx={{ fontSize: '12px', fontWeight: 'bold', paddingLeft: '4px' }}>
-                                        {champion}
+                                    <img src='/images/point-shops.png' width={31} height={31} alt='star' />
+                                    <Typography
+                                        component='span'
+                                        sx={{
+                                            fontSize: '22px',
+                                            fontWeight: 'bold',
+                                            color: '#fff',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            paddingLeft: 0.5,
+                                            '@media (max-width:400px)': {
+                                                fontSize: '18px'
+                                            }
+                                        }}
+                                    >
+                                        {pool}
+                                        <Typography
+                                            component='span'
+                                            sx={{
+                                                fontSize: '11px',
+                                                fontWeight: 'bold',
+                                                paddingLeft: '4px',
+                                                '@media (max-width:400px)': { fontSize: '10px' }
+                                            }}
+                                        >
+                                            Pool
+                                        </Typography>
                                     </Typography>
                                 </Box>
-                                <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: 1.5 }}>
+                                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            background: '#FFDD50',
+                                            borderRadius: '19px',
+                                            padding: '4px 5px',
+                                            width: 'fit-content'
+                                        }}
+                                    >
+                                        <Box
+                                            sx={{
+                                                background: `url(${'/icons/dummy/main-ikan.png'})`,
+                                                backgroundPosition: 'center',
+                                                backgroundSize: 'cover',
+                                                width: '16.71px',
+                                                height: '16.71px',
+                                                borderRadius: '22px'
+                                            }}
+                                        />
+                                        <Box
+                                            sx={{
+                                                background: `url(${'/icons/dummy/user-1.png'})`,
+                                                backgroundPosition: 'center',
+                                                backgroundSize: 'cover',
+                                                width: '16.71px',
+                                                height: '16.71px',
+                                                borderRadius: '22px',
+                                                marginLeft: '-10px'
+                                            }}
+                                        />
+                                        <Box
+                                            sx={{
+                                                background: `url(${'/icons/dummy/user-2.png'})`,
+                                                backgroundPosition: 'center',
+                                                backgroundSize: 'cover',
+                                                width: '16.71px',
+                                                height: '16.71px',
+                                                borderRadius: '22px',
+                                                marginLeft: '-10px'
+                                            }}
+                                        />
+                                        <Typography component='span' sx={{ fontSize: '12px', fontWeight: 'bold', paddingLeft: '4px' }}>
+                                            {users}
+                                        </Typography>
+                                    </Box>
+                                </Box>
+                            </Box>
+
+                            <Box
+                                sx={{
+                                    color: '#fff',
+                                    background: '#A54CE5',
+                                    borderRadius: '12px',
+                                    padding: '11px 15px',
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    marginTop: '9px'
+                                }}
+                            >
+                                <Typography
+                                    fontSize='11px'
+                                    fontWeight={600}
+                                    component='span'
+                                    sx={{ color: '#fff', '@media (max-width:400px)': { fontSize: '10px' } }}
+                                >
+                                    View Tournaments
+                                </Typography>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                     <img src='/images/coin.png' width='13.81px' height='13.17px' alt='trophy' />
-                                    <Typography component='span' sx={{ fontSize: '12px', fontWeight: 'bold', paddingLeft: '4px' }}>
+                                    <Typography
+                                        component='span'
+                                        sx={{
+                                            fontSize: '11px',
+                                            fontWeight: 'bold',
+                                            paddingLeft: '4px',
+                                            '@media (max-width:400px)': { fontSize: '10px' }
+                                        }}
+                                    >
                                         {coin}
                                     </Typography>
                                 </Box>
                             </Box>
-                        </Box>
-                        <Box
-                            sx={{
-                                color: '#fff',
-                                background: '#A54CE5',
-                                borderRadius: '12px',
-                                padding: '11px 15px',
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                marginTop: '9px'
-                            }}
-                        >
-                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                <img src='/icons/clock.png' alt='clock timer' width='14px' height='14px' />
-                                <Typography component='span' sx={{ fontSize: '12px', paddingLeft: '4px' }}>
-                                    {time}
-                                </Typography>
-                            </Box>
-                            <ButtonBase onClick={onClick}>
-                                <Typography sx={{ fontWeight: 600, color: '#fff', fontSize: '8px' }}>View Tournaments</Typography>
-                            </ButtonBase>
                         </Box>
                     </Box>
                 </Box>

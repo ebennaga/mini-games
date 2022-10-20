@@ -1,6 +1,6 @@
 const getRemainingTimes = (date: any) => {
     try {
-        const arrSpace = String(date).split('T');
+        const arrSpace = String(date)[10] === 'T' ? String(date).split('T') : String(date).split(' ');
         const arrHour: any = arrSpace[1].split(':');
 
         const currentDate: any = new Date();

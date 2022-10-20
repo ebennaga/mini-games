@@ -2,11 +2,14 @@
 import { Box, Typography, Skeleton } from '@mui/material';
 import React from 'react';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import NotifDialog from 'components/Dialog/notifDialog';
 import Header from 'components/Header';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
+import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
+import useAuthReducer from 'hooks/useAuthReducer';
 import HeaderTournament from './HeaderTournament';
 import ButtonPlay from './ButtonPlay';
 import LeaderboardPodium from './LeaderboardPodium';
@@ -14,63 +17,133 @@ import TableRank from './TableRank';
 
 const GameTournament = () => {
     const router = useRouter();
-    const myCoins = 10;
-    const coins = 20;
+    // const myCoins = 10;
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
+    const coin = userState?.coin;
+    const coins = 200;
     const notify = useNotify();
+    const { fetchAPI } = useAPICaller();
+
+    const { setUser, clearUser } = useAuthReducer();
+
     const [listingGame, setListingGame] = React.useState<any>(null);
-    const { fetchAPI, isLoading } = useAPICaller();
+    const [detailGame, setDetailGame] = React.useState<any>(null);
+    const [sessionGame, setSessionGame] = React.useState<any>(null);
     const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
-    const dataLeaderboard = [
-        { image: '/icons/dummy/profile-2.png', username: 'rinto', point: 246000, prize: 2000 },
-        { image: '/icons/dummy/profile.png', username: 'eben', point: 13200, prize: 1500 },
-        { image: '/icons/dummy/profile-3.png', username: 'arya', point: 10000, prize: 1000 },
-        { image: '/icons/dummy/profile.png', username: 'amang', point: 900, prize: 900 },
-        { image: '/icons/dummy/profile.png', username: 'nofal', point: 200, prize: 200 },
-        { image: '/icons/dummy/profile-3.png', username: 'ricky', point: 500, prize: 550 },
-        { image: '/icons/dummy/profile.png', username: 'wisnu', point: 250, prize: 250 },
-        { image: '/icons/dummy/profile.png', username: 'ihsan', point: 300, prize: 300 },
-        { image: '/icons/dummy/profile-3.png', username: 'warteg', point: 800, prize: 800 },
-        { image: '/icons/dummy/profile.png', username: 'ihsan', point: 246, prize: 246 },
-        { image: '/icons/dummy/profile.png', username: 'yanto', point: 132, prize: 150 },
-        { image: '/icons/dummy/profile-3.png', username: 'beban', point: 10, prize: 10 }
-    ];
+    const [isLoading, isSetLoading] = React.useState<boolean>(false);
+    const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
+
     const fetchData = async (id: number) => {
+        isSetLoading(true);
         try {
             const res = await fetchAPI({
-                endpoint: `/tournamets/${id}`,
+                endpoint: `/tournaments/${id}`,
                 method: 'GET'
             });
-
             if (res.status === 200) {
                 setListingGame(res.data.data);
             }
+            isSetLoading(false);
         } catch (e) {
             notify('failed data', 'e');
+            isSetLoading(false);
+        }
+    };
+
+    const getGameDetail = async () => {
+        const response = await fetchAPI({
+            endpoint: `games/${router.query.id}`,
+            method: 'GET'
+        });
+        if (response.status === 200) {
+            setDetailGame(response.data.data);
+        } else {
+            notify('failed get detail game', 'error');
+        }
+    };
+
+    const getGameSession = async () => {
+        const response = await fetchAPI({
+            method: 'POST',
+            endpoint: `webhook/game-sessions`,
+            data: {
+                game_id: router.query.id
+            }
+        });
+        if (response.status === 200) {
+            setSessionGame(response.data.data);
+        } else {
+            notify('failed get session game', 'error');
         }
     };
 
     React.useEffect(() => {
-        fetchData(listingGame);
+        const getAllData = async () => {
+            isSetLoading(true);
+            await fetchData(Number(router.query['id-tournament']));
+            await getGameDetail();
+            await getGameSession();
+            isSetLoading(false);
+        };
+        getAllData();
     }, []);
 
-    // if (isLoading || !listingGame) {
-    //     return <Box>Loading</Box>;
-    // }
+    React.useEffect(() => {
+        if (userState && detailGame && sessionGame) {
+            const dataGames = {
+                imageGame: detailGame.banner_url,
+                titleGame: detailGame.name,
+                sessionGame: sessionGame.session_code,
+                gameUrl: detailGame.game_url,
+                descriptionGame: detailGame.description
+            };
+            const newState = { ...userState, ...dataGames };
+
+            if (
+                (!userState.imageGame || userState.imageGame !== detailGame.banner_url) &&
+                (!userState.sessionGame || userState.sessionGame !== sessionGame.session_code) &&
+                (!userState.gameUrl || userState.gameUrl !== detailGame.game_url) &&
+                (!userState.description || userState.description !== detailGame.description)
+            ) {
+                clearUser();
+                setUser(newState);
+            }
+        }
+    }, [userState, sessionGame, detailGame]);
+
+    const handlePlay = () => {
+        if (userState) {
+            if (userState?.coin < listingGame.entry_coin) {
+                return setOpenNotifDialog(!openNotifDialog);
+            }
+            return router.push(`/games/${router.query.id}/tournament/${router.query['id-tournament']}/loading`);
+        }
+        return setSignupLoginDialog(true);
+    };
+
     return (
         <Box width='100%'>
-            <Header isBack point={myCoins} profilePicture='/icons/dummy/profile-2.png' paddingX='20px' />
-            <HeaderTournament
-                backgroundImage='/images/dummy/game-hopup.svg'
-                titleGame='Hop Up'
-                tournamentType='Tournament 1'
-                time='6d 13h 23m'
-                totalPlayer={0}
-                playerImg1='/icons/dummy/main-ikan.png'
-                playerImg2='/icons/dummy/user-1.png'
-                playerImg3='/icons/dummy/user-2.png'
-            />
+            {isLoading ? (
+                <Box height='290px' mt='-88px'>
+                    <Skeleton sx={{ height: '400px' }} />
+                </Box>
+            ) : (
+                <>
+                    <Header isBack point={coin} profilePicture='/icons/dummy/profile-2.png' paddingX='20px' />
+                    <HeaderTournament
+                        backgroundImage={listingGame?.game.banner_url}
+                        titleGame={listingGame?.game.name}
+                        tournamentType={listingGame?.name}
+                        time={listingGame?.start_time}
+                        totalPlayer={listingGame?.total_users}
+                        playerImg1='/icons/dummy/main-ikan.png'
+                        playerImg2='/icons/dummy/user-1.png'
+                        playerImg3='/icons/dummy/user-2.png'
+                    />{' '}
+                </>
+            )}
             <Box component='main' padding='20px' color='#373737'>
-                {isLoading || !listingGame ? (
+                {isLoading ? (
                     <Box>
                         <Skeleton animation='wave' variant='rectangular' width='100%' />
                     </Box>
@@ -80,34 +153,32 @@ const GameTournament = () => {
                             <Typography component='h2' fontSize='24px' fontWeight={700}>
                                 Leaderboard
                             </Typography>
-                            <ArrowForwardIcon sx={{ color: '#373737' }} />
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+                                <img src='/icons/xs-troffy.png' alt='troffy' />
+                                <Typography sx={{ fontSize: '14px', fontWeight: 'bold' }}>250</Typography>
+                            </Box>
                         </Box>
-                        <LeaderboardPodium dataLeaderboard={listingGame.leaderboards} />
+                        {listingGame?.leaderboards && <LeaderboardPodium dataLeaderboard={listingGame?.leaderboards} />}
                     </Box>
                 )}
-                {isLoading || !listingGame ? (
+                {isLoading ? (
                     <Box>
-                        {[...Array(10)].map((index: any) => {
-                            return <Skeleton key={index} variant='rectangular' sx={{ my: 4, mx: 1 }} />;
+                        {[...Array(10)].map((index: any, item: any) => {
+                            return <Skeleton key={item} variant='rectangular' sx={{ my: 4, mx: 1 }} />;
                         })}
                     </Box>
                 ) : (
                     <Box component='section' marginBottom='40px'>
-                        <TableRank dataLeaderboard={listingGame.leaderboards} />
+                        {listingGame?.leaderboards && <TableRank dataLeaderboard={listingGame?.leaderboards} />}
                     </Box>
                 )}
             </Box>
             <Box sx={{ padding: '20px', position: 'sticky', bottom: '10px' }}>
-                <ButtonPlay
-                    onClick={() => {
-                        if (myCoins < coins) {
-                            return setOpenNotifDialog(!openNotifDialog);
-                        }
-                        return router.push(`/games/${router.query.id}/tournament/result`);
-                    }}
-                    title='Play Tournament'
-                    points={coins}
-                />
+                {isLoading ? (
+                    <Skeleton sx={{ height: '80px' }} />
+                ) : (
+                    <ButtonPlay onClick={handlePlay} title='Play Tournament' points={listingGame?.entry_coin} />
+                )}
             </Box>
             <NotifDialog
                 open={openNotifDialog}
@@ -115,6 +186,7 @@ const GameTournament = () => {
                 body='You don’t have Coins in your balance. 
 Top up Coins to continue'
             />
+            <SignupLoginDialog open={signupLoginDialog} setOpen={setSignupLoginDialog} />
         </Box>
     );
 };

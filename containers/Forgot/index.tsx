@@ -1,77 +1,228 @@
 import React from 'react';
 import { Grid, Typography, Box } from '@mui/material';
-import { ArrowCircleLeft } from '@mui/icons-material';
+// import { ArrowCircleLeft } from '@mui/icons-material';
+import useAPICaller from 'hooks/useAPICaller';
 import { useForm } from 'react-hook-form';
-import Layout from 'components/Layout/Index';
 import Input from 'components/Input';
+import HeaderBack from 'components/HeaderBack';
 import Button from 'components/Button/Index';
+import RewardDialog from 'components/Dialog/RewardDialog';
+import DialogOtp from './DialogOtp';
 
 const ForgotPasswordPage = () => {
+    const { fetchAPI: postForgot, isLoading: loadingForgot } = useAPICaller();
+    const { fetchAPI: postReset, isLoading: loadingReset } = useAPICaller();
+    const { fetchAPI: postOtp, isLoading: loadingOtp } = useAPICaller();
     const form = useForm({
         mode: 'all',
         defaultValues: {
             email: '',
-            code: ''
+            'New password': '',
+            'Confirm password': '',
+            otp: ''
         }
     });
-    return (
-        <Layout>
-            <Grid container direction='row' sx={{ padding: '20px' }} spacing={4}>
-                <Grid item xs={1}>
-                    <ArrowCircleLeft sx={{ width: '35px', height: '35px', color: '#A54CE5' }} />
-                </Grid>
-                <Grid item xs={12}>
-                    <Typography variant='h3' fontWeight='700'>
-                        Set your <br /> new password
-                    </Typography>
-                </Grid>
-                <Grid item xs={9}>
-                    <Typography fontSize='16px' fontWeight='400' color='#949494'>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.
-                    </Typography>
-                </Grid>
-                {/* <Grid item xs={12}></Grid>
-                <Grid item xs={12}></Grid> */}
-                <Grid item xs={12}>
-                    <form onSubmit={form.handleSubmit(() => {})}>
-                        <Input name='email' placeholder='Insert Your Email' form={form} validator={{ required: true }} type='email' />
-                        <Box sx={{ marginY: '20px' }}>
-                            <Input
-                                name='code'
-                                placeholder='Insert Code Verification'
-                                form={form}
-                                validator={{ required: true }}
-                                type='email'
-                                component={
-                                    <Box
-                                        sx={{
-                                            backgroundColor: '#A54CE5',
-                                            borderRadius: '20px',
-                                            width: '90px',
-                                            textAlign: 'center',
-                                            padding: '8px'
-                                        }}
-                                    >
-                                        <Typography sx={{ fontWeight: 'bold', fontSize: '13px', color: 'white' }}>Send Code</Typography>
-                                    </Box>
-                                }
-                            />
-                        </Box>
+    const [openDialog, setOpenDialog] = React.useState<boolean>(false);
+    const [isConfirmed, setIsConfirmed] = React.useState<boolean>(false);
+    const [dialogChanged, setDialogChanged] = React.useState<boolean>(false);
+    const [disabled, setDisabled] = React.useState<any>(true);
+    const [isSamePwd, setIsSamePwd] = React.useState<boolean>(true);
+    const [isMatch, setIsMatch] = React.useState<boolean>(false);
+    const [isError, setIsError] = React.useState<boolean>(false);
+    const [errMsg, setErrMsg] = React.useState<string>('');
+    const [disabledChange, setDisabledChange] = React.useState<any>(true);
+    const rules = { required: true };
 
-                        <Input
-                            name='password'
-                            placeholder='Insert Your Password'
-                            form={form}
-                            validator={{ required: true }}
-                            type='password'
+    const postForgotHandler = async () => {
+        const response = await postForgot({
+            method: 'POST',
+            endpoint: 'auths/forgotPassword',
+            data: {
+                email: form.watch('email')
+            }
+        });
+        if (response?.data.status === 200) {
+            setIsError(false);
+            setOpenDialog(!openDialog);
+        } else {
+            setIsError(true);
+            setErrMsg(response?.data.message);
+        }
+    };
+
+    const postResetHandler = async () => {
+        const response = await postReset({
+            method: 'POST',
+            endpoint: 'auths/forgotPassword/reset',
+            data: {
+                email: form.watch('email'),
+                forgot_password_token: form.watch('otp'),
+                password: form.watch('New password'),
+                password_confirmation: form.watch('Confirm password')
+            }
+        });
+        if (response?.data.status === 200) {
+            setDialogChanged(!dialogChanged);
+        }
+    };
+
+    const postCheckOtpHandler = async () => {
+        const response = await postOtp({
+            method: 'POST',
+            endpoint: 'auths/forgotPassword/check',
+            data: {
+                email: form.watch('email'),
+                forgot_password_token: form.watch('otp')
+            }
+        });
+        if (response?.data.status === 200) {
+            setIsMatch(false);
+            setIsConfirmed(!isConfirmed);
+            setOpenDialog(false);
+        } else {
+            setIsMatch(true);
+        }
+    };
+
+    React.useEffect(() => {
+        const value = form.watch();
+        if (value['New password'].length >= 6) {
+            if (value['New password'] === value['Confirm password']) {
+                setIsSamePwd(true);
+            } else {
+                setIsSamePwd(false);
+            }
+        }
+    }, [form.watch('New password'), form.watch('Confirm password')]);
+
+    React.useEffect(() => {
+        if (form.watch('email') === '') {
+            setDisabled(true);
+        } else {
+            setDisabled(false);
+        }
+    }, [form.watch('email'), disabled]);
+
+    React.useEffect(() => {
+        if (form.watch('Confirm password') === '' && form.watch('New password') === '') {
+            setDisabledChange(true);
+        } else {
+            setDisabledChange(false);
+        }
+    }, [form.watch('Confirm password'), form.watch('New password'), disabled]);
+
+    return (
+        <Box sx={{ width: '100%', height: '90vh' }}>
+            <Box
+                sx={{
+                    padding: '30px 20px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    height: '100%'
+                }}
+            >
+                <Box>
+                    <HeaderBack />
+                    <Box sx={{ mt: '20px' }}>
+                        <Grid container flexDirection='column'>
+                            <Grid item xs={9}>
+                                <Typography sx={{ fontSize: '33px', fontWeight: 'bold' }}>
+                                    Set your <br /> new password
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12} sx={{ mt: '10px' }}>
+                                <Typography sx={{ fontSize: '13px', color: '#949494' }}>
+                                    Please input your email to reset password !
+                                </Typography>
+                                <form onSubmit={form.handleSubmit(() => {})} style={{ marginTop: '20px' }}>
+                                    {isConfirmed ? (
+                                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                                            <Input
+                                                isOTP={false}
+                                                validator={{ minLength: 6, required: true }}
+                                                type='password'
+                                                name='New password'
+                                                form={form}
+                                                placeholder='Insert your New Password'
+                                            />
+                                            <Input
+                                                isOTP={false}
+                                                validator={{ minLength: 6, required: true }}
+                                                type='password'
+                                                name='Confirm password'
+                                                form={form}
+                                                placeholder='Insert your Confirm Password'
+                                            />
+                                            {!isSamePwd && (
+                                                <Box ml='1em'>
+                                                    <Typography
+                                                        component='span'
+                                                        sx={{ color: '#CD1719', fontSize: '14px', fontWeight: 'bold' }}
+                                                    >
+                                                        Password and Confirm Password does not match
+                                                    </Typography>
+                                                </Box>
+                                            )}
+                                        </Box>
+                                    ) : (
+                                        <>
+                                            <Input
+                                                isOTP={false}
+                                                validator={rules}
+                                                type='email'
+                                                name='email'
+                                                form={form}
+                                                placeholder='Insert your email'
+                                            />
+                                            {isError && (
+                                                <Typography
+                                                    sx={{ color: 'red', fontWeight: 'bold', fontSize: '14px', mt: '10px', ml: '10px' }}
+                                                >
+                                                    {`${errMsg}!`}
+                                                </Typography>
+                                            )}
+                                        </>
+                                    )}
+                                </form>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Box>
+                <Box sx={{ position: 'sticky', zIndex: 999, bottom: '20px' }}>
+                    {isConfirmed ? (
+                        <Button
+                            loading={loadingReset}
+                            onClick={postResetHandler}
+                            type='submit'
+                            title='Confirm'
+                            backgoundColor='#A54CE5'
+                            color='white'
+                            disabled={disabledChange}
                         />
-                        <Box sx={{ marginTop: '305px' }}>
-                            <Button type='submit' title='Confirmation' backgoundColor='#A54CE5' color='#FFF' onClick={() => {}} />
-                        </Box>
-                    </form>
-                </Grid>
-            </Grid>
-        </Layout>
+                    ) : (
+                        <Button
+                            loading={loadingForgot}
+                            onClick={postForgotHandler}
+                            type='submit'
+                            title='Send Verification Code'
+                            backgoundColor='#A54CE5'
+                            color='white'
+                            disabled={disabled}
+                        />
+                    )}
+                </Box>
+            </Box>
+            <DialogOtp
+                isLoading={loadingOtp}
+                form={form}
+                isMatch={isMatch}
+                onClick={postCheckOtpHandler}
+                open={openDialog}
+                setOpenDialog={setOpenDialog}
+            />
+            <RewardDialog path='/login' open={dialogChanged} setOpenDialog={setDialogChanged} body='Your password changed successfully !' />
+        </Box>
     );
 };
 

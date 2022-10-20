@@ -1,23 +1,34 @@
 /* eslint-disable no-unused-vars */
 import { Box, ButtonBase, Grid, Typography } from '@mui/material';
 import React from 'react';
+import numberFormat from 'helper/numberFormat';
 import Header from 'components/Header';
 import { HelpOutline, EmojiEvents, Share } from '@mui/icons-material';
 import Button from 'components/Button/Index';
+import { useSelector } from 'react-redux';
 import TournamentCard from 'components/TournamentCard';
 import TournamentSlider from 'components/TournamentSlider/TournamentSliderGD';
 import { useRouter } from 'next/router';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
+import NotifDialog from 'components/Dialog/notifDialog';
+import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
+import useAuthReducer from 'hooks/useAuthReducer';
 import GameDetailSkeleton from './GameDetailSkeleton';
 
 const GameDetailContainer = () => {
     const isBack = true;
     const router = useRouter();
-    const { fetchAPI } = useAPICaller();
+    const { fetchAPI, isLoading } = useAPICaller();
     const notify = useNotify();
-    const [listingGame, setListingGame] = React.useState<any>(null);
-    const [isLoading, setIsLoading] = React.useState<boolean>(true);
+    const [detailGame, setDetailGame] = React.useState<any>(null);
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
+    // const [isLoading, setIsLoading] = React.useState<boolean>(true);
+    const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
+    const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
+    const [sessionGame, setSessionGame] = React.useState<any>(null);
+
+    const { setUser, clearUser } = useAuthReducer();
 
     const fetchData = async (id: number) => {
         try {
@@ -25,27 +36,94 @@ const GameDetailContainer = () => {
                 endpoint: `/games/${id}`,
                 method: 'GET'
             });
-            console.log('res game detail', res);
-            if (res.data?.data?.data) {
-                setListingGame(res.data.data);
+            if (res.data?.data) {
+                setDetailGame(res.data.data);
+                // sessionStorage.setItem('prizeplayGameData', )
             }
         } catch (e) {
             notify('failed data', 'e');
         }
     };
 
-    React.useEffect(() => {
-        fetchData(listingGame);
-    }, []);
-    const handleClick = async () => {
-        router.push(`/games/${router.query.id}/tournament`);
+    const getGameSession = async () => {
+        const response = await fetchAPI({
+            method: 'POST',
+            endpoint: `webhook/game-sessions`,
+            data: {
+                game_id: router.query.id
+            }
+        });
+        try {
+            if (response.status === 200) {
+                setSessionGame(response.data.data);
+            } else {
+                notify('failed error', 'error');
+            }
+        } catch (e: any) {
+            notify(e.message, 'error');
+        }
     };
 
+    //   const getGameSession = async () => {
+    //     const response = await fetchAPI({
+    //         method: 'POST',
+    //         endpoint: `webhook/game-sessions`,
+    //         data: {
+    //             game_id: router.query.id
+    //         }
+    //     });
+    //     try {
+    //         if (response.status === 200) {
+    //             setSessionGame(response.data.data);
+    //         } else {
+    //             notify('failed error', 'error');
+    //         }
+    //     } catch (e: any) {
+    //         notify(e.message, 'error');
+    //     }
+    // };
+
     React.useEffect(() => {
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
+        const fetchAllData = async () => {
+            await fetchData(Number(router.query.id));
+            await getGameSession();
+        };
+        fetchAllData();
     }, []);
+
+    React.useEffect(() => {
+        if (userState && detailGame && sessionGame) {
+            const dataGames = {
+                imageGame: detailGame.banner_url,
+                titleGame: detailGame.name,
+                sessionGame: sessionGame.session_code,
+                gameUrl: detailGame.game_url,
+                descriptionGame: detailGame.description
+            };
+            const newState = { ...userState, ...dataGames };
+
+            if (
+                (!userState.imageGame || userState.imageGame !== detailGame.banner_url) &&
+                (!userState.sessionGame || userState.sessionGame !== sessionGame.session_code) &&
+                (!userState.gameUrl || userState.gameUrl !== detailGame.game_url) &&
+                (!userState.description || userState.description !== detailGame.description)
+            ) {
+                clearUser();
+                setUser(newState);
+            }
+        }
+    }, [userState, sessionGame, detailGame]);
+
+    const handleClick = async (idTournament: any) => {
+        router.push(`/games/${router.query.id}/tournament/${idTournament}`);
+    };
+
+    const handlePlay = () => {
+        if (userState) {
+            return router.push(`/games/${router.query.id}/casual/`);
+        }
+        return setSignupLoginDialog(true);
+    };
 
     if (isLoading) {
         return <GameDetailSkeleton />;
@@ -67,7 +145,7 @@ const GameDetailContainer = () => {
             </Box>
             <Box
                 sx={{
-                    backgroundImage: `url(${'/images/bg-gamedetail.png'})`,
+                    backgroundImage: `url(${detailGame?.banner_url})`,
                     height: '50vh',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
@@ -93,11 +171,19 @@ const GameDetailContainer = () => {
                 <Grid container padding='0px 20px' />
                 <Grid container padding='10px 20px' justifyContent='center' gap={2} position='relative' zIndex={2}>
                     <Grid item xs={5}>
-                        <Box>
-                            <img src='/images/game-img.png' alt='game-img' style={{ borderRadius: '10px', width: '100%' }} />
-                        </Box>
+                        <Box
+                            sx={{
+                                width: '142px',
+                                height: '142px',
+                                overflow: 'hidden',
+                                backgroundImage: `url(${detailGame?.banner_url})`,
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
+                                borderRadius: '8px'
+                            }}
+                        />
                     </Grid>
-                    <Grid item xs={6} padding='10px'>
+                    <Grid item xs={6}>
                         <Box
                             sx={{
                                 display: 'flex',
@@ -112,10 +198,16 @@ const GameDetailContainer = () => {
                                 <Typography
                                     sx={{ fontWeight: 'bold', color: 'white', fontSize: { xs: '23px', sm: '27px' }, lineHeight: '30px' }}
                                 >
-                                    Menara Dingdong
+                                    {detailGame?.name}
                                 </Typography>
                             </Box>
-                            <Grid container justifyContent='space-between' sx={{ marginTop: { xs: '5%', sm: '10%' } }}>
+                            <Grid
+                                container
+                                justifyContent='space-between'
+                                sx={{ marginTop: { xs: '5%', sm: '10%' } }}
+                                gap='10px'
+                                width='100%'
+                            >
                                 <Grid item xs={6}>
                                     <ButtonBase
                                         sx={{
@@ -132,12 +224,16 @@ const GameDetailContainer = () => {
                                         <HelpOutline sx={{ width: '14px', fontWeight: 'bold' }} />
                                     </ButtonBase>
                                 </Grid>
-                                <Grid container xs={5} alignItems='center' gap='10px'>
-                                    <Grid item xs={6}>
-                                        <img src='/images/users-img.png' alt='user-img' />
-                                    </Grid>
-                                    <Grid item xs={4}>
-                                        <Typography sx={{ fontSize: '11px', color: 'white' }}>45.652</Typography>
+                                <Grid item xs={5}>
+                                    <Grid container alignItems='center' justifyContent='space-between'>
+                                        <Grid item xs={6}>
+                                            <img src='/images/users-img.png' alt='user-img' />
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <Typography sx={{ fontSize: '11px', color: 'white' }}>
+                                                {numberFormat(detailGame?.user_sessions)}
+                                            </Typography>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -155,36 +251,36 @@ const GameDetailContainer = () => {
                     }}
                 />
             </Box>
-            <Box>
-                <Grid container padding='10px 20px' gap='10px' my={3} overflow='hidden'>
-                    <Grid item xs={6}>
-                        <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
-                            Tournaments
-                        </Typography>
+            <Box mt={3}>
+                {detailGame?.tournaments.length > 0 && (
+                    <Grid container padding='10px 20px' gap='10px' my={3} overflow='hidden'>
+                        <Grid item xs={6}>
+                            <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
+                                Tournaments
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography sx={{ fontSize: '12px', fontWeight: '600' }}>
+                                Join tournaments and get points for reedem prize
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TournamentSlider>
+                                {detailGame?.tournaments.map((item: any, idx: number) => (
+                                    <TournamentCard
+                                        key={item.id}
+                                        time={item.end_time}
+                                        pool={item.total_price}
+                                        users={item.total_users}
+                                        onClick={() => handleClick(item.id)}
+                                        imageGame={item.banner_url}
+                                        coin={item.entry_coin}
+                                    />
+                                ))}
+                            </TournamentSlider>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12}>
-                        <Typography sx={{ fontSize: '12px', fontWeight: '600' }}>
-                            Join tournaments and get points for reedem prize
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TournamentSlider>
-                            {[...Array(6)].map((item, idx) => (
-                                <TournamentCard
-                                    key={idx}
-                                    time='6d 13h 23m'
-                                    pool='3500'
-                                    champion='250'
-                                    coin='100'
-                                    stars='5.25'
-                                    users='376'
-                                    position='35'
-                                    onClick={handleClick}
-                                />
-                            ))}
-                        </TournamentSlider>
-                    </Grid>
-                </Grid>
+                )}
                 <Grid container padding='0px 20px' direction='column'>
                     <Grid item xs={6}>
                         <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
@@ -200,7 +296,7 @@ const GameDetailContainer = () => {
                         <Box
                             sx={{
                                 borderRadius: '20px',
-                                backgroundImage: `url(${'/images/bg-casual.png'})`,
+                                backgroundImage: `url(${detailGame?.banner_url})`,
                                 height: '260px',
                                 display: 'flex',
                                 flexDirection: 'column-reverse',
@@ -209,18 +305,34 @@ const GameDetailContainer = () => {
                                 zIndex: 0
                             }}
                         >
-                            <Box position='relative' zIndex={2} margin='20px'>
-                                <Typography sx={{ color: 'white', fontWeight: 'bold', fontSize: '32px' }}>Free</Typography>
-                                <Button
-                                    onClick={() => {
-                                        router.push('/casual');
-                                    }}
-                                    height='40px'
-                                    title='Play Casual'
-                                    backgoundColor='#A54CE5'
-                                    color='white'
-                                />
-                            </Box>
+                            <Grid container sx={{ padding: '15px' }} spacing={1} alignItems='center'>
+                                <Grid item xs={3}>
+                                    <Box sx={{ height: '100%' }}>
+                                        <img src='/images/hopup.png' alt='banner' style={{ width: '100%' }} />
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={9}>
+                                    <Box position='relative' zIndex={2}>
+                                        <Typography sx={{ color: 'white', fontWeight: 'bold', fontSize: '32px', lineHeight: 1 }}>
+                                            Free
+                                        </Typography>
+                                        <ButtonBase
+                                            onClick={handlePlay}
+                                            sx={{
+                                                backgroundColor: '#A54CE5',
+                                                borderRadius: '15px',
+                                                width: '100%',
+                                                height: '40px'
+                                            }}
+                                        >
+                                            <Typography sx={{ color: 'white', fontWeight: 'bold', gontSize: '14px' }}>
+                                                Play Casual
+                                            </Typography>
+                                        </ButtonBase>
+                                        {/* <Button onClick={handlePlay} height='40px' title='Play Casual' backgoundColor='#A54CE5' color='white' /> */}
+                                    </Box>
+                                </Grid>
+                            </Grid>
                             <Box
                                 sx={{
                                     backgroundImage: 'linear-gradient(transparent, black)',
@@ -245,21 +357,31 @@ const GameDetailContainer = () => {
                         mt='18px'
                         container
                         justifyContent='space-between'
-                        xs={12}
                         gap='10px'
                         sx={{ backgroundColor: '#F4F1FF', padding: '18px 25px', borderRadius: '15px' }}
                     >
-                        <Grid container xs={5} justifyContent='space-between'>
-                            <img src='/icons/tape-stats.png' alt='ribbon' />
-                            <Typography sx={{ fontSize: '14px', fontWeight: '700' }}>High scores</Typography>
+                        <Grid item xs={5} justifyContent='space-between'>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <img src='/icons/tape-stats.png' alt='ribbon' />
+                                <Typography sx={{ fontSize: '14px', fontWeight: '700' }}>High scores</Typography>
+                            </Box>
                         </Grid>
-                        <Grid container xs={5} justifyContent='space-between'>
-                            <EmojiEvents />
-                            <Typography sx={{ fontWeight: '700' }}>211.876</Typography>
-                            <Share />
+                        <Grid item xs={4}>
+                            <Box justifyContent='space-between' sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                <EmojiEvents />
+                                <Typography sx={{ fontWeight: '700' }}>{numberFormat(detailGame?.auths.highscore)}</Typography>
+                                <Share />
+                            </Box>
                         </Grid>
                     </Grid>
                 </Grid>
+                <NotifDialog
+                    open={openNotifDialog}
+                    setOpenDialog={setOpenNotifDialog}
+                    body='You don’t have Coins in your balance. 
+Top up Coins to continue'
+                />
+                <SignupLoginDialog open={signupLoginDialog} setOpen={setSignupLoginDialog} />
             </Box>
         </Box>
     );

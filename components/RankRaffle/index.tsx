@@ -4,7 +4,7 @@ import React from 'react';
 
 interface IRankRaffle {
     key?: any;
-    round: number;
+    round: any;
     image: string;
     username: string;
     tickets: number;

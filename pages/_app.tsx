@@ -9,8 +9,11 @@ import { SnackbarProvider } from 'notistack';
 import Router from 'next/router';
 import useAuthReducer from 'hooks/useAuthReducer';
 import React from 'react';
+import { SessionProvider } from 'next-auth/react';
+import initMyFirebase from '../firebase/firebaseInit';
 
 function MyApp({ Component, pageProps }: AppProps) {
+    initMyFirebase();
     const { user } = useAuthReducer();
 
     React.useEffect(() => {
@@ -30,28 +33,34 @@ function MyApp({ Component, pageProps }: AppProps) {
             };
             localStorage.setItem('tutorial', JSON.stringify(dataLocal));
         }
+        if (!localStorage.getItem('prizePlaySound')) {
+            localStorage.setItem('prizePlaySound', 'true');
+        }
     }, []);
 
     return (
-        <SnackbarProvider
-            maxSnack={3}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'center'
-            }}
-            TransitionComponent={Slide}
-        >
-            <ThemeProvider theme={theme}>
-                <GlobalStyles
-                    styles={{
-                        // body: { margin: '0 auto', display: 'flex', justifyContent: 'center' }
-                        body: { margin: '0 auto' }
-                    }}
-                />
-                {/* <Component {...pageProps} /> */}
-                <Component userData={user} {...pageProps} />
-            </ThemeProvider>
-        </SnackbarProvider>
+        <SessionProvider session={pageProps.session}>
+            <SnackbarProvider
+                maxSnack={3}
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center'
+                }}
+                TransitionComponent={Slide}
+            >
+                <ThemeProvider theme={theme}>
+                    <GlobalStyles
+                        styles={{
+                            // body: { margin: '0 auto', display: 'flex', justifyContent: 'center' }
+                            body: { margin: '0 auto' }
+                        }}
+                    />
+                    {/* <Component {...pageProps} /> */}
+
+                    <Component userData={user} {...pageProps} />
+                </ThemeProvider>
+            </SnackbarProvider>
+        </SessionProvider>
     );
 }
 
@@ -80,10 +89,10 @@ MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ ctx, Comp
     // if login page && userData
     if (ctx.pathname === '/login' && userData) {
         if (ctx.res) {
-            ctx.res.writeHead(302, { Location: '/home' });
+            ctx.res.writeHead(302, { Location: '/' });
             ctx.res.end();
         } else {
-            Router.push('/home');
+            Router.push('/');
         }
     }
 

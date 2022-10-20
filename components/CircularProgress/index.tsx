@@ -79,11 +79,17 @@ export default function CustomizedProgressBars() {
     React.useEffect(() => {
         if (progress === 0) {
             setTimeout(() => {
-                router.push('/casual/game');
+                if (router.asPath.includes('tournament')) {
+                    router.push(`/games/${router.query.id}/tournament/${router.query['id-tournament']}/game`);
+                }
+                if (router.asPath.includes('casual')) {
+                    router.push(`/games/${router.query.id}/casual/game`);
+                }
+                // router.push('/casual/game');
+                // router.push(`/games/${router.query.id}/casual/game`);
             }, 500);
         }
     }, [progress]);
-
     return (
         <Box sx={{ flexGrow: 1 }}>
             <LoadingProgress value={progress} />

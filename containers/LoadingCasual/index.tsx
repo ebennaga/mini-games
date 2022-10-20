@@ -1,17 +1,28 @@
 import { Typography, Box } from '@mui/material';
 import CircularStatic from 'components/CircularProgress';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 const LoadingCasual = () => {
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
+
     return (
         <Box sx={{ textAlign: 'center', padding: '0px 30px 40px' }}>
-            <Typography sx={{ fontWeight: 700, fontSize: '24px' }}>Block Stack</Typography>
-            <Box sx={{ textAlign: 'center', my: '32px' }}>
-                <img src='/images/loading-img-casual.png' alt='loading-casual' />
-            </Box>
-            <Typography sx={{ fontWeight: 400, fontSize: '14px', color: '#949494', mb: '100px' }}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-            </Typography>
+            <Typography sx={{ fontWeight: 700, fontSize: '24px' }}>{userState?.titleGame}</Typography>
+            <Box
+                sx={{
+                    textAlign: 'center',
+                    mx: 'auto',
+                    my: '32px',
+                    background: `url(${userState?.imageGame})`,
+                    backgroundPosition: 'center',
+                    backgroundSize: 'cover',
+                    width: '105px',
+                    height: '105px',
+                    borderRadius: '8px'
+                }}
+            />
+            <Typography sx={{ fontWeight: 400, fontSize: '14px', color: '#949494', mb: '100px' }}>{userState?.descriptionGame}</Typography>
             <Typography sx={{ fontWeight: 700, fontSize: '16px' }}>
                 The Game <br /> Starts in
             </Typography>
