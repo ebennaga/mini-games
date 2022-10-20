@@ -9,6 +9,7 @@ import Header from 'components/Header';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
+import useAuthReducer from 'hooks/useAuthReducer';
 import HeaderTournament from './HeaderTournament';
 import ButtonPlay from './ButtonPlay';
 import LeaderboardPodium from './LeaderboardPodium';
@@ -23,10 +24,13 @@ const GameTournament = () => {
     const notify = useNotify();
     const { fetchAPI } = useAPICaller();
 
+    const { setUser, clearUser } = useAuthReducer();
+
     const [listingGame, setListingGame] = React.useState<any>(null);
+    const [detailGame, setDetailGame] = React.useState<any>(null);
+    const [sessionGame, setSessionGame] = React.useState<any>(null);
     const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
     const [isLoading, isSetLoading] = React.useState<boolean>(false);
-
     const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
 
     const fetchData = async (id: number) => {
@@ -46,9 +50,66 @@ const GameTournament = () => {
         }
     };
 
+    const getGameDetail = async () => {
+        const response = await fetchAPI({
+            endpoint: `games/${router.query.id}`,
+            method: 'GET'
+        });
+        if (response.status === 200) {
+            setDetailGame(response.data.data);
+        } else {
+            notify('failed get detail game', 'error');
+        }
+    };
+
+    const getGameSession = async () => {
+        const response = await fetchAPI({
+            method: 'POST',
+            endpoint: `webhook/game-sessions`,
+            data: {
+                game_id: router.query.id
+            }
+        });
+        if (response.status === 200) {
+            setSessionGame(response.data.data);
+        } else {
+            notify('failed get session game', 'error');
+        }
+    };
+
     React.useEffect(() => {
-        fetchData(Number(router.query.id));
+        const getAllData = async () => {
+            isSetLoading(true);
+            await fetchData(Number(router.query.id));
+            await getGameDetail();
+            await getGameSession();
+            isSetLoading(false);
+        };
+        getAllData();
     }, []);
+
+    React.useEffect(() => {
+        if (userState && detailGame && sessionGame) {
+            const dataGames = {
+                imageGame: detailGame.banner_url,
+                titleGame: detailGame.name,
+                sessionGame: sessionGame.session_code,
+                gameUrl: detailGame.game_url,
+                descriptionGame: detailGame.description
+            };
+            const newState = { ...userState, ...dataGames };
+
+            if (
+                (!userState.imageGame || userState.imageGame !== detailGame.banner_url) &&
+                (!userState.sessionGame || userState.sessionGame !== sessionGame.session_code) &&
+                (!userState.gameUrl || userState.gameUrl !== detailGame.game_url) &&
+                (!userState.description || userState.description !== detailGame.description)
+            ) {
+                clearUser();
+                setUser(newState);
+            }
+        }
+    }, [userState, sessionGame, detailGame]);
 
     const handlePlay = () => {
         if (userState) {
