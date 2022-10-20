@@ -12,9 +12,13 @@ import useAuthReducer from 'hooks/useAuthReducer';
 import useNotify from 'hooks/useNotify';
 import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 const Login = () => {
     const router = useRouter();
+
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
     const form = useForm({
         mode: 'all',
         defaultValues: {
@@ -51,6 +55,31 @@ const Login = () => {
         } else {
             notify('Login Failed', 'error');
         }
+    };
+    const handleLoginGoogle = () => {
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential: any = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                // The signed-in user info.
+                const { user } = result;
+
+                console.log('user', user.uid);
+                console.log('token', token);
+                // ...
+            })
+            .catch((error) => {
+                // Handle Errors here.
+                // const errorCode = error.code;
+                // const errorMessage = error.message;
+                // The email of the user's account used.
+                // const { email } = error.customData;
+                // The AuthCredential type that was used.
+                // const credential = GoogleAuthProvider.credentialFromError(error);
+                // ...
+                console.log('error', 'error');
+            });
     };
 
     return (
@@ -107,6 +136,7 @@ const Login = () => {
                         <Box sx={{ mb: 2 }}>
                             <Button
                                 // onClick={() => signIn('google')}
+                                onClick={handleLoginGoogle}
                                 icon={<Google sx={{ color: '#A54CE5', position: 'absolute', left: '20px', bottom: '20px' }} />}
                                 title='Log in with Google '
                                 backgoundColor='#FFF'
