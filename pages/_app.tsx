@@ -10,8 +10,10 @@ import Router from 'next/router';
 import useAuthReducer from 'hooks/useAuthReducer';
 import React from 'react';
 import { SessionProvider } from 'next-auth/react';
+import initMyFirebase from '../firebase/firebaseInit';
 
 function MyApp({ Component, pageProps }: AppProps) {
+    initMyFirebase();
     const { user } = useAuthReducer();
 
     React.useEffect(() => {
