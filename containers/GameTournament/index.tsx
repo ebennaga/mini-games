@@ -80,7 +80,7 @@ const GameTournament = () => {
     React.useEffect(() => {
         const getAllData = async () => {
             isSetLoading(true);
-            await fetchData(Number(router.query.id));
+            await fetchData(Number(router.query['id-tournament']));
             await getGameDetail();
             await getGameSession();
             isSetLoading(false);

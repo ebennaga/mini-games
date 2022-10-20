@@ -85,7 +85,10 @@ const GameResultTournament = () => {
                         />
                     );
                 })}
-                <Box component='p' sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '72px' }}>
+                <Box
+                    component='div'
+                    sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '72px', marginBottom: '30px' }}
+                >
                     <Typography component='p' fontSize='14px' fontWeight={600}>
                         Use your
                     </Typography>
@@ -97,7 +100,9 @@ const GameResultTournament = () => {
                         for Playing Again
                     </Typography>
                 </Box>
-                <ButtonBase sx={{ background: '#A54CE5', width: '100%', padding: '23px 0', borderRadius: '15px', color: '#fff' }}>
+                <ButtonBase
+                    sx={{ background: '#A54CE5', width: '100%', padding: '23px 0', borderRadius: '15px', color: '#fff', mb: '30px' }}
+                >
                     <Typography component='span' fontSize='14px' fontWeight={700}>
                         Play Again
                     </Typography>
