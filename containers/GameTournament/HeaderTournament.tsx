@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Box, Typography } from '@mui/material';
 import BadgeImages from 'components/BadgeImages';
+import getRemainingTimes from 'helper/getRemainingTime';
 // import Header from 'components/Header';
 import React from 'react';
 
@@ -65,11 +66,11 @@ const HeaderTournament = (props: HeaderTournamentProps) => {
                         >
                             <img src='/icons/time.png' width='17px' height='17px' alt='time' />
                             <Typography component='span' height='18px' fontSize='14px' fontWeight={800} marginLeft='8px'>
-                                {time}
+                                {getRemainingTimes(time)}
                             </Typography>
                         </Box>
                     </Box>
-                    <BadgeImages images1={playerImg1} images2={playerImg2} images3={playerImg3} total={201} />
+                    <BadgeImages images1={playerImg1} images2={playerImg2} images3={playerImg3} total={totalPlayer} />
                 </Box>
             </Box>
         </Box>
