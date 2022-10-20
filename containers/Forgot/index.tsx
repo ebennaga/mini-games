@@ -10,7 +10,9 @@ import RewardDialog from 'components/Dialog/RewardDialog';
 import DialogOtp from './DialogOtp';
 
 const ForgotPasswordPage = () => {
-    const { fetchAPI, isLoading } = useAPICaller();
+    const { fetchAPI: postForgot, isLoading: loadingForgot } = useAPICaller();
+    const { fetchAPI: postReset, isLoading: loadingReset } = useAPICaller();
+    const { fetchAPI: postOtp, isLoading: loadingOtp } = useAPICaller();
     const form = useForm({
         mode: 'all',
         defaultValues: {
@@ -30,7 +32,7 @@ const ForgotPasswordPage = () => {
     const rules = { required: true };
 
     const postForgotHandler = async () => {
-        const response = await fetchAPI({
+        const response = await postForgot({
             method: 'POST',
             endpoint: 'auths/forgotPassword',
             data: {
@@ -43,7 +45,7 @@ const ForgotPasswordPage = () => {
     };
 
     const postResetHandler = async () => {
-        const response = await fetchAPI({
+        const response = await postReset({
             method: 'POST',
             endpoint: 'auths/forgotPassword/reset',
             data: {
@@ -59,7 +61,7 @@ const ForgotPasswordPage = () => {
     };
 
     const postCheckOtpHandler = async () => {
-        const response = await fetchAPI({
+        const response = await postOtp({
             method: 'POST',
             endpoint: 'auths/forgotPassword/check',
             data: {
@@ -175,7 +177,7 @@ const ForgotPasswordPage = () => {
                 <Box sx={{ position: 'sticky', zIndex: 999, bottom: '20px' }}>
                     {isConfirmed ? (
                         <Button
-                            loading={isLoading}
+                            loading={loadingReset}
                             onClick={postResetHandler}
                             type='submit'
                             title='Confirm'
@@ -185,7 +187,7 @@ const ForgotPasswordPage = () => {
                         />
                     ) : (
                         <Button
-                            loading={isLoading}
+                            loading={loadingForgot}
                             onClick={postForgotHandler}
                             type='submit'
                             title='Send Verification Code'
@@ -197,7 +199,7 @@ const ForgotPasswordPage = () => {
                 </Box>
             </Box>
             <DialogOtp
-                isLoading={isLoading}
+                isLoading={loadingOtp}
                 form={form}
                 isMatch={isMatch}
                 onClick={postCheckOtpHandler}

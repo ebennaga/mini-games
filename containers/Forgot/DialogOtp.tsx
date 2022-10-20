@@ -46,6 +46,7 @@ const DialogOtp: React.FC<DialogOtpProps> = ({ form, open, setOpenDialog, onClic
                     <Input isMatch={isMatch} isOTP name='otp' type='text' form={form} placeholder='Insert Your OTP Number' />
                     <Box sx={{ mt: '10px' }}>
                         <Button
+                            isWhite
                             loading={isLoading}
                             onClick={onClick}
                             border='1px solid #A54CE5'
