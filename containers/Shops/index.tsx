@@ -151,7 +151,7 @@ const ShopsContainer = () => {
                     <ImageList variant='masonry' cols={2} gap={10} sx={{ '& .MuiImageListItem-root': { overflow: 'auto' } }}>
                         {isComingSoon
                             ? dataComingSoon.map((item: any, index: number) => {
-                                  return index < 4 && <ImageListItemComingSoon image={item.image_url} name={item.name} />;
+                                  return index < 4 && <ImageListItemComingSoon key={index} image={item.image_url} name={item.name} />;
                               })
                             : dataRedemptions?.catalogues.map((item: any, idx: number) => (
                                   <ImageListItem sx={{ cursor: 'pointer' }} key={idx}>
@@ -271,7 +271,7 @@ const ShopsContainer = () => {
                     >
                         <Grid item xs={5} height='100%' position='relative'>
                             <Box sx={{ position: 'absolute', zIndex: 2, bottom: '-33px' }}>
-                                <img src='/images/maskot-shops-2.png' alt='maskot' style={{ width: '155px' }} />
+                                <img src='/images/maskot-shops-2.png' alt='maskot' style={{ width: '145px' }} />
                             </Box>
                         </Grid>
                         <Grid item xs={7} sx={{ color: 'white' }}>
