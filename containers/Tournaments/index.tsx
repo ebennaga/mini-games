@@ -70,6 +70,7 @@ const Tournaments = () => {
                                 users='376'
                                 key={index}
                                 imageGame='/icons/dummy/menara.png'
+                                backgroundImage='/icons/dummy/menara.png'
                             />
                         );
                     })}
@@ -90,6 +91,7 @@ const Tournaments = () => {
                                     users='376'
                                     key={index}
                                     imageGame='/icons/dummy/menara.png'
+                                    backgroundImage='/icons/dummy/menara.png'
                                 />
                             );
                         })}
@@ -111,6 +113,7 @@ const Tournaments = () => {
                                     users='376'
                                     key={index}
                                     imageGame='/icons/dummy/menara.png'
+                                    backgroundImage='/icons/dummy/menara.png'
                                 />
                             );
                         })}
