@@ -1,4 +1,4 @@
-import { Dialog, Typography, ButtonBase } from '@mui/material';
+import { Dialog, Typography, ButtonBase, Box } from '@mui/material';
 import React from 'react';
 
 interface ReadyDialogProps {
@@ -27,11 +27,13 @@ const ReadyDialog: React.FC<ReadyDialogProps> = ({ open, onClose }) => {
                 }
             }}
         >
-            <Typography component='h2' fontSize='24px' marginBottom='25px' fontWeight={700}>
+            <Typography component='h2' fontSize='24px' marginBottom='15px' fontWeight={700}>
                 You Are Ready!
             </Typography>
-            <img src='/icons/ready.svg' width='270px' height='223px' alt='Welcome Prize Play' />
-            <Typography
+            <Box sx={{ mb: '20px' }}>
+                <img src='/icons/ready.svg' width='270px' height='223px' alt='Welcome Prize Play' />
+            </Box>
+            {/* <Typography
                 component='p'
                 fontSize='14px'
                 fontWeight={400}
@@ -42,7 +44,7 @@ const ReadyDialog: React.FC<ReadyDialogProps> = ({ open, onClose }) => {
                 sx={{ color: '#373737' }}
             >
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
-            </Typography>
+            </Typography> */}
             <ButtonBase onClick={onClose} sx={{ background: '#A54CE5', borderRadius: '15px', padding: '23px', width: '100%' }}>
                 <Typography component='span' fontSize='14px' fontWeight={700} sx={{ color: '#fff' }}>
                     Enter the PrizePlay
