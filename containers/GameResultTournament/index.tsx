@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import useAPICaller from 'hooks/useAPICaller';
+import useAuthReducer from 'hooks/useAuthReducer';
 import useNotify from 'hooks/useNotify';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import numberFormat from 'helper/numberFormat';
@@ -11,7 +12,9 @@ import RankCard from 'components/RankCard';
 const GameResultTournament = () => {
     const userState = useSelector((state: any) => state?.webpage?.user?.user);
     const router = useRouter();
+    const { setUser } = useAuthReducer();
     const [authsData, setAuthsData] = React.useState<any>(null);
+    const [sessionGame, setSessionGame] = React.useState<any>(null);
     const { fetchAPI } = useAPICaller();
     const notify = useNotify();
     // const dataLeaderboard = [
@@ -34,10 +37,31 @@ const GameResultTournament = () => {
         }
     };
 
+    const getGameSession = async () => {
+        if (userState) {
+            const response = await fetchAPI({
+                method: 'POST',
+                endpoint: `webhook/game-sessions`,
+                data: {
+                    game_id: router.query.id
+                }
+            });
+            // console.log(response.data.data);
+            if (response?.status === 200) {
+                setSessionGame(response.data.data.session_code);
+                if (userState && sessionGame) {
+                    const newState = { ...userState, sessionGame };
+                    setUser(newState);
+                }
+            } else {
+                notify('failed get session game', 'error');
+            }
+        }
+    };
+
     React.useEffect(() => {
         getTournamentAuth();
     }, []);
-
     // const username = 'rinto';
     // console.log(authsData);
     return (
@@ -119,7 +143,7 @@ const GameResultTournament = () => {
                     </Typography>
                 </Box>
                 <ButtonBase
-                    onClick={() => {}}
+                    onClick={getGameSession}
                     sx={{ background: '#A54CE5', width: '100%', padding: '23px 0', borderRadius: '15px', color: '#fff', mb: '30px' }}
                 >
                     <Typography component='span' fontSize='14px' fontWeight={700}>
