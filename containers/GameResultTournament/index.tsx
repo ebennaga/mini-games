@@ -26,7 +26,6 @@ const GameResultTournament = () => {
                 method: 'GET',
                 endpoint: `tournaments/${router.query['id-tournament']}`
             });
-            console.log(response);
             if (response?.data.status === 200) {
                 setAuthsData(response?.data.data.auths);
             }
@@ -78,7 +77,7 @@ const GameResultTournament = () => {
                     rank={1}
                     image='/icons/dummy/profile-2.png'
                     username={userState.username}
-                    point={authsData.total_score}
+                    point={authsData?.total_score}
                     prize={100}
                     disabledUnderline
                 />
