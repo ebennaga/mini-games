@@ -68,7 +68,8 @@ const GameTournament = () => {
                 method: 'POST',
                 endpoint: `webhook/game-sessions`,
                 data: {
-                    game_id: router.query.id
+                    game_id: router.query.id,
+                    tournament_id: router.query['id-tournament']
                 }
             });
             if (response.status === 200) {

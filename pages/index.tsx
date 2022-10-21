@@ -17,6 +17,7 @@ const Page: NextPage = () => {
                 <meta name='description' content='Play for fun and prize' />
                 <link rel='icon' href='/favicon.ico' />
             </Head>
+
             <Layout backgoundColor='#fff' isCarousel isTab isBackground>
                 <HomePage />
             </Layout>
