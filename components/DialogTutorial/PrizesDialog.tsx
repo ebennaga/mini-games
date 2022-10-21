@@ -10,6 +10,7 @@ interface PrizesDialogProps {
 const PrizesDialog: React.FC<PrizesDialogProps> = ({ open, onClose }) => {
     return (
         <Dialog
+            onClose={onClose}
             open={open}
             sx={{
                 zIndex: 999,
