@@ -38,8 +38,6 @@ const GameResultTournament = () => {
         getTournamentAuth();
     }, []);
 
-    // const username = 'rinto';
-    // console.log(authsData);
     return (
         <Box component='main' width='100%'>
             <Box padding='0 20px'>
