@@ -7,11 +7,11 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import useAuthReducer from 'hooks/useAuthReducer';
 import DeleteAccountDialog from './DeleteAccountDialog';
+import { getAuth, signOut } from 'firebase/auth';
 
 const ProfileSetting = () => {
     const { clearUser } = useAuthReducer();
     const router = useRouter();
-
     const [deleteDialog, setDeleteDialog] = useState(false);
 
     const form = useForm({
@@ -42,8 +42,16 @@ const ProfileSetting = () => {
     };
 
     const handleSignOut = () => {
-        clearUser();
-        router.push('/');
+        const auth = getAuth();
+        if(auth){
+            signOut(auth).then(()=>{
+                clearUser();
+                router.push('/');
+            })
+        }else{
+            clearUser();
+            router.push('/');
+        }
     };
 
     const handleDelete = () => router.push('/signup');

@@ -8,7 +8,7 @@ import useApiCaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import { signIn } from 'next-auth/react';
+import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 import useStyles from './useStyle';
 import HeaderSkeleton from './HeaderSkeleton';
 
@@ -43,6 +43,7 @@ const Header: React.FC<HeaderProps> = ({
     const [userData, setUserData] = React.useState<any>(null);
     const { setUser } = useAuthReducer();
     const { fetchAPI, isLoading } = useApiCaller();
+    const [isFirebaseLoading, setIsFirebaseLoading] = React.useState<boolean>(false);
     const notify = useNotify();
 
     const fetchData = async () => {
@@ -66,8 +67,80 @@ const Header: React.FC<HeaderProps> = ({
         fetchData();
     }, []);
 
+    const handleLoginGoogle = async (user:User) => {
+
+        if(userState?.api_token == null){
+        
+            const response = await fetchAPI({
+                method: 'POST',
+                endpoint: 'auths/login/google',
+                data: {
+                    email: user.email,
+                    username: user.displayName,
+                    google_id: user.uid
+                }
+            });
+            if (response.status === 200) {
+                setUser(response.data.data);
+                router.push('/');
+            } else {
+                notify('Login Failed', 'error');
+            }
+        }
+    };
+
+    React.useEffect(()=>{
+    setIsFirebaseLoading(true);
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+            const uid = user.uid;
+            handleLoginGoogle(user);
+            // ...
+        } else {
+            // User is signed out
+            // ...
+        }
+        setIsFirebaseLoading(false);
+        });
+       
+    },[]);
+
     if (isLoading) {
         return <HeaderSkeleton />;
+    }
+    if(isFirebaseLoading){
+        return(
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    width: paddingX ? '-webkit-fill-available' : '100%',
+                    position: 'sticky',
+                    top: paddingX ? 0 : 10,
+                    // zIndex: dataLocal && dataLocal?.isTutorial && dataLocal?.listTutorial.welcome ? 1 : 999,
+                    zIndex: 999,
+                    paddingY: paddingX ? '20px' : 0,
+                    paddingX: paddingX || 0
+                }}
+            >
+                {isBack ? (
+                    <ButtonBase
+                        onClick={() => router.back()}
+                        sx={{ width: '24px', height: '24px', borderRadius: '50px', background: '#A54CE5' }}
+                    >
+                        <ArrowBackIcon sx={{ color: '#fff', width: '20px', height: '20px', fontWeight: 'bold' }} />
+                    </ButtonBase>
+                ) : (
+                    <ButtonBase onClick={() => router.push('/')}>
+                        <img src={logo} width={widthLogo} height={heightLogo} alt='prize play' />
+                    </ButtonBase>
+                )}
+            </Box>
+        )
     }
     return (
         <Box
