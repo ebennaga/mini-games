@@ -30,6 +30,7 @@ const Header: React.FC<HeaderProps> = ({
     point,
     profilePicture,
     isBack,
+
     hrefBack,
     paddingX,
     widthLogo = '75px',
@@ -67,10 +68,10 @@ const Header: React.FC<HeaderProps> = ({
         fetchData();
     }, []);
 
-    const handleLoginGoogle = async (user:User) => {
+    const handleLoginGoogle = async (user: User) => {
 
-        if(userState?.api_token == null){
-        
+        if (userState?.api_token == null) {
+
             const response = await fetchAPI({
                 method: 'POST',
                 endpoint: 'auths/login/google',
@@ -89,30 +90,30 @@ const Header: React.FC<HeaderProps> = ({
         }
     };
 
-    React.useEffect(()=>{
-    setIsFirebaseLoading(true);
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/firebase.User
-            const uid = user.uid;
-            handleLoginGoogle(user);
-            // ...
-        } else {
-            // User is signed out
-            // ...
-        }
-        setIsFirebaseLoading(false);
+    React.useEffect(() => {
+        setIsFirebaseLoading(true);
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/firebase.User
+                const uid = user.uid;
+                handleLoginGoogle(user);
+                // ...
+            } else {
+                // User is signed out
+                // ...
+            }
+            setIsFirebaseLoading(false);
         });
-       
-    },[]);
+
+    }, []);
 
     if (isLoading) {
         return <HeaderSkeleton />;
     }
-    if(isFirebaseLoading){
-        return(
+    if (isFirebaseLoading) {
+        return (
             <Box
                 sx={{
                     display: 'flex',
