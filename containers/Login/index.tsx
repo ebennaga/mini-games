@@ -105,9 +105,7 @@ const Login = () => {
                     <Typography sx={{ fontWeight: 700, fontSize: '46px' }} component='h1'>
                         Welcome Back
                     </Typography>
-                    <Typography sx={{ fontSize: '21px', color: '#949494' }}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.
-                    </Typography>
+                    <Typography sx={{ fontSize: '21px', color: '#949494' }}>Please Sign In to Continue !</Typography>
                     <form onSubmit={form.handleSubmit(handleSubmit)}>
                         {changeInput ? (
                             <Box sx={{ mt: 3 }}>

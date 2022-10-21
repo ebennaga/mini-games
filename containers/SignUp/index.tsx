@@ -75,9 +75,7 @@ const SignUp = () => {
                 <Typography sx={{ fontWeight: 700, fontSize: '46px' }} component='h1'>
                     Start Your Account. It’s Free !
                 </Typography>
-                <Typography sx={{ fontSize: '21px', color: '#949494' }}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.
-                </Typography>
+                <Typography sx={{ fontSize: '21px', color: '#949494' }}>Hey there!, to play our games, go and register now.</Typography>
                 <form onSubmit={form.handleSubmit(handleSubmit)}>
                     <Grid container direction='row'>
                         {!changeInput ? (

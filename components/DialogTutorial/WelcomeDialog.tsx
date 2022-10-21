@@ -89,8 +89,7 @@ const WelcomeDialog: React.FC<IWelcomeDialog> = ({ open, setOpen, dataLocal, set
                     </Typography>
                     <img src='/icons/mission.svg' width='270px' height='223px' alt='Welcome Prize Play' />
                     <Typography component='p' fontSize='14px' lineHeight='14px' width='80%' mt='29px' fontWeight={400} textAlign='center'>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio
-                        mattis.
+                        Welcome! Here are some quick tips to get you started !
                     </Typography>
                     <ButtonBase
                         onClick={handleStart}

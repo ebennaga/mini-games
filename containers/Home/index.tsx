@@ -204,7 +204,7 @@ const HomeContainer = () => {
                                     key={item.id}
                                     image={item.banner_url}
                                     imageGame={item.game.banner_url}
-                                    onClick={() => router.push(`/games/${item.game.id}/tournament`)}
+                                    onClick={() => router.push(`/games/${item.game.id}/tournament/${item.id}`)}
                                     totalUser={item.total_users}
                                     prizePool={item.total_price}
                                     point={item.entry_coin}
@@ -219,7 +219,7 @@ const HomeContainer = () => {
 
                 {/* Tournament Card End */}
             </Box>
-            <InfoCard
+            {/* <InfoCard
                 onClick={undefined}
                 title='Block Stack'
                 subTitle='Game Launch'
@@ -238,7 +238,7 @@ const HomeContainer = () => {
                 background='/images/dummy/hop-up-bg.png'
                 image='/images/hopup.png'
                 linearBackground='linear-gradient(216deg, rgb(25 84 159 / 72%) 14%, rgba(28,37,69,1) 87%)'
-            />
+            /> */}
             <InfoCard
                 onClick={() => router.push('/topup')}
                 title='Coin'

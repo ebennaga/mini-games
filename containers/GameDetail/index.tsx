@@ -46,23 +46,44 @@ const GameDetailContainer = () => {
     };
 
     const getGameSession = async () => {
-        const response = await fetchAPI({
-            method: 'POST',
-            endpoint: `webhook/game-sessions`,
-            data: {
-                game_id: router.query.id
+        if (userState) {
+            const response = await fetchAPI({
+                method: 'POST',
+                endpoint: `webhook/game-sessions`,
+                data: {
+                    game_id: router.query.id
+                }
+            });
+            try {
+                if (response.status === 200) {
+                    setSessionGame(response.data.data);
+                } else {
+                    notify('failed error', 'error');
+                }
+            } catch (e: any) {
+                notify(e.message, 'error');
             }
-        });
-        try {
-            if (response.status === 200) {
-                setSessionGame(response.data.data);
-            } else {
-                notify('failed error', 'error');
-            }
-        } catch (e: any) {
-            notify(e.message, 'error');
         }
     };
+
+    //   const getGameSession = async () => {
+    //     const response = await fetchAPI({
+    //         method: 'POST',
+    //         endpoint: `webhook/game-sessions`,
+    //         data: {
+    //             game_id: router.query.id
+    //         }
+    //     });
+    //     try {
+    //         if (response.status === 200) {
+    //             setSessionGame(response.data.data);
+    //         } else {
+    //             notify('failed error', 'error');
+    //         }
+    //     } catch (e: any) {
+    //         notify(e.message, 'error');
+    //     }
+    // };
 
     React.useEffect(() => {
         const fetchAllData = async () => {
@@ -95,8 +116,8 @@ const GameDetailContainer = () => {
         }
     }, [userState, sessionGame, detailGame]);
 
-    const handleClick = async () => {
-        router.push(`/games/${router.query.id}/tournament`);
+    const handleClick = async (idTournament: any) => {
+        router.push(`/games/${router.query.id}/tournament/${idTournament}`);
     };
 
     const handlePlay = () => {
@@ -253,7 +274,7 @@ const GameDetailContainer = () => {
                                         time={item.end_time}
                                         pool={item.total_price}
                                         users={item.total_users}
-                                        onClick={handleClick}
+                                        onClick={() => handleClick(item.id)}
                                         imageGame={item.banner_url}
                                         coin={item.entry_coin}
                                     />
@@ -298,6 +319,7 @@ const GameDetailContainer = () => {
                                             Free
                                         </Typography>
                                         <ButtonBase
+                                            onClick={handlePlay}
                                             sx={{
                                                 backgroundColor: '#A54CE5',
                                                 borderRadius: '15px',

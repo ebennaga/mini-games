@@ -196,7 +196,7 @@ const TopUp = () => {
                                             {item.poin}
                                         </Typography>
                                     </Box>
-                                    <Box sx={{ ml: 2, mt: 1.5, alignItems: 'center' }}>
+                                    <Box sx={{ ml: 2, mt: 1.5, alignItems: 'center', display: 'none' }}>
                                         <Typography sx={{ fontSize: '10px', fontWeight: 'bold', lineHeight: '10px', color: '#949494' }}>
                                             lorem ipsum
                                         </Typography>
@@ -234,7 +234,7 @@ const TopUp = () => {
                     </Box>
                     <Box sx={{ mt: 2, ml: 1, width: '339px' }}>
                         <Typography sx={{ fontSize: '12px', fontWeight: 600, lineHeight: '33px', color: '#949494' }}>
-                            Lorem ipsum dolor sit amet, sed do.
+                            Need help to top up .Click here
                         </Typography>
                         <Typography sx={{ mt: -4, ml: 28, fontSize: '12px', fontWeight: 600, lineHeight: '33px', color: '#FF4567' }}>
                             click here
