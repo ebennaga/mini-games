@@ -19,6 +19,8 @@ const Login = () => {
 
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
+    const newUser = auth.currentUser;
+
     const form = useForm({
         mode: 'all',
         defaultValues: {
@@ -66,7 +68,8 @@ const Login = () => {
                 // The signed-in user info.
                 const { user } = result;
 
-                console.log('user', user.uid);
+                // console.log('user', user.uid);
+                console.log('newuser', newUser);
                 const response = await fetchAPI({
                     method: 'POST',
                     endpoint: 'auths/login/google',
