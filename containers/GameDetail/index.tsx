@@ -46,21 +46,23 @@ const GameDetailContainer = () => {
     };
 
     const getGameSession = async () => {
-        const response = await fetchAPI({
-            method: 'POST',
-            endpoint: `webhook/game-sessions`,
-            data: {
-                game_id: router.query.id
+        if (userState) {
+            const response = await fetchAPI({
+                method: 'POST',
+                endpoint: `webhook/game-sessions`,
+                data: {
+                    game_id: router.query.id
+                }
+            });
+            try {
+                if (response.status === 200) {
+                    setSessionGame(response.data.data);
+                } else {
+                    notify('failed error', 'error');
+                }
+            } catch (e: any) {
+                notify(e.message, 'error');
             }
-        });
-        try {
-            if (response.status === 200) {
-                setSessionGame(response.data.data);
-            } else {
-                notify('failed error', 'error');
-            }
-        } catch (e: any) {
-            notify(e.message, 'error');
         }
     };
 
@@ -273,7 +275,8 @@ const GameDetailContainer = () => {
                                         pool={item.total_price}
                                         users={item.total_users}
                                         onClick={() => handleClick(item.id)}
-                                        imageGame={item.banner_url}
+                                        imageGame={detailGame?.banner_url}
+                                        backgroundImage={item.banner_url}
                                         coin={item.entry_coin}
                                     />
                                 ))}
@@ -296,7 +299,9 @@ const GameDetailContainer = () => {
                         <Box
                             sx={{
                                 borderRadius: '20px',
-                                backgroundImage: `url(${detailGame?.banner_url})`,
+                                backgroundImage: `url(${
+                                    detailGame?.tournaments.length > 0 ? detailGame?.tournaments[0].banner_url : detailGame?.banner_url
+                                })`,
                                 height: '260px',
                                 display: 'flex',
                                 flexDirection: 'column-reverse',
@@ -305,45 +310,63 @@ const GameDetailContainer = () => {
                                 zIndex: 0
                             }}
                         >
-                            <Grid container sx={{ padding: '15px' }} spacing={1} alignItems='center'>
-                                <Grid item xs={3}>
-                                    <Box sx={{ height: '100%' }}>
-                                        <img src='/images/hopup.png' alt='banner' style={{ width: '100%' }} />
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={9}>
-                                    <Box position='relative' zIndex={2}>
-                                        <Typography sx={{ color: 'white', fontWeight: 'bold', fontSize: '32px', lineHeight: 1 }}>
-                                            Free
-                                        </Typography>
-                                        <ButtonBase
-                                            onClick={handlePlay}
-                                            sx={{
-                                                backgroundColor: '#A54CE5',
-                                                borderRadius: '15px',
-                                                width: '100%',
-                                                height: '40px'
-                                            }}
-                                        >
-                                            <Typography sx={{ color: 'white', fontWeight: 'bold', gontSize: '14px' }}>
-                                                Play Casual
-                                            </Typography>
-                                        </ButtonBase>
-                                        {/* <Button onClick={handlePlay} height='40px' title='Play Casual' backgoundColor='#A54CE5' color='white' /> */}
-                                    </Box>
-                                </Grid>
-                            </Grid>
                             <Box
                                 sx={{
-                                    backgroundImage: 'linear-gradient(transparent, black)',
-                                    height: '50px',
-                                    borderRadius: '0px 0px 20px 20px'
+                                    background: 'linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%)',
+                                    height: '100%',
+                                    display: 'flex',
+                                    alignItems: 'flex-end'
                                 }}
-                                position='absolute'
-                                zIndex={1}
-                                bottom='0%'
-                                width='100%'
-                            />
+                            >
+                                <Grid container sx={{ padding: '15px' }} spacing={1} alignItems='center'>
+                                    <Grid item xs={3}>
+                                        <Box
+                                            sx={{
+                                                height: '78px',
+                                                width: '78px',
+                                                borderRadius: '8px',
+                                                background: `url(${detailGame?.banner_url})`,
+                                                backgroundPosition: 'center',
+                                                backgroundSize: 'cover'
+                                            }}
+                                        >
+                                            {/* <img src={detailGame?.banner_url} alt='banner' style={{ width: '100%', borderRadius: '8px' }} /> */}
+                                        </Box>
+                                    </Grid>
+                                    <Grid item xs={9}>
+                                        <Box position='relative' zIndex={2}>
+                                            <Typography sx={{ color: 'white', fontWeight: 'bold', fontSize: '32px', lineHeight: 1 }}>
+                                                Free
+                                            </Typography>
+                                            <ButtonBase
+                                                onClick={handlePlay}
+                                                sx={{
+                                                    backgroundColor: '#A54CE5',
+                                                    borderRadius: '15px',
+                                                    width: '100%',
+                                                    height: '40px'
+                                                }}
+                                            >
+                                                <Typography sx={{ color: 'white', fontWeight: 'bold', gontSize: '14px' }}>
+                                                    Play Casual
+                                                </Typography>
+                                            </ButtonBase>
+                                            {/* <Button onClick={handlePlay} height='40px' title='Play Casual' backgoundColor='#A54CE5' color='white' /> */}
+                                        </Box>
+                                    </Grid>
+                                </Grid>
+                                <Box
+                                    sx={{
+                                        backgroundImage: 'linear-gradient(transparent, black)',
+                                        height: '50px',
+                                        borderRadius: '0px 0px 20px 20px'
+                                    }}
+                                    position='absolute'
+                                    zIndex={1}
+                                    bottom='0%'
+                                    width='100%'
+                                />
+                            </Box>
                         </Box>
                     </Grid>
                 </Grid>

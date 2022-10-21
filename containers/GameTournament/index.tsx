@@ -63,17 +63,19 @@ const GameTournament = () => {
     };
 
     const getGameSession = async () => {
-        const response = await fetchAPI({
-            method: 'POST',
-            endpoint: `webhook/game-sessions`,
-            data: {
-                game_id: router.query.id
+        if (userState) {
+            const response = await fetchAPI({
+                method: 'POST',
+                endpoint: `webhook/game-sessions`,
+                data: {
+                    game_id: router.query.id
+                }
+            });
+            if (response.status === 200) {
+                setSessionGame(response.data.data);
+            } else {
+                notify('failed get session game', 'error');
             }
-        });
-        if (response.status === 200) {
-            setSessionGame(response.data.data);
-        } else {
-            notify('failed get session game', 'error');
         }
     };
 

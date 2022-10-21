@@ -24,7 +24,7 @@ const Layout: React.FC<LayoutProps> = ({
     return (
         <Box
             sx={{
-                backgroundColor: 'black',
+                backgroundImage: `url(/images/Frame.jpg)`,
                 display: 'flex',
                 justifyContent: { xs: isCarousel || isBackground ? 'flex-start' : 'center', sm: 'center' },
                 fontFamily: 'Epilogue'
@@ -38,7 +38,7 @@ const Layout: React.FC<LayoutProps> = ({
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    border,
+                    border: border ? 'none' : '0px solid white',
                     padding: isCarousel ? '25px' : '0px',
                     pt: isBackground ? 0 : 3,
                     pb: isTab ? '150px' : '0px',

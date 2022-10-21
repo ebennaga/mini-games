@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
 import { Typography, Box } from '@mui/material';
 import React from 'react';
@@ -36,7 +37,7 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                 setCointTransaction(result.data.data);
             }
         } catch (e) {
-            notify('Internal server error', 'error');
+            // notify('Internal server error', 'error');
         }
     };
 
