@@ -9,6 +9,7 @@ interface TournamentDialogProps {
 const TournamentDialog: React.FC<TournamentDialogProps> = ({ open, onClose }) => {
     return (
         <Dialog
+            onClose={onClose}
             open={open}
             sx={{
                 zIndex: 999,

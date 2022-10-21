@@ -10,6 +10,7 @@ interface ListOfGamesDialogProps {
 const ListOfGamesDialog: React.FC<ListOfGamesDialogProps> = ({ open, onClose }) => {
     return (
         <Dialog
+            onClose={onClose}
             open={open}
             sx={{
                 zIndex: 999,

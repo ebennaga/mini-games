@@ -10,6 +10,7 @@ interface TopUpCoinsDialogProps {
 const TopUpCoinsDialog: React.FC<TopUpCoinsDialogProps> = ({ open, onClose }) => {
     return (
         <Dialog
+            onClose={onClose}
             open={open}
             sx={{
                 zIndex: 999,
