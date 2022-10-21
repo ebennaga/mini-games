@@ -10,6 +10,7 @@ import Router from 'next/router';
 import useAuthReducer from 'hooks/useAuthReducer';
 import React from 'react';
 import { SessionProvider } from 'next-auth/react';
+import Script from 'next/script';
 import initMyFirebase from '../firebase/firebaseInit';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -39,28 +40,40 @@ function MyApp({ Component, pageProps }: AppProps) {
     }, []);
 
     return (
-        <SessionProvider session={pageProps.session}>
-            <SnackbarProvider
-                maxSnack={3}
-                anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center'
-                }}
-                TransitionComponent={Slide}
-            >
-                <ThemeProvider theme={theme}>
-                    <GlobalStyles
-                        styles={{
-                            // body: { margin: '0 auto', display: 'flex', justifyContent: 'center' }
-                            body: { margin: '0 auto' }
-                        }}
-                    />
-                    {/* <Component {...pageProps} /> */}
+        <>
+            <Script src='https://www.googletagmanager.com/gtag/js?id=G-JRKG9S44S5' strategy='afterInteractive' />
+            <Script id='google-analytics' strategy='afterInteractive'>
+                {`
+           window.dataLayer = window.dataLayer || [];
+           function gtag(){dataLayer.push(arguments);}
+           gtag('js', new Date());
+         
+           gtag('config', 'G-JRKG9S44S5');
+        `}
+            </Script>
+            <SessionProvider session={pageProps.session}>
+                <SnackbarProvider
+                    maxSnack={3}
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center'
+                    }}
+                    TransitionComponent={Slide}
+                >
+                    <ThemeProvider theme={theme}>
+                        <GlobalStyles
+                            styles={{
+                                // body: { margin: '0 auto', display: 'flex', justifyContent: 'center' }
+                                body: { margin: '0 auto' }
+                            }}
+                        />
+                        {/* <Component {...pageProps} /> */}
 
-                    <Component userData={user} {...pageProps} />
-                </ThemeProvider>
-            </SnackbarProvider>
-        </SessionProvider>
+                        <Component userData={user} {...pageProps} />
+                    </ThemeProvider>
+                </SnackbarProvider>
+            </SessionProvider>
+        </>
     );
 }
 
