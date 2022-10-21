@@ -10,6 +10,7 @@ interface IGamesDialog {
 const GamesDialog: React.FC<IGamesDialog> = ({ open, onClose }) => {
     return (
         <Dialog
+            onClose={onClose}
             open={open}
             sx={{
                 zIndex: 999,

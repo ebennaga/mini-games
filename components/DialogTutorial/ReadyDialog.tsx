@@ -10,6 +10,7 @@ interface ReadyDialogProps {
 const ReadyDialog: React.FC<ReadyDialogProps> = ({ open, onClose }) => {
     return (
         <Dialog
+            onClose={onClose}
             open={open}
             sx={{
                 '& .MuiBackdrop-root': {

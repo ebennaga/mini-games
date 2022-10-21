@@ -10,6 +10,7 @@ interface ICoinsDialog {
 const CoinsDialog: React.FC<ICoinsDialog> = ({ onClose, open }) => {
     return (
         <Dialog
+            onClose={onClose}
             open={open}
             sx={{
                 zIndex: 999,
