@@ -69,9 +69,7 @@ const Header: React.FC<HeaderProps> = ({
     }, []);
 
     const handleLoginGoogle = async (user: User) => {
-
         if (userState?.api_token == null) {
-
             const response = await fetchAPI({
                 method: 'POST',
                 endpoint: 'auths/login/google',
@@ -97,7 +95,7 @@ const Header: React.FC<HeaderProps> = ({
             if (user) {
                 // User is signed in, see docs for a list of available properties
                 // https://firebase.google.com/docs/reference/js/firebase.User
-                const uid = user.uid;
+                const { uid } = user;
                 handleLoginGoogle(user);
                 // ...
             } else {
@@ -106,7 +104,6 @@ const Header: React.FC<HeaderProps> = ({
             }
             setIsFirebaseLoading(false);
         });
-
     }, []);
 
     if (isLoading) {
@@ -141,7 +138,7 @@ const Header: React.FC<HeaderProps> = ({
                     </ButtonBase>
                 )}
             </Box>
-        )
+        );
     }
     return (
         <Box
