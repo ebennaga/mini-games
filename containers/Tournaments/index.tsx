@@ -1,8 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { Box, Typography } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import TournamentCard from 'components/TournamentCard';
 // import TournamentSlider from 'components/TournamentSlider';
 import TournamentSliderGD from 'components/TournamentSlider/TournamentSliderGD';
+import useAPICaller from 'hooks/useAPICaller';
+import useNotify from 'hooks/useNotify';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import GameHeader from './GameHeader';
@@ -11,8 +14,32 @@ import TournamentsSkeleton from './TournamentsSkeleton';
 const Tournaments = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [borderValue, setBorderValue] = useState<string>('none');
+    const [dataFeeds, setDataFeeds] = useState<any>(null);
+
+    const { fetchAPI } = useAPICaller();
+    const notify = useNotify();
+
+    const getDataFeeds = async () => {
+        setIsLoading(true);
+        try {
+            const resFeeds = await fetchAPI({
+                method: 'GET',
+                endpoint: 'home/feeds'
+            });
+            if (resFeeds.status === 200) {
+                setDataFeeds(resFeeds.data.data);
+            } else {
+                notify('Error fetch data tournaments', 'error');
+            }
+            setIsLoading(false);
+        } catch (err: any) {
+            notify(err.message, 'error');
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
-        setTimeout(() => setIsLoading(false), 2000);
+        getDataFeeds();
     }, []);
     const router = useRouter();
 
@@ -32,6 +59,7 @@ const Tournaments = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+    console.log('response', dataFeeds);
 
     if (isLoading) {
         return <TournamentsSkeleton />;
@@ -59,17 +87,18 @@ const Tournaments = () => {
                     </Typography>
                 </Box>
                 <TournamentSliderGD spacing='large'>
-                    {[...Array(3)].map((_item: any, index: number) => {
+                    {dataFeeds.tournaments.map((item: any, index: number) => {
                         return (
                             <TournamentCard
                                 customWidth='99%'
-                                onClick={() => router.push(`/games/${index + 1}/tournament`)}
-                                time='2022-10-11T00:00:00.000Z'
-                                pool='3500'
-                                coin='100'
-                                users='376'
+                                onClick={() => router.push(`/games/${item.game.id}/tournament/${item.id}`)}
+                                time={item.start_time}
+                                pool={item.total_price}
+                                coin={item.entry_coin}
+                                users={item.total_users}
                                 key={index}
-                                imageGame='/icons/dummy/menara.png'
+                                imageGame={item.game.banner_url}
+                                backgroundImage={item.banner_url}
                             />
                         );
                     })}
@@ -90,6 +119,7 @@ const Tournaments = () => {
                                     users='376'
                                     key={index}
                                     imageGame='/icons/dummy/menara.png'
+                                    backgroundImage='/icons/dummy/menara.png'
                                 />
                             );
                         })}
@@ -111,6 +141,7 @@ const Tournaments = () => {
                                     users='376'
                                     key={index}
                                     imageGame='/icons/dummy/menara.png'
+                                    backgroundImage='/icons/dummy/menara.png'
                                 />
                             );
                         })}

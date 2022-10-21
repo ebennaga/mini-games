@@ -11,9 +11,10 @@ interface TournamentCardProps {
     onClick?: any;
     customWidth?: any;
     imageGame: string;
+    backgroundImage: string;
 }
 
-const TournamentCard: React.FC<TournamentCardProps> = ({ time, coin, pool, users, onClick, customWidth, imageGame }) => {
+const TournamentCard: React.FC<TournamentCardProps> = ({ time, coin, pool, users, onClick, customWidth, imageGame, backgroundImage }) => {
     const [timeTournament, setTimeTournament] = useState<string>('');
 
     useEffect(() => {
@@ -35,7 +36,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, coin, pool, users
             sx={{
                 width: customWidth || '90%',
                 height: '320px',
-                backgroundImage: `url(${imageGame})`,
+                backgroundImage: `url(${backgroundImage})`,
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
                 borderRadius: '24px'
