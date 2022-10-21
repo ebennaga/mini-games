@@ -4,11 +4,12 @@ import HeaderBack from 'components/HeaderBack';
 import { SmartDisplay } from '@mui/icons-material';
 import React from 'react';
 import { useRouter } from 'next/router';
+import numberFormat from 'helper/numberFormat';
 
 const ResultContainer = () => {
     const router = useRouter();
     return (
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <Box
                 sx={{
                     mb: 2,
@@ -20,14 +21,14 @@ const ResultContainer = () => {
             >
                 <HeaderBack handleBack={() => router.push(`/games/${router.query.id}`)} />
             </Box>
-            <Box sx={{ padding: '0px 20px', textAlign: 'center', m: '0px 0px 300px' }}>
+            <Box sx={{ padding: '0px 20px', textAlign: 'center', m: '0px 0px' }}>
                 <Box sx={{ textAlign: 'center', margin: '20px' }}>
                     <img src='/images/loading-img-casual.png' alt='loading-casual' />
                 </Box>
-                <Typography sx={{ fontWeight: 700, fontSize: '24px' }}>Block Stack</Typography>
-                <Box sx={{ mt: '160px' }}>
-                    <Typography sx={{ fontWeight: 300, fontSize: '14px', color: '#949494' }}>Total Scores</Typography>
-                    <Typography sx={{ fontWeight: 700, fontSize: '44px' }}>20</Typography>
+                <Typography sx={{ fontWeight: 700, fontSize: '24px', color: '#A54CE5' }}>High Score</Typography>
+                <Box>
+                    {/* <Typography sx={{ fontWeight: 300, fontSize: '14px', color: '#949494' }}>Total Scores</Typography> */}
+                    <Typography sx={{ fontWeight: 700, fontSize: '44px' }}>{numberFormat(23209)}</Typography>
                 </Box>
             </Box>
             <Box sx={{ padding: '20px', position: 'sticky', bottom: '20px' }}>
