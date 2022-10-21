@@ -15,9 +15,11 @@ const Tournaments = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [borderValue, setBorderValue] = useState<string>('none');
     const [dataFeeds, setDataFeeds] = useState<any>(null);
+    const [dataGamesDetail, setDataGamesDetail] = useState<Array<any>>([]);
 
     const { fetchAPI } = useAPICaller();
     const notify = useNotify();
+    const router = useRouter();
 
     const getDataFeeds = async () => {
         setIsLoading(true);
@@ -38,10 +40,28 @@ const Tournaments = () => {
         }
     };
 
+    const getGameDetailTournaments = async () => {
+        if (dataFeeds) {
+            await dataFeeds.games.forEach(async (item: any) => {
+                const response = await fetchAPI({
+                    method: 'GET',
+                    endpoint: `games/${item.id}`
+                });
+                if (response.status === 200) {
+                    setDataGamesDetail((currentValue: any) => [...currentValue, response.data.data]);
+                }
+            });
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
         getDataFeeds();
     }, []);
-    const router = useRouter();
+
+    useEffect(() => {
+        getGameDetailTournaments();
+    }, [dataFeeds]);
 
     const handleScroll = () => {
         if (window.scrollY === 0) {
@@ -59,7 +79,6 @@ const Tournaments = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-    console.log('response', dataFeeds);
 
     if (isLoading) {
         return <TournamentsSkeleton />;
@@ -79,7 +98,7 @@ const Tournaments = () => {
             >
                 <HeaderBack title='Tournaments' />
             </Box>
-            <Box component='section' marginTop='45px'>
+            <Box component='section' marginTop='45px' marginBottom='45px'>
                 <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
                     <img src='/icons/wifi.svg' width='14px' height='18.5px' alt='attention' />
                     <Typography component='h2' fontSize='18px' marginTop='3px' marginLeft='5px' fontWeight={700} sx={{ color: '#A54CE5' }}>
@@ -104,50 +123,34 @@ const Tournaments = () => {
                     })}
                 </TournamentSliderGD>
             </Box>
-            <Box component='section' marginBottom='46px' marginTop='40px'>
-                <GameHeader image='/images/hopup.png' title='Hop Up' />
-                <Box marginTop='24px'>
-                    <TournamentSliderGD>
-                        {[...Array(3)].map((_item: any, index: number) => {
-                            return (
-                                <TournamentCard
-                                    customWidth='93%'
-                                    onClick={() => router.push(`/games/${index + 1}/tournament`)}
-                                    time='coming soon'
-                                    pool='3500'
-                                    coin='100'
-                                    users='376'
-                                    key={index}
-                                    imageGame='/icons/dummy/menara.png'
-                                    backgroundImage='/icons/dummy/menara.png'
-                                />
-                            );
-                        })}
-                    </TournamentSliderGD>
-                </Box>
-            </Box>
-            <Box component='section' marginBottom='46px'>
-                <GameHeader image='/images/game-img.png' title='Block Stack' />
-                <Box marginTop='24px'>
-                    <TournamentSliderGD>
-                        {[...Array(3)].map((_item: any, index: number) => {
-                            return (
-                                <TournamentCard
-                                    customWidth='93%'
-                                    onClick={() => router.push(`/games/${index + 1}/tournament`)}
-                                    time='coming soon'
-                                    pool='3500'
-                                    coin='100'
-                                    users='376'
-                                    key={index}
-                                    imageGame='/icons/dummy/menara.png'
-                                    backgroundImage='/icons/dummy/menara.png'
-                                />
-                            );
-                        })}
-                    </TournamentSliderGD>
-                </Box>
-            </Box>
+            {dataGamesDetail.map((item: any) => {
+                return (
+                    item.tournaments.length > 0 && (
+                        <Box component='section' marginBottom='46px'>
+                            <GameHeader image={item.banner_url} title={item.name} />
+                            <Box marginTop='24px'>
+                                <TournamentSliderGD>
+                                    {item.tournaments.map((itm: any, index: number) => {
+                                        return (
+                                            <TournamentCard
+                                                customWidth='93%'
+                                                onClick={() => router.push(`/games/${item.id}/tournament/${itm.id}`)}
+                                                time={itm.start_time}
+                                                pool={itm.total_price}
+                                                coin={itm.entry_coin}
+                                                users={itm.total_users}
+                                                key={index}
+                                                imageGame={item.banner_url}
+                                                backgroundImage={itm.banner_url}
+                                            />
+                                        );
+                                    })}
+                                </TournamentSliderGD>
+                            </Box>
+                        </Box>
+                    )
+                );
+            })}
         </Box>
     );
 };
