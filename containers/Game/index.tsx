@@ -9,6 +9,7 @@ import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import { Mms } from '@mui/icons-material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import GameSekeleton from './GameSkeleton';
 
 interface GameProps {
     playerImg1: string;
@@ -23,10 +24,10 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
     const [borderValue, setBorderValue] = useState<string>('none');
     const [listingGame, setListingGame] = React.useState<any>(null);
     const [searchData, setSearchData] = useState<any>(null);
-
+    // const [isLoading] = React.useState(true);
     const router = useRouter();
     const notify = useNotify();
-    const { fetchAPI } = useAPICaller();
+    const { fetchAPI, isLoading } = useAPICaller();
 
     React.useEffect(() => {
         setTimeout(() => setLoading(false), 3000);
@@ -95,115 +96,181 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
             person: 400
         }
     ];
-    return (
-        <Box sx={{ color: '#373737', width: '100%' }}>
-            {loading ? (
-                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Skeleton sx={{ width: '75px', height: '38px', ml: '20px', mt: '20px' }} />
-                    <Skeleton sx={{ width: '75px', height: '38px', ml: '20px', mt: '20px', mr: '5%' }} />
-                </Box>
-            ) : (
-                <Box
-                    padding='25px'
-                    sx={{
-                        mb: 2,
-                        position: 'sticky',
-                        top: -1,
-                        backgroundColor: 'white',
-                        zIndex: 999,
-                        width: '-webkit-fill-available',
-                        borderBottom: borderValue
-                    }}
-                >
-                    <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
-                </Box>
-            )}
-            {!loading && searchData && (
-                <IconButton
-                    onClick={() => router.back()}
-                    sx={{ width: '24px', height: '24px', ml: '20px', mb: '-15px', background: '#A54CE5' }}
-                >
-                    <ArrowBackIcon sx={{ color: '#fff', fontSize: '20px' }} />
-                </IconButton>
-            )}
-            {loading ? (
-                <Skeleton sx={{ width: '75px', height: '38px', ml: '20px', mt: '20px' }} />
-            ) : (
-                <Box sx={{ mt: '42px', mx: '20px' }}>
-                    <Typography sx={{ fontSize: '32px', fontWeight: 700 }}>Games</Typography>
-                </Box>
-            )}
 
+    if (isLoading) {
+        return <GameSekeleton />;
+    }
+
+    return (
+        <Box sx={{ width: '100%' }}>
             <Box
+                padding='25px'
                 sx={{
-                    mt: '25px',
-                    mx: '20px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    height: '33px',
-                    direction: 'row'
+                    mb: 2,
+                    position: 'sticky',
+                    top: -1,
+                    backgroundColor: 'white',
+                    zIndex: 999,
+                    width: '-webkit-fill-available',
+                    borderBottom: borderValue
                 }}
             >
-                {loading ? (
-                    <Grid container spacing={1} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        {[...Array(2)].map((_item: any, index: number) => {
-                            return (
-                                <Box key={index}>
-                                    <Skeleton animation='wave' variant='rectangular' sx={{ width: '162px', height: '172px' }} />
-                                    <Skeleton
-                                        sx={{ mt: 3, display: 'flex', justifyContent: 'center' }}
-                                        animation='wave'
-                                        variant='rectangular'
-                                        width={80}
-                                        height={80}
+                <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
+            </Box>
+            <Box sx={{ padding: '0px 20px' }}>
+                <Typography sx={{ fontSize: '30px', fontWeight: 'bold', mb: '20px' }}>Games</Typography>
+                <Grid container justifyContent='start' gap='40px'>
+                    {(searchData || listingGame)?.map((item: any, idx: number) => (
+                        <Grid
+                            item
+                            xs={5}
+                            key={item.id}
+                            onClick={() => {
+                                router.push(`/games/${item.id}`);
+                            }}
+                        >
+                            <Box sx={{ width: '100%', textAlign: 'center' }}>
+                                <img src={item.banner_url} alt='' style={{ width: '150px', borderRadius: '10px' }} />
+                                <Typography sx={{ fontSize: '18px', fontWeight: 700 }}>{item.name}</Typography>
+                                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                                    <BadgeImages
+                                        backgroundColor='white'
+                                        size='large'
+                                        images1={playerImg1 || '/images/dingdong.png'}
+                                        images2={playerImg2 || '/images/wanita.png'}
+                                        images3={playerImg3 || '/images/dingdong.png'}
+                                        total={item.user_sessions}
                                     />
                                 </Box>
-                            );
-                        })}
-                    </Grid>
-                ) : (
-                    <Stack direction='row' spacing={2}>
-                        {(searchData || listingGame).map((item: any) => {
-                            return (
-                                <Box
-                                    onClick={() => {
-                                        router.push(`/games/${item.id}`);
-                                    }}
-                                    key={item.id}
-                                    sx={{
-                                        width: '172px',
-                                        height: '172px',
-                                        borderRadius: '11px',
-                                        backgroundImage: `url(${item.banner_url})`,
-                                        backgroundSize: 'cover',
-                                        backgroundPosition: 'center'
-                                    }}
-                                >
-                                    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 23 }}>
-                                        <Typography sx={{ fontSize: '18px', fontWeight: 700 }}>{item.name}</Typography>
-                                    </Box>
-                                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                        <BadgeImages
-                                            backgroundColor='white'
-                                            size='large'
-                                            images1={playerImg1 || '/images/dingdong.png'}
-                                            images2={playerImg2 || '/images/wanita.png'}
-                                            images3={playerImg3 || '/images/dingdong.png'}
-                                            total={item.user_sessions}
-                                        />
-                                    </Box>
-                                </Box>
-                            );
-                        })}
-                        {searchData && searchData.length === 0 && (
-                            <Typography component='h3' fontWeight={600} textAlign='center'>
-                                Search data not found
-                            </Typography>
-                        )}
-                    </Stack>
-                )}
+                            </Box>
+                        </Grid>
+                    ))}
+                </Grid>
             </Box>
         </Box>
+        // <Box sx={{ color: '#373737', width: '100%' }}>
+        //     {loading ? (
+        //         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        //             <Skeleton sx={{ width: '75px', height: '38px', ml: '20px', mt: '20px' }} />
+        //             <Skeleton sx={{ width: '75px', height: '38px', ml: '20px', mt: '20px', mr: '5%' }} />
+        //         </Box>
+        //     ) : (
+        //         <Box
+        //             padding='25px'
+        //             sx={{
+        //                 mb: 2,
+        //                 position: 'sticky',
+        //                 top: -1,
+        //                 backgroundColor: 'white',
+        //                 zIndex: 999,
+        //                 width: '-webkit-fill-available',
+        //                 borderBottom: borderValue
+        //             }}
+        //         >
+        //             <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
+        //         </Box>
+        //     )}
+        //     {!loading && searchData && (
+        //         <IconButton
+        //             onClick={() => router.back()}
+        //             sx={{ width: '24px', height: '24px', ml: '20px', mb: '-15px', background: '#A54CE5' }}
+        //         >
+        //             <ArrowBackIcon sx={{ color: '#fff', fontSize: '20px' }} />
+        //         </IconButton>
+        //     )}
+        //     {loading ? (
+        //         <Skeleton sx={{ width: '75px', height: '38px', ml: '20px', mt: '20px' }} />
+        //     ) : (
+        //         <Box sx={{ mt: '42px', mx: '20px' }}>
+        //             <Typography sx={{ fontSize: '32px', fontWeight: 700 }}>Games</Typography>
+        //         </Box>
+        //     )}
+
+        //     <Box
+        //     // sx={{
+        //     //     display: 'flex',
+        //     //     justifyContent: 'space-between',
+        //     //     height: '33px',
+        //     //     direction: 'column'
+        //     // }}
+        //     >
+        //         {loading ? (
+        //             <Grid container spacing={1} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        //                 {[...Array(2)].map((_item: any, index: number) => {
+        //                     return (
+        //                         <Box key={index}>
+        //                             <Skeleton animation='wave' variant='rectangular' sx={{ width: '162px', height: '172px' }} />
+        //                             <Skeleton
+        //                                 sx={{ mt: 3, display: 'flex', justifyContent: 'center' }}
+        //                                 animation='wave'
+        //                                 variant='rectangular'
+        //                                 width={80}
+        //                                 height={80}
+        //                             />
+        //                         </Box>
+        //                     );
+        //                 })}
+        //             </Grid>
+        //         ) : (
+        //             <Grid container direction='row' spacing={10} justifyContent='start' border='1px solid red' flexWrap='wrap'>
+        //                 <Grid item xs={5} sx={{ border: '1px solid red' }}>
+        //                     <Box>
+        //                         <img src='/images/hopup.png' alt='' />
+        //                     </Box>
+        //                 </Grid>
+        //                 <Grid item xs={5}>
+        //                     <Box>
+        //                         <img src='/images/hopup.png' alt='' />
+        //                     </Box>
+        //                 </Grid>
+        //                 <Grid item xs={5}>
+        //                     <Box>
+        //                         <img src='/images/hopup.png' alt='' />
+        //                     </Box>
+        //                 </Grid>
+        //             </Grid>
+        //             // <Stack direction='row' spacing={2} sx={{ display: 'flex', padding: '20px', flexWrap: 'wrap' }}>
+        //             //     {(searchData || listingGame).map((item: any) => {
+        //             //         return (
+        //             //             <Box
+        //             //                 onClick={() => {
+        //             //                     router.push(`/games/${item.id}`);
+        //             //                 }}
+        //             //                 key={item.id}
+        //             //                 sx={{
+        //             //                     width: '150px',
+        //             //                     height: '172px',
+        //             //                     borderRadius: '11px',
+        //             //                     backgroundImage: `url(${item.banner_url})`,
+        //             //                     backgroundSize: 'cover',
+        //             //                     backgroundPosition: 'center'
+        //             //                 }}
+        //             //             >
+        //             //                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 23 }}>
+        //             //                     <Typography sx={{ fontSize: '18px', fontWeight: 700 }}>{item.name}</Typography>
+        //             //                 </Box>
+        //             //                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        //             //                     <BadgeImages
+        //             //                         backgroundColor='white'
+        //             //                         size='large'
+        //             //                         images1={playerImg1 || '/images/dingdong.png'}
+        //             //                         images2={playerImg2 || '/images/wanita.png'}
+        //             //                         images3={playerImg3 || '/images/dingdong.png'}
+        //             //                         total={item.user_sessions}
+        //             //                     />
+        //             //                 </Box>
+        //             //             </Box>
+        //             //         );
+        //             //     })}
+        //             //     {searchData && searchData.length === 0 && (
+        //             //         <Typography component='h3' fontWeight={600} textAlign='center'>
+        //             //             Search data not found
+        //             //         </Typography>
+        //             //     )}
+        //             // </Stack>
+        //         )}
+        //     </Box>
+        // </Box>
     );
 };
 
