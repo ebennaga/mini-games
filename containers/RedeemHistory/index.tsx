@@ -36,13 +36,13 @@ const RedeemHistoryContainer = () => {
     }, []);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        const filterData = (status: string) => histories.filter((item: any) => item.status === status);
+        const filterData = (status: string) => histories?.filter((item: any) => item.status === status);
 
         setValue(newValue);
         if (newValue === 0) {
             setTabData(histories);
         } else if (newValue === 1) {
-            const filtData = histories.filter((item: any) => item.status !== 'pending-payment');
+            const filtData = histories?.filter((item: any) => item.status !== 'pending-payment');
             setTabData(filtData);
         } else if (newValue === 2) {
             const filtData = filterData('packed');
