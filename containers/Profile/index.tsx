@@ -33,7 +33,7 @@ const Profile = () => {
             }}
         >
             <HeaderBack title='Profile' isSetting />
-            <ProfilePicture image='/icons/dummy/profile-2.png' />
+            <ProfilePicture image='/icons/dummy/profile.png' />
             <Typography component='h3' fontWeight='bold' fontSize='18px' mt='26px'>
                 {!userState?.username ? userState?.email : userState?.username}
             </Typography>
