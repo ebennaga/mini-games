@@ -1,46 +1,67 @@
+import React from 'react';
 import { useRouter } from 'next/router';
-import { Box, Typography, Checkbox, FormControlLabel } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Button from 'components/Button/Index';
 import Header from 'components/Header';
-import NavigationCard from 'components/NavigationCard';
-import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import useAPICaller from 'hooks/useAPICaller';
+import useNotify from 'hooks/useNotify';
+// import NavigationCard from 'components/NavigationCard';
+// import { Controller, useForm } from 'react-hook-form';
 
-interface CheckboxControllerProps {
-    form: any;
-    name: string;
-    onClick: any;
-    checked: any;
-    sx?: any;
-}
+// interface CheckboxControllerProps {
+//     form: any;
+//     name: string;
+//     onClick: any;
+//     checked: any;
+//     sx?: any;
+// }
 
-const CheckboxController: React.FC<CheckboxControllerProps> = ({ form, name, onClick, checked, sx }) => {
-    return (
-        <Controller
-            control={form.control}
-            name={name}
-            render={({ field }) => (
-                <FormControlLabel
-                    sx={{ '& .MuiTypography-root': { fontSize: '11px' } }}
-                    label='Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, libero.'
-                    control={<Checkbox size='medium' color='secondary' onClick={onClick} checked={checked} sx={sx} {...field} />}
-                />
-            )}
-        />
-    );
-};
+// const CheckboxController: React.FC<CheckboxControllerProps> = ({ form, name, onClick, checked, sx }) => {
+//     return (
+//         <Controller
+//             control={form.control}
+//             name={name}
+//             render={({ field }) => (
+//                 <FormControlLabel
+//                     sx={{ '& .MuiTypography-root': { fontSize: '11px' } }}
+//                     label='Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, libero.'
+//                     control={<Checkbox size='medium' color='secondary' onClick={onClick} checked={checked} sx={sx} {...field} />}
+//                 />
+//             )}
+//         />
+//     );
+// };
 
 const PaymentConfirmationContainer = () => {
-    const form = useForm({
-        mode: 'all',
-        defaultValues: {
-            check: false
-        }
-    });
+    const { fetchAPI, isLoading } = useAPICaller();
+    const notify = useNotify();
     const router = useRouter();
-    const handleCheckbox = (e: any) => {
-        form.setValue('check', e.target.check);
+    const [topupData, setTopupData] = React.useState<any>(null);
+
+    const postTopupHandler = async () => {
+        // window.location.href = 'https://app.sandbox.midtrans.com/snap/v3/redirection/4978f722-5e66-43d5-818f-2d45a2ce4cf4';
+        try {
+            const response = await fetchAPI({
+                method: 'POST',
+                endpoint: `coins/${router.query.id}/purchase`
+            });
+            if (response.data.status === 200) {
+                setTopupData(response.data.data);
+                window.location.href = topupData.payment.redirect_url;
+            }
+        } catch (error) {
+            notify('Fetch url topup midtrans failed', 'error');
+        }
     };
+    // const form = useForm({
+    //     mode: 'all',
+    //     defaultValues: {
+    //         check: false
+    //     }
+    // });
+    // const handleCheckbox = (e: any) => {
+    //     form.setValue('check', e.target.check);
+    // };
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -77,12 +98,20 @@ const PaymentConfirmationContainer = () => {
                         </Box>
                     </Box>
                     <Typography sx={{ fontWeight: '400', fontSize: '12px', lineHeight: '12px', color: '#949494', my: '20px' }}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Ut
-                        enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi{' '}
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium odit veniam, ipsam similique repellat in non
+                        voluptatem sapiente deleniti totam maxime id inventore magni alias dolore ratione nulla ut ab sint dolores et.
+                        Repellendus aperiam reiciendis quasi iusto explicabo quia corporis molestias, facere, nam vel fugit corrupti beatae
+                        doloribus! Aperiam consequuntur maiores saepe illo quia, sed blanditiis atque eaque quod sit excepturi itaque
+                        repellendus animi iste cupiditate magnam at magni. <br /> <br />
+                        <Typography sx={{ fontWeight: '400', fontSize: '12px', lineHeight: '12px', color: '#949494' }} component='span'>
+                            Officiis dicta a, aliquid molestiae rerum repudiandae iste ipsum quod unde aspernatur, expedita, quis inventore!
+                            Saepe odio veniam quasi esse quas possimus eveniet sit? Assumenda aperiam id facere laboriosam debitis animi
+                            repellat quam provident, sunt explicabo sed ducimus rem obcaecati aliquid
+                        </Typography>
                     </Typography>
                 </Box>
             </Box>
-            <Box
+            {/* <Box
                 sx={{
                     width: '100%',
                     backgroundColor: '#F4F1FF',
@@ -106,16 +135,15 @@ const PaymentConfirmationContainer = () => {
             </Box>
             <Box sx={{ padding: '19px' }}>
                 <CheckboxController name='check' form={form} onClick={handleCheckbox} checked={form.watch('check')} />
-            </Box>
+            </Box> */}
             <Box sx={{ padding: '20px', position: 'sticky', bottom: '0px', zIndex: 99, mt: '100px' }}>
                 <Button
-                    disabled={!form.watch('check')}
+                    // disabled={!form.watch('check')}
                     title='Confirm to pay'
                     backgoundColor='#A54CE5'
                     color='white'
-                    onClick={() => {
-                        router.push(`${router.asPath}/pay-form`);
-                    }}
+                    onClick={postTopupHandler}
+                    loading={isLoading}
                 />
             </Box>
         </Box>
