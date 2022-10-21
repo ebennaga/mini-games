@@ -14,18 +14,23 @@ const TabPanelPoints: React.FC<TabPanelPointsProps> = ({ value, index, isAnyTran
         <TabPanelTransaction value={value} index={index}>
             {isAnyTransaction && (
                 <Typography sx={{ fontSize: '12px' }}>
-                    You have <span style={{ color: '#A54CE5', fontWeight: 'bold' }}>2 Transaction</span> today
+                    You have <span style={{ color: '#A54CE5', fontWeight: 'bold' }}>0 Transaction</span> today
                 </Typography>
             )}
             <Typography sx={{ fontWeight: 'bold', mt: '15px' }}>Today</Typography>
-            {[...Array(2)].map((i: any, idx: number) => (
+            {[...Array(0)].map((i: any, idx: number) => (
                 <TransactionCard
                     key={idx}
-                    title='Cashback'
-                    amount={20}
+                    // title='Cashback'
+                    // amount={20}
+                    // isCoin={false}
+                    // subtitle='Expired 31 Oct 2022'
+                    // created='2022-10-10 00:00:00'
+                    title=''
+                    amount={0}
                     isCoin={false}
-                    subtitle='Expired 31 Oct 2022'
-                    created='2022-10-10 00:00:00'
+                    subtitle=''
+                    created=''
                 />
             ))}
         </TabPanelTransaction>

@@ -1,13 +1,14 @@
+/* eslint-disable prettier/prettier */
 import { Box, ButtonBase, Typography } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import NavigationCard from 'components/NavigationCard';
+import { getAuth, signOut } from 'firebase/auth';
 import SwitchCard from 'components/SwitchCard';
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import useAuthReducer from 'hooks/useAuthReducer';
 import DeleteAccountDialog from './DeleteAccountDialog';
-import { getAuth, signOut } from 'firebase/auth';
 
 const ProfileSetting = () => {
     const { clearUser } = useAuthReducer();
@@ -43,12 +44,12 @@ const ProfileSetting = () => {
 
     const handleSignOut = () => {
         const auth = getAuth();
-        if(auth){
-            signOut(auth).then(()=>{
+        if (auth) {
+            signOut(auth).then(() => {
                 clearUser();
                 router.push('/');
-            })
-        }else{
+            });
+        } else {
             clearUser();
             router.push('/');
         }
@@ -57,7 +58,7 @@ const ProfileSetting = () => {
     const handleDelete = () => router.push('/signup');
 
     const generalItem = [
-        { title: 'Avatar & Nickname', icon: '/icons/dummy/profile-2.png', href: '/profile/edit-profile' },
+        { title: 'Avatar & Nickname', icon: '/icons/dummy/profile.png', href: '/profile/edit-profile' },
         { title: 'Account & Address', icon: '/icons/email.svg', href: '/profile/settings/email-address' }
     ];
     const supportData = [
