@@ -18,6 +18,7 @@ const PlayGameContainer = () => {
             } else {
                 setSoundGame('true');
             }
+            window.history.replaceState({}, '', `/games/${route.query.id}/casual`);
         }
     }, []);
 
