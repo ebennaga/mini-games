@@ -113,7 +113,7 @@ const SignUp = () => {
         <Layout backgoundColor='#FFF'>
             <Box sx={{ textAlign: 'start', width: '90%', margin: '20px' }}>
                 <Typography sx={{ fontWeight: 700, fontSize: '46px' }} component='h1'>
-                    Start Your Account
+                    Start Your Account.It’s Free
                 </Typography>
                 <Typography sx={{ fontSize: '21px', color: '#949494' }}>Hey there!, to play our games, go and register now.</Typography>
                 <form onSubmit={form.handleSubmit(handleSubmit)}>
