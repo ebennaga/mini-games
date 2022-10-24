@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
 import { Box, Typography, Skeleton } from '@mui/material';
 import React from 'react';
@@ -32,6 +33,7 @@ const GameTournament = () => {
     const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
     const [isLoading, isSetLoading] = React.useState<boolean>(false);
     const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
+    const [loadingPlay, setLoadingPlay] = React.useState<boolean>(false);
 
     const fetchData = async (id: number) => {
         isSetLoading(true);
@@ -63,6 +65,7 @@ const GameTournament = () => {
     };
 
     const getGameSession = async () => {
+        setLoadingPlay(true);
         if (userState) {
             const response = await fetchAPI({
                 method: 'POST',
@@ -73,11 +76,19 @@ const GameTournament = () => {
                 }
             });
             if (response.status === 200) {
+                const newState = { ...userState };
+                if (!userState.sessionGame || userState.sessionGame !== response.data.data.session_code) {
+                    newState.sessionGame = response.data.data.session_code;
+                    clearUser();
+                    setUser(newState);
+                }
                 setSessionGame(response.data.data);
-            } else {
-                notify('failed get session game', 'error');
+                return true;
             }
+            notify('failed get session game', 'error');
+            return false;
         }
+        setLoadingPlay(false);
     };
 
     React.useEffect(() => {
@@ -85,7 +96,6 @@ const GameTournament = () => {
             isSetLoading(true);
             await fetchData(Number(router.query['id-tournament']));
             await getGameDetail();
-            await getGameSession();
             isSetLoading(false);
         };
         getAllData();
@@ -114,12 +124,16 @@ const GameTournament = () => {
         }
     }, [userState, sessionGame, detailGame]);
 
-    const handlePlay = () => {
+    const handlePlay = async () => {
         if (userState) {
             if (userState?.coin < listingGame.entry_coin) {
                 return setOpenNotifDialog(!openNotifDialog);
             }
-            return router.push(`/games/${router.query.id}/tournament/${router.query['id-tournament']}/loading`);
+            const response = await getGameSession();
+            if (response) {
+                return router.push(`/games/${router.query.id}/tournament/${router.query['id-tournament']}/loading`);
+            }
+            return notify('Ups, Server error!', 'error');
         }
         return setSignupLoginDialog(true);
     };
@@ -194,7 +208,7 @@ const GameTournament = () => {
                 {isLoading ? (
                     <Skeleton sx={{ height: '80px' }} />
                 ) : (
-                    <ButtonPlay onClick={handlePlay} title='Play Tournament' points={listingGame?.entry_coin} />
+                    <ButtonPlay onClick={handlePlay} title='Play Tournament' points={listingGame?.entry_coin} isLoading={loadingPlay} />
                 )}
             </Box>
             <NotifDialog
