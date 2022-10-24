@@ -151,7 +151,7 @@ const GameTournament = () => {
                         <Skeleton animation='wave' variant='rectangular' width='100%' />
                     </Box>
                 ) : (
-                    <Box component='section' padding='28px 0'>
+                    <Box component='section' padding='18px 0'>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '37px' }}>
                             <Typography component='h2' fontSize='24px' fontWeight={700}>
                                 Leaderboard

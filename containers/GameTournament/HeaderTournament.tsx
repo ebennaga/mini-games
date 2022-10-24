@@ -1,9 +1,11 @@
 /* eslint-disable no-unused-vars */
-import { Box, Typography } from '@mui/material';
+import { Box, ButtonBase, Typography } from '@mui/material';
 import BadgeImages from 'components/BadgeImages';
 import getRemainingTimes from 'helper/getRemainingTime';
 // import Header from 'components/Header';
 import React from 'react';
+import { ExpandMore, ExpandLess } from '@mui/icons-material';
+import CostumProgress from './CostumProgress';
 
 interface HeaderTournamentProps {
     backgroundImage: string;
@@ -18,60 +20,205 @@ interface HeaderTournamentProps {
 
 const HeaderTournament = (props: HeaderTournamentProps) => {
     const { backgroundImage, titleGame, tournamentType, time, totalPlayer, playerImg1, playerImg2, playerImg3 } = props;
-
+    const value = 50;
+    const [isExpand, setIsExpand] = React.useState<boolean>(false);
     return (
-        <Box
-            component='header'
-            sx={{
-                backgroundImage: `url(${backgroundImage})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                height: '300px',
-                borderBottomLeftRadius: '15px',
-                borderBottomRightRadius: '15px',
-                marginTop: '-87px',
-                paddingTop: '30px'
-            }}
-        >
+        <Box>
             <Box
+                component='header'
                 sx={{
-                    background: 'linear-gradient(0deg, #353535 9.93%, rgba(53, 53, 53, 0) 90.83%)',
-                    height: '-webkit-fill-available',
-                    padding: '20px 20px 50px 20px',
+                    backgroundImage: `url(${backgroundImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    height: '300px',
                     borderBottomLeftRadius: '15px',
                     borderBottomRightRadius: '15px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-end'
+                    marginTop: '-87px',
+                    paddingTop: '30px'
                 }}
             >
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end' }}>
-                    <Box sx={{ color: '#fff' }}>
-                        <Typography component='h2' fontSize='24px' fontWeight={700}>
-                            {titleGame}
-                        </Typography>
-                        <Typography component='h3' fontSize='14px' fontWeight={700}>
-                            {tournamentType}
-                        </Typography>
-                        <Box
-                            sx={{
-                                color: '#282626',
-                                background: '#FFDD50',
-                                borderRadius: '19px',
-                                padding: '4.5px 5px',
-                                width: 'fit-content',
-                                display: 'flex',
-                                alignItems: 'center'
-                            }}
-                        >
-                            <img src='/icons/time.png' width='17px' height='17px' alt='time' />
-                            <Typography component='span' height='18px' fontSize='14px' fontWeight={800} marginLeft='8px'>
-                                {getRemainingTimes(time)}
+                <Box
+                    sx={{
+                        background: 'linear-gradient(0deg, #353535 9.93%, rgba(53, 53, 53, 0) 90.83%)',
+                        height: '-webkit-fill-available',
+                        padding: '20px 20px 50px 20px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-end'
+                    }}
+                >
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end' }}>
+                        <Box sx={{ color: '#fff' }}>
+                            <Typography component='h2' fontSize='24px' fontWeight={700}>
+                                {titleGame}
                             </Typography>
+                            <Typography component='h3' fontSize='14px' fontWeight={700}>
+                                {tournamentType}
+                            </Typography>
+                            <Box
+                                sx={{
+                                    color: '#282626',
+                                    background: '#FFDD50',
+                                    borderRadius: '19px',
+                                    padding: '4.5px 5px',
+                                    width: 'fit-content',
+                                    display: 'flex',
+                                    alignItems: 'center'
+                                }}
+                            >
+                                <img src='/icons/time.png' width='17px' height='17px' alt='time' />
+                                <Typography component='span' height='18px' fontSize='14px' fontWeight={800} marginLeft='8px'>
+                                    {getRemainingTimes(time)}
+                                </Typography>
+                            </Box>
                         </Box>
+                        <BadgeImages images1={playerImg1} images2={playerImg2} images3={playerImg3} total={totalPlayer} />
                     </Box>
-                    <BadgeImages images1={playerImg1} images2={playerImg2} images3={playerImg3} total={totalPlayer} />
                 </Box>
+            </Box>
+            <Box
+                onClick={() => {
+                    setIsExpand(!isExpand);
+                }}
+                sx={{
+                    position: 'relative',
+                    bottom: 1,
+                    width: '100%',
+                    backgroundColor: '#353535',
+                    // height: '35px',
+                    paddingY: '10px',
+                    height: '100%',
+                    borderBottomLeftRadius: '15px',
+                    borderBottomRightRadius: '15px',
+                    textAlign: 'center'
+                }}
+            >
+                <Box sx={{ height: isExpand ? '250px' : '0px', paddingX: '20px' }}>
+                    {isExpand && (
+                        <>
+                            <Typography sx={{ textAlign: 'start', color: 'white' }}>Prizepool Prize</Typography>
+                            <Box sx={{ mt: '0px', display: 'flex', gap: '30px' }}>
+                                <Box sx={{ ml: '-155px', transform: 'rotate(90deg)', width: '180px', position: 'relative' }}>
+                                    <CostumProgress variant='determinate' value={value} />
+                                    <Box
+                                        sx={{
+                                            width: '100%',
+                                            position: 'absolute',
+                                            top: '-6px',
+                                            display: 'flex',
+                                            justifyContent: 'space-between'
+                                        }}
+                                    >
+                                        <Box />
+                                        <img src={value >= 40 ? '/images/step-poin.png' : '/images/step.png'} alt='step' />
+                                        <img src={value >= 60 ? '/images/step-poin.png' : '/images/step.png'} alt='step' />
+                                        <img src={value >= 80 ? '/images/step-poin.png' : '/images/step.png'} alt='step' />
+                                    </Box>
+                                </Box>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: '15px', pt: '40px', width: '100%' }}>
+                                    <Box
+                                        sx={{
+                                            width: '100%',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between'
+                                        }}
+                                    >
+                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                            <img src='/images/sm-point.png' alt='' />
+                                            <Typography sx={{ color: 'white' }}>
+                                                <span style={{ fontWeight: 'bold', fontSize: '20px' }}>2500</span> Pool
+                                            </Typography>
+                                        </Box>
+                                        <Box sx={{ display: 'flex', width: '40%', justifyContent: 'space-between' }}>
+                                            <Box sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                                                <Box>
+                                                    <img src='/icons/icon-user.png' alt='user' />
+                                                </Box>
+                                                <Typography sx={{ fontWeight: 600, color: 'white' }}>150</Typography>
+                                            </Box>
+                                            <Box sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                                                <Box>
+                                                    <img src='/icons/icon-trophy.png' alt='user' />
+                                                </Box>
+                                                <Typography sx={{ fontWeight: 600, color: 'white' }}>50</Typography>
+                                            </Box>
+                                        </Box>
+                                    </Box>
+                                    <Box
+                                        sx={{
+                                            width: '100%',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between'
+                                        }}
+                                    >
+                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                            <img src='/images/sm-point.png' alt='' />
+                                            <Typography sx={{ color: 'white' }}>
+                                                <span style={{ fontWeight: 'bold', fontSize: '25px' }}>2500</span> Pool
+                                            </Typography>
+                                        </Box>
+                                        <Box sx={{ display: 'flex', width: '40%', justifyContent: 'space-between' }}>
+                                            <Box sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                                                <Box>
+                                                    <img src='/icons/icon-user.png' alt='user' />
+                                                </Box>
+                                                <Typography sx={{ fontWeight: 600, color: 'white' }}>150</Typography>
+                                            </Box>
+                                            <Box sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                                                <Box>
+                                                    <img src='/icons/icon-trophy.png' alt='user' />
+                                                </Box>
+                                                <Typography sx={{ fontWeight: 600, color: 'white' }}>50</Typography>
+                                            </Box>
+                                        </Box>
+                                    </Box>
+                                    <Box
+                                        sx={{
+                                            width: '100%',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between'
+                                        }}
+                                    >
+                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                            <img src='/images/sm-point.png' alt='' />
+                                            <Typography sx={{ color: 'white' }}>
+                                                <span style={{ fontWeight: 'bold', fontSize: '30px' }}>2500</span> Pool
+                                            </Typography>
+                                        </Box>
+                                        <Box sx={{ display: 'flex', width: '40%', justifyContent: 'space-between' }}>
+                                            <Box sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                                                <Box>
+                                                    <img src='/icons/icon-user.png' alt='user' />
+                                                </Box>
+                                                <Typography sx={{ fontWeight: 600, color: 'white' }}>150</Typography>
+                                            </Box>
+                                            <Box sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                                                <Box>
+                                                    <img src='/icons/icon-trophy.png' alt='user' />
+                                                </Box>
+                                                <Typography sx={{ fontWeight: 600, color: 'white' }}>50</Typography>
+                                            </Box>
+                                        </Box>
+                                    </Box>
+                                </Box>
+                            </Box>
+                        </>
+                    )}
+                </Box>
+                <ButtonBase
+                    onClick={() => {
+                        setIsExpand(!isExpand);
+                    }}
+                >
+                    {isExpand ? (
+                        <ExpandLess sx={{ color: 'white', cursor: 'pointer' }} />
+                    ) : (
+                        <ExpandMore sx={{ color: 'white', cursor: 'pointer' }} />
+                    )}
+                </ButtonBase>
             </Box>
         </Box>
     );
