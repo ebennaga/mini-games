@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import InfoArticle from 'components/InfoArticle';
+import InfoTermPrivacy from 'components/TermPrivacySection';
 import TitleSection from 'components/TitleSection';
 import React from 'react';
 
@@ -215,7 +216,7 @@ const arrayPrivacyPolicy = [
     },
     {
         title: "Contact Us",
-        subtitle: "If you have any questions about this Privacy Policy, please contact us by email: ptultrasuksesbersama@gmail.com."
+        subtitle: "If you have any questions about this Privacy Policy, please contact us by email: ptultrasuksesbersama@gmail.com.\n\n"
     },
 ]
 
@@ -229,24 +230,7 @@ const PrivacyPolicy = () => {
                 </Typography>
             </Box>
             <Box component='article' sx={{ marginBottom: '50px' }}>
-                <Box sx={{ marginTop: '28px' }}>
-                    {arrayPrivacyPolicy.map((_item: any, index: number) => {
-                        return (
-                            <Box key={index} sx={{ marginTop: index === 0 ? 0 : '28px', marginBottom:'21px'}}>
-                                <Typography component='h3' fontWeight={600} fontSize='12px' sx={{ color: '#2E2E2E' }}>
-                                    {`${index + 1}. ${_item.title}`}
-                                </Typography>
-                                <Typography component='span' fontWeight={400} fontSize='12px' sx={{ color: '#949494',whiteSpace: 'pre-wrap' }}>
-                                    {`${_item.subtitle}`}
-                                </Typography>
-                                {/* <InfoArticle
-                                    title={`${index + 1}. ${_item.title}`}
-                                    text={`${_item.subtitle}`}
-                                /> */}
-                            </Box>
-                        );
-                    })}
-                </Box>
+                <InfoTermPrivacy arrayInfo={arrayPrivacyPolicy}/>
             </Box>
         </Box>
     );
