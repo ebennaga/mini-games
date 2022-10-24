@@ -123,7 +123,7 @@ const GameTournament = () => {
         }
         return setSignupLoginDialog(true);
     };
-
+    console.log(listingGame);
     return (
         <Box width='100%'>
             {isLoading ? (
@@ -151,7 +151,7 @@ const GameTournament = () => {
                         <Skeleton animation='wave' variant='rectangular' width='100%' />
                     </Box>
                 ) : (
-                    <Box component='section' padding='28px 0'>
+                    <Box component='section' padding='18px 0'>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '37px' }}>
                             <Typography component='h2' fontSize='24px' fontWeight={700}>
                                 Leaderboard
@@ -161,7 +161,19 @@ const GameTournament = () => {
                                 <Typography sx={{ fontSize: '14px', fontWeight: 'bold' }}>250</Typography>
                             </Box>
                         </Box>
-                        {listingGame?.leaderboards && <LeaderboardPodium dataLeaderboard={listingGame?.leaderboards} />}
+                        {listingGame?.leaderboards.length < 0 && (
+                            <Box sx={{ textAlign: 'center', marginY: '150px' }}>
+                                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                                    <img src='/images/leaderboard-img.png' alt='leaderboard' />
+                                </Box>
+                                <Typography sx={{ fontSize: '14px', color: '#949494', fontWeight: 'bold' }}>
+                                    Nobody has played yet. Be the first.
+                                </Typography>
+                            </Box>
+                        )}
+                        {listingGame?.leaderboards && listingGame?.leaderboards.length > 0 && (
+                            <LeaderboardPodium dataLeaderboard={listingGame?.leaderboards} />
+                        )}
                     </Box>
                 )}
                 {isLoading ? (
@@ -172,7 +184,9 @@ const GameTournament = () => {
                     </Box>
                 ) : (
                     <Box component='section' marginBottom='40px'>
-                        {listingGame?.leaderboards && <TableRank dataLeaderboard={listingGame?.leaderboards} />}
+                        {listingGame?.leaderboards && listingGame?.leaderboards.length > 0 && (
+                            <TableRank dataLeaderboard={listingGame?.leaderboards} />
+                        )}
                     </Box>
                 )}
             </Box>
