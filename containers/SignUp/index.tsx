@@ -113,7 +113,7 @@ const SignUp = () => {
         <Layout backgoundColor='#FFF'>
             <Box sx={{ textAlign: 'start', width: '90%', margin: '20px' }}>
                 <Typography sx={{ fontWeight: 700, fontSize: '46px' }} component='h1'>
-                    {t('home:welcome_msg')}
+                    Start Your Account
                 </Typography>
                 <Typography sx={{ fontSize: '21px', color: '#949494' }}>Hey there!, to play our games, go and register now.</Typography>
                 <form onSubmit={form.handleSubmit(handleSubmit)}>
@@ -219,14 +219,14 @@ const SignUp = () => {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <Button
+                        {/* <Button
                             icon={<Facebook sx={{ color: '#A54CE5', position: 'absolute', left: '20px', bottom: '20px' }} />}
                             title='Log in with Facebook'
                             backgoundColor='#FFF'
                             color='#000'
                             border='2px solid #F4F1FF'
                             onClick={() => {}}
-                        />
+                        /> */}
                     </Grid>
                     <Grid
                         item

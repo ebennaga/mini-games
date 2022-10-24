@@ -3,7 +3,7 @@ import Layout from 'components/Layout/Index';
 import React from 'react';
 import ButtonCustom from 'components/Button/Index';
 
-import { Google, Facebook } from '@mui/icons-material';
+import { Google } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 
 const LandingPage = () => {
@@ -52,13 +52,13 @@ const LandingPage = () => {
                     color='#FFF'
                     border='2px solid #FFF'
                 />
-                <ButtonCustom
+                {/* <ButtonCustom
                     icon={<Facebook sx={{ position: 'absolute', left: '20px', bottom: '20px' }} />}
                     title='Log in with Facebook'
                     backgoundColor='transparent'
                     color='#FFF'
                     border='2px solid #FFF'
-                />
+                /> */}
                 <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center', mt: 3 }}>
                     <Typography>Already have an Account?</Typography>
                     <ButtonBase

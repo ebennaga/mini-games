@@ -165,14 +165,14 @@ const Login = () => {
                             />
                         </Box>
                         <Box>
-                            <Button
+                            {/* <Button
                                 icon={<Facebook sx={{ color: '#A54CE5', position: 'absolute', left: '20px', bottom: '20px' }} />}
                                 title='Log in with Facebook'
                                 backgoundColor='#FFF'
                                 color='#000'
                                 border='2px solid #F4F1FF'
                                 onClick={() => {}}
-                            />
+                            /> */}
                         </Box>
                         <Box
                             sx={{
