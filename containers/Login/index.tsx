@@ -69,7 +69,7 @@ const Login = () => {
                 const { user } = result;
 
                 // console.log('user', user.uid);
-                console.log('newuser', newUser);
+                // console.log('newuser', newUser);
                 const response = await fetchAPI({
                     method: 'POST',
                     endpoint: 'auths/login/google',
@@ -82,8 +82,10 @@ const Login = () => {
                 if (response.status === 200) {
                     setUser(response.data.data);
                     router.push('/');
+                } else if (response.data.message === 'User registration is not completed') {
+                    notify('You have to registration first', 'error');
                 } else {
-                    notify('Login Failed', 'error');
+                    notify(response.data.message, 'error');
                 }
 
                 // ...
@@ -98,6 +100,7 @@ const Login = () => {
                 // const credential = GoogleAuthProvider.credentialFromError(error);
                 // ...
                 console.log('error', error.message);
+                notify('Internal server error', 'error');
             });
     };
 
@@ -162,14 +165,14 @@ const Login = () => {
                             />
                         </Box>
                         <Box>
-                            <Button
+                            {/* <Button
                                 icon={<Facebook sx={{ color: '#A54CE5', position: 'absolute', left: '20px', bottom: '20px' }} />}
                                 title='Log in with Facebook'
                                 backgoundColor='#FFF'
                                 color='#000'
                                 border='2px solid #F4F1FF'
                                 onClick={() => {}}
-                            />
+                            /> */}
                         </Box>
                         <Box
                             sx={{

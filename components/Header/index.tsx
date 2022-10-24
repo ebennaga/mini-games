@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
 import { Box, ButtonBase, Skeleton, Typography } from '@mui/material';
 import React from 'react';
@@ -67,7 +68,6 @@ const Header: React.FC<HeaderProps> = ({
     React.useEffect(() => {
         fetchData();
     }, []);
-
     const handleLoginGoogle = async (user: User) => {
         if (userState?.api_token == null) {
             const response = await fetchAPI({
@@ -91,7 +91,7 @@ const Header: React.FC<HeaderProps> = ({
     React.useEffect(() => {
         setIsFirebaseLoading(true);
         const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, (user: any) => {
             if (user) {
                 // User is signed in, see docs for a list of available properties
                 // https://firebase.google.com/docs/reference/js/firebase.User
@@ -105,7 +105,7 @@ const Header: React.FC<HeaderProps> = ({
             setIsFirebaseLoading(false);
         });
     }, []);
-
+    console.log(userData);
     if (isLoading) {
         return <HeaderSkeleton />;
     }
@@ -206,7 +206,13 @@ const Header: React.FC<HeaderProps> = ({
                                 className={classes.pointText}
                                 sx={{ fontWeight: 'bold', fontSize: '14px', color: '#373737' }}
                             >
-                                {numberFormat(router.pathname.includes('/shops') && !isLoading ? userData?.point : userData?.coin)}
+                                {numberFormat(
+                                    router.pathname.includes('/shops') && !isLoading
+                                        ? userData?.point
+                                        : userData?.coin
+                                        ? userData?.coin
+                                        : '0'
+                                )}
                             </Typography>
                         </Box>
                     </Box>

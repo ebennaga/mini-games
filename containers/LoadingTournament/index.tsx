@@ -1,10 +1,18 @@
 import { Typography, Box } from '@mui/material';
 import CircularStatic from 'components/CircularProgress';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
 const TournamentLoading = () => {
     const userState = useSelector((state: any) => state.webpage?.user?.user);
+    const router = useRouter();
+
+    React.useEffect(() => {
+        if (typeof window !== 'undefined') {
+            window.history.replaceState({}, '', `/games/${router.query.id}/tournament/${router.query['id-tournament']}`);
+        }
+    }, []);
 
     return (
         <Box sx={{ textAlign: 'center', padding: '0px 30px 40px' }}>

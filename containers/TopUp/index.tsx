@@ -165,7 +165,7 @@ const TopUp = () => {
                             return (
                                 <Box
                                     onClick={() => {
-                                        router.push('/topup/payment-confirmation');
+                                        router.push(`/topup/${item.id}/payment-confirmation`);
                                     }}
                                     key={index}
                                     sx={{

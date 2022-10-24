@@ -1,14 +1,17 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 const PlayTournamentContainer = () => {
     const [soundGame, setSoundGame] = React.useState<any>('');
 
     const userState = useSelector((state: any) => state.webpage?.user?.user);
+    const router = useRouter();
 
     React.useEffect(() => {
         if (typeof window !== 'undefined') {
+            window.history.replaceState({}, '', `/games/${router.query.id}/tournament/${router.query['id-tournament']}`);
             const soundData = localStorage.getItem('prizePlaySound');
             if (soundData) {
                 setSoundGame(soundData);
