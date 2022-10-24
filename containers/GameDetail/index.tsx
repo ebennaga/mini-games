@@ -385,8 +385,29 @@ const GameDetailContainer = () => {
                     >
                         <Grid item xs={5} justifyContent='space-between'>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                <img src='/icons/tape-stats.png' alt='ribbon' />
-                                <Typography sx={{ fontSize: '14px', fontWeight: '700' }}>High scores</Typography>
+                                <img src='/images/ribb-casual.png' alt='ribbon' />
+                                <Typography sx={{ fontSize: '14px', fontWeight: '700' }}>Casual</Typography>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Box justifyContent='space-between' sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                <EmojiEvents />
+                                <Typography sx={{ fontWeight: '700' }}>{numberFormat(detailGame?.auths.highscore)}</Typography>
+                                <Share />
+                            </Box>
+                        </Grid>
+                    </Grid>
+                    <Grid
+                        mt='18px'
+                        container
+                        justifyContent='space-between'
+                        gap='10px'
+                        sx={{ backgroundColor: '#D7EEFF', padding: '18px 25px', borderRadius: '15px' }}
+                    >
+                        <Grid item xs={5} justifyContent='space-between'>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <img src='/images/ribb-tournament.png' alt='ribbon' />
+                                <Typography sx={{ fontSize: '14px', fontWeight: '700' }}>Tournament</Typography>
                             </Box>
                         </Grid>
                         <Grid item xs={4}>
