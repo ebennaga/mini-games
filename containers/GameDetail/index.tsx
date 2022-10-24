@@ -47,14 +47,14 @@ const GameDetailContainer = () => {
 
     const getGameSession = async () => {
         if (userState) {
-            const response = await fetchAPI({
-                method: 'POST',
-                endpoint: `webhook/game-sessions`,
-                data: {
-                    game_id: router.query.id
-                }
-            });
             try {
+                const response = await fetchAPI({
+                    method: 'POST',
+                    endpoint: `webhook/game-sessions`,
+                    data: {
+                        game_id: router.query.id
+                    }
+                });
                 if (response.status === 200) {
                     setSessionGame(response.data.data);
                 } else {
@@ -65,25 +65,6 @@ const GameDetailContainer = () => {
             }
         }
     };
-
-    //   const getGameSession = async () => {
-    //     const response = await fetchAPI({
-    //         method: 'POST',
-    //         endpoint: `webhook/game-sessions`,
-    //         data: {
-    //             game_id: router.query.id
-    //         }
-    //     });
-    //     try {
-    //         if (response.status === 200) {
-    //             setSessionGame(response.data.data);
-    //         } else {
-    //             notify('failed error', 'error');
-    //         }
-    //     } catch (e: any) {
-    //         notify(e.message, 'error');
-    //     }
-    // };
 
     React.useEffect(() => {
         const fetchAllData = async () => {
@@ -313,6 +294,7 @@ const GameDetailContainer = () => {
                             <Box
                                 sx={{
                                     background: 'linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%)',
+                                    borderRadius: '20px',
                                     height: '100%',
                                     display: 'flex',
                                     alignItems: 'flex-end'
