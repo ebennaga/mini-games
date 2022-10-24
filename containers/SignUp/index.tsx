@@ -12,12 +12,19 @@ import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import useAuthReducer from 'hooks/useAuthReducer';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
+
+type Props = {
+    // Add custom props here
+};
 
 const SignUp = () => {
     const router = useRouter();
 
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
+    const { t } = useTranslation(['home']);
 
     const form = useForm({
         mode: 'all',
@@ -30,6 +37,7 @@ const SignUp = () => {
         }
     });
     const dataInput = form.watch();
+    console.log('i18next', t);
 
     const rules = { required: true };
     // eslint-disable-next-line no-unused-vars
@@ -105,7 +113,7 @@ const SignUp = () => {
         <Layout backgoundColor='#FFF'>
             <Box sx={{ textAlign: 'start', width: '90%', margin: '20px' }}>
                 <Typography sx={{ fontWeight: 700, fontSize: '46px' }} component='h1'>
-                    Start Your Account. It’s Free !
+                    {t('home:welcome_msg')}
                 </Typography>
                 <Typography sx={{ fontSize: '21px', color: '#949494' }}>Hey there!, to play our games, go and register now.</Typography>
                 <form onSubmit={form.handleSubmit(handleSubmit)}>
