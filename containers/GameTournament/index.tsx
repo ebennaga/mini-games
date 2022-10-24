@@ -123,7 +123,7 @@ const GameTournament = () => {
         }
         return setSignupLoginDialog(true);
     };
-    console.log(listingGame);
+
     return (
         <Box width='100%'>
             {isLoading ? (
