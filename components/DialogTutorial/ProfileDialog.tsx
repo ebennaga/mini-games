@@ -10,6 +10,7 @@ interface IProfileDialog {
 const ProfileDialog: React.FC<IProfileDialog> = ({ onClose, open }) => {
     return (
         <Dialog
+            onClose={onClose}
             open={open}
             sx={{
                 zIndex: 999,

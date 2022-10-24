@@ -69,6 +69,7 @@ const WelcomeDialog: React.FC<IWelcomeDialog> = ({ open, setOpen, dataLocal, set
     return (
         <>
             <Dialog
+                onClose={handleStart}
                 open={dataLocal.isTutorial && dataLocal.listTutorial.welcome && open}
                 sx={{
                     '& .MuiBackdrop-root': {

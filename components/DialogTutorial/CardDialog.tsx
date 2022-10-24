@@ -34,7 +34,7 @@ const CardDialog: React.FC<ICardDialog> = ({ title, info, onClose, isTab }) => {
                 <Typography component='h2' fontSize='16px' fontWeight={700}>
                     {title}
                 </Typography>
-                <IconButton onClick={onClose} sx={{ padding: 0 }}>
+                <IconButton onClick={onClose} sx={{ padding: 0, display: 'none' }}>
                     <CloseIcon sx={{ color: '#fff' }} />
                 </IconButton>
             </Box>
