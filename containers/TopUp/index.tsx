@@ -9,6 +9,7 @@ import Link from 'next/link';
 import HeaderSkeleton from 'components/Header/HeaderSkeleton';
 import numberFormat from 'helper/numberFormat';
 import TransactionCard from 'containers/Transaction/TransactionCard';
+import TopupSkeleton from './TopupSkeleton';
 
 const TopUp = () => {
     const router = useRouter();
@@ -17,12 +18,10 @@ const TopUp = () => {
     const { fetchAPI, isLoading } = useAPICaller();
     const [coins, setCoins] = React.useState<any>(null);
     const [histories, setHistories] = React.useState<any>(null);
-
     const getTopupData = async () => {
         const response = await fetchAPI({
             endpoint: 'transactions/home?search='
         });
-        console.log(response);
         if (response.status === 200) {
             setCoins(response.data.data.coins);
             setHistories(response.data.data.history);
@@ -49,6 +48,10 @@ const TopUp = () => {
         };
     }, []);
 
+    if (isLoading) {
+        return <TopupSkeleton />;
+    }
+
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
             <Box
@@ -64,7 +67,7 @@ const TopUp = () => {
                     borderBottom: borderValue
                 }}
             >
-                <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
+                <Header logo='/icons/logo.svg' profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Box sx={{ mt: '40px', ml: '20px', display: 'flex', justifyContent: 'space-between', mr: '18px', height: '33px' }}>
                 <Typography sx={{ fontSize: '32px', fontWeight: 700, lineHeight: '33px' }}>Top Up Coins</Typography>
