@@ -12,7 +12,15 @@ interface TransactionCardProps {
     isYesterday?: any;
 }
 
-const TransactionCard: React.FC<TransactionCardProps> = ({ title, subtitle, amount, isCoin = true, created, isYesterday, isToday }) => {
+const TransactionCard: React.FC<TransactionCardProps> = ({
+    title,
+    subtitle,
+    amount,
+    isCoin = true,
+    created,
+    isYesterday = true,
+    isToday = true
+}) => {
     const date = new Date(created);
     const today = new Date();
     return (
