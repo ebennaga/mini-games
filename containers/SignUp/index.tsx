@@ -45,6 +45,8 @@ const SignUp = () => {
     const [isSamePwd, setIsSamePwd] = React.useState<boolean>(true);
 
     const { fetchAPI, isLoading } = useAPICaller();
+    const { fetchAPI: fetchSendOtp, isLoading: loadingSendOtp } = useAPICaller();
+
     const notify = useNotify();
     const { setUser } = useAuthReducer();
 
@@ -58,6 +60,22 @@ const SignUp = () => {
             }
         }
     }, [form.watch('password'), form.watch('confirmPassword')]);
+
+    const handleSendOtp = async () => {
+        const response = await fetchSendOtp({
+            method: 'POST',
+            endpoint: 'auths/register/otp/resend',
+            data: {
+                email: form.watch('email'),
+                password: form.watch('password')
+            }
+        });
+
+        if (response.status === 200) {
+            return true;
+        }
+        return false;
+    };
 
     const handleSubmit = async (data: any) => {
         const response = await fetchAPI({
@@ -76,8 +94,10 @@ const SignUp = () => {
             setUser(registerData);
             router.push('/send-otp');
         } else {
-            if (response.data.message) {
-                return notify(response.data.message, 'error');
+            if (response.data.message === 'Email is already existed') {
+                notify(`${response.data.message}! Otp code has been sent to your email`);
+                await handleSendOtp();
+                return router.push('/send-otp');
             }
             return notify('Signup Error', 'error');
         }
@@ -161,7 +181,7 @@ const SignUp = () => {
                                 backgoundColor='#A54CE5'
                                 color='#FFF'
                                 type='submit'
-                                loading={isLoading}
+                                loading={isLoading || loadingSendOtp}
                                 disabled={!dataInput.email || dataInput.password.length < 6 || !isSamePwd}
                             />
                         </Grid>
