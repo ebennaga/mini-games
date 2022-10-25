@@ -9,7 +9,8 @@ import Link from 'next/link';
 import HeaderSkeleton from 'components/Header/HeaderSkeleton';
 import numberFormat from 'helper/numberFormat';
 import TransactionCard from 'containers/Transaction/TransactionCard';
-import TopupSkeleton from './TopupSkeleton';
+import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
+import { useSelector } from 'react-redux';
 
 const TopUp = () => {
     const router = useRouter();
@@ -18,6 +19,10 @@ const TopUp = () => {
     const { fetchAPI, isLoading } = useAPICaller();
     const [coins, setCoins] = React.useState<any>(null);
     const [histories, setHistories] = React.useState<any>(null);
+    const [dialogSignup, setDialogSignup] = useState<boolean>(false);
+
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
+
     const getTopupData = async () => {
         const response = await fetchAPI({
             endpoint: 'transactions/home?search='
@@ -48,9 +53,13 @@ const TopUp = () => {
         };
     }, []);
 
-    if (isLoading) {
-        return <TopupSkeleton />;
-    }
+    const handleTopup = (id: any) => {
+        if (userState) {
+            router.push(`/topup/${id}/payment-confirmation`);
+        } else {
+            setDialogSignup(true);
+        }
+    };
 
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
@@ -98,7 +107,8 @@ const TopUp = () => {
                             xs={5}
                             key={item.id}
                             onClick={() => {
-                                router.push(`/topup/${item.id}/payment-confirmation`);
+                                // router.push(`/topup/${item.id}/payment-confirmation`);
+                                handleTopup(item.id);
                             }}
                         >
                             <Box
@@ -566,6 +576,7 @@ const TopUp = () => {
                     </Box>
                 </Box>
             )} */}
+            <SignupLoginDialog open={dialogSignup} setOpen={setDialogSignup} />
         </Box>
     );
 };
