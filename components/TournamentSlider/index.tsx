@@ -14,7 +14,8 @@ const TournamentSlider = (props: TournamentSliderProps) => {
         dots: false,
         speed: 500,
         slideToShow: 1,
-        swipeToSlide: true
+        swipeToSlide: true,
+        infinite: false
     };
 
     const maxWidth = customMaxWidth || '100vw';
