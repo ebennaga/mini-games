@@ -18,7 +18,7 @@ const SendOtp = () => {
     const { isLoading, fetchAPI } = useAPICaller();
     const { isLoading: resendIsLoading, fetchAPI: fetchResendOtp } = useAPICaller();
     const notfiy = useNotify();
-    const { setUser, clearUser } = useAuthReducer();
+    const { setUser } = useAuthReducer();
     const router = useRouter();
     const form = useForm({
         mode: 'all',
@@ -36,23 +36,6 @@ const SendOtp = () => {
         setTime();
     }, []);
 
-    const handleLogin = async (email: string, password: string) => {
-        const response = await fetchAPI({
-            method: 'POST',
-            endpoint: 'auths/login',
-            data: {
-                email,
-                password
-            }
-        });
-        if (response.status === 200) {
-            clearUser();
-            setUser(response.data.data);
-        } else {
-            notfiy('Login failed', 'error');
-        }
-    };
-
     const handleSubmit = async (data: any, e: any) => {
         e.preventDefault();
         const response = await fetchAPI({
@@ -66,7 +49,7 @@ const SendOtp = () => {
         });
 
         if (response.status === 200) {
-            await handleLogin(dataGlobal.emailOtp, dataGlobal.password);
+            setUser(response.data.data);
             return router.push('/');
         }
         return notfiy(response.data.message, 'error');
@@ -99,7 +82,7 @@ const SendOtp = () => {
                 </Box>
                 <Typography variant='subtitle1' component='p' textAlign='center' sx={{ color: '#949494', fontWeight: 400 }}>
                     A OTP Code has been sent via email to <br />{' '}
-                    <span style={{ fontWeight: 'bold', color: 'black' }}>{dataGlobal.emailOtp}</span>
+                    <span style={{ fontWeight: 'bold', color: 'black' }}>{dataGlobal?.emailOtp}</span>
                 </Typography>
                 <Typography
                     variant='subtitle1'

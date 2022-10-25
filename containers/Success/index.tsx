@@ -2,9 +2,11 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import Header from 'components/Header';
 import Button from 'components/Button/Index';
+import { useRouter } from 'next/router';
 
 const SuccessPaymentContainer = () => {
     const [borderValue, setBorderValue] = React.useState<string>('none');
+    const router = useRouter();
 
     const handleScroll = () => {
         if (window.scrollY === 0) {
@@ -56,7 +58,14 @@ const SuccessPaymentContainer = () => {
                     </Typography>
                 </Box>
                 <Box sx={{ paddingX: '20px' }}>
-                    <Button title='Back to Home' backgoundColor='#A54CE5' color='white' />
+                    <Button
+                        onClick={() => {
+                            router.push('/');
+                        }}
+                        title='Back to Home'
+                        backgoundColor='#A54CE5'
+                        color='white'
+                    />
                 </Box>
             </Box>
         </Box>

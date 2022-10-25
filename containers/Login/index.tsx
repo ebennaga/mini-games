@@ -37,10 +37,25 @@ const Login = () => {
     const [changeInput, setChangeInput] = React.useState<boolean>(false);
 
     const { fetchAPI, isLoading } = useAPICaller();
-    const { setUser } = useAuthReducer();
+    const { isLoading: sendOtpLoading, fetchAPI: fetchResendOtp } = useAPICaller();
+    const { setUser, clearUser } = useAuthReducer();
     const notify = useNotify();
 
-    console.log('data session', session);
+    const handleSendOtp = async () => {
+        const response = await fetchResendOtp({
+            method: 'POST',
+            endpoint: 'auths/register/otp/resend',
+            data: {
+                email: form.watch('email'),
+                password: form.watch('password')
+            }
+        });
+
+        if (response.status === 200) {
+            return true;
+        }
+        return false;
+    };
 
     const handleSubmit = async (data: any) => {
         const response = await fetchAPI({
@@ -54,6 +69,12 @@ const Login = () => {
         if (response.status === 200) {
             setUser(response.data.data);
             router.push('/');
+        } else if (response.data.message === 'User registration is not completed') {
+            await handleSendOtp();
+            const dataState = { emailOtp: form.watch('email'), password: form.watch('password') };
+            setUser(dataState);
+            router.push('/send-otp');
+            notify('Let`s complete the registration');
         } else {
             notify('Login Failed', 'error');
         }
@@ -99,7 +120,7 @@ const Login = () => {
                 // The AuthCredential type that was used.
                 // const credential = GoogleAuthProvider.credentialFromError(error);
                 // ...
-                console.log('error', error.message);
+                // console.log('error', error.message);
                 notify('Internal server error', 'error');
             });
     };
@@ -136,7 +157,7 @@ const Login = () => {
                                 backgoundColor='#A54CE5'
                                 color='#FFF'
                                 type='submit'
-                                loading={isLoading}
+                                loading={isLoading || sendOtpLoading}
                                 disabled={!dataInput.email || !dataInput.password}
                             />
                         </Box>

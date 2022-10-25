@@ -105,7 +105,15 @@ const Header: React.FC<HeaderProps> = ({
             setIsFirebaseLoading(false);
         });
     }, []);
-    console.log(userData);
+
+    const handleBack = () => {
+        if (hrefBack) {
+            router.push(hrefBack);
+        } else {
+            router.back();
+        }
+    };
+
     if (isLoading) {
         return <HeaderSkeleton />;
     }
@@ -156,10 +164,7 @@ const Header: React.FC<HeaderProps> = ({
             }}
         >
             {isBack ? (
-                <ButtonBase
-                    onClick={() => router.back()}
-                    sx={{ width: '24px', height: '24px', borderRadius: '50px', background: '#A54CE5' }}
-                >
+                <ButtonBase onClick={handleBack} sx={{ width: '24px', height: '24px', borderRadius: '50px', background: '#A54CE5' }}>
                     <ArrowBackIcon sx={{ color: '#fff', width: '20px', height: '20px', fontWeight: 'bold' }} />
                 </ButtonBase>
             ) : (

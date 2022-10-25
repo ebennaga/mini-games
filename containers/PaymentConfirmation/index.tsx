@@ -34,34 +34,26 @@ import useNotify from 'hooks/useNotify';
 
 const PaymentConfirmationContainer = () => {
     const { fetchAPI, isLoading } = useAPICaller();
-    const notify = useNotify();
     const router = useRouter();
-    const [topupData, setTopupData] = React.useState<any>(null);
+    const notify = useNotify();
 
     const postTopupHandler = async () => {
-        // window.location.href = 'https://app.sandbox.midtrans.com/snap/v3/redirection/4978f722-5e66-43d5-818f-2d45a2ce4cf4';
-        try {
-            const response = await fetchAPI({
-                method: 'POST',
-                endpoint: `coins/${router.query.id}/purchase`
-            });
-            if (response.data.status === 200) {
-                setTopupData(response.data.data);
-                window.location.href = topupData.payment.redirect_url;
+        const response = await fetchAPI({
+            method: 'POST',
+            endpoint: `coins/purchase`,
+            data: {
+                coin_id: router.query.id
             }
-        } catch (error) {
-            notify('Fetch url topup midtrans failed', 'error');
+        });
+        if (response.status === 200) {
+            if (!isLoading) {
+                window.open(response.data.data.payment.redirect_url, '_blank');
+                router.push('/topup');
+            }
+        } else {
+            notify('Post data top up failed', 'error');
         }
     };
-    // const form = useForm({
-    //     mode: 'all',
-    //     defaultValues: {
-    //         check: false
-    //     }
-    // });
-    // const handleCheckbox = (e: any) => {
-    //     form.setValue('check', e.target.check);
-    // };
 
     return (
         <Box sx={{ width: '100%' }}>

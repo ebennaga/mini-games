@@ -124,7 +124,7 @@ const GameDetailContainer = () => {
                     backgroundColor: 'transparent'
                 }}
             >
-                <Header isBack={isBack} point={102_300} profilePicture='/icons/dummy/profile.png' />
+                <Header isBack={isBack} hrefBack='/games' point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Box
                 sx={{
