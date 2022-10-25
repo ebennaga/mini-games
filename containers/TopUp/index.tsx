@@ -27,7 +27,6 @@ const TopUp = () => {
         const response = await fetchAPI({
             endpoint: 'transactions/home?search='
         });
-        console.log(response);
         if (response.status === 200) {
             setCoins(response.data.data.coins);
             setHistories(response.data.data.history);
@@ -77,7 +76,7 @@ const TopUp = () => {
                     borderBottom: borderValue
                 }}
             >
-                <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
+                <Header logo='/icons/logo.svg' profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Box sx={{ mt: '40px', ml: '20px', display: 'flex', justifyContent: 'space-between', mr: '18px', height: '33px' }}>
                 <Typography sx={{ fontSize: '32px', fontWeight: 700, lineHeight: '33px' }}>Top Up Coins</Typography>
