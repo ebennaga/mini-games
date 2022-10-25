@@ -11,10 +11,10 @@ interface EventCarouselProps {
 const EventCarousel: React.FC<EventCarouselProps> = ({ customMaxWidth, data }) => {
     const settings = {
         className: 'center',
-        centerMode: true,
-        infinite: true,
+        // centerMode: true,
+        infinite: false,
         centerPadding: '60px',
-        slidesToShow: 1,
+        slidesToShow: 1.2,
         speed: 500,
         dots: true,
         swipeToSlide: true

@@ -3,20 +3,21 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Layout from 'components/Layout/Index';
 
-const PaymentInvalidContainer = dynamic(() => import('containers/Invalid'));
-const Page = () => {
+const GameProgressContainer = dynamic(() => import('containers/GameProgress'));
+
+const index = () => {
     return (
         <>
             <Head>
-                <title>Success Payment | Prize Play</title>
+                <title>Game Progress | Prize Play</title>
                 <meta name='description' content='Play for fun and prize' />
                 <link rel='icon' href='/favicon.ico' />
             </Head>
-            <Layout backgoundColor='#fff' isBackground>
-                <PaymentInvalidContainer />
+            <Layout>
+                <GameProgressContainer />
             </Layout>
         </>
     );
 };
 
-export default Page;
+export default index;

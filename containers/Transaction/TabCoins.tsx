@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
-import { Typography, Box } from '@mui/material';
+import { Typography, Box, Divider } from '@mui/material';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAPICaller from 'hooks/useAPICaller';
@@ -16,8 +16,8 @@ interface TabPanelCoinsProps {
 
 const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransaction = true }) => {
     const [cointTansaction, setCointTransaction] = React.useState<any>(null);
-    const [todayTransaction, setTodayTransaction] = React.useState<any>(null);
-    const [yesterdayTransaction, setYesterdayTransaction] = React.useState<any>(null);
+    const [todayTransactions, setTodayTransactions] = React.useState<any>(null);
+    const [yesterdayTransactions, setYesterdayTransactions] = React.useState<any>(null);
     const { fetchAPI, isLoading } = useAPICaller();
     const notify = useNotify();
     const form = useForm({
@@ -33,8 +33,9 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                 endpoint: `transactions/home?search=${search}`,
                 method: 'GET'
             });
+            // console.log(result.data.data.history);
             if (result.status === 200) {
-                setCointTransaction(result.data.data);
+                setCointTransaction(result.data.data.history);
             }
         } catch (e) {
             // notify('Internal server error', 'error');
@@ -48,33 +49,56 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
     React.useEffect(() => {
         const yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
-
+        const todayTransaction: any = [];
+        const yesterdayTransaction: any = [];
         if (!isLoading) {
             cointTansaction?.map((item: any) => {
-                if (String(new Date(item.created_at)).slice(8, 11) === String(new Date()).slice(8, 11)) {
-                    setTodayTransaction(item);
+                if (new Date(item.created_at).getDate() === new Date().getDate()) {
+                    todayTransaction.push(item);
+                    setTodayTransactions(todayTransaction);
                 }
-                if (String(new Date(item.created_at)).slice(8, 11) === String(yesterday).slice(8, 11)) {
-                    setYesterdayTransaction(item);
+                if (new Date(item.created_at).getDate() === new Date(yesterday).getDate()) {
+                    yesterdayTransaction.push(item);
+                    setYesterdayTransactions(yesterdayTransaction);
                 }
             });
         }
-    }, []);
+    }, [cointTansaction]);
+
+    // React.useEffect(() => {
+    //     const yesterday = new Date();
+    //     yesterday.setDate(yesterday.getDate() - 1);
+    //     cointTansaction?.forEach((item: any) => {
+    //         console.log(item);
+    //         // console.log('getDay', new Date(item.created_at).getDay());
+    //         // if (String(new Date(item.created_at)).slice(8, 11) === String(new Date()).slice(8, 11)) {
+    //         //     setTodayTransaction(item);
+    //         // }
+    //         // if (String(new Date(item.created_at)).slice(8, 11) === String(yesterday).slice(8, 11)) {
+    //         //     setYesterdayTransaction(item);
+    //         // }
+    //     });
+    // }, []);
+
+    // console.log('yesterday', yesterdayTransaction);
+    console.log('today', todayTransactions);
+    // console.log('coin', cointTansaction);
+    // console.log('todays', new Date('2022-10-25T03:23:37.000Z').getDate());
     return (
         <TabPanelTransaction value={value} index={index}>
             {isAnyTransaction && (
                 <Typography sx={{ fontSize: '12px' }}>
                     You have{' '}
                     <span style={{ color: '#A54CE5', fontWeight: 'bold' }}>
-                        {todayTransaction?.length ? todayTransaction?.length : 0} Transaction
+                        {todayTransactions?.length ? todayTransactions?.length : 0} Transaction
                     </span>{' '}
                     today
                 </Typography>
             )}
             <Box>
                 <Typography sx={{ fontWeight: 'bold', mt: '15px' }}>Today</Typography>
-                {todayTransaction !== null &&
-                    todayTransaction?.map((i: any) => (
+                {todayTransactions !== null &&
+                    todayTransactions?.map((i: any) => (
                         <TransactionCard
                             isToday
                             key={i.id}
@@ -88,10 +112,10 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
             </Box>
             <Box>
                 <Typography sx={{ fontWeight: 'bold', mt: '15px' }}>Yesterday</Typography>
-                {yesterdayTransaction !== null &&
-                    yesterdayTransaction?.map((i: any) => (
+                {yesterdayTransactions !== null &&
+                    yesterdayTransactions?.map((i: any) => (
                         <TransactionCard
-                            isToday
+                            isYesterday
                             key={i.id}
                             title={i.description}
                             isCoin
@@ -100,8 +124,18 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                             created={i?.created_at}
                         />
                     ))}
+                {yesterdayTransactions === null && (
+                    <Box sx={{ textAlign: 'center' }}>
+                        <Typography sx={{ mt: '15px', color: '#A54CE5', fontSize: '12px', fontWeight: 'bold' }}>
+                            There is not any histories transaction of yesterday
+                        </Typography>
+                        <Divider sx={{ mt: '20px' }} />
+                    </Box>
+                )}
             </Box>
             {!isLoading &&
+                todayTransactions === null &&
+                yesterdayTransactions === null &&
                 cointTansaction?.map((i: any) => (
                     <TransactionCard
                         key={i.id}

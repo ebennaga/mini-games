@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
 import { Box, Typography, Skeleton } from '@mui/material';
 import React from 'react';
@@ -32,6 +33,7 @@ const GameTournament = () => {
     const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
     const [isLoading, isSetLoading] = React.useState<boolean>(false);
     const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
+    const [loadingPlay, setLoadingPlay] = React.useState<boolean>(false);
 
     const fetchData = async (id: number) => {
         isSetLoading(true);
@@ -63,6 +65,7 @@ const GameTournament = () => {
     };
 
     const getGameSession = async () => {
+        setLoadingPlay(true);
         if (userState) {
             const response = await fetchAPI({
                 method: 'POST',
@@ -73,11 +76,19 @@ const GameTournament = () => {
                 }
             });
             if (response.status === 200) {
+                const newState = { ...userState };
+                if (!userState.sessionGame || userState.sessionGame !== response.data.data.session_code) {
+                    newState.sessionGame = response.data.data.session_code;
+                    clearUser();
+                    setUser(newState);
+                }
                 setSessionGame(response.data.data);
-            } else {
-                notify('failed get session game', 'error');
+                return true;
             }
+            notify('failed get session game', 'error');
+            return false;
         }
+        setLoadingPlay(false);
     };
 
     React.useEffect(() => {
@@ -85,7 +96,6 @@ const GameTournament = () => {
             isSetLoading(true);
             await fetchData(Number(router.query['id-tournament']));
             await getGameDetail();
-            await getGameSession();
             isSetLoading(false);
         };
         getAllData();
@@ -114,12 +124,16 @@ const GameTournament = () => {
         }
     }, [userState, sessionGame, detailGame]);
 
-    const handlePlay = () => {
+    const handlePlay = async () => {
         if (userState) {
             if (userState?.coin < listingGame.entry_coin) {
                 return setOpenNotifDialog(!openNotifDialog);
             }
-            return router.push(`/games/${router.query.id}/tournament/${router.query['id-tournament']}/loading`);
+            const response = await getGameSession();
+            if (response) {
+                return router.push(`/games/${router.query.id}/tournament/${router.query['id-tournament']}/loading`);
+            }
+            return notify('Ups, Server error!', 'error');
         }
         return setSignupLoginDialog(true);
     };
@@ -151,7 +165,7 @@ const GameTournament = () => {
                         <Skeleton animation='wave' variant='rectangular' width='100%' />
                     </Box>
                 ) : (
-                    <Box component='section' padding='28px 0'>
+                    <Box component='section' padding='18px 0'>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '37px' }}>
                             <Typography component='h2' fontSize='24px' fontWeight={700}>
                                 Leaderboard
@@ -161,7 +175,19 @@ const GameTournament = () => {
                                 <Typography sx={{ fontSize: '14px', fontWeight: 'bold' }}>250</Typography>
                             </Box>
                         </Box>
-                        {listingGame?.leaderboards && <LeaderboardPodium dataLeaderboard={listingGame?.leaderboards} />}
+                        {listingGame?.leaderboards.length < 0 && (
+                            <Box sx={{ textAlign: 'center', marginY: '150px' }}>
+                                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                                    <img src='/images/leaderboard-img.png' alt='leaderboard' />
+                                </Box>
+                                <Typography sx={{ fontSize: '14px', color: '#949494', fontWeight: 'bold' }}>
+                                    Nobody has played yet. Be the first.
+                                </Typography>
+                            </Box>
+                        )}
+                        {listingGame?.leaderboards && listingGame?.leaderboards.length > 0 && (
+                            <LeaderboardPodium dataLeaderboard={listingGame?.leaderboards} />
+                        )}
                     </Box>
                 )}
                 {isLoading ? (
@@ -172,7 +198,9 @@ const GameTournament = () => {
                     </Box>
                 ) : (
                     <Box component='section' marginBottom='40px'>
-                        {listingGame?.leaderboards && <TableRank dataLeaderboard={listingGame?.leaderboards} />}
+                        {listingGame?.leaderboards && listingGame?.leaderboards.length > 0 && (
+                            <TableRank dataLeaderboard={listingGame?.leaderboards} />
+                        )}
                     </Box>
                 )}
             </Box>
@@ -180,7 +208,7 @@ const GameTournament = () => {
                 {isLoading ? (
                     <Skeleton sx={{ height: '80px' }} />
                 ) : (
-                    <ButtonPlay onClick={handlePlay} title='Play Tournament' points={listingGame?.entry_coin} />
+                    <ButtonPlay onClick={handlePlay} title='Play Tournament' points={listingGame?.entry_coin} isLoading={loadingPlay} />
                 )}
             </Box>
             <NotifDialog

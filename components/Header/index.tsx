@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
 import { Box, ButtonBase, Skeleton, Typography } from '@mui/material';
 import React from 'react';
@@ -67,7 +68,6 @@ const Header: React.FC<HeaderProps> = ({
     React.useEffect(() => {
         fetchData();
     }, []);
-
     const handleLoginGoogle = async (user: User) => {
         if (userState?.api_token == null) {
             const response = await fetchAPI({
@@ -105,6 +105,14 @@ const Header: React.FC<HeaderProps> = ({
             setIsFirebaseLoading(false);
         });
     }, []);
+
+    const handleBack = () => {
+        if (hrefBack) {
+            router.push(hrefBack);
+        } else {
+            router.back();
+        }
+    };
 
     if (isLoading) {
         return <HeaderSkeleton />;
@@ -156,10 +164,7 @@ const Header: React.FC<HeaderProps> = ({
             }}
         >
             {isBack ? (
-                <ButtonBase
-                    onClick={() => router.back()}
-                    sx={{ width: '24px', height: '24px', borderRadius: '50px', background: '#A54CE5' }}
-                >
+                <ButtonBase onClick={handleBack} sx={{ width: '24px', height: '24px', borderRadius: '50px', background: '#A54CE5' }}>
                     <ArrowBackIcon sx={{ color: '#fff', width: '20px', height: '20px', fontWeight: 'bold' }} />
                 </ButtonBase>
             ) : (
@@ -206,7 +211,13 @@ const Header: React.FC<HeaderProps> = ({
                                 className={classes.pointText}
                                 sx={{ fontWeight: 'bold', fontSize: '14px', color: '#373737' }}
                             >
-                                {numberFormat(router.pathname.includes('/shops') && !isLoading ? userData?.point : userData?.coin)}
+                                {numberFormat(
+                                    router.pathname.includes('/shops') && !isLoading
+                                        ? userData?.point
+                                        : userData?.coin
+                                        ? userData?.coin
+                                        : '0'
+                                )}
                             </Typography>
                         </Box>
                     </Box>

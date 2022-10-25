@@ -241,19 +241,22 @@ const HomeContainer = () => {
             /> */}
             <InfoCard
                 onClick={() => router.push('/topup')}
-                title='Coin'
-                subTitle='Top up Coins Now'
-                infoText='*Terms and Conditions'
+                buttonText='Top Up'
+                title='Top up Coins Now &'
+                subTitle='Join Tournament'
                 background='/images/coins-bg.png'
-                image='/icons/coins.svg'
+                image='/images/coin-big.png'
+                bgButton='#FFD833'
             />
             <InfoCard
                 onClick={() => router.push('/shops')}
-                title='Point'
-                subTitle='Reedem your Points'
-                infoText='*Terms and Conditions'
+                buttonText='Top Up'
+                title='Win Tournament &'
+                subTitle='Get Points to reedem '
                 background='/images/points-bg.png'
                 image='/images/lg-points.png'
+                bgButton='#6FC0FB'
+                linearBackground='linear-gradient(216deg, rgb(255 255 255 / 0%) 14%, rgb(156 209 247) 87%)'
             />
             <SignupLoginDialog open={dialogLogin} setOpen={setDialogLogin} />
         </Box>

@@ -47,14 +47,14 @@ const GameDetailContainer = () => {
 
     const getGameSession = async () => {
         if (userState) {
-            const response = await fetchAPI({
-                method: 'POST',
-                endpoint: `webhook/game-sessions`,
-                data: {
-                    game_id: router.query.id
-                }
-            });
             try {
+                const response = await fetchAPI({
+                    method: 'POST',
+                    endpoint: `webhook/game-sessions`,
+                    data: {
+                        game_id: router.query.id
+                    }
+                });
                 if (response.status === 200) {
                     setSessionGame(response.data.data);
                 } else {
@@ -65,25 +65,6 @@ const GameDetailContainer = () => {
             }
         }
     };
-
-    //   const getGameSession = async () => {
-    //     const response = await fetchAPI({
-    //         method: 'POST',
-    //         endpoint: `webhook/game-sessions`,
-    //         data: {
-    //             game_id: router.query.id
-    //         }
-    //     });
-    //     try {
-    //         if (response.status === 200) {
-    //             setSessionGame(response.data.data);
-    //         } else {
-    //             notify('failed error', 'error');
-    //         }
-    //     } catch (e: any) {
-    //         notify(e.message, 'error');
-    //     }
-    // };
 
     React.useEffect(() => {
         const fetchAllData = async () => {
@@ -143,7 +124,7 @@ const GameDetailContainer = () => {
                     backgroundColor: 'transparent'
                 }}
             >
-                <Header isBack={isBack} point={102_300} profilePicture='/icons/dummy/profile.png' />
+                <Header isBack={isBack} hrefBack='/games' point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
             <Box
                 sx={{
@@ -313,6 +294,7 @@ const GameDetailContainer = () => {
                             <Box
                                 sx={{
                                     background: 'linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%)',
+                                    borderRadius: '20px',
                                     height: '100%',
                                     display: 'flex',
                                     alignItems: 'flex-end'
@@ -385,8 +367,29 @@ const GameDetailContainer = () => {
                     >
                         <Grid item xs={5} justifyContent='space-between'>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                <img src='/icons/tape-stats.png' alt='ribbon' />
-                                <Typography sx={{ fontSize: '14px', fontWeight: '700' }}>High scores</Typography>
+                                <img src='/images/ribb-casual.png' alt='ribbon' />
+                                <Typography sx={{ fontSize: '14px', fontWeight: '700' }}>Casual</Typography>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Box justifyContent='space-between' sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                <EmojiEvents />
+                                <Typography sx={{ fontWeight: '700' }}>{numberFormat(detailGame?.auths.highscore)}</Typography>
+                                <Share />
+                            </Box>
+                        </Grid>
+                    </Grid>
+                    <Grid
+                        mt='18px'
+                        container
+                        justifyContent='space-between'
+                        gap='10px'
+                        sx={{ backgroundColor: '#D7EEFF', padding: '18px 25px', borderRadius: '15px' }}
+                    >
+                        <Grid item xs={5} justifyContent='space-between'>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <img src='/images/ribb-tournament.png' alt='ribbon' />
+                                <Typography sx={{ fontSize: '14px', fontWeight: '700' }}>Tournament</Typography>
                             </Box>
                         </Grid>
                         <Grid item xs={4}>
