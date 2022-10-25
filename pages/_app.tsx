@@ -11,6 +11,7 @@ import useAuthReducer from 'hooks/useAuthReducer';
 import React from 'react';
 import { SessionProvider } from 'next-auth/react';
 import Script from 'next/script';
+import { appWithTranslation } from 'next-i18next';
 import initMyFirebase from '../firebase/firebaseInit';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -114,4 +115,4 @@ MyApp.getInitialProps = wrapper.getInitialAppProps((store) => async ({ ctx, Comp
         userData
     };
 });
-export default wrapper.withRedux(MyApp);
+export default appWithTranslation(wrapper.withRedux(MyApp));

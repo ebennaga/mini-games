@@ -12,12 +12,19 @@ import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import useAuthReducer from 'hooks/useAuthReducer';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
+
+type Props = {
+    // Add custom props here
+};
 
 const SignUp = () => {
     const router = useRouter();
 
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
+    const { t } = useTranslation(['home']);
 
     const form = useForm({
         mode: 'all',
@@ -30,6 +37,7 @@ const SignUp = () => {
         }
     });
     const dataInput = form.watch();
+    console.log('i18next', t);
 
     const rules = { required: true };
     // eslint-disable-next-line no-unused-vars
@@ -37,6 +45,8 @@ const SignUp = () => {
     const [isSamePwd, setIsSamePwd] = React.useState<boolean>(true);
 
     const { fetchAPI, isLoading } = useAPICaller();
+    const { fetchAPI: fetchSendOtp, isLoading: loadingSendOtp } = useAPICaller();
+
     const notify = useNotify();
     const { setUser } = useAuthReducer();
 
@@ -50,6 +60,22 @@ const SignUp = () => {
             }
         }
     }, [form.watch('password'), form.watch('confirmPassword')]);
+
+    const handleSendOtp = async () => {
+        const response = await fetchSendOtp({
+            method: 'POST',
+            endpoint: 'auths/register/otp/resend',
+            data: {
+                email: form.watch('email'),
+                password: form.watch('password')
+            }
+        });
+
+        if (response.status === 200) {
+            return true;
+        }
+        return false;
+    };
 
     const handleSubmit = async (data: any) => {
         const response = await fetchAPI({
@@ -68,8 +94,10 @@ const SignUp = () => {
             setUser(registerData);
             router.push('/send-otp');
         } else {
-            if (response.data.message) {
-                return notify(response.data.message, 'error');
+            if (response.data.message === 'Email is already existed') {
+                notify(`${response.data.message}! Otp code has been sent to your email`);
+                await handleSendOtp();
+                return router.push('/send-otp');
             }
             return notify('Signup Error', 'error');
         }
@@ -105,7 +133,7 @@ const SignUp = () => {
         <Layout backgoundColor='#FFF'>
             <Box sx={{ textAlign: 'start', width: '90%', margin: '20px' }}>
                 <Typography sx={{ fontWeight: 700, fontSize: '46px' }} component='h1'>
-                    Start Your Account. It’s Free !
+                    Start Your Account.It’s Free
                 </Typography>
                 <Typography sx={{ fontSize: '21px', color: '#949494' }}>Hey there!, to play our games, go and register now.</Typography>
                 <form onSubmit={form.handleSubmit(handleSubmit)}>
@@ -153,7 +181,7 @@ const SignUp = () => {
                                 backgoundColor='#A54CE5'
                                 color='#FFF'
                                 type='submit'
-                                loading={isLoading}
+                                loading={isLoading || loadingSendOtp}
                                 disabled={!dataInput.email || dataInput.password.length < 6 || !isSamePwd}
                             />
                         </Grid>
@@ -211,14 +239,14 @@ const SignUp = () => {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <Button
+                        {/* <Button
                             icon={<Facebook sx={{ color: '#A54CE5', position: 'absolute', left: '20px', bottom: '20px' }} />}
                             title='Log in with Facebook'
                             backgoundColor='#FFF'
                             color='#000'
                             border='2px solid #F4F1FF'
                             onClick={() => {}}
-                        />
+                        /> */}
                     </Grid>
                     <Grid
                         item
