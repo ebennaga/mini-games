@@ -1,19 +1,18 @@
 import { Box, ButtonBase, Typography } from '@mui/material';
 import React from 'react';
-import TodayIcon from '@mui/icons-material/Today';
 
 interface InfoCardProps {
     onClick: any;
     title: string;
     subTitle: string;
-    infoText: string;
-    isGame?: boolean;
     background: string;
     image: string;
     linearBackground?: string;
+    bgButton: string;
+    buttonText: string;
 }
 
-const InfoCard: React.FC<InfoCardProps> = ({ onClick, title, subTitle, infoText, isGame, background, image, linearBackground }) => {
+const InfoCard: React.FC<InfoCardProps> = ({ onClick, title, subTitle, background, image, linearBackground, buttonText, bgButton }) => {
     return (
         <ButtonBase
             onClick={onClick}
@@ -29,45 +28,44 @@ const InfoCard: React.FC<InfoCardProps> = ({ onClick, title, subTitle, infoText,
         >
             <Box
                 sx={{
-                    background: linearBackground || 'linear-gradient(216deg, rgb(0 0 0 / 59%) 14%, rgb(19 25 46) 87%)',
+                    background: linearBackground || 'linear-gradient(216deg, rgb(255 255 255 / 0%) 14%, rgb(247 236 156) 87%)',
                     height: '100%',
                     width: '100%',
                     borderRadius: '6px'
                 }}
             >
-                <Box sx={{ color: '#fff', padding: '17px 20px', display: 'flex', alignItems: 'end', justifyContent: 'space-between' }}>
-                    <Box sx={{ textAlign: 'start' }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <Box
-                                sx={{
-                                    background: `url(${image})`,
-                                    backgroundPosition: 'center',
-                                    backgroundSize: 'cover',
-                                    width: isGame ? '61px' : '52.89px',
-                                    height: isGame ? '61px' : '50px',
-                                    borderRadius: '7px',
-                                    marginRight: '17px'
-                                }}
-                            />
-                            <Typography component='h3' fontSize='24px' fontWeight={600}>
-                                {title}
-                            </Typography>
-                        </Box>
-                        <Typography component='h4' fontSize='24px' fontWeight={700} marginTop='18px'>
+                <Box
+                    sx={{
+                        color: '#373737',
+                        padding: '17px 20px',
+                        display: 'flex',
+                        justifyContent: 'space-between'
+                    }}
+                >
+                    <Box
+                        sx={{
+                            textAlign: 'start',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'space-between'
+                        }}
+                    >
+                        <Typography component='h4' fontSize='16px' fontWeight={700} lineHeight='16px'>
+                            {title}
+                        </Typography>
+                        <Typography component='h4' fontSize='16px' fontWeight={700} lineHeight='16px'>
                             {subTitle}
                         </Typography>
-                        {isGame ? (
-                            <Typography component='span' fontSize='11.5px' fontWeight={600} sx={{ display: 'flex', alignItems: 'center' }}>
-                                <TodayIcon sx={{ fontSize: '17px', marginBottom: '3px', marginRight: '3px' }} />
-                                {infoText}
+                        <ButtonBase sx={{ padding: '6.6px 28px', bgcolor: bgButton, borderRadius: '19.6px', width: 'fit-content' }}>
+                            <Typography component='h4' fontSize='12.0781px' fontWeight={700}>
+                                {buttonText}
                             </Typography>
-                        ) : (
-                            <Typography component='span' fontSize='12px' fontWeight={400} sx={{ color: '#D9D9D9' }}>
-                                {infoText}
-                            </Typography>
-                        )}
+                        </ButtonBase>
                     </Box>
-                    <img src='/icons/logo-white.svg' width='38.8px' height='20px' alt='prize play' />
+                    <Box>
+                        <img src={image} width='77px' height='auto' alt='prize play' />
+                        <img src='/icons/logo-white.svg' width='38.8px' height='20px' alt='prize play' />
+                    </Box>
                 </Box>
             </Box>
         </ButtonBase>
