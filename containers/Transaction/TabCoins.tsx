@@ -33,8 +33,9 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                 endpoint: `transactions/home?search=${search}`,
                 method: 'GET'
             });
+            // console.log(result.data.data.history);
             if (result.status === 200) {
-                setCointTransaction(result.data.data);
+                setCointTransaction(result.data.data.history);
             }
         } catch (e) {
             // notify('Internal server error', 'error');
@@ -46,23 +47,39 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
     }, []);
 
     React.useEffect(() => {
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-
         if (!isLoading) {
             cointTansaction?.map((item: any) => {
-                if (String(new Date(item.created_at)).slice(8, 11) === String(new Date()).slice(8, 11)) {
+                console.log(new Date(item.created_at).getDate() === new Date().getDate());
+                if (new Date(item.created_at).getDate() === new Date().getDate()) {
                     setTodayTransaction(item);
-                }
-                if (String(new Date(item.created_at)).slice(8, 11) === String(yesterday).slice(8, 11)) {
-                    setYesterdayTransaction(item);
+                    console.log(item);
                 }
             });
         }
-    }, []);
+    }, [cointTansaction]);
+
+    // React.useEffect(() => {
+    //     const yesterday = new Date();
+    //     yesterday.setDate(yesterday.getDate() - 1);
+    //     cointTansaction?.forEach((item: any) => {
+    //         console.log(item);
+    //         // console.log('getDay', new Date(item.created_at).getDay());
+    //         // if (String(new Date(item.created_at)).slice(8, 11) === String(new Date()).slice(8, 11)) {
+    //         //     setTodayTransaction(item);
+    //         // }
+    //         // if (String(new Date(item.created_at)).slice(8, 11) === String(yesterday).slice(8, 11)) {
+    //         //     setYesterdayTransaction(item);
+    //         // }
+    //     });
+    // }, []);
+
+    // console.log('yesterday', yesterdayTransaction);
+    // console.log('today', todayTransaction);
+    // console.log('coin', cointTansaction);
+    // console.log('todays', new Date('2022-10-25T03:23:37.000Z').getDate());
     return (
         <TabPanelTransaction value={value} index={index}>
-            {isAnyTransaction && (
+            {/* {isAnyTransaction && (
                 <Typography sx={{ fontSize: '12px' }}>
                     You have{' '}
                     <span style={{ color: '#A54CE5', fontWeight: 'bold' }}>
@@ -91,7 +108,7 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                 {yesterdayTransaction !== null &&
                     yesterdayTransaction?.map((i: any) => (
                         <TransactionCard
-                            isToday
+                            isYesterday
                             key={i.id}
                             title={i.description}
                             isCoin
@@ -104,6 +121,8 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
             {!isLoading &&
                 cointTansaction?.map((i: any) => (
                     <TransactionCard
+                        isToday
+                        isYesterday
                         key={i.id}
                         title={i.description}
                         isCoin
@@ -111,7 +130,7 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                         subtitle={`Transaction - ${i?.created_at?.slice(10, 16)}`}
                         created={i?.created_at}
                     />
-                ))}
+                ))} */}
         </TabPanelTransaction>
     );
 };
