@@ -96,6 +96,7 @@ const SignUp = () => {
         } else {
             if (response.data.message === 'Email is already existed') {
                 notify(`${response.data.message}! Otp code has been sent to your email`);
+                setUser({ emailOtp: data.email, password: data.password });
                 await handleSendOtp();
                 return router.push('/send-otp');
             }
