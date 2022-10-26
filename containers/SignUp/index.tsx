@@ -37,7 +37,6 @@ const SignUp = () => {
         }
     });
     const dataInput = form.watch();
-    console.log('i18next', t);
 
     const rules = { required: true };
     // eslint-disable-next-line no-unused-vars
@@ -134,7 +133,8 @@ const SignUp = () => {
         <Layout backgoundColor='#FFF'>
             <Box sx={{ textAlign: 'start', width: '90%', margin: '20px' }}>
                 <Typography sx={{ fontWeight: 700, fontSize: '46px' }} component='h1'>
-                    Start Your Account.It’s Free
+                    {/* Start Your Account.It’s Free */}
+                    {t('home:welcom_msg')}
                 </Typography>
                 <Typography sx={{ fontSize: '21px', color: '#949494' }}>Hey there!, to play our games, go and register now.</Typography>
                 <form onSubmit={form.handleSubmit(handleSubmit)}>
