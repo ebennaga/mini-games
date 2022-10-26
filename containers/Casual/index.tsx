@@ -51,7 +51,7 @@ const CasualContainer = () => {
                 }}
             >
                 <Box sx={{ padding: '10px 20px', position: 'sticky', zIndex: 999, top: 5 }}>
-                    <Header isBack point={102_300} profilePicture='/icons/dummy/profile.png' />
+                    <Header isBack point={102_300} profilePicture='/icons/dummy/profile.png' hrefBack={`/games/${router.query.id}`} />
                 </Box>
                 <Box
                     sx={{
