@@ -11,6 +11,7 @@ import numberFormat from 'helper/numberFormat';
 import TransactionCard from 'containers/Transaction/TransactionCard';
 import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import { useSelector } from 'react-redux';
+import TopupSkeleton from './TopupSkeleton';
 
 const TopUp = () => {
     const router = useRouter();
@@ -60,6 +61,10 @@ const TopUp = () => {
             setDialogSignup(true);
         }
     };
+
+    if (isLoading) {
+        return <TopupSkeleton />;
+    }
 
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
