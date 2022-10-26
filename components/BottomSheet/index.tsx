@@ -18,6 +18,7 @@ import OpenContext from 'hooks/useContext';
 
 interface BottomSheetProps {
     items: any;
+    onConfirm: () => void;
 }
 const useStyles = makeStyles({
     newPosOfDialog: {
@@ -28,7 +29,7 @@ const useStyles = makeStyles({
         height: 'fit-content'
     }
 });
-const BottomSheetCustom: React.FC<BottomSheetProps> = ({ items }) => {
+const BottomSheetCustom: React.FC<BottomSheetProps> = ({ items, onConfirm }) => {
     const classes = useStyles();
 
     const open = useContext(OpenContext);
@@ -54,7 +55,7 @@ const BottomSheetCustom: React.FC<BottomSheetProps> = ({ items }) => {
                     >
                         Choose Language
                     </Typography>
-                    <IconButton edge='start' color='inherit' aria-label='close'>
+                    <IconButton edge='start' color='inherit' aria-label='close' onClick={onConfirm}>
                         <CloseIcon />
                     </IconButton>
                 </Toolbar>
@@ -62,11 +63,10 @@ const BottomSheetCustom: React.FC<BottomSheetProps> = ({ items }) => {
             <RadioGroup defaultValue='English' name='radio-button-group'>
                 {items.map((list: any, idx: number) => {
                     return (
-                        <Box sx={{ padding: '14px' }}>
+                        <Box key={idx} sx={{ padding: '14px' }}>
                             <FormControlLabel
                                 sx={{ fontWeight: 700, display: 'flex', justifyContent: 'space-between' }}
                                 labelPlacement='start'
-                                key={idx}
                                 value={list}
                                 control={
                                     <Radio
@@ -87,7 +87,10 @@ const BottomSheetCustom: React.FC<BottomSheetProps> = ({ items }) => {
                 })}
             </RadioGroup>
             <Box sx={{ marginLeft: '14px', marginRight: '14px' }}>
-                <ButtonBase sx={{ background: '#A54CE5', borderRadius: '15px', width: '100%', marginTop: '27px', marginBottom: '27px' }}>
+                <ButtonBase
+                    onClick={onConfirm}
+                    sx={{ background: '#A54CE5', borderRadius: '15px', width: '100%', marginTop: '27px', marginBottom: '27px' }}
+                >
                     <Typography
                         component='span'
                         fontSize='14px'
