@@ -126,7 +126,7 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
                     width: '100%'
                 }}
             >
-                <Box sx={{ width: '90%', paddingX: '20px' }}>
+                <Box sx={{ width: '90%', paddingX: '20px', mb: '20px' }}>
                     <Typography sx={{ fontSize: '30px', fontWeight: 'bold' }}>Games</Typography>
                 </Box>
                 <Grid container justifyContent='start' rowGap='30px'>
