@@ -34,7 +34,7 @@ const PlayGameContainer = () => {
         if (srcIframe) {
             setSrcIframe(false);
         } else {
-            route.push(`${arr.join('/')}`);
+            route.push(`${arr.join('/')}/result`);
         }
     };
 
