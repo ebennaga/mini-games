@@ -104,7 +104,7 @@ const ProfileSetting = () => {
     return (
         <OpenContext.Provider value={statusOpen}>
             <Box component='main' sx={{ width: '-webkit-fill-available', padding: '0 20px', color: '#373737', position: 'relative' }}>
-                <HeaderBack title='Settings' />
+                <HeaderBack title='Settings' handleBack={() => router.push('/profile')} />
                 <BottomSheetCustom items={itemLanguage} onConfirm={(value: string) => handleConfirmLanguage(value)} />
                 <Box component='section' sx={{ marginTop: '43px' }}>
                     <Typography component='h2' fontSize='20px' fontWeight={700}>
