@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 
 const PlayGameContainer = () => {
     const [soundGame, setSoundGame] = React.useState<any>('');
+    const [srcIframe, setSrcIframe] = React.useState<boolean>(true);
 
     const route = useRouter();
 
@@ -27,12 +28,24 @@ const PlayGameContainer = () => {
     const buff = typeof window !== 'undefined' && Buffer.from(data);
     const base64data = typeof window !== 'undefined' && encodeURIComponent(buff.toString('base64'));
 
+    const handleLoad = () => {
+        const aspath = route.asPath;
+        const arr = aspath.split('/').slice(0, -1);
+        if (srcIframe) {
+            setSrcIframe(false);
+        } else {
+            route.push(`${arr.join('/')}`);
+        }
+    };
+
     if (!userState && !userState) {
         return <Box />;
     }
     return (
         <Box sx={{ width: '100%' }}>
             <iframe
+                id='frameGame'
+                onLoad={handleLoad}
                 src={`${userState?.gameUrl}?sessionIDGame=${userState.sessionGame}&token=${userState?.api_token}&userID=${userState?.id}&isSound=${soundGame}&misc=${base64data}`}
                 // src={`http://192.168.0.137/swords_web/?sessionIDGame=${userState.sessionGame}&token=${userState?.api_token}&userID=${userState?.id}&isSound=${soundGame}&misc=${base64data}`}
                 style={{
