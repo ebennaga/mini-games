@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { wrapper } from 'redux/store';
 import { SnackbarProvider } from 'notistack';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import useAuthReducer from 'hooks/useAuthReducer';
 import React from 'react';
 import { SessionProvider } from 'next-auth/react';
@@ -17,6 +17,8 @@ import initMyFirebase from '../firebase/firebaseInit';
 function MyApp({ Component, pageProps }: AppProps) {
     initMyFirebase();
     const { user } = useAuthReducer();
+
+    const router = useRouter();
 
     React.useEffect(() => {
         if (!localStorage.getItem('tutorial')) {
@@ -38,6 +40,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         if (!localStorage.getItem('prizePlaySound')) {
             localStorage.setItem('prizePlaySound', 'true');
         }
+        const dataStorage: any = localStorage.getItem('prizePlay');
+        if (!dataStorage) {
+            localStorage.setItem('prizePlay', JSON.stringify({ language: 'id' }));
+        }
+        const parseData = JSON.parse(dataStorage);
+        const locale = parseData?.language || 'id';
+        router.push(router.pathname, router.asPath, { locale });
     }, []);
 
     return (

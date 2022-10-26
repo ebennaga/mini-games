@@ -46,9 +46,9 @@ const InfoTermPrivacy: React.FC<InfoTermPrivacyProps> = ({ arrayInfo }) => {
                 <Box sx={{ marginTop: '28px' }}>
                     <Grid container spacing={2} gap={3}>
                         <img src='/icons/instagram_grey.png' alt='instagram' />
-                        <img src='/icons/facebook_grey.png' alt='instagram' />
-                        <img src='/icons/tiktok_grey.png' alt='instagram' />
-                        <img src='/icons/twitter_grey.png' alt='instagram' />
+                        <img src='/icons/facebook_grey.png' alt='facebook' />
+                        <img src='/icons/tiktok_grey.png' alt='tiktok' />
+                        <img src='/icons/twitter_grey.png' alt='twitter' />
                     </Grid>
                 </Box>
             </Box>

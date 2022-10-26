@@ -102,10 +102,11 @@ const GameDetailContainer = () => {
     };
 
     const handlePlay = () => {
-        if (userState) {
-            return router.push(`/games/${router.query.id}/casual/`);
-        }
-        return setSignupLoginDialog(true);
+        // if (userState) {
+        //     return router.push(`/games/${router.query.id}/casual/`);
+        // }
+        // return setSignupLoginDialog(true);
+        router.push(`/games/${router.query.id}/casual/`);
     };
 
     if (isLoading) {
