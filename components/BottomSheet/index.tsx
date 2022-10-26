@@ -38,8 +38,10 @@ const BottomSheetCustom: React.FC<BottomSheetProps> = ({ items, onConfirm }) => 
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const getData: any = localStorage.getItem('prizePlay');
-            const parseData = JSON.parse(getData);
-            setValue(parseData.language);
+            if (getData) {
+                const parseData = JSON.parse(getData);
+                setValue(parseData.language);
+            }
         }
     }, []);
 
