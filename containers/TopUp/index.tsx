@@ -104,7 +104,7 @@ const TopUp = () => {
                     </Box>
                 </Box>
             </Box>
-            <Grid container rowGap={2} columnGap={5} sx={{ flexWrap: 'wrap' }} padding='20px'>
+            <Grid container justifyContent='center' rowGap={2} columnGap={2} sx={{ flexWrap: 'wrap' }} marginBottom='20px'>
                 {coins?.length > 0 &&
                     coins.map((item: any) => (
                         <Grid
@@ -119,7 +119,7 @@ const TopUp = () => {
                             <Box
                                 sx={{
                                     width: '90%',
-                                    padding: '20px',
+                                    padding: '8px',
                                     background: 'linear-gradient(0.35turn, #FFEDA7 20% ,#FFEA98 12.5%, #FFEDA7 80%, #FFEA98 20%)',
                                     borderRadius: '10px'
                                 }}
