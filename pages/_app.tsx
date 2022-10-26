@@ -42,10 +42,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         }
         const dataStorage: any = localStorage.getItem('prizePlay');
         if (!dataStorage) {
-            localStorage.setItem('prizePlay', JSON.stringify({ language: 'en' }));
+            localStorage.setItem('prizePlay', JSON.stringify({ language: 'id' }));
         }
         const parseData = JSON.parse(dataStorage);
-        const locale = parseData?.language || 'en';
+        const locale = parseData?.language || 'id';
         router.push(router.pathname, router.asPath, { locale });
     }, []);
 

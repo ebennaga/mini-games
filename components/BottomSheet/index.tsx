@@ -33,7 +33,7 @@ const useStyles = makeStyles({
 const BottomSheetCustom: React.FC<BottomSheetProps> = ({ items, onConfirm }) => {
     const classes = useStyles();
 
-    const [value, setValue] = useState<string>('');
+    const [value, setValue] = useState<string>('id');
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
