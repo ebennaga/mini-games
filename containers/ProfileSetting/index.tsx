@@ -80,6 +80,10 @@ const ProfileSetting = () => {
         router.push(href);
     };
 
+    const handleConfirmLanguage = () => {
+        setOpen(false)
+    }
+
     useEffect(() => {
         if (typeof window !== 'undefined') {
             form.setValue('gameSound', localStorage.getItem('prizePlaySound') === 'true');
@@ -93,7 +97,7 @@ const ProfileSetting = () => {
         <OpenContext.Provider value={statusOpen}>
             <Box component='main' sx={{ width: '-webkit-fill-available', padding: '0 20px', color: '#373737', position: 'relative' }}>
             <HeaderBack title='Settings' />
-            <BottomSheetCustom items={["English","Indonesia"] } />
+            <BottomSheetCustom items={["English","Indonesia"] } onConfirm={handleConfirmLanguage} />
             <Box component='section' sx={{ marginTop: '43px' }}>
                 <Typography component='h2' fontSize='20px' fontWeight={700}>
                     General
@@ -116,7 +120,7 @@ const ProfileSetting = () => {
                     />
                 </Box>
                 <Box sx={{ borderBottom: '2px solid #F4F1FF', padding: '20px 0' }}>
-                    <NavigationCard icon='/icons/notification.svg' title="Language" onClick={()=>setOpen(true)} />                    
+                    <NavigationCard icon='/icons/language.svg' title="Language" onClick={()=>setOpen(true)} />                    
                 </Box>
             </Box>
             <Box component='section' sx={{ marginTop: '24px' }}>
