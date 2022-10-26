@@ -136,7 +136,7 @@ const SignUp = () => {
                     {/* Start Your Account.It’s Free */}
                     {t('home:welcom_msg')}
                 </Typography>
-                <Typography sx={{ fontSize: '21px', color: '#949494' }}>Hey there!, to play our games, go and register now.</Typography>
+                <Typography sx={{ fontSize: '21px', color: '#949494' }}>{t('home:header')}</Typography>
                 <form onSubmit={form.handleSubmit(handleSubmit)}>
                     <Grid container direction='row'>
                         {!changeInput ? (
