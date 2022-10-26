@@ -41,6 +41,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             localStorage.setItem('prizePlaySound', 'true');
         }
         const dataStorage: any = localStorage.getItem('prizePlay');
+        if (!dataStorage) {
+            localStorage.setItem('prizePlay', JSON.stringify({ language: 'en' }));
+        }
         const parseData = JSON.parse(dataStorage);
         const locale = parseData?.language || 'en';
         router.push(router.pathname, router.asPath, { locale });
