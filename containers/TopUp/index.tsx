@@ -11,6 +11,7 @@ import numberFormat from 'helper/numberFormat';
 import TransactionCard from 'containers/Transaction/TransactionCard';
 import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import { useSelector } from 'react-redux';
+import TopupSkeleton from './TopupSkeleton';
 
 const TopUp = () => {
     const router = useRouter();
@@ -61,6 +62,10 @@ const TopUp = () => {
         }
     };
 
+    if (isLoading) {
+        return <TopupSkeleton />;
+    }
+
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
             <Box
@@ -99,7 +104,7 @@ const TopUp = () => {
                     </Box>
                 </Box>
             </Box>
-            <Grid container rowGap={2} columnGap={5} sx={{ flexWrap: 'wrap' }} padding='20px'>
+            <Grid container justifyContent='center' rowGap={2} columnGap={2} sx={{ flexWrap: 'wrap' }} marginBottom='20px'>
                 {coins?.length > 0 &&
                     coins.map((item: any) => (
                         <Grid
@@ -114,7 +119,7 @@ const TopUp = () => {
                             <Box
                                 sx={{
                                     width: '90%',
-                                    padding: '20px',
+                                    padding: '8px',
                                     background: 'linear-gradient(0.35turn, #FFEDA7 20% ,#FFEA98 12.5%, #FFEDA7 80%, #FFEA98 20%)',
                                     borderRadius: '10px'
                                 }}

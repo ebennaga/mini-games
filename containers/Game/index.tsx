@@ -117,13 +117,23 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
             >
                 <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
             </Box>
-            <Box sx={{ padding: '0px 20px' }}>
-                <Typography sx={{ fontSize: '30px', fontWeight: 'bold', mb: '20px' }}>Games</Typography>
-                <Grid container justifyContent='start' gap='40px'>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: '100%'
+                }}
+            >
+                <Box sx={{ width: '90%', paddingX: '20px', mb: '20px' }}>
+                    <Typography sx={{ fontSize: '30px', fontWeight: 'bold' }}>Games</Typography>
+                </Box>
+                <Grid container justifyContent='start' rowGap='30px'>
                     {(searchData || listingGame)?.map((item: any, idx: number) => (
                         <Grid
                             item
-                            xs={5}
+                            xs={6}
                             key={item.id}
                             onClick={() => {
                                 router.push(`/games/${item.id}`);
