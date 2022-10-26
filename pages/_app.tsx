@@ -61,6 +61,11 @@ function MyApp({ Component, pageProps }: AppProps) {
            gtag('config', 'G-JRKG9S44S5');
         `}
             </Script>
+            <Script
+                async
+                src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3078290294001067'
+                crossOrigin='anonymous'
+            />
             <SessionProvider session={pageProps.session}>
                 <SnackbarProvider
                     maxSnack={3}
