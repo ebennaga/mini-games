@@ -1,4 +1,4 @@
-import { Box, ButtonBase, Typography } from '@mui/material';
+import { Box, ButtonBase, CircularProgress, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -14,7 +14,9 @@ const GameResultTournament = () => {
     const router = useRouter();
     const { setUser } = useAuthReducer();
     const [authsData, setAuthsData] = React.useState<any>(null);
-    const [sessionGame, setSessionGame] = React.useState<any>(null);
+    const [loadingSession, setLoadingSession] = React.useState<boolean>(false);
+    // const [sessionGame, setSessionGame] = React.useState<any>(null);
+
     const { fetchAPI } = useAPICaller();
     const notify = useNotify();
     // const dataLeaderboard = [
@@ -38,6 +40,7 @@ const GameResultTournament = () => {
     };
 
     const getGameSession = async () => {
+        setLoadingSession(true);
         if (userState) {
             const response = await fetchAPI({
                 method: 'POST',
@@ -48,15 +51,18 @@ const GameResultTournament = () => {
                 }
             });
             if (response?.status === 200) {
-                setSessionGame(response.data.data.session_code);
+                // setSessionGame(response.data.data.session_code);
+                const sessionGame = response.data.data.session_code;
                 if (userState && sessionGame) {
                     const newState = { ...userState, sessionGame };
                     setUser(newState);
+                    router.push(`/games/${router.query.id}/tournament/${router.query['id-tournament']}/loading`);
                 }
             } else {
                 notify('failed get session game', 'error');
             }
         }
+        setLoadingSession(false);
     };
 
     React.useEffect(() => {
@@ -67,7 +73,7 @@ const GameResultTournament = () => {
         <Box component='main' width='100%'>
             <Box padding='0 20px'>
                 <ButtonBase
-                    onClick={() => router.push(`/games/${router.query.id}/tournament`)}
+                    onClick={() => router.push(`/games/${router.query.id}/tournament/${router.query['id-tournament']}`)}
                     sx={{ background: '#A54CE5', width: '24px', height: '24px', borderRadius: '50px', marginBottom: '12px' }}
                 >
                     <ArrowBackIcon sx={{ color: '#fff', fontSize: '19px' }} />
@@ -135,7 +141,7 @@ const GameResultTournament = () => {
                     </Typography>
                     <img src='/icons/coins.svg' width='12.91px' height='10.95px' alt='coins' style={{ padding: '0 2px' }} />
                     <Typography component='p' fontSize='14px' fontWeight={800} paddingRight='2px'>
-                        20
+                        10
                     </Typography>
                     <Typography component='p' fontSize='14px' fontWeight={600}>
                         for Playing Again
@@ -143,11 +149,23 @@ const GameResultTournament = () => {
                 </Box>
                 <ButtonBase
                     onClick={getGameSession}
-                    sx={{ background: '#A54CE5', width: '100%', padding: '23px 0', borderRadius: '15px', color: '#fff', mb: '30px' }}
+                    disabled={loadingSession}
+                    sx={{
+                        background: loadingSession ? '#F9F0FF' : '#A54CE5',
+                        width: '100%',
+                        padding: '23px 0',
+                        borderRadius: '15px',
+                        color: '#fff',
+                        mb: '30px'
+                    }}
                 >
-                    <Typography component='span' fontSize='14px' fontWeight={700}>
-                        Play Again
-                    </Typography>
+                    {loadingSession ? (
+                        <CircularProgress sx={{ color: '#A54CE5' }} />
+                    ) : (
+                        <Typography component='span' fontSize='14px' fontWeight={700}>
+                            Play Again
+                        </Typography>
+                    )}
                 </ButtonBase>
             </Box>
         </Box>

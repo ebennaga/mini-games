@@ -32,7 +32,7 @@ const PlayTournamentContainer = () => {
         if (srcIframe) {
             setSrcIframe(false);
         } else {
-            router.push(`${arr.join('/')}`);
+            router.push(`${arr.join('/')}/result`);
         }
     };
 
