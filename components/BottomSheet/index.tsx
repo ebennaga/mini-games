@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import {
     AppBar,
     ButtonBase,
@@ -18,7 +18,8 @@ import OpenContext from 'hooks/useContext';
 
 interface BottomSheetProps {
     items: any;
-    onConfirm: () => void;
+    // eslint-disable-next-line no-unused-vars
+    onConfirm: (value: string) => void;
 }
 const useStyles = makeStyles({
     newPosOfDialog: {
@@ -32,7 +33,21 @@ const useStyles = makeStyles({
 const BottomSheetCustom: React.FC<BottomSheetProps> = ({ items, onConfirm }) => {
     const classes = useStyles();
 
+    const [value, setValue] = useState<string>('');
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const getData: any = localStorage.getItem('prizePlay');
+            const parseData = JSON.parse(getData);
+            setValue(parseData.language);
+        }
+    }, []);
+
     const open = useContext(OpenContext);
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setValue((event.target as HTMLInputElement).value);
+    };
 
     return (
         <Dialog
@@ -55,19 +70,19 @@ const BottomSheetCustom: React.FC<BottomSheetProps> = ({ items, onConfirm }) => 
                     >
                         Choose Language
                     </Typography>
-                    <IconButton edge='start' color='inherit' aria-label='close' onClick={onConfirm}>
+                    <IconButton edge='start' color='inherit' aria-label='close' onClick={() => onConfirm(value)}>
                         <CloseIcon />
                     </IconButton>
                 </Toolbar>
             </AppBar>
-            <RadioGroup defaultValue='English' name='radio-button-group'>
+            <RadioGroup value={value} name='radio-button-group' onChange={handleChange}>
                 {items.map((list: any, idx: number) => {
                     return (
                         <Box key={idx} sx={{ padding: '14px' }}>
                             <FormControlLabel
                                 sx={{ fontWeight: 700, display: 'flex', justifyContent: 'space-between' }}
                                 labelPlacement='start'
-                                value={list}
+                                value={list.value}
                                 control={
                                     <Radio
                                         sx={{
@@ -79,7 +94,7 @@ const BottomSheetCustom: React.FC<BottomSheetProps> = ({ items, onConfirm }) => 
                                         }}
                                     />
                                 }
-                                label={list}
+                                label={list.title}
                             />
                             <Divider />
                         </Box>
@@ -88,7 +103,7 @@ const BottomSheetCustom: React.FC<BottomSheetProps> = ({ items, onConfirm }) => 
             </RadioGroup>
             <Box sx={{ marginLeft: '14px', marginRight: '14px' }}>
                 <ButtonBase
-                    onClick={onConfirm}
+                    onClick={() => onConfirm(value)}
                     sx={{ background: '#A54CE5', borderRadius: '15px', width: '100%', marginTop: '27px', marginBottom: '27px' }}
                 >
                     <Typography
