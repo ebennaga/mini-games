@@ -108,6 +108,7 @@ const TopUp = () => {
                 {coins?.length > 0 &&
                     coins.map((item: any) => (
                         <Grid
+                            sx={{ cursor: 'pointer' }}
                             item
                             xs={5}
                             key={item.id}
