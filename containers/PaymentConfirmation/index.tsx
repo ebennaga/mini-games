@@ -7,6 +7,8 @@ import Button from 'components/Button/Index';
 import Header from 'components/Header';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
+import { useSelector } from 'react-redux';
+import useAuthReducer from 'hooks/useAuthReducer';
 // import NavigationCard from 'components/NavigationCard';
 // import { Controller, useForm } from 'react-hook-form';
 
@@ -40,6 +42,24 @@ const PaymentConfirmationContainer = () => {
     const router = useRouter();
     const notify = useNotify();
 
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
+    const { setUser } = useAuthReducer();
+
+    const updateUserData = async () => {
+        try {
+            const result = await fetchAPI({
+                endpoint: 'auths',
+                method: 'GET'
+            });
+            if (result.status === 200) {
+                return setUser({ api_token: userState.api_token, ...result.data.data });
+            }
+            return false;
+        } catch (err: any) {
+            return false;
+        }
+    };
+
     const postTopupHandler = async () => {
         const response = await fetchAPI({
             method: 'POST',
@@ -54,6 +74,7 @@ const PaymentConfirmationContainer = () => {
                 // window.open(response.data.data.payment.redirect_url, '_blank');
                 snap.pay(response?.data?.data?.payment.token, {
                     onSuccess(result: any) {
+                        updateUserData();
                         console.log('success');
                         console.log('result', result);
                         notify(result.status_message, 'success');

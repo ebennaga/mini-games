@@ -49,7 +49,7 @@ const Header: React.FC<HeaderProps> = ({
     const notify = useNotify();
 
     const fetchData = async () => {
-        if (userState?.api_token) {
+        if (userState?.api_token && !userState.email) {
             try {
                 const result = await fetchAPI({
                     endpoint: 'auths',
@@ -59,9 +59,9 @@ const Header: React.FC<HeaderProps> = ({
                     setUser({ ...userState, ...result.data.data });
                     setUserData(result.data.data);
                 }
-                if (result.status === 403 || result.message === 'User is not authorized to access this resource with an explicit deny') {
-                    clearUser();
-                }
+                // if (result.status === 403 || result.message === 'User is not authorized to access this resource with an explicit deny') {
+                //     clearUser();
+                // }
             } catch (error) {
                 notify('Fetch account data failed!', 'error');
             }

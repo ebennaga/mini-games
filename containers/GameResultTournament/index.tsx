@@ -80,7 +80,7 @@ const GameResultTournament = () => {
                 </ButtonBase>
             </Box>
             <Box component='section' textAlign='center' color='#373737' borderBottom='1px solid rgba(40, 38, 38, 0.2)' paddingBottom='32px'>
-                <img src='/images/dummy/game-hopup.svg' width='105px' height='105px' alt='game icon' style={{ borderRadius: '8px' }} />
+                <img src={userState.imageGame} width='105px' height='105px' alt='game icon' style={{ borderRadius: '8px' }} />
                 <Typography
                     component='h2'
                     fontSize='20px'
