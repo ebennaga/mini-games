@@ -13,6 +13,7 @@ interface ButtonProps {
     type?: 'button' | 'submit' | 'reset';
     loading?: boolean;
     isWhite?: boolean;
+    id?: any;
 }
 
 const ButtonLanding: React.FC<ButtonProps> = ({
@@ -26,10 +27,12 @@ const ButtonLanding: React.FC<ButtonProps> = ({
     onClick,
     type = 'submit',
     loading = false,
-    isWhite = false
+    isWhite = false,
+    id
 }) => {
     return (
         <Button
+            id={id}
             type={type}
             disabled={disabled}
             startIcon={icon}
