@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-undef */
 import React from 'react';
 import { useRouter } from 'next/router';
 import { Box, Typography } from '@mui/material';
@@ -45,14 +47,34 @@ const PaymentConfirmationContainer = () => {
                 coin_id: router.query.id
             }
         });
-        if (response.status === 200) {
-            if (!isLoading) {
-                window.open(response.data.data.payment.redirect_url, '_blank');
-                router.push('/topup');
+        // console.log(response.data.data.payment.token);
+        // console.log(snap.pay(response.data.data.payment.token));
+        snap.pay(response?.data?.data?.payment.token, {
+            onSuccess(result: any) {
+                console.log('success');
+                console.log(result);
+            },
+            onPending(result: any) {
+                console.log('pending');
+                console.log(result);
+            },
+            onError(result: any) {
+                console.log('error');
+                console.log(result);
+            },
+            onClose() {
+                console.log('customer closed the popup without finishing the payment');
             }
-        } else {
-            notify('Post data top up failed', 'error');
-        }
+        });
+        // if (response.status === 200) {
+        //     if (!isLoading) {
+        //         // window.open(response.data.data.payment.redirect_url, '_blank');
+        //         snap.pay((response.data.data.payment.token);
+        //         router.push('/topup');
+        //     }
+        // } else {
+        //     notify('Post data top up failed', 'error');
+        // }
     };
 
     return (
