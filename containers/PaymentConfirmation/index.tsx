@@ -56,20 +56,20 @@ const PaymentConfirmationContainer = () => {
                         console.log('success');
                         console.log('result', result);
                         notify(result.status_message, 'success');
-                        if (result.status_code === 200) {
+                        if (result.status_code === '200') {
                             router.push('/success');
                         }
                     },
                     onPending(result: any) {
                         notify(result.status_message, 'success');
                         console.log('result', result);
-                        if (result.status_code === 201) {
-                            router.push('/success');
+                        if (result.status_code === '201') {
+                            router.push('/pending');
                         }
                     },
                     onError(result: any) {
                         notify(result.status_message[0], 'error');
-                        if (result.status_code === 406) {
+                        if (result.status_code === '406') {
                             router.push('/failed');
                         }
                     },
