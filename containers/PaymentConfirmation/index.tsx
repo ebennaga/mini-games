@@ -64,7 +64,7 @@ const PaymentConfirmationContainer = () => {
                         notify(result.status_message, 'success');
                         console.log('result', result);
                         if (result.status_code === 201) {
-                            router.push('/success');
+                            router.push('/pending');
                         }
                     },
                     onError(result: any) {
