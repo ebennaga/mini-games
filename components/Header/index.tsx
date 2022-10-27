@@ -42,7 +42,7 @@ const Header: React.FC<HeaderProps> = ({
     const userState = useSelector((state: any) => state?.webpage?.user?.user);
     const classes = useStyles();
     const router = useRouter();
-    const [userData, setUserData] = React.useState<any>(null);
+    // const [userData, setUserData] = React.useState<any>(null);
     const { setUser, clearUser } = useAuthReducer();
     const { fetchAPI, isLoading } = useApiCaller();
     const [isFirebaseLoading, setIsFirebaseLoading] = React.useState<boolean>(false);
@@ -57,7 +57,7 @@ const Header: React.FC<HeaderProps> = ({
                 });
                 if (result.status === 200) {
                     setUser({ ...userState, ...result.data.data });
-                    setUserData(result.data.data);
+                    // setUserData(result.data.data);
                 }
                 // if (result.status === 403 || result.message === 'User is not authorized to access this resource with an explicit deny') {
                 //     clearUser();
@@ -217,9 +217,9 @@ const Header: React.FC<HeaderProps> = ({
                             >
                                 {numberFormat(
                                     router.pathname.includes('/shops') && !isLoading
-                                        ? userData?.point
-                                        : userData?.coin
-                                        ? userData?.coin
+                                        ? userState?.point
+                                        : userState?.coin
+                                        ? userState?.coin
                                         : '0'
                                 )}
                             </Typography>
