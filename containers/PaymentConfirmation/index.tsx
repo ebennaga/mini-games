@@ -47,34 +47,30 @@ const PaymentConfirmationContainer = () => {
                 coin_id: router.query.id
             }
         });
-        // console.log(response.data.data.payment.token);
-        // console.log(snap.pay(response.data.data.payment.token));
-        snap.pay(response?.data?.data?.payment.token, {
-            onSuccess(result: any) {
-                console.log('success');
-                console.log(result);
-            },
-            onPending(result: any) {
-                console.log('pending');
-                console.log(result);
-            },
-            onError(result: any) {
-                console.log('error');
-                console.log(result);
-            },
-            onClose() {
-                console.log('customer closed the popup without finishing the payment');
+        if (response.status === 200) {
+            if (!isLoading) {
+                // window.open(response.data.data.payment.redirect_url, '_blank');
+                snap.pay(response?.data?.data?.payment.token, {
+                    onSuccess(result: any) {
+                        console.log('success');
+                        console.log(result);
+                        notify(result, 'success');
+                    },
+                    onPending(result: any) {
+                        notify(result, 'error');
+                    },
+                    onError(result: any) {
+                        notify(result, 'error');
+                    },
+                    onClose() {
+                        notify('customer closed the popup without finishing the payment', 'error');
+                    }
+                });
+                router.push('/topup');
             }
-        });
-        // if (response.status === 200) {
-        //     if (!isLoading) {
-        //         // window.open(response.data.data.payment.redirect_url, '_blank');
-        //         snap.pay((response.data.data.payment.token);
-        //         router.push('/topup');
-        //     }
-        // } else {
-        //     notify('Post data top up failed', 'error');
-        // }
+        } else {
+            notify('Post data top up failed', 'error');
+        }
     };
 
     return (

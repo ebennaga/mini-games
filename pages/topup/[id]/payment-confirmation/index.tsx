@@ -13,7 +13,11 @@ const Page = () => {
                 <meta name='description' content='Play for fun and prize' />
                 <link rel='icon' href='/favicon.ico' />
             </Head>
-            <Script type='text/javascript' src='https://app.sandbox.midtrans.com/snap/snap.js' data-client-key='<CLIENT-KEY>' />
+            <Script
+                type='text/javascript'
+                src='https://app.sandbox.midtrans.com/snap/snap.js'
+                data-client-key={process.env.NEXT_PUBLIC_CLIENT_KEY}
+            />
             <Layout backgoundColor='#fff' isBackground>
                 <PaymentConfirmationContainer />
             </Layout>
