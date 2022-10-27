@@ -2,6 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Layout from 'components/Layout/Index';
+import Script from 'next/script';
 
 const PaymentConfirmationContainer = dynamic(() => import('containers/PaymentConfirmation'));
 const Page = () => {
@@ -12,6 +13,11 @@ const Page = () => {
                 <meta name='description' content='Play for fun and prize' />
                 <link rel='icon' href='/favicon.ico' />
             </Head>
+            <Script
+                type='text/javascript'
+                src='https://app.sandbox.midtrans.com/snap/snap.js'
+                data-client-key={process.env.NEXT_PUBLIC_CLIENT_KEY}
+            />
             <Layout backgoundColor='#fff' isBackground>
                 <PaymentConfirmationContainer />
             </Layout>
