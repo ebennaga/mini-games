@@ -33,6 +33,7 @@ import useNotify from 'hooks/useNotify';
 //         />
 //     );
 // };
+declare let snap: any;
 
 const PaymentConfirmationContainer = () => {
     const { fetchAPI, isLoading } = useAPICaller();
@@ -53,14 +54,24 @@ const PaymentConfirmationContainer = () => {
                 snap.pay(response?.data?.data?.payment.token, {
                     onSuccess(result: any) {
                         console.log('success');
-                        console.log(result);
+                        console.log('result', result);
                         notify(result.status_message, 'success');
+                        if (result.status_code === 200) {
+                            router.push('/success');
+                        }
                     },
                     onPending(result: any) {
                         notify(result.status_message, 'success');
+                        console.log('result', result);
+                        if (result.status_code === 201) {
+                            router.push('/success');
+                        }
                     },
                     onError(result: any) {
-                        notify(result.status_message, 'error');
+                        notify(result.status_message[0], 'error');
+                        if (result.status_code === 406) {
+                            router.push('/failed');
+                        }
                     },
                     onClose() {
                         notify('customer closed the popup without finishing the payment', 'error');
