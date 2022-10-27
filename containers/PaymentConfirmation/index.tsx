@@ -54,19 +54,19 @@ const PaymentConfirmationContainer = () => {
                     onSuccess(result: any) {
                         console.log('success');
                         console.log(result);
-                        notify(result, 'success');
+                        notify(result.status_message, 'success');
                     },
                     onPending(result: any) {
-                        notify(result, 'error');
+                        notify(result.status_message, 'success');
                     },
                     onError(result: any) {
-                        notify(result, 'error');
+                        notify(result.status_message, 'error');
                     },
                     onClose() {
                         notify('customer closed the popup without finishing the payment', 'error');
                     }
                 });
-                router.push('/topup');
+                // router.push('/topup');
             }
         } else {
             notify('Post data top up failed', 'error');
