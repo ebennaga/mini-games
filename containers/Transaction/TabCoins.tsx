@@ -18,6 +18,7 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
     const [cointTansaction, setCointTransaction] = React.useState<any>(null);
     const [todayTransactions, setTodayTransactions] = React.useState<any>(null);
     const [yesterdayTransactions, setYesterdayTransactions] = React.useState<any>(null);
+    const [daysAgoTransactions, setDaysAgoTransactions] = React.useState<any>(null);
     const { fetchAPI, isLoading } = useAPICaller();
     const notify = useNotify();
     const form = useForm({
@@ -51,6 +52,7 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
         yesterday.setDate(yesterday.getDate() - 1);
         const todayTransaction: any = [];
         const yesterdayTransaction: any = [];
+        const daysAgoTransaction: any = [];
         if (!isLoading) {
             cointTansaction?.map((item: any) => {
                 if (new Date(item.created_at).getDate() === new Date().getDate()) {
@@ -60,6 +62,11 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                 if (new Date(item.created_at).getDate() === new Date(yesterday).getDate()) {
                     yesterdayTransaction.push(item);
                     setYesterdayTransactions(yesterdayTransaction);
+                }
+                if (new Date(item.created_at).getDate() < new Date(yesterday).getDate()) {
+                    console.log('yes', item);
+                    daysAgoTransaction.push(item);
+                    setDaysAgoTransactions(daysAgoTransaction);
                 }
             });
         }
@@ -81,7 +88,7 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
     // }, []);
 
     // console.log('yesterday', yesterdayTransaction);
-    console.log('today', todayTransactions);
+    console.log('histories', cointTansaction);
     // console.log('coin', cointTansaction);
     // console.log('todays', new Date('2022-10-25T03:23:37.000Z').getDate());
     return (
@@ -134,9 +141,7 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                 )}
             </Box>
             {!isLoading &&
-                todayTransactions === null &&
-                yesterdayTransactions === null &&
-                cointTansaction?.map((i: any) => (
+                daysAgoTransactions?.map((i: any) => (
                     <TransactionCard
                         key={i.id}
                         title={i.description}
@@ -144,6 +149,8 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                         amount={i.coin}
                         subtitle={`Transaction - ${i?.created_at?.slice(10, 16)}`}
                         created={i?.created_at}
+                        isToday={false}
+                        isYesterday={false}
                     />
                 ))}
         </TabPanelTransaction>
