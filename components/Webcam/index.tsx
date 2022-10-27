@@ -25,6 +25,14 @@ const WebcamScreen: React.FC<WebcamScreenProps> = ({ setSelectedAvatar, openCame
         facingMode: cameraPosition
     };
 
+    const handleChange = () => {
+        if (cameraPosition === 'user') {
+            setCameraPosition({ exact: 'environment' });
+        } else {
+            setCameraPosition('user');
+        }
+    };
+
     return (
         <>
             <Webcam audio={false} ref={webcamRef} screenshotFormat='image/jpeg' videoConstraints={videoConstraints} />
@@ -32,10 +40,7 @@ const WebcamScreen: React.FC<WebcamScreenProps> = ({ setSelectedAvatar, openCame
                 <ButtonBase sx={{ background: '#A54CE5', padding: '8px', color: '#fff', borderRadius: '8px', mr: 2 }} onClick={capture}>
                     Capture photo
                 </ButtonBase>
-                <ButtonBase
-                    sx={{ background: '#A54CE5', padding: '8px', color: '#fff', borderRadius: '8px' }}
-                    onClick={() => setCameraPosition({ exact: 'environment' })}
-                >
+                <ButtonBase sx={{ background: '#A54CE5', padding: '8px', color: '#fff', borderRadius: '8px' }} onClick={handleChange}>
                     Change camera
                 </ButtonBase>
             </Box>
