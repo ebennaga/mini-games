@@ -4,7 +4,7 @@ import Header from 'components/Header';
 import Button from 'components/Button/Index';
 import { useRouter } from 'next/router';
 
-const SuccessPaymentContainer = () => {
+const PendingPaymentContainer = () => {
     const [borderValue, setBorderValue] = React.useState<string>('none');
     const router = useRouter();
 
@@ -51,10 +51,10 @@ const SuccessPaymentContainer = () => {
             >
                 <Box />
                 <Box sx={{ paddingX: '20px', textAlign: 'center' }}>
-                    <Typography sx={{ fontSize: '35px', fontWeight: 'bold', lineHeight: 0 }}>Success!</Typography>
-                    <img src='/images/dialog-image.png' alt='failed.png' />
+                    <Typography sx={{ fontSize: '35px', mb: '50px', fontWeight: 'bold', lineHeight: 0 }}>Pending . . . .</Typography>
+                    <img src='/images/invalid.png' alt='failed.png' />
                     <Typography sx={{ fontSize: '14px', color: '#373737', fontWeight: '700' }}>
-                        Congrats, You have successfully top up Coins. Lets participate into Tournament and win the Prizes !
+                        Waiting for lorem ipsum dolor sit amet lorem ipsum
                     </Typography>
                 </Box>
                 <Box sx={{ paddingX: '20px' }}>
@@ -72,4 +72,4 @@ const SuccessPaymentContainer = () => {
     );
 };
 
-export default SuccessPaymentContainer;
+export default PendingPaymentContainer;
