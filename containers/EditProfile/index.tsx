@@ -22,7 +22,7 @@ const EditProfile = () => {
     const handleSaveChanges = async () => {
         setDialogSuccess(true);
     };
-    console.log('response', selectedAvatar);
+
     return (
         <Box component='main' sx={{ width: '-webkit-fill-available', padding: '0 20px', color: '#373737', height: '85%' }}>
             <HeaderBack title='Edit Profile' />
