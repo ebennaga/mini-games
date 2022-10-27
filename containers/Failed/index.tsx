@@ -1,32 +1,32 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import Header from 'components/Header';
+// import Header from 'components/Header';
 import Button from 'components/Button/Index';
 import { useRouter } from 'next/router';
 
 const FailedPaymentContainer = () => {
-    const [borderValue, setBorderValue] = React.useState<string>('none');
+    // const [borderValue, setBorderValue] = React.useState<string>('none');
     const router = useRouter();
-    const handleScroll = () => {
-        if (window.scrollY === 0) {
-            return setBorderValue('none');
-        }
-        return setBorderValue('0.5px solid rgba(148, 148, 148, 0.35)');
-    };
+    // const handleScroll = () => {
+    //     if (window.scrollY === 0) {
+    //         return setBorderValue('none');
+    //     }
+    //     return setBorderValue('0.5px solid rgba(148, 148, 148, 0.35)');
+    // };
 
-    React.useEffect(() => {
-        const watchScroll = () => {
-            window.addEventListener('scroll', handleScroll);
-        };
-        watchScroll();
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+    // React.useEffect(() => {
+    //     const watchScroll = () => {
+    //         window.addEventListener('scroll', handleScroll);
+    //     };
+    //     watchScroll();
+    //     return () => {
+    //         window.removeEventListener('scroll', handleScroll);
+    //     };
+    // }, []);
 
     return (
         <Box sx={{ width: '100%' }}>
-            <Box
+            {/* <Box
                 sx={{
                     width: '-webkit-fill-available',
                     position: 'sticky',
@@ -37,7 +37,7 @@ const FailedPaymentContainer = () => {
                 }}
             >
                 <Header logo='/icons/logo.svg' profilePicture='/icons/dummy/profile.png' />
-            </Box>
+            </Box> */}
             <Box
                 sx={{
                     display: 'flex',
