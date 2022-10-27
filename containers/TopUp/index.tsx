@@ -151,16 +151,18 @@ const TopUp = () => {
             </Box>
             <Box sx={{ textAlign: 'center', paddingX: '20px' }}>
                 {histories?.length > 0 &&
-                    histories.map((i: any) => (
-                        <TransactionCard
-                            key={i.id}
-                            title={i.description}
-                            isCoin
-                            amount={i.coin}
-                            subtitle={`Transaction - ${i?.created_at?.slice(10, 16)}`}
-                            created={i?.created_at}
-                        />
-                    ))}
+                    histories
+                        .slice(2)
+                        .map((i: any) => (
+                            <TransactionCard
+                                key={i.id}
+                                title={i.description}
+                                isCoin
+                                amount={i.coin}
+                                subtitle={`Transaction - ${i?.created_at?.slice(11, 16)}`}
+                                created={i?.created_at}
+                            />
+                        ))}
                 {histories?.length === 0 && <Typography sx={{ mt: '10px', color: 'red' }}>There is not any histories top up</Typography>}
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>

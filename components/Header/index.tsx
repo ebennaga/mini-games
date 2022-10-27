@@ -71,6 +71,7 @@ const Header: React.FC<HeaderProps> = ({
     React.useEffect(() => {
         fetchData();
     }, []);
+
     const handleLoginGoogle = async (user: User) => {
         if (userState?.api_token == null) {
             const response = await fetchAPI({
