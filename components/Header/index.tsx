@@ -43,7 +43,7 @@ const Header: React.FC<HeaderProps> = ({
     const classes = useStyles();
     const router = useRouter();
     const [userData, setUserData] = React.useState<any>(null);
-    const { setUser } = useAuthReducer();
+    const { setUser, clearUser } = useAuthReducer();
     const { fetchAPI, isLoading } = useApiCaller();
     const [isFirebaseLoading, setIsFirebaseLoading] = React.useState<boolean>(false);
     const notify = useNotify();
@@ -55,9 +55,12 @@ const Header: React.FC<HeaderProps> = ({
                     endpoint: 'auths',
                     method: 'GET'
                 });
-                if (result?.data?.data) {
+                if (result.status === 200) {
                     setUser({ ...userState, ...result.data.data });
                     setUserData(result.data.data);
+                }
+                if (result.status === 403 || result.message === 'User is not authorized to access this resource with an explicit deny') {
+                    clearUser();
                 }
             } catch (error) {
                 notify('Fetch account data failed!', 'error');
