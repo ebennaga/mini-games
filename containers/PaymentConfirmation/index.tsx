@@ -68,6 +68,7 @@ const PaymentConfirmationContainer = () => {
                 coin_id: router.query.id
             }
         });
+        console.log(response);
         if (response.status === 200) {
             if (!isLoading) {
                 // window.open(response.data.data.payment.redirect_url, '_blank');
