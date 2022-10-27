@@ -54,7 +54,7 @@ const SuccessPaymentContainer = () => {
                     <Typography sx={{ fontSize: '35px', fontWeight: 'bold', lineHeight: 0 }}>Success!</Typography>
                     <img src='/images/dialog-image.png' alt='failed.png' />
                     <Typography sx={{ fontSize: '14px', color: '#373737', fontWeight: '700' }}>
-                        Trasaction Success. Lorem ipsum dolor sit amet consectetur.
+                        Congrats, You have successfully top up Coins. Lets participate into Tournament and win the Prizes !
                     </Typography>
                 </Box>
                 <Box sx={{ paddingX: '20px' }}>
