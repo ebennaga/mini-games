@@ -22,6 +22,11 @@ const listEarning = [
         icon: '/icons/coin_rewards.png',
         title: 'Rewards Referral',
         status: '10:04'
+    },
+    {
+        icon: '/icons/coin_rewards.png',
+        title: 'Rewards Referral',
+        status: '10:04'
     }
 ];
 const TabPanelEarning: React.FC<TabPanelEarningProps> = ({ value, index }) => {
