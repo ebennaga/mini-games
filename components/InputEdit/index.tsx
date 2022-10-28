@@ -9,11 +9,15 @@ interface InputEditProps {
     label: string;
     value?: string;
     placeholder?: string;
+    disabled: boolean;
 }
 
-const InputEdit: React.FC<InputEditProps> = ({ name, form, label, value, placeholder }) => {
+const InputEdit: React.FC<InputEditProps> = ({ name, form, label, value, placeholder, disabled }) => {
     const [isDisable, setIsDisable] = React.useState<boolean>(true);
 
+    React.useEffect(() => {
+        setIsDisable(disabled);
+    }, [disabled]);
     React.useEffect(() => {
         form.setValue(name, value);
     }, [value]);
@@ -40,11 +44,14 @@ const InputEdit: React.FC<InputEditProps> = ({ name, form, label, value, placeho
                             {...field}
                             InputProps={{
                                 id: `input-${name}`,
-                                endAdornment: (
-                                    <ButtonBase onClick={() => setIsDisable(!isDisable)}>
-                                        <CreateIcon sx={{ color: isDisable ? '#A54CE5' : '#BDBDBD', fontSize: '22px' }} />
-                                    </ButtonBase>
-                                )
+                                endAdornment:
+                                    name === 'promoCode' ? (
+                                        <Box />
+                                    ) : (
+                                        <ButtonBase onClick={() => setIsDisable(!isDisable)}>
+                                            <CreateIcon sx={{ color: isDisable ? '#A54CE5' : '#BDBDBD', fontSize: '22px' }} />
+                                        </ButtonBase>
+                                    )
                             }}
                             sx={{
                                 '& .MuiInputBase-root': {

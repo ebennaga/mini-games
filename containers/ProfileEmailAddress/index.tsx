@@ -59,7 +59,7 @@ const ProfileEmailAddress = () => {
                 <Box sx={{ marginBottom: 1.4 }}>
                     <CurrentEmailCard email={userState.email} title='Current Email Address' />
                 </Box>
-                <InputEdit name='newEmail' form={form} label='New Email Address' placeholder='Ex: your@email.com' />
+                <InputEdit name='newEmail' form={form} label='New Email Address' placeholder='Ex: your@email.com' disabled />
                 {/* <InfoCard text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do. Lorem ipsum dolor sit' /> */}
             </Box>
             <Box mt='32px'>
