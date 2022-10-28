@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 // import { useRouter } from 'next/router';
 import React from 'react';
@@ -11,30 +11,29 @@ const CoinsPrizes = () => {
             href: '/topup',
             image: '/images/dummy/coin-banner.png',
             title: 'How to get Coin ?',
-            paragraph:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi '
+            paragraph: 'To top up coin choose menu COIN, and to join tournament you can find in menu GAMES.'
         },
         {
             href: '/tournaments',
             image: '/images/dummy/point-banner.png',
             title: 'How to get Point ?',
-            customParagraph: (
-                <>
-                    <Typography component='p' fontWeight={400} lineHeight='12px' fontSize='12px' sx={{ color: '#949494' }}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                    </Typography>
-                    <Typography component='p' fontWeight={400} lineHeight='12px' fontSize='12px' sx={{ pt: '8px', color: '#949494' }}>
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    </Typography>
-                </>
-            )
+            paragraph: 'To get points you need to join tournament.'
+            // customParagraph: (
+            //     <>
+            //         <Typography component='p' fontWeight={400} lineHeight='12px' fontSize='12px' sx={{ color: '#949494' }}>
+            //             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            //         </Typography>
+            //         <Typography component='p' fontWeight={400} lineHeight='12px' fontSize='12px' sx={{ pt: '8px', color: '#949494' }}>
+            //             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+            //         </Typography>
+            //     </>
+            // )
         },
         {
             href: '/shops',
             image: '/images/dummy/prize-banner.png',
             title: 'How to get prize ?',
-            paragraph:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi '
+            paragraph: 'Firstly you need to gain points, and can redeem prize in menu PRIZES'
         }
     ];
 
