@@ -67,7 +67,7 @@ const ProfileSetting = () => {
     ];
     const supportData = [
         { title: 'About Prize Play', icon: '/icons/about.svg', href: '/about-us' },
-        { title: 'How to get coins & prizes', icon: '/icons/coin-price.svg', href: '/coins-prizes' },
+        { title: 'How to get', icon: '/icons/coin-price.svg', href: '/coins-prizes' },
         { title: 'Help & Support', icon: '/icons/help.svg', href: '/help-support' },
         { title: 'Reported Issues', icon: '/icons/report-issue.svg', href: '/reported' },
         { title: 'Privacy policy', icon: '/icons/privacy.svg', href: '/privacy-policy' },
