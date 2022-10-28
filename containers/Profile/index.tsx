@@ -151,6 +151,7 @@ const Profile = () => {
                     borderRadius: '6px',
                     marginTop: '26px'
                 }}
+                onClick={() => router.push('/referral')}
             />
             <Box component='section' sx={{ width: '100%', marginTop: '7px' }}>
                 {listNavigation.map((item: any) => {
