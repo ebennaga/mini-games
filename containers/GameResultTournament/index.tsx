@@ -8,6 +8,7 @@ import useNotify from 'hooks/useNotify';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import numberFormat from 'helper/numberFormat';
 import RankCard from 'components/RankCard';
+import NotifDialog from 'components/Dialog/notifDialog';
 
 const GameResultTournament = () => {
     const userState = useSelector((state: any) => state?.webpage?.user?.user);
@@ -16,7 +17,7 @@ const GameResultTournament = () => {
     const [authsData, setAuthsData] = React.useState<any>(null);
     const [totalPrize, setTotalPrize] = React.useState<any>(null);
     const [loadingSession, setLoadingSession] = React.useState<boolean>(false);
-    // const [sessionGame, setSessionGame] = React.useState<any>(null);
+    const [dialogTopup, setDialogTopup] = React.useState<boolean>(false);
 
     const { fetchAPI } = useAPICaller();
     const notify = useNotify();
@@ -66,18 +67,15 @@ const GameResultTournament = () => {
                 }
             });
             if (response?.status === 200) {
-                // setSessionGame(response.data.data.session_code);
-
                 const currentData = await refreshAuth();
                 const sessionGame = response.data.data.session_code;
                 if (currentData && sessionGame) {
                     const newState = { ...currentData, sessionGame };
                     setUser(newState);
-                    console.log('setuser', newState);
                     router.push(`/games/${router.query.id}/tournament/${router.query['id-tournament']}/loading`);
                 }
-            } else {
-                notify('failed get session game', 'error');
+            } else if (response.data.message === 'Coin is not enough') {
+                setDialogTopup(true);
             }
         }
         setLoadingSession(false);
@@ -186,6 +184,7 @@ const GameResultTournament = () => {
                     )}
                 </ButtonBase>
             </Box>
+            <NotifDialog open={dialogTopup} setOpenDialog={setDialogTopup} body='You dont have enought coins. Topup now!' />
         </Box>
     );
 };
