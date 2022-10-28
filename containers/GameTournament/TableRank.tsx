@@ -37,7 +37,6 @@ const TableRank: React.FC<TableRankProps> = ({ dataLeaderboard }) => {
             </Grid>
             {sorting.map((item: any, index: number) => {
                 const rank = index + 4;
-                console.log(item);
                 return (
                     <Box key={index}>
                         <RankCard
