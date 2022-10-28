@@ -140,17 +140,8 @@ const PaymentConfirmationContainer = () => {
                             <Typography sx={{ fontWeight: 500 }}>Rp. 10.000</Typography>
                         </Box>
                     </Box>
-                    <Typography sx={{ fontWeight: '400', fontSize: '12px', lineHeight: '12px', color: '#949494', my: '20px' }}>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium odit veniam, ipsam similique repellat in non
-                        voluptatem sapiente deleniti totam maxime id inventore magni alias dolore ratione nulla ut ab sint dolores et.
-                        Repellendus aperiam reiciendis quasi iusto explicabo quia corporis molestias, facere, nam vel fugit corrupti beatae
-                        doloribus! Aperiam consequuntur maiores saepe illo quia, sed blanditiis atque eaque quod sit excepturi itaque
-                        repellendus animi iste cupiditate magnam at magni. <br /> <br />
-                        <Typography sx={{ fontWeight: '400', fontSize: '12px', lineHeight: '12px', color: '#949494' }} component='span'>
-                            Officiis dicta a, aliquid molestiae rerum repudiandae iste ipsum quod unde aspernatur, expedita, quis inventore!
-                            Saepe odio veniam quasi esse quas possimus eveniet sit? Assumenda aperiam id facere laboriosam debitis animi
-                            repellat quam provident, sunt explicabo sed ducimus rem obcaecati aliquid
-                        </Typography>
+                    <Typography sx={{ fontWeight: '400', fontSize: '12px', lineHeight: '12px', color: '#949494', my: '40px' }}>
+                        are you sure you want to continue this transaction?
                     </Typography>
                 </Box>
             </Box>
@@ -179,7 +170,7 @@ const PaymentConfirmationContainer = () => {
             <Box sx={{ padding: '19px' }}>
                 <CheckboxController name='check' form={form} onClick={handleCheckbox} checked={form.watch('check')} />
             </Box> */}
-            <Box sx={{ padding: '20px', position: 'sticky', bottom: '0px', zIndex: 99, mt: '100px' }}>
+            <Box sx={{ padding: '20px', position: 'fixed', bottom: '0px', zIndex: 99, mb: '40px', width: '-webkit-fill-available' }}>
                 <Button
                     // disabled={!form.watch('check')}
                     title='Confirm to pay'
