@@ -170,15 +170,17 @@ const PaymentConfirmationContainer = () => {
             <Box sx={{ padding: '19px' }}>
                 <CheckboxController name='check' form={form} onClick={handleCheckbox} checked={form.watch('check')} />
             </Box> */}
-            <Box sx={{ padding: '20px', position: 'fixed', bottom: '0px', zIndex: 99, mb: '40px', width: '-webkit-fill-available' }}>
-                <Button
-                    // disabled={!form.watch('check')}
-                    title='Confirm to pay'
-                    backgoundColor='#A54CE5'
-                    color='white'
-                    onClick={postTopupHandler}
-                    loading={isLoading}
-                />
+            <Box sx={{ position: 'relative', height: '50vh', display: 'flex', justifyContent: 'center' }}>
+                <Box sx={{ position: 'absolute', width: '90%', bottom: '20px' }}>
+                    <Button
+                        // disabled={!form.watch('check')}
+                        title='Confirm to pay'
+                        backgoundColor='#A54CE5'
+                        color='white'
+                        onClick={postTopupHandler}
+                        loading={isLoading}
+                    />
+                </Box>
             </Box>
         </Box>
     );
