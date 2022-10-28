@@ -39,9 +39,6 @@ const LoadingCasual = () => {
                     <CircularStatic />
                 </Box>
             </Box>
-            <Typography sx={{ fontSize: '10px', fontWeight: 500, color: '#949494', mt: '210px' }}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum.
-            </Typography>
         </Box>
     );
 };
