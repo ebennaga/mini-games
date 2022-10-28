@@ -17,7 +17,7 @@ const CoinsPrizes = () => {
             href: '/tournaments',
             image: '/images/dummy/point-banner.png',
             title: 'How to get Point ?',
-            paragraph: 'To get points you need to join tournament.'
+            paragraph: 'To get points you need to join tournament and then more you play, the more you you get'
             // customParagraph: (
             //     <>
             //         <Typography component='p' fontWeight={400} lineHeight='12px' fontSize='12px' sx={{ color: '#949494' }}>
@@ -33,7 +33,7 @@ const CoinsPrizes = () => {
             href: '/shops',
             image: '/images/dummy/prize-banner.png',
             title: 'How to get prize ?',
-            paragraph: 'Firstly you need to gain points, and can redeem prize in menu PRIZES'
+            paragraph: ' Firstly you need to gain points, and you can redeem prize according to the points you have'
         }
     ];
 

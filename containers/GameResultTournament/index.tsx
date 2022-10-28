@@ -14,6 +14,7 @@ const GameResultTournament = () => {
     const router = useRouter();
     const { setUser } = useAuthReducer();
     const [authsData, setAuthsData] = React.useState<any>(null);
+    const [totalPrize, setTotalPrize] = React.useState<any>(null);
     const [loadingSession, setLoadingSession] = React.useState<boolean>(false);
     // const [sessionGame, setSessionGame] = React.useState<any>(null);
 
@@ -33,6 +34,7 @@ const GameResultTournament = () => {
             });
             if (response?.data.status === 200) {
                 setAuthsData(response?.data.data.auths);
+                setTotalPrize(response?.data.data.total_price);
             }
         } catch (error: any) {
             notify(error.message, 'error');
@@ -106,8 +108,8 @@ const GameResultTournament = () => {
                     rank={1}
                     image='/icons/dummy/profile-2.png'
                     username={userState.username}
-                    point={authsData?.total_score}
-                    prize={100}
+                    score={authsData?.total_score}
+                    point={totalPrize}
                     disabledUnderline
                 />
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', my: '10px' }}>
@@ -127,8 +129,8 @@ const GameResultTournament = () => {
                             rank={item.position}
                             image={item.image}
                             username={item.username}
-                            point={item.total_score}
-                            prize={item.point_prize}
+                            score={item.total_score}
+                            point={item.point_prize}
                         />
                     );
                 })}
