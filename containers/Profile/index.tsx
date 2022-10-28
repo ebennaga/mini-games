@@ -17,8 +17,8 @@ const Profile = () => {
     const router = useRouter();
     const userState = useSelector((state: any) => state?.webpage?.user?.user);
     const listNavigation = [
-        { title: 'Input Promo Code', icon: '/icons/promo-code.png', onclick: () => router.push('/promo') },
-        { title: 'Give us Ratings', icon: '/icons/rating.png', onclick: () => router.push('/ratingas') }
+        { title: 'Input Promo Code', icon: '/icons/promo-code.png', onclick: () => router.push('/promo') }
+        // { title: 'Give us Ratings', icon: '/icons/rating.png', onclick: () => router.push('/ratingas') }
     ];
 
     return (
