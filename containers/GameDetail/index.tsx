@@ -23,10 +23,8 @@ const GameDetailContainer = () => {
     const notify = useNotify();
     const [detailGame, setDetailGame] = React.useState<any>(null);
     const userState = useSelector((state: any) => state.webpage?.user?.user);
-    // const [isLoading, setIsLoading] = React.useState<boolean>(true);
     const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
     const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
-    const [sessionGame, setSessionGame] = React.useState<any>(null);
 
     const { setUser, clearUser } = useAuthReducer();
 
@@ -38,48 +36,24 @@ const GameDetailContainer = () => {
             });
             if (res.data?.data) {
                 setDetailGame(res.data.data);
-                // sessionStorage.setItem('prizeplayGameData', )
             }
         } catch (e) {
             notify('failed data', 'e');
         }
     };
 
-    const getGameSession = async () => {
-        if (userState) {
-            try {
-                const response = await fetchAPI({
-                    method: 'POST',
-                    endpoint: `webhook/game-sessions`,
-                    data: {
-                        game_id: router.query.id
-                    }
-                });
-                if (response.status === 200) {
-                    setSessionGame(response.data.data);
-                } else {
-                    notify('failed error', 'error');
-                }
-            } catch (e: any) {
-                notify(e.message, 'error');
-            }
-        }
-    };
-
     React.useEffect(() => {
         const fetchAllData = async () => {
             await fetchData(Number(router.query.id));
-            await getGameSession();
         };
         fetchAllData();
     }, []);
 
     React.useEffect(() => {
-        if (userState && detailGame && sessionGame) {
+        if (userState && detailGame) {
             const dataGames = {
                 imageGame: detailGame.banner_url,
                 titleGame: detailGame.name,
-                sessionGame: sessionGame.session_code,
                 gameUrl: detailGame.game_url,
                 descriptionGame: detailGame.description
             };
@@ -87,7 +61,6 @@ const GameDetailContainer = () => {
 
             if (
                 (!userState.imageGame || userState.imageGame !== detailGame.banner_url) &&
-                (!userState.sessionGame || userState.sessionGame !== sessionGame.session_code) &&
                 (!userState.gameUrl || userState.gameUrl !== detailGame.game_url) &&
                 (!userState.description || userState.description !== detailGame.description)
             ) {
@@ -95,7 +68,7 @@ const GameDetailContainer = () => {
                 setUser(newState);
             }
         }
-    }, [userState, sessionGame, detailGame]);
+    }, [userState, detailGame]);
 
     const handleClick = async (idTournament: any) => {
         router.push(`/games/${router.query.id}/tournament/${idTournament}`);
@@ -107,8 +80,6 @@ const GameDetailContainer = () => {
         }
         return setSignupLoginDialog(true);
     };
-
-    console.log(detailGame);
 
     if (isLoading) {
         return <GameDetailSkeleton />;

@@ -1,18 +1,44 @@
 import React from 'react';
-import { Box, Typography, Grid, ButtonBase } from '@mui/material';
+import { Box, Typography, Grid, ButtonBase, CircularProgress } from '@mui/material';
 import Header from 'components/Header';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
-// import Button from 'components/Button/Index';
 import { SmartDisplay, EmojiEvents, Share } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 import numberFormat from 'helper/numberFormat';
+import { useSelector } from 'react-redux';
+import useAuthReducer from 'hooks/useAuthReducer';
 
 const CasualContainer = () => {
     const { fetchAPI } = useAPICaller();
+    const { fetchAPI: fetchSession, isLoading: loadingSession } = useAPICaller();
     const notify = useNotify();
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
     const [detailGame, setDetailGame] = React.useState<any>(null);
     const router = useRouter();
+    const { setUser } = useAuthReducer();
+
+    const handlePlay = async () => {
+        try {
+            const response = await fetchSession({
+                method: 'POST',
+                endpoint: `webhook/game-sessions`,
+                data: {
+                    game_id: router.query.id
+                }
+            });
+            if (response.status === 200) {
+                const data = { ...userState };
+                data.sessionGame = response.data.data.session_code;
+                setUser(data);
+                router.push(`/games/${router.query.id}/casual/loading`);
+            } else {
+                notify(response.message, 'error');
+            }
+        } catch (e: any) {
+            notify(e.message, 'error');
+        }
+    };
 
     const fetchData = async (id: number) => {
         try {
@@ -23,8 +49,8 @@ const CasualContainer = () => {
             if (res.data?.data) {
                 setDetailGame(res.data.data);
             }
-        } catch (e) {
-            notify('failed data', 'e');
+        } catch (e: any) {
+            notify(e.message, 'error');
         }
     };
 
@@ -114,18 +140,15 @@ const CasualContainer = () => {
             </Grid>
             <Box sx={{ padding: '20px', position: 'sticky', bottom: '20px' }}>
                 <ButtonBase
-                    onClick={() => {
-                        // router.push('/casual/loading');
-                        router.push(`/games/${router.query.id}/casual/loading`);
-                        // router.push('/casual/ads');
-                    }}
+                    disabled={loadingSession}
+                    onClick={handlePlay}
                     sx={{
                         textTransform: 'none',
                         position: 'relative',
                         borderRadius: '15px',
                         fontWeight: 'bold',
                         color: 'white',
-                        backgroundColor: '#A54CE5',
+                        backgroundColor: loadingSession ? '#F9F0FF' : '#A54CE5',
                         width: '100%',
                         height: '60px',
                         '&:hover': {
@@ -135,11 +158,18 @@ const CasualContainer = () => {
                         }
                     }}
                 >
-                    Watch Ads{' '}
-                    <span style={{ margin: '0px 5px' }}>
-                        <SmartDisplay />
-                    </span>{' '}
-                    to Play
+                    {loadingSession ? (
+                        <CircularProgress sx={{ color: '#A54CE5' }} />
+                    ) : (
+                        <>
+                            {' '}
+                            Watch Ads{' '}
+                            <span style={{ margin: '0px 5px' }}>
+                                <SmartDisplay />
+                            </span>{' '}
+                            to Play{' '}
+                        </>
+                    )}
                 </ButtonBase>
             </Box>
         </Box>
