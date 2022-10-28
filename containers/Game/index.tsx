@@ -160,6 +160,20 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
                             </Box>
                         </Grid>
                     ))}
+                    {searchData?.length === 0 && (
+                        <Box
+                            sx={{
+                                width: '100%',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                flexDirection: 'column',
+                                alignItems: 'center'
+                            }}
+                        >
+                            <img src='/images/failed.png' alt='' style={{ width: '150px', borderRadius: '10px' }} />
+                            <Typography sx={{ fontWeight: 'bold', mt: '10px' }}>Sorry, Game not found . . . </Typography>
+                        </Box>
+                    )}
                 </Grid>
             </Box>
         </Box>
