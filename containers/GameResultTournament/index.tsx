@@ -14,6 +14,7 @@ const GameResultTournament = () => {
     const router = useRouter();
     const { setUser } = useAuthReducer();
     const [authsData, setAuthsData] = React.useState<any>(null);
+    const [totalPrize, setTotalPrize] = React.useState<any>(null);
     const [loadingSession, setLoadingSession] = React.useState<boolean>(false);
     // const [sessionGame, setSessionGame] = React.useState<any>(null);
 
@@ -31,8 +32,10 @@ const GameResultTournament = () => {
                 method: 'GET',
                 endpoint: `tournaments/${router.query['id-tournament']}`
             });
+            console.log(response);
             if (response?.data.status === 200) {
                 setAuthsData(response?.data.data.auths);
+                setTotalPrize(response?.data.data.total_price);
             }
         } catch (error: any) {
             notify(error.message, 'error');
@@ -68,7 +71,7 @@ const GameResultTournament = () => {
     React.useEffect(() => {
         getTournamentAuth();
     }, []);
-    console.log(authsData);
+
     return (
         <Box component='main' width='100%'>
             <Box padding='0 20px'>
@@ -107,7 +110,7 @@ const GameResultTournament = () => {
                     image='/icons/dummy/profile-2.png'
                     username={userState.username}
                     score={authsData?.total_score}
-                    point={100}
+                    point={numberFormat(totalPrize)}
                     disabledUnderline
                 />
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', my: '10px' }}>
