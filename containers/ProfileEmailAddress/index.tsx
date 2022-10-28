@@ -1,15 +1,20 @@
 /* eslint-disable no-unused-vars */
 import { Box, ButtonBase, Typography } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
+import Input from 'components/Input';
 import InputEdit from 'components/InputEdit';
 import InputUnderline from 'components/InputUnderline';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import CurrentEmailCard from './CurrentEmailCard';
 // import InfoCard from './InfoCard';
 import PinpointCard from './PinpointCard';
 
 const ProfileEmailAddress = () => {
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
+    const [errConfirm, setErrConfirm] = useState<string>('');
+
     const form = useForm({
         mode: 'all',
         defaultValues: {
@@ -17,7 +22,10 @@ const ProfileEmailAddress = () => {
             address: '',
             notes: '',
             recipient: '',
-            phone: ''
+            phone: '',
+            currentPassword: '',
+            newPassword: '',
+            confirmNewPassword: ''
         }
     });
 
@@ -25,9 +33,20 @@ const ProfileEmailAddress = () => {
         // console.log(data);
     };
 
+    useEffect(() => {
+        const { newPassword, confirmNewPassword } = form.watch();
+        if (newPassword.length > 5) {
+            if (newPassword === confirmNewPassword) {
+                setErrConfirm('');
+            } else {
+                setErrConfirm('New password and Confirm password must be match!');
+            }
+        }
+    }, [form.watch('newPassword'), form.watch('confirmNewPassword')]);
+
     return (
         <form onSubmit={form.handleSubmit(onSubmit)} style={{ width: '-webkit-fill-available', padding: '0 20px', color: '#373737' }}>
-            <HeaderBack title='Email & Address' />
+            <HeaderBack title='Account & Address' />
             <Box component='section' sx={{ marginTop: '63px' }}>
                 <Typography component='h2' fontSize='18px' fontWeight={700}>
                     Email
@@ -38,10 +57,30 @@ const ProfileEmailAddress = () => {
             </Box>
             <Box component='section' sx={{ marginTop: '35px' }}>
                 <Box sx={{ marginBottom: 1.4 }}>
-                    <CurrentEmailCard email='rintokun@yah.com' title='Current Email Address' />
+                    <CurrentEmailCard email={userState.email} title='Current Email Address' />
                 </Box>
                 <InputEdit name='newEmail' form={form} label='New Email Address' placeholder='Ex: your@email.com' />
                 {/* <InfoCard text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do. Lorem ipsum dolor sit' /> */}
+            </Box>
+            <Box mt='32px'>
+                <Typography component='h2' fontSize='18px' fontWeight={700}>
+                    Password
+                </Typography>
+                <Typography component='p' lineHeight='14px' fontSize='14px' fontWeight={400} sx={{ color: '#949494' }}>
+                    Enter for new password for your account.
+                </Typography>
+                <Box mt='30px'>
+                    <Input type='password' name='currentPassword' form={form} placeholder='Your Current Password' />
+                </Box>
+                <Box mt='10px'>
+                    <Input type='password' name='newPassword' validator={{ minLength: 6 }} form={form} placeholder='New Password' />
+                </Box>
+                <Box mt='10px'>
+                    <Input type='password' name='confirmNewPassword' form={form} placeholder='Confirm New Password' />
+                    <Typography sx={{ color: '#CD1719', fontWeight: 700, fontSize: '14px', ml: '15px', mt: '10px' }}>
+                        {errConfirm}
+                    </Typography>
+                </Box>
             </Box>
             <Box component='section' sx={{ marginTop: '63px' }}>
                 <Typography component='h2' fontSize='18px' fontWeight={700}>
