@@ -17,6 +17,8 @@ const ProfileSetting = () => {
 
     const [deleteDialog, setDeleteDialog] = useState(false);
     const [statusOpen, setOpen] = useState(false);
+    const [dataBottomSheet, setdataBottomSheet] = useState([]);
+    const [titleBottomSheet, setTitleBottomSheet] = useState('');
     // const handleClose = useMemo(() => expensiveCalculation(count), [count]);
 
     const form = useForm({
@@ -69,7 +71,6 @@ const ProfileSetting = () => {
         { title: 'About Prize Play', icon: '/icons/about.svg', href: '/about-us' },
         { title: 'How to get ', icon: '/icons/coin-price.svg', href: '/coins-prizes' },
         { title: 'Help & Support', icon: '/icons/help.svg', href: '/help-support' },
-        { title: 'Reported Issues', icon: '/icons/report-issue.svg', href: '/reported' },
         { title: 'Privacy policy', icon: '/icons/privacy.svg', href: '/privacy-policy' },
         { title: 'Terms & Conditions', icon: '/icons/term.svg', href: '/terms-conditions' }
     ];
@@ -79,16 +80,43 @@ const ProfileSetting = () => {
         { value: 'id', title: 'Indonesia' }
     ];
 
+    const itemReported = [
+        { value: 'acc', title: 'Account' },
+        { value: 'bug', title: 'Bug' },
+        { value: 'game', title: 'Gameplay' },
+        { value: 'tour', title: 'Tournaments' },
+        { value: 'redeem', title: 'Redeemed Prizes' },
+        { value: 'casual', title: 'Casual Play' },
+        { value: 'topup', title: 'Top up Coins' }
+    ];
+
+    const itemContactUs = [
+        { icon: '/icons/email.svg', title: 'ptultrasuksesbersama@gmail.com' },
+        { icon: '/icons/phone.svg', title: '(+62) 088888111' }
+    ];
+
     const handleHref = (href: string) => {
         router.push(href);
     };
 
-    const handleConfirmLanguage = (value: string) => {
-        const dataStorage = { language: value };
-        localStorage.setItem('prizePlay', JSON.stringify(dataStorage));
-        const locale = value;
-        router.push(router.pathname, router.asPath, { locale });
+    const handleConfirmLanguage = (value: string, type: string) => {
+        if (type === 'Choose Language') {
+            const dataStorage = { language: value };
+            localStorage.setItem('prizePlay', JSON.stringify(dataStorage));
+            const locale = value;
+            router.push(router.pathname, router.asPath, { locale });
+        } else if (type === 'Choose your issue') {
+            // code for report issue
+        } else if (type === 'Contact Us') {
+            // code for contact us
+        }
         setOpen(false);
+    };
+
+    const handleBottomSheet = (data: any, title: string) => {
+        setOpen(true);
+        setdataBottomSheet(data);
+        setTitleBottomSheet(title);
     };
 
     useEffect(() => {
@@ -105,7 +133,11 @@ const ProfileSetting = () => {
         <OpenContext.Provider value={statusOpen}>
             <Box component='main' sx={{ width: '-webkit-fill-available', padding: '0 20px', color: '#373737', position: 'relative' }}>
                 <HeaderBack title='Settings' handleBack={() => router.push('/profile')} />
-                <BottomSheetCustom items={itemLanguage} onConfirm={(value: string) => handleConfirmLanguage(value)} />
+                <BottomSheetCustom
+                    items={dataBottomSheet}
+                    onConfirm={(value: string, type: string) => handleConfirmLanguage(value, type)}
+                    type={titleBottomSheet}
+                />
                 <Box component='section' sx={{ marginTop: '43px' }}>
                     <Typography component='h2' fontSize='20px' fontWeight={700}>
                         General
@@ -128,7 +160,11 @@ const ProfileSetting = () => {
                         />
                     </Box>
                     <Box sx={{ borderBottom: '2px solid #F4F1FF', padding: '20px 0' }}>
-                        <NavigationCard icon='/icons/language.svg' title='Language' onClick={() => setOpen(true)} />
+                        <NavigationCard
+                            icon='/icons/language.svg'
+                            title='Language'
+                            onClick={() => handleBottomSheet(itemLanguage, 'Choose Language')}
+                        />
                     </Box>
                 </Box>
                 <Box component='section' sx={{ marginTop: '24px' }}>
@@ -151,12 +187,27 @@ const ProfileSetting = () => {
                         Support
                     </Typography>
                     {supportData.map((item: any, index: number) => {
-                        return (
+                        return index === 3 ? (
+                            <Box sx={{ borderBottom: '2px solid #F4F1FF', padding: '20px 0' }}>
+                                <NavigationCard
+                                    icon='/icons/report-issue.svg'
+                                    title='Reported Issues'
+                                    onClick={() => handleBottomSheet(itemReported, 'Choose your issue')}
+                                />
+                            </Box>
+                        ) : (
                             <Box key={index} sx={{ borderBottom: '2px solid #F4F1FF', padding: '20px 0' }}>
                                 <NavigationCard icon={item.icon} title={item.title} onClick={() => handleHref(item.href)} />
                             </Box>
                         );
                     })}
+                    <Box sx={{ borderBottom: '2px solid #F4F1FF', padding: '20px 0' }}>
+                        <NavigationCard
+                            icon='/icons/contact-us.svg'
+                            title='Contact Us'
+                            onClick={() => handleBottomSheet(itemContactUs, 'Contact Us')}
+                        />
+                    </Box>
                 </Box>
                 <ButtonBase
                     onClick={handleSignOut}
