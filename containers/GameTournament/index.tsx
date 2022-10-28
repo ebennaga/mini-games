@@ -28,8 +28,6 @@ const GameTournament = () => {
     const { setUser, clearUser } = useAuthReducer();
 
     const [listingGame, setListingGame] = React.useState<any>(null);
-    const [detailGame, setDetailGame] = React.useState<any>(null);
-    const [sessionGame, setSessionGame] = React.useState<any>(null);
     const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
     const [isLoading, isSetLoading] = React.useState<boolean>(false);
     const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
@@ -58,7 +56,15 @@ const GameTournament = () => {
             method: 'GET'
         });
         if (response.status === 200) {
-            setDetailGame(response.data.data);
+            const { data } = response.data;
+            const dataGames = {
+                imageGame: data.banner_url,
+                titleGame: data.name,
+                gameUrl: data.game_url,
+                descriptionGame: data.description
+            };
+            const newState = { ...userState, ...dataGames };
+            setUser(newState);
         } else {
             notify('failed get detail game', 'error');
         }
@@ -77,12 +83,9 @@ const GameTournament = () => {
             });
             if (response.status === 200) {
                 const newState = { ...userState };
-                if (!userState.sessionGame || userState.sessionGame !== response.data.data.session_code) {
-                    newState.sessionGame = response.data.data.session_code;
-                    clearUser();
-                    setUser(newState);
-                }
-                setSessionGame(response.data.data);
+                newState.sessionGame = response.data.data.session_code;
+                clearUser();
+                setUser(newState);
                 return true;
             }
             notify('failed get session game', 'error');
@@ -101,29 +104,6 @@ const GameTournament = () => {
         getAllData();
     }, []);
 
-    React.useEffect(() => {
-        if (userState && detailGame && sessionGame) {
-            const dataGames = {
-                imageGame: detailGame.banner_url,
-                titleGame: detailGame.name,
-                sessionGame: sessionGame.session_code,
-                gameUrl: detailGame.game_url,
-                descriptionGame: detailGame.description
-            };
-            const newState = { ...userState, ...dataGames };
-
-            if (
-                (!userState.imageGame || userState.imageGame !== detailGame.banner_url) &&
-                (!userState.sessionGame || userState.sessionGame !== sessionGame.session_code) &&
-                (!userState.gameUrl || userState.gameUrl !== detailGame.game_url) &&
-                (!userState.description || userState.description !== detailGame.description)
-            ) {
-                clearUser();
-                setUser(newState);
-            }
-        }
-    }, [userState, sessionGame, detailGame]);
-
     const refreshAuth = async () => {
         const response = await fetchAPI({
             method: 'GET',
@@ -133,7 +113,6 @@ const GameTournament = () => {
             const dataUser = { ...userState };
             dataUser.coin = response.data.data.coin;
             setUser(dataUser);
-            // console.log('datauser', dataUser);
         }
     };
     const handlePlay = async () => {
