@@ -54,7 +54,7 @@ const Inbox = () => {
                         <Box sx={{ width: '100%' }}>
                             <img src={item.image} alt='open-tourney' width='100%' />
                         </Box>
-                        <Typography
+                        {/* <Typography
                             sx={{
                                 marginLeft: 1,
                                 marginRight: '22px',
@@ -63,7 +63,10 @@ const Inbox = () => {
                                 my: 3,
                                 fontWeight: 600
                             }}
-                        />
+                        >
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet
+                            odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                        </Typography> */}
                         <Box sx={{ borderBottom: '1px dashed rgba(40, 38, 38, 0.1)', my: '20px' }} />
                     </Box>
                 ))}
