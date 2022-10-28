@@ -86,7 +86,7 @@ const GameTournament = () => {
                 newState.sessionGame = response.data.data.session_code;
                 clearUser();
                 setUser(newState);
-                return true;
+                return newState;
             }
             notify('failed get session game', 'error');
             return false;
@@ -104,13 +104,13 @@ const GameTournament = () => {
         getAllData();
     }, []);
 
-    const refreshAuth = async () => {
+    const refreshAuth = async (data: any) => {
         const response = await fetchAPI({
             method: 'GET',
             endpoint: `auths`
         });
         if (response.status === 200) {
-            const dataUser = { ...userState };
+            const dataUser = { ...data };
             dataUser.coin = response.data.data.coin;
             setUser(dataUser);
         }
@@ -121,9 +121,9 @@ const GameTournament = () => {
                 return setOpenNotifDialog(!openNotifDialog);
             }
             const response = await getGameSession();
-            await refreshAuth();
 
             if (response) {
+                await refreshAuth(response);
                 return router.push(`/games/${router.query.id}/tournament/${router.query['id-tournament']}/loading`);
             }
             return notify('Ups, Server error!', 'error');
