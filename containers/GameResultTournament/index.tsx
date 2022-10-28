@@ -32,7 +32,6 @@ const GameResultTournament = () => {
                 method: 'GET',
                 endpoint: `tournaments/${router.query['id-tournament']}`
             });
-            console.log(response);
             if (response?.data.status === 200) {
                 setAuthsData(response?.data.data.auths);
                 setTotalPrize(response?.data.data.total_price);
