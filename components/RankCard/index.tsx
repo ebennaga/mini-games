@@ -8,14 +8,14 @@ interface IRankCard {
     image?: string;
     username: string;
     point: number;
-    prize: number;
+    score: number;
     disabledUnderline?: boolean;
     isYourRank?: boolean;
     hash?: string;
 }
 
 // eslint-disable-next-line no-unused-vars
-const RankCard: React.FC<IRankCard> = ({ hash = '#', key, rank, image, username, point, prize, disabledUnderline, isYourRank }) => {
+const RankCard: React.FC<IRankCard> = ({ hash = '#', key, rank, image, username, point, score, disabledUnderline, isYourRank }) => {
     return (
         <Grid
             container
@@ -44,13 +44,13 @@ const RankCard: React.FC<IRankCard> = ({ hash = '#', key, rank, image, username,
                 </Grid>
                 <Grid item xs={4}>
                     <Typography component='h3' fontSize='14px' fontWeight={600}>
-                        {numberFormat(point)}
+                        {numberFormat(score)}
                     </Typography>
                 </Grid>
                 <Grid item xs={3} sx={{ display: 'flex', alignItems: 'center' }}>
-                    <img src='/images/point-shops.png' width='19.95px' height='19.95px' alt='prize' />
+                    <img src='/images/point-shops.png' width='19.95px' height='19.95px' alt='score' />
                     <Typography component='h3' fontSize='12px' fontWeight={600} paddingLeft='6px'>
-                        {prize}
+                        {numberFormat(point)}
                     </Typography>
                 </Grid>
             </Grid>
