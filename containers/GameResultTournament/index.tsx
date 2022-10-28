@@ -68,7 +68,7 @@ const GameResultTournament = () => {
     React.useEffect(() => {
         getTournamentAuth();
     }, []);
-
+    console.log(authsData);
     return (
         <Box component='main' width='100%'>
             <Box padding='0 20px'>
@@ -106,8 +106,8 @@ const GameResultTournament = () => {
                     rank={1}
                     image='/icons/dummy/profile-2.png'
                     username={userState.username}
-                    point={authsData?.total_score}
-                    prize={100}
+                    score={authsData?.total_score}
+                    point={100}
                     disabledUnderline
                 />
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', my: '10px' }}>
@@ -127,8 +127,8 @@ const GameResultTournament = () => {
                             rank={item.position}
                             image={item.image}
                             username={item.username}
-                            point={item.total_score}
-                            prize={item.point_prize}
+                            score={item.total_score}
+                            point={item.point_prize}
                         />
                     );
                 })}
