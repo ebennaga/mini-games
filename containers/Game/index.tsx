@@ -100,7 +100,7 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
     if (isLoading) {
         return <GameSekeleton />;
     }
-
+    console.log(router);
     return (
         <Box sx={{ width: '100%' }}>
             <Box
@@ -115,7 +115,12 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
                     borderBottom: borderValue
                 }}
             >
-                <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' />
+                <Header
+                    isBack={router.asPath?.includes('search')}
+                    logo='/icons/logo.svg'
+                    point={102_300}
+                    profilePicture='/icons/dummy/profile.png'
+                />
             </Box>
             <Box
                 sx={{
