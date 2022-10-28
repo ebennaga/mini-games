@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Box, ButtonBase, Typography } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import InputEdit from 'components/InputEdit';
@@ -21,7 +22,7 @@ const ProfileEmailAddress = () => {
     });
 
     const onSubmit = async (data: any) => {
-        console.log(data);
+        // console.log(data);
     };
 
     return (

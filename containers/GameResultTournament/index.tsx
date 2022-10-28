@@ -34,7 +34,7 @@ const GameResultTournament = () => {
             });
             if (response?.data.status === 200) {
                 setAuthsData(response?.data.data.auths);
-                setTotalPrize(response?.data.data.total_price);
+                setTotalPrize(response?.data.data.leaderboards[0].user.point_prize);
             }
         } catch (error: any) {
             notify(error.message, 'error');

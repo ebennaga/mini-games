@@ -100,7 +100,7 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
     if (isLoading) {
         return <GameSekeleton />;
     }
-    console.log(router);
+
     return (
         <Box sx={{ width: '100%' }}>
             <Box
