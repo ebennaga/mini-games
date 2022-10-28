@@ -7,7 +7,7 @@ interface IRankCard {
     rank: number;
     image?: string;
     username: string;
-    point: number | string;
+    point: number;
     score: number;
     disabledUnderline?: boolean;
     isYourRank?: boolean;

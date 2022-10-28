@@ -110,7 +110,7 @@ const GameResultTournament = () => {
                     image='/icons/dummy/profile-2.png'
                     username={userState.username}
                     score={authsData?.total_score}
-                    point={numberFormat(totalPrize)}
+                    point={totalPrize}
                     disabledUnderline
                 />
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', my: '10px' }}>
