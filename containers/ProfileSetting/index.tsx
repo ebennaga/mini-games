@@ -99,11 +99,17 @@ const ProfileSetting = () => {
         router.push(href);
     };
 
-    const handleConfirmLanguage = (value: string) => {
-        const dataStorage = { language: value };
-        localStorage.setItem('prizePlay', JSON.stringify(dataStorage));
-        const locale = value;
-        router.push(router.pathname, router.asPath, { locale });
+    const handleConfirmLanguage = (value: string, type: string) => {
+        if (type === 'Choose Language') {
+            const dataStorage = { language: value };
+            localStorage.setItem('prizePlay', JSON.stringify(dataStorage));
+            const locale = value;
+            router.push(router.pathname, router.asPath, { locale });
+        } else if (type === 'Choose your issue') {
+            // code for report issue
+        } else if (type === 'Contact Us') {
+            // code for contact us
+        }
         setOpen(false);
     };
 
@@ -129,7 +135,7 @@ const ProfileSetting = () => {
                 <HeaderBack title='Settings' handleBack={() => router.push('/profile')} />
                 <BottomSheetCustom
                     items={dataBottomSheet}
-                    onConfirm={(value: string) => handleConfirmLanguage(value)}
+                    onConfirm={(value: string, type: string) => handleConfirmLanguage(value, type)}
                     type={titleBottomSheet}
                 />
                 <Box component='section' sx={{ marginTop: '43px' }}>

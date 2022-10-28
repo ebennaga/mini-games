@@ -20,7 +20,7 @@ import NavigationCard from 'components/NavigationCard';
 interface BottomSheetProps {
     items: any;
     // eslint-disable-next-line no-unused-vars
-    onConfirm: (value: string) => void;
+    onConfirm: (value: string, type: string) => void;
     type: string;
 }
 const useStyles = makeStyles({
@@ -35,8 +35,16 @@ const useStyles = makeStyles({
 const BottomSheetCustom: React.FC<BottomSheetProps> = ({ items, onConfirm, type }) => {
     const classes = useStyles();
 
+    const [maxWidth, setMaxWidth] = useState('600px');
     const [value, setValue] = useState<string>('id');
 
+    useEffect(() => {
+        if (type === 'Contact Us') {
+            setMaxWidth('500px');
+        } else {
+            setMaxWidth('600px');
+        }
+    });
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const getData: any = localStorage.getItem('prizePlay');
@@ -58,7 +66,7 @@ const BottomSheetCustom: React.FC<BottomSheetProps> = ({ items, onConfirm, type 
             classes={{
                 scrollPaper: classes.newPosOfDialog
             }}
-            PaperProps={{ sx: { width: '100%', maxWidth: '600px', borderRadius: '15px', margin: 0 } }}
+            PaperProps={{ sx: { width: '100%', maxWidth: { maxWidth }, borderRadius: '15px', margin: 0 } }}
             open={open}
             // onClose={}
         >
@@ -74,20 +82,33 @@ const BottomSheetCustom: React.FC<BottomSheetProps> = ({ items, onConfirm, type 
                     >
                         {type}
                     </Typography>
-                    <IconButton edge='start' color='inherit' aria-label='close' onClick={() => onConfirm(value)}>
+                    <IconButton edge='start' color='inherit' aria-label='close' onClick={() => onConfirm(value, type)}>
                         <CloseIcon />
                     </IconButton>
                 </Toolbar>
             </AppBar>
             {type === 'Contact Us' ? (
-                <Box>
+                <Box sx={{ padding: '14px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                     {items.map((list: any, idx: number) => {
                         return (
-                            <Box key={idx} sx={{ borderBottom: '2px solid #F4F1FF', padding: '20px 0' }}>
-                                <NavigationCard icon={list.icon} title={list.title} onClick={() => onConfirm(value)} />
+                            <Box key={idx} sx={{ borderBottom: '2px solid #F4F1FF', padding: '20px' }}>
+                                <NavigationCard icon={list.icon} title={list.title} onClick={() => onConfirm(value, type)} />
                             </Box>
                         );
                     })}
+                    <Typography
+                        component='span'
+                        sx={{
+                            textAlign: 'center',
+                            marginTop: '28px',
+                            marginBottom: '14px',
+                            lineHeight: '16px',
+                            fontWeight: 400,
+                            fontSize: '14px'
+                        }}
+                    >
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </Typography>
                 </Box>
             ) : (
                 <Box>
@@ -119,7 +140,7 @@ const BottomSheetCustom: React.FC<BottomSheetProps> = ({ items, onConfirm, type 
                     </RadioGroup>
                     <Box sx={{ marginLeft: '14px', marginRight: '14px' }}>
                         <ButtonBase
-                            onClick={() => onConfirm(value)}
+                            onClick={() => onConfirm(value, type)}
                             sx={{ background: '#A54CE5', borderRadius: '15px', width: '100%', marginTop: '27px', marginBottom: '27px' }}
                         >
                             <Typography
