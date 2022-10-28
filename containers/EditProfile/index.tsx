@@ -47,7 +47,7 @@ const EditProfile = () => {
                         </ButtonBase>
                     </Box>
                     <Box sx={{ width: '100%', marginTop: '43px' }}>
-                        <InputEdit name='nickname' form={form} label='Nickname' value='rintokun' />
+                        <InputEdit name='nickname' form={form} label='Nickname' value='rintokun' disabled />
                     </Box>
                 </Box>
                 <ButtonBase
