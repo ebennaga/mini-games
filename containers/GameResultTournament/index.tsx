@@ -40,7 +40,20 @@ const GameResultTournament = () => {
             notify(error.message, 'error');
         }
     };
+    const refreshAuth = async () => {
+        const response = await fetchAPI({
+            method: 'GET',
+            endpoint: `auths`
+        });
+        if (response.status === 200) {
+            const dataUser = { ...userState };
+            dataUser.coin = response.data.data.coin;
+            return dataUser;
 
+            // console.log('datauser', dataUser);
+        }
+        return false;
+    };
     const getGameSession = async () => {
         setLoadingSession(true);
         if (userState) {
@@ -54,10 +67,13 @@ const GameResultTournament = () => {
             });
             if (response?.status === 200) {
                 // setSessionGame(response.data.data.session_code);
+
+                const currentData = await refreshAuth();
                 const sessionGame = response.data.data.session_code;
-                if (userState && sessionGame) {
-                    const newState = { ...userState, sessionGame };
+                if (currentData && sessionGame) {
+                    const newState = { ...currentData, sessionGame };
                     setUser(newState);
+                    console.log('setuser', newState);
                     router.push(`/games/${router.query.id}/tournament/${router.query['id-tournament']}/loading`);
                 }
             } else {
