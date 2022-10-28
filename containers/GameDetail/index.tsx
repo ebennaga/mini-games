@@ -81,8 +81,6 @@ const GameDetailContainer = () => {
         return setSignupLoginDialog(true);
     };
 
-    console.log(detailGame);
-
     if (isLoading) {
         return <GameDetailSkeleton />;
     }
