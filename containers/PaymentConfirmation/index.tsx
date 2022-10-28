@@ -68,15 +68,15 @@ const PaymentConfirmationContainer = () => {
                 coin_id: router.query.id
             }
         });
-        console.log(response);
+        // console.log(response);
         if (response.status === 200) {
             if (!isLoading) {
                 // window.open(response.data.data.payment.redirect_url, '_blank');
                 snap.pay(response?.data?.data?.payment.token, {
                     onSuccess(result: any) {
                         updateUserData();
-                        console.log('success');
-                        console.log('result', result);
+                        // console.log('success');
+                        // console.log('result', result);
                         notify(result.status_message, 'success');
                         if (result.status_code === '200') {
                             router.push('/success');
@@ -84,7 +84,7 @@ const PaymentConfirmationContainer = () => {
                     },
                     onPending(result: any) {
                         notify(result.status_message, 'success');
-                        console.log('result', result);
+                        // console.log('result', result);
                         if (result.status_code === '201') {
                             router.push('/pending');
                         }

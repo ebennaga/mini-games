@@ -27,9 +27,9 @@ const initMyFirebase = () => {
             }
         }
 
-        console.log('initialized firebase');
+        // console.log('initialized firebase');
     } else {
-        console.log('arleady initialized firebase');
+        // console.log('arleady initialized firebase');
     }
 };
 

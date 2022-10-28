@@ -19,7 +19,7 @@ const GoogleAds: React.FC<GoogleAdsProps> = ({ currentPath }) => {
                 (window.adsbygoogle = window.adsbygoogle || []).push({});
             }
         } catch (err: any) {
-            console.log('errorads', err.message);
+            // console.log('errorads', err.message);
         }
     }, [currentPath]);
 
