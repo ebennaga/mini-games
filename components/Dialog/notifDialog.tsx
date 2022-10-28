@@ -36,7 +36,7 @@ const RewardDialog: React.FC<RewardDialogProps> = ({ open, setOpenDialog, body }
             >
                 <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Box />
-                    <Typography sx={{ fontWeight: 'bold' }}>Get Points</Typography>
+                    <Typography sx={{ fontWeight: 'bold' }}>Get Coins</Typography>
                     <ButtonBase>
                         <Close
                             onClick={() => {
