@@ -124,12 +124,26 @@ const GameTournament = () => {
         }
     }, [userState, sessionGame, detailGame]);
 
+    const refreshAuth = async () => {
+        const response = await fetchAPI({
+            method: 'GET',
+            endpoint: `auths`
+        });
+        if (response.status === 200) {
+            const dataUser = { ...userState };
+            dataUser.coin = response.data.data.coin;
+            setUser(dataUser);
+            // console.log('datauser', dataUser);
+        }
+    };
     const handlePlay = async () => {
         if (userState) {
             if (userState?.coin < listingGame.entry_coin) {
                 return setOpenNotifDialog(!openNotifDialog);
             }
             const response = await getGameSession();
+            await refreshAuth();
+
             if (response) {
                 return router.push(`/games/${router.query.id}/tournament/${router.query['id-tournament']}/loading`);
             }
