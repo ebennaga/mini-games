@@ -17,7 +17,7 @@ import TableRank from './TableRank';
 const GameTournament = () => {
     const router = useRouter();
     // const myCoins = 10;
-    const userState = useSelector((state: any) => state.webpage?.user?.user);
+    const userState = useSelector((state: any) => state?.webpage?.user?.user);
     const coin = userState?.coin;
     const notify = useNotify();
     const { fetchAPI } = useAPICaller();
@@ -41,6 +41,7 @@ const GameTournament = () => {
                 setListingGame(res.data.data);
             }
             isSetLoading(false);
+            console.log(res);
         } catch (e) {
             notify('failed data', 'e');
             isSetLoading(false);
