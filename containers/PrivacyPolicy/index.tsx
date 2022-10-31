@@ -9,7 +9,7 @@ const arrayPrivacyPolicy = [
         subtitle:
             'Welcome to PT Ultra Sukses Bersama.' +
             'PT Ultra Sukses Bersama (“us”, “we”, or “our”) operates prizeplay.io (hereinafter referred to as “Service”).\n' +
-            'Our Privacy Policy governs your visit to prizeplay.io, and explains how we collect, safeguard and disclose information that results from your use of our Service.\n' +
+            'These Terms of Service (“Terms”, “Terms of Service”) govern your use of our website located at prizeplay.io (together or individually “Service”) operated by PT Ultra Sukses\n' +
             'We use your data to provide and improve Service. By using Service, you agree to the collection and use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, the terms used in this Privacy Policy have the same meanings as in our Terms and Conditions.\n' +
             'Our Terms and Conditions (“Terms”) govern all use of our Service and together with the Privacy Policy constitutes your agreement with us (“agreement”).'
     },
@@ -57,7 +57,7 @@ const arrayPrivacyPolicy = [
             '0.3. Security Cookies: We use Security Cookies for security purposes.\n' +
             '0.4. Advertising Cookies: Advertising Cookies are used to serve you with advertisements that may be relevant to you and your interests.\n\n' +
             'Other Data\n' +
-            'While using our Service, we may also collect the following information: sex, age, date of birth, place of birth, passport details, citizenship, registration at place of residence and actual address, telephone number (work, mobile), details of documents on education, qualification, professional training, employment agreements, NDA agreements, information on bonuses and compensation, information on marital status, family members, social security (or other taxpayer identification) number, office location and other data.'
+            'While using our Service, we may also collect the following information: sex, age, date of birth, place of birth, passport details, citizenship, registration at place of residence and actual address, telephone number (work, mobile), details of documents on education, qualification, professional training,information on employment, NDA agreements, information on bonuses and compensation, information on marital status, family members, social security (or other taxpayer identification) number, office location and other data.'
     },
     {
         title: 'Use of Data',
@@ -118,7 +118,7 @@ const arrayPrivacyPolicy = [
         subtitle:
             'If you are a resident of the European Union (EU) and European Economic Area (EEA), you have certain data protection rights, covered by GDPR.\n' +
             'We aim to take reasonable steps to allow you to correct, amend, delete, or limit the use of your Personal Data.' +
-            'If you wish to be informed what Personal Data we hold about you and if you want it to be removed from our systems, please email us at ptultrasuksesbersama@gmail.com.' +
+            'If you wish to be informed what Personal Data we hold about you and if you want it to be removed from our systems, please email us at business.ultrasuksesbersama@gmail.com.' +
             'In certain circumstances, you have the following data protection rights:\n\n' +
             '0.1. the right to access, update or to delete the information we have on you;\n' +
             '0.2. the right of rectification. You have the right to have your information rectified if that information is inaccurate or incomplete;\n' +
@@ -137,7 +137,7 @@ const arrayPrivacyPolicy = [
             '0.1. users can visit our site anonymously;\n' +
             '0.2. our Privacy Policy link includes the word “Privacy”, and can easily be found on the home page of our website;\n' +
             '0.3. users will be notified of any privacy policy changes on our Privacy Policy Page;\n' +
-            '0.4. users are able to change their personal information by emailing us at ptultrasuksesbersama@gmail.com.\n' +
+            '0.4. users are able to change their personal information by emailing us at business.ultrasuksesbersama@gmail.com..\n' +
             'Our Policy on “Do Not Track” Signals:\n' +
             'We honor Do Not Track signals and do not track, plant cookies, or use advertising when a Do Not Track browser mechanism is in place. Do Not Track is a preference you can set in your web browser to inform websites that you do not want to be tracked.\n' +
             'You can enable or disable Do Not Track by visiting the Preferences or Settings page of your web browser.\n'
@@ -159,7 +159,7 @@ const arrayPrivacyPolicy = [
             '0.3. To stop selling your personal information. We don’t sell or rent your personal information to any third parties for any purpose. We do not sell your personal information for monetary consideration. However, under some circumstances, a transfer of personal information to a third party, or within our family of companies, without monetary consideration may be considered a “sale” under California law. You are the only owner of your Personal Data and can request disclosure or deletion at any time.\n' +
             'If you submit a request to stop selling your personal information, we will stop making such transfers.\n' +
             'Please note, if you ask us to delete or stop selling your data, it may impact your experience with us, and you may not be able to participate in certain program or membership services which require the usage of your personal information to function. But in no circumstances, we will discriminate against you for exercising your rights.\n' +
-            'To exercise your California data protection rights described above, please send your request(s) by email: ptultrasuksesbersama@gmail.com.\n' +
+            'To exercise your California data protection rights described above, please send your request(s) by email:business.ultrasuksesbersama@gmail.com..\n' +
             'Your data protection rights, described above, are covered by the CCPA, short for the California Consumer Privacy Act. To find out more, visit the official California Legislative Information website. The CCPA took effect on 01/01/2020.'
     },
     {
@@ -213,7 +213,8 @@ const arrayPrivacyPolicy = [
     },
     {
         title: 'Contact Us',
-        subtitle: 'If you have any questions about this Privacy Policy, please contact us by email: ptultrasuksesbersama@gmail.com.\n\n'
+        subtitle:
+            'If you have any questions about this Privacy Policy, please contact us by email: business.ultrasuksesbersama@gmail.com.\n\n'
     }
 ];
 
@@ -223,7 +224,7 @@ const PrivacyPolicy = () => {
             <HeaderBack title='Privacy Policy' />
             <Box component='section' sx={{ marginTop: '27px', marginBottom: '27px' }}>
                 <Typography fontSize='12px' marginTop='16px' fontWeight={600} component='p'>
-                    Last Updated: Okt 20 2022
+                    Last Updated: 2022-11-01
                 </Typography>
             </Box>
             <Box component='article' sx={{ marginBottom: '50px' }}>
