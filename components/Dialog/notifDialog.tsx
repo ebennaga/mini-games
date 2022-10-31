@@ -8,9 +8,10 @@ interface RewardDialogProps {
     open: any;
     setOpenDialog: any;
     body: string;
+    textButton?: string;
 }
 
-const RewardDialog: React.FC<RewardDialogProps> = ({ open, setOpenDialog, body }) => {
+const RewardDialog: React.FC<RewardDialogProps> = ({ open, setOpenDialog, body, textButton }) => {
     const router = useRouter();
     return (
         <Dialog
@@ -61,7 +62,7 @@ const RewardDialog: React.FC<RewardDialogProps> = ({ open, setOpenDialog, body }
                             }
                             return router.push('/tournaments');
                         }}
-                        title='Top up Now!'
+                        title={textButton || 'Top up Now!'}
                         border='1px solid #A54CE5'
                         color='white'
                         backgoundColor='#A54CE5'
