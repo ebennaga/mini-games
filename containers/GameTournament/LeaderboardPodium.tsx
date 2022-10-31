@@ -110,7 +110,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                 {dataLeaderboard.length > 2 && (
                     <LeaderboardUser
                         image={dataLeaderboard[2].image}
-                        username={dataLeaderboard[2].user.username || userState.displayName}
+                        username={dataLeaderboard[2].user.username}
                         score={dataLeaderboard[2].user.total_score}
                     />
                 )}
