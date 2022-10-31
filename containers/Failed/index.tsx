@@ -53,7 +53,7 @@ const FailedPaymentContainer = () => {
                     <Typography sx={{ fontSize: '35px', fontWeight: 'bold', lineHeight: 0 }}>Failed</Typography>
                     <img src='/images/failed.png' alt='failed.png' />
                     <Typography sx={{ fontSize: '14px', color: '#373737', fontWeight: '700' }}>
-                        Trasaction failed. Lorem ipsum dolor sit amet consectetur.
+                        Transaction incomplete. Check your balance.
                     </Typography>
                 </Box>
                 <Box sx={{ paddingX: '20px' }}>

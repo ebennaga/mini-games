@@ -54,7 +54,7 @@ const PendingPaymentContainer = () => {
                     <Typography sx={{ fontSize: '35px', mb: '50px', fontWeight: 'bold', lineHeight: 0 }}>Pending . . . .</Typography>
                     <img src='/images/img-pending.png' alt='failed.png' />
                     <Typography sx={{ fontSize: '14px', color: '#373737', fontWeight: '700' }}>
-                        Waiting for lorem ipsum dolor sit amet lorem ipsum
+                        The payment is in process. We apologize for any incovenience.
                     </Typography>
                 </Box>
                 <Box sx={{ paddingX: '20px' }}>
