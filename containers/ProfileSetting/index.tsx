@@ -71,6 +71,7 @@ const ProfileSetting = () => {
         { title: 'About Prize Play', icon: '/icons/about.svg', href: '/about-us' },
         { title: 'How to get ', icon: '/icons/coin-price.svg', href: '/coins-prizes' },
         { title: 'Help & Support', icon: '/icons/help.svg', href: '/help-support' },
+        { title: 'Terms & Conditions', icon: '/icons/term.svg', href: '/terms-conditions' },
         { title: 'Privacy policy', icon: '/icons/privacy.svg', href: '/privacy-policy' },
         { title: 'Terms & Conditions', icon: '/icons/term.svg', href: '/terms-conditions' }
     ];
@@ -91,7 +92,7 @@ const ProfileSetting = () => {
     ];
 
     const itemContactUs = [
-        { icon: '/icons/email.svg', title: 'ptultrasuksesbersama@gmail.com' },
+        { icon: '/icons/email.svg', title: 'business.ultrasuksesbersama@gmail.com' },
         { icon: '/icons/phone.svg', title: '(+62) 088888111' }
     ];
 
