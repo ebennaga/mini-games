@@ -9,6 +9,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import numberFormat from 'helper/numberFormat';
 import RankCard from 'components/RankCard';
 import NotifDialog from 'components/Dialog/notifDialog';
+import LoadingResultTournament from './LoadingResultTournament';
 
 const GameResultTournament = () => {
     const userState = useSelector((state: any) => state?.webpage?.user?.user);
@@ -20,16 +21,13 @@ const GameResultTournament = () => {
     const [dialogTopup, setDialogTopup] = React.useState<boolean>(false);
 
     const { fetchAPI } = useAPICaller();
+    const { fetchAPI: fetchTournament, isLoading: loadingFetchTournament } = useAPICaller();
+
     const notify = useNotify();
-    // const dataLeaderboard = [
-    //     { image: '/icons/dummy/profile.png', username: 'eben', point: 246000, prize: 1500, rank: 13 },
-    //     { image: '/icons/dummy/profile-2.png', username: 'rinto', point: 236000, prize: 2000, rank: 14 },
-    //     { image: '/icons/dummy/profile-3.png', username: 'arya', point: 10000, prize: 1000, rank: 15 }
-    // ];
 
     const getTournamentAuth = async () => {
         try {
-            const response = await fetchAPI({
+            const response = await fetchTournament({
                 method: 'GET',
                 endpoint: `tournaments/${router.query['id-tournament']}`
             });
@@ -50,8 +48,6 @@ const GameResultTournament = () => {
             const dataUser = { ...userState };
             dataUser.coin = response.data.data.coin;
             return dataUser;
-
-            // console.log('datauser', dataUser);
         }
         return false;
     };
@@ -85,6 +81,9 @@ const GameResultTournament = () => {
         getTournamentAuth();
     }, []);
 
+    if (loadingFetchTournament) {
+        return <LoadingResultTournament />;
+    }
     return (
         <Box component='main' width='100%'>
             <Box padding='0 20px'>
@@ -105,7 +104,7 @@ const GameResultTournament = () => {
                     paddingBottom='16px'
                     sx={{ color: '#A54CE5' }}
                 >
-                    New High Score
+                    Your High Score
                 </Typography>
                 <Typography component='h3' fontSize='40px' fontWeight={700}>
                     {numberFormat(authsData?.total_score)}
