@@ -31,6 +31,7 @@ const GameResultTournament = () => {
                 method: 'GET',
                 endpoint: `tournaments/${router.query['id-tournament']}`
             });
+
             if (response?.data.status === 200) {
                 setFirstPosition(response?.data.data.leaderboards[0]);
                 setAuthsData(response?.data.data.auths);

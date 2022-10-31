@@ -41,6 +41,7 @@ const GameTournament = () => {
                 setListingGame(res.data.data);
             }
             isSetLoading(false);
+            console.log(res);
         } catch (e) {
             notify('failed data', 'e');
             isSetLoading(false);
