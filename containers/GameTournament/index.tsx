@@ -127,7 +127,7 @@ const GameTournament = () => {
         }
         return setSignupLoginDialog(true);
     };
-    console.log(userState);
+
     return (
         <Box width='100%'>
             {isLoading ? (
