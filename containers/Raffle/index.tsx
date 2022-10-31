@@ -399,7 +399,7 @@ const RaffleContainer = () => {
                 setOpenDialog={setOpenRewardDialog}
                 path='/shops/lucky-raffle'
             />
-            <StatusRoundDialog isWinner={rafflesData?.auths.is_win} open={openStatusRoundDialog} setOpen={setOpenStatusRoundDialog} />
+            <StatusRoundDialog isWinner={rafflesData?.auths?.is_win} open={openStatusRoundDialog} setOpen={setOpenStatusRoundDialog} />
         </Box>
     );
 };

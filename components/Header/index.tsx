@@ -109,6 +109,7 @@ const Header: React.FC<HeaderProps> = ({
             setIsFirebaseLoading(false);
         });
     }, []);
+    console.log(userState);
 
     const handleBack = () => {
         if (hrefBack) {
@@ -117,7 +118,6 @@ const Header: React.FC<HeaderProps> = ({
             router.back();
         }
     };
-
     if (isLoading) {
         return <HeaderSkeleton />;
     }

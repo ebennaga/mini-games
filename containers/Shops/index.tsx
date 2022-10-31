@@ -39,20 +39,22 @@ const ShopsContainer = () => {
                     method: 'GET',
                     endpoint: 'home/redemptions'
                 });
+
                 if (!response) {
                     throw new Error('Data is Empty');
                 }
+
                 if (response.status === 200) {
                     setDataRedemptions(response.data.data);
-                    if (response.data.data?.lucky_raffle?.start_time) {
+                    if (response.data.data?.lucky_raffle?.start_date) {
                         if (timeLuckyRaffle) {
-                            setInterval(() => setTimeLuckyRaffle(getRemainingTimes(response.data.data?.lucky_raffle?.start_time)), 6000);
+                            setInterval(() => setTimeLuckyRaffle(getRemainingTimes(response.data.data?.lucky_raffle?.start_date)), 6000);
                         } else {
-                            setTimeLuckyRaffle(getRemainingTimes(response.data.data?.lucky_raffle?.start_time));
+                            setTimeLuckyRaffle(getRemainingTimes(response.data.data?.lucky_raffle?.start_date));
                         }
                     }
                 } else {
-                    notify(response.data.message, 'error');
+                    throw new Error(response.data.message);
                 }
                 setIsLoading(false);
             } catch (err: any) {
@@ -64,7 +66,6 @@ const ShopsContainer = () => {
     };
 
     useEffect(() => {
-        // setTimeout(() => setIsLoading(false), 2000);
         getRedemptions();
     }, []);
 
@@ -162,7 +163,7 @@ const ShopsContainer = () => {
                                       >
                                           <Box sx={{ backgroundColor: '#F4F1FF', padding: '25px', borderRadius: '14px' }}>
                                               <img
-                                                  src={item.image_url}
+                                                  src={item.image_url || '/images/img_error.svg'}
                                                   alt={item.name}
                                                   style={{ width: '100%' }}
                                                   onError={({ currentTarget }) => {
@@ -172,7 +173,9 @@ const ShopsContainer = () => {
                                               />
                                           </Box>
                                           <Box>
-                                              <Typography sx={{ fontSize: '16px', fontWeight: '700', mt: 1 }}>{item.name}</Typography>
+                                              <Typography sx={{ fontSize: '16px', fontWeight: '700', mt: 1 }}>
+                                                  {item.name || 'unknown'}
+                                              </Typography>
                                               <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                                                   <img src='/images/point-shops.png' alt='point-shop' loading='lazy' />
                                                   <Typography sx={{ fontSize: '13px', fontWeight: '700' }}>{item.price}</Typography>
@@ -213,7 +216,7 @@ const ShopsContainer = () => {
                             </Box>
                             <Box>
                                 {!isComingSoon && (
-                                    <Box sx={{ display: 'flex', my: 2, color: 'white', gap: '5px' }}>
+                                    <Box sx={{ display: 'flex', my: 2, color: 'white', gap: '5px', alignItems: 'center' }}>
                                         <WatchLater />
                                         <Typography sx={{ fontSize: '12px' }}>{timeLuckyRaffle}</Typography>
                                     </Box>

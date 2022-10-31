@@ -1,8 +1,6 @@
 /* eslint-disable consistent-return */
-/* eslint-disable no-unused-vars */
-import { Box, Typography, Skeleton } from '@mui/material';
+import { Box, Typography, Skeleton, Grid } from '@mui/material';
 import React from 'react';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import NotifDialog from 'components/Dialog/notifDialog';
@@ -19,9 +17,8 @@ import TableRank from './TableRank';
 const GameTournament = () => {
     const router = useRouter();
     // const myCoins = 10;
-    const userState = useSelector((state: any) => state.webpage?.user?.user);
+    const userState = useSelector((state: any) => state?.webpage?.user?.user);
     const coin = userState?.coin;
-    const coins = 200;
     const notify = useNotify();
     const { fetchAPI } = useAPICaller();
 
@@ -44,6 +41,7 @@ const GameTournament = () => {
                 setListingGame(res.data.data);
             }
             isSetLoading(false);
+            console.log(res);
         } catch (e) {
             notify('failed data', 'e');
             isSetLoading(false);
@@ -88,7 +86,7 @@ const GameTournament = () => {
                 setUser(newState);
                 return newState;
             }
-            notify('failed get session game', 'error');
+            // notify('failed get session game', 'error');
             return false;
         }
         setLoadingPlay(false);
@@ -160,9 +158,20 @@ const GameTournament = () => {
             )}
             <Box component='main' padding='20px' color='#373737'>
                 {isLoading ? (
-                    <Box>
-                        <Skeleton animation='wave' variant='rectangular' width='100%' />
-                    </Box>
+                    // <Box>
+                    //     <Skeleton animation='wave' variant='rectangular' width='100%' />
+                    // </Box>
+                    <Grid container alignItems='flex-end' padding='20px'>
+                        <Grid item xs={4} sx={{ height: '200px' }}>
+                            <Skeleton sx={{ width: '100%', height: '200px', mt: '-18px' }} />
+                        </Grid>
+                        <Grid item xs={4} sx={{ height: '300px' }}>
+                            <Skeleton sx={{ width: '100%', height: '300px' }} />
+                        </Grid>
+                        <Grid item xs={4} sx={{ height: '150px' }}>
+                            <Skeleton sx={{ width: '100%', height: '150px', mt: '-28px' }} />
+                        </Grid>
+                    </Grid>
                 ) : (
                     <Box component='section' padding='18px 0'>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '37px' }}>
