@@ -21,13 +21,20 @@ const RedeemHistoryContainer = () => {
 
     const getHistories = async () => {
         setIsLoading(true);
-        const response = await fetchAPI({ method: 'GET', endpoint: 'redemptions/history' });
-        // if (response.status === 200) {
-        //     setHistories(response.data.data);
-        //     setTabData(response.data.data);
-        // } else {
-        //     notify(response.data.message, 'error');
-        // }
+        try {
+            const response = await fetchAPI({ method: 'GET', endpoint: 'redemptions/history' });
+            if (!response) {
+                throw new Error('Sorry, Data histories is not ready!');
+            }
+            if (response.status === 200) {
+                setHistories(response.data.data);
+                setTabData(response.data.data);
+            } else {
+                throw new Error(response.data.message);
+            }
+        } catch (err: any) {
+            notify(err.message, 'error');
+        }
         setIsLoading(false);
     };
 
