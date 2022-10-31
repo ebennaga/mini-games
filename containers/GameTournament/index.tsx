@@ -19,7 +19,7 @@ import TableRank from './TableRank';
 const GameTournament = () => {
     const router = useRouter();
     // const myCoins = 10;
-    const userState = useSelector((state: any) => state.webpage?.user?.user);
+    const userState = useSelector((state: any) => state?.webpage?.user?.user);
     const coin = userState?.coin;
     const coins = 200;
     const notify = useNotify();
@@ -130,7 +130,7 @@ const GameTournament = () => {
         }
         return setSignupLoginDialog(true);
     };
-
+    console.log(userState);
     return (
         <Box width='100%'>
             {isLoading ? (

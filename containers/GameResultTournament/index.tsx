@@ -14,7 +14,7 @@ const GameResultTournament = () => {
     const router = useRouter();
     const { setUser } = useAuthReducer();
     const [authsData, setAuthsData] = React.useState<any>(null);
-    const [totalPrize, setTotalPrize] = React.useState<any>(null);
+    const [firstPosition, setFirstPosition] = React.useState<any>(null);
     const [loadingSession, setLoadingSession] = React.useState<boolean>(false);
     // const [sessionGame, setSessionGame] = React.useState<any>(null);
 
@@ -33,8 +33,8 @@ const GameResultTournament = () => {
                 endpoint: `tournaments/${router.query['id-tournament']}`
             });
             if (response?.data.status === 200) {
+                setFirstPosition(response?.data.data.leaderboards[0]);
                 setAuthsData(response?.data.data.auths);
-                setTotalPrize(response?.data.data.leaderboards[0].user.point_prize);
             }
         } catch (error: any) {
             notify(error.message, 'error');
@@ -73,7 +73,6 @@ const GameResultTournament = () => {
                 if (currentData && sessionGame) {
                     const newState = { ...currentData, sessionGame };
                     setUser(newState);
-                    console.log('setuser', newState);
                     router.push(`/games/${router.query.id}/tournament/${router.query['id-tournament']}/loading`);
                 }
             } else {
@@ -86,7 +85,6 @@ const GameResultTournament = () => {
     React.useEffect(() => {
         getTournamentAuth();
     }, []);
-
     return (
         <Box component='main' width='100%'>
             <Box padding='0 20px'>
@@ -118,14 +116,14 @@ const GameResultTournament = () => {
                     Your Rank
                 </Typography>
                 <Typography component='h3' textAlign='center' fontSize='40px' fontWeight={700} marginTop='7px'>
-                    {`${authsData?.position}#`}
+                    {`${authsData ? authsData.position : ''}#`}
                 </Typography>
                 <RankCard
-                    rank={1}
+                    rank={firstPosition?.position}
                     image='/icons/dummy/profile-2.png'
-                    username={userState.username}
-                    score={authsData?.total_score}
-                    point={totalPrize}
+                    username={firstPosition?.user.username || userState.displayName}
+                    score={firstPosition?.user.total_score}
+                    point={firstPosition?.user.point_prize}
                     disabledUnderline
                 />
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', my: '10px' }}>

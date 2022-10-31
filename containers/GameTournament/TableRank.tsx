@@ -1,6 +1,7 @@
 import { Grid, Typography, Box } from '@mui/material';
 import RankCard from 'components/RankCard';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 interface TableRankProps {
     dataLeaderboard: any;
@@ -8,6 +9,7 @@ interface TableRankProps {
 
 const TableRank: React.FC<TableRankProps> = ({ dataLeaderboard }) => {
     const sorting = dataLeaderboard && dataLeaderboard.filter((item: any) => item.position > 3);
+    const userState = useSelector((state: any) => state?.webpage?.user?.user);
 
     return (
         <>
@@ -42,7 +44,7 @@ const TableRank: React.FC<TableRankProps> = ({ dataLeaderboard }) => {
                         <RankCard
                             rank={rank}
                             image={item.image}
-                            username={item.user.username}
+                            username={item.user.username || userState.displayName}
                             point={item.user.point_prize}
                             score={item.user.total_score}
                         />

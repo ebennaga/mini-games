@@ -13,6 +13,7 @@ import useNotify from 'hooks/useNotify';
 import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { useSelector } from 'react-redux';
 
 const Login = () => {
     const router = useRouter();
@@ -20,6 +21,7 @@ const Login = () => {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
     const newUser = auth.currentUser;
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
 
     const form = useForm({
         mode: 'all',
@@ -88,7 +90,9 @@ const Login = () => {
                 const token = credential.accessToken;
                 // The signed-in user info.
                 const { user } = result;
-
+                const userData: any = {
+                    displayName: user.displayName
+                };
                 // console.log('user', user.uid);
                 // console.log('newuser', newUser);
                 const response = await fetchAPI({
@@ -101,7 +105,8 @@ const Login = () => {
                     }
                 });
                 if (response.status === 200) {
-                    setUser(response.data.data);
+                    const tempData = { ...response.data.data, ...userData };
+                    setUser(tempData);
                     router.push('/');
                 } else if (response.data.message === 'User registration is not completed') {
                     notify('You have to registration first', 'error');
@@ -112,6 +117,7 @@ const Login = () => {
                 // ...
             })
             .catch((error) => {
+                console.log(error);
                 // Handle Errors here.
                 // const errorCode = error.code;
                 // const errorMessage = error.message;
@@ -124,7 +130,7 @@ const Login = () => {
                 notify('Internal server error', 'error');
             });
     };
-
+    console.log(userState);
     return (
         <Layout backgoundColor='#FFF' border='2px solid #D9D9D9'>
             <Box sx={{ textAlign: 'start', width: '100%' }}>

@@ -1,4 +1,5 @@
 import { Box, Grid, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
 import React from 'react';
 import LeaderboardUser from './LeaderboardUser';
 
@@ -7,6 +8,8 @@ interface LeaderboardPodiumProps {
 }
 
 const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }) => {
+    const userState = useSelector((state: any) => state?.webpage?.user?.user);
+
     return (
         <Grid container alignItems='end'>
             <Grid item xs={4} sx={{ overflow: 'hidden', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
@@ -60,7 +63,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                 {dataLeaderboard.length > 0 && (
                     <LeaderboardUser
                         image={dataLeaderboard[0].image}
-                        username={dataLeaderboard[0].user.username}
+                        username={dataLeaderboard[0].user.username || userState.displayName}
                         score={dataLeaderboard[0].user.total_score}
                     />
                 )}
@@ -107,7 +110,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                 {dataLeaderboard.length > 2 && (
                     <LeaderboardUser
                         image={dataLeaderboard[2].image}
-                        username={dataLeaderboard[2].user.username}
+                        username={dataLeaderboard[2].user.username || userState.displayName}
                         score={dataLeaderboard[2].user.total_score}
                     />
                 )}
