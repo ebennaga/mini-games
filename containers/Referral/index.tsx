@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import HeaderBack from 'components/HeaderBack';
-import { Box, Typography, ButtonBase, TextField } from '@mui/material';
+import { Box, Typography, ButtonBase, TextField, Tooltip } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useRouter } from 'next/router';
 
 const Referral = () => {
     const router = useRouter();
+    const [show, setShow] = useState(false);
+
+    const copyToClipboard = () => {
+        const a = document.getElementById('code-referral') as HTMLInputElement;
+        a.select();
+        navigator.clipboard.writeText(a.value);
+        setShow(true);
+    };
+
     return (
         <Box component='main' sx={{ width: '-webkit-fill-available', padding: '0 20px', color: '#373737' }}>
             <HeaderBack title='Promo Code' />
@@ -35,12 +44,15 @@ const Referral = () => {
                         </Typography>
                         <TextField
                             fullWidth
+                            id='code-referral'
                             contentEditable='false'
                             value='https://www.prizeplay.io/en-us/v/register/double-invite/?invite_code=rm9g4223&inviter_id=11345710'
                             InputProps={{
                                 endAdornment: (
-                                    <ButtonBase>
-                                        <ContentCopyIcon sx={{ color: '#949494', fontSize: '22px' }} />
+                                    <ButtonBase onClick={copyToClipboard}>
+                                        <Tooltip title='Copied!' arrow open={show}>
+                                            <ContentCopyIcon sx={{ color: '#949494', fontSize: '22px' }} />
+                                        </Tooltip>
                                     </ButtonBase>
                                 )
                             }}
