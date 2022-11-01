@@ -31,7 +31,7 @@ const SignUp = () => {
         defaultValues: {
             tel: '',
             email: '',
-            // username: '',
+            username: '',
             password: '',
             confirmPassword: ''
         }
@@ -82,7 +82,7 @@ const SignUp = () => {
             endpoint: 'auths/register',
             data: {
                 email: data.email,
-                // username: data.username,
+                username: data.username,
                 password: data.password,
                 password_confirmation: data.confirmPassword
             }
@@ -148,15 +148,15 @@ const SignUp = () => {
                                 <Input name='tel' form={form} placeholder='Insert Your Phone Number' validator={rules} type='tel' />
                             </Grid>
                         )}
-                        {/* <Grid item xs={12} sx={{ mt: 3 }}>
+                        <Grid item xs={12} sx={{ mt: 3 }}>
                             <Input
                                 name='username'
                                 form={form}
                                 placeholder='Username (Max 12 Character)'
                                 validator={{ minLength: 6, required: true }}
-                                type='email'
+                                type='text'
                             />
-                        </Grid> */}
+                        </Grid>
                         <Grid item xs={12} sx={{ mt: 3 }}>
                             <Input
                                 name='password'

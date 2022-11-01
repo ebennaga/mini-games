@@ -7,39 +7,19 @@ const HelpSupport = () => {
     const helpSupportData = [
         {
             title: 'How to win points ?',
-            paragraph:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi '
+            paragraph: ' to win points you must to win tournaments. '
         },
         {
             title: 'How to top up coins ?',
             customParagraph: (
-                <>
-                    <Typography component='p' fontWeight={400} lineHeight='12px' fontSize='12px' sx={{ color: '#949494' }}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                    </Typography>
-                    <Typography component='p' fontWeight={400} lineHeight='12px' fontSize='12px' sx={{ pt: '8px', color: '#949494' }}>
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    </Typography>
-                </>
+                <Typography component='p' fontWeight={400} lineHeight='12px' fontSize='12px' sx={{ color: '#949494' }}>
+                    To top up coin choose menu COIN, Choose the nominal,and complete the payment
+                </Typography>
             )
         },
         {
             title: 'How to reedem prize ?',
-            paragraph:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi '
-        },
-        {
-            title: 'How to top up coins ?',
-            customParagraph: (
-                <>
-                    <Typography component='p' fontWeight={400} lineHeight='12px' fontSize='12px' sx={{ color: '#949494' }}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                    </Typography>
-                    <Typography component='p' fontWeight={400} lineHeight='12px' fontSize='12px' sx={{ pt: '8px', color: '#949494' }}>
-                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    </Typography>
-                </>
-            )
+            paragraph: 'Choose menu PRIZES, pick the prize you want to redeem '
         }
     ];
 

@@ -112,7 +112,7 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                             title={i.description}
                             isCoin
                             amount={i.coin}
-                            subtitle={`Transaction - ${i?.created_at?.slice(10, 16)}`}
+                            subtitle={`Transaction - ${i?.created_at?.slice(11, 16)}`}
                             created={i?.created_at}
                         />
                     ))}
@@ -127,7 +127,7 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                             title={i.description}
                             isCoin
                             amount={i.coin}
-                            subtitle={`Transaction - ${i?.created_at?.slice(10, 16)}`}
+                            subtitle={`Transaction - ${i?.created_at?.slice(11, 16)}`}
                             created={i?.created_at}
                         />
                     ))}
@@ -147,7 +147,7 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                         title={i.description}
                         isCoin
                         amount={i.coin}
-                        subtitle={`Transaction - ${i?.created_at?.slice(10, 16)}`}
+                        subtitle={`Transaction - ${i?.created_at?.slice(11, 16)}`}
                         created={i?.created_at}
                         isToday={false}
                         isYesterday={false}

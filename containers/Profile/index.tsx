@@ -17,8 +17,8 @@ const Profile = () => {
     const router = useRouter();
     const userState = useSelector((state: any) => state?.webpage?.user?.user);
     const listNavigation = [
-        { title: 'Input Promo Code', icon: '/icons/promo-code.png', onclick: () => router.push('/promo') },
-        { title: 'Give us Ratings', icon: '/icons/rating.png', onclick: () => router.push('/ratingas') }
+        { title: 'Input Promo Code', icon: '/icons/promo-code.png' }
+        // { title: 'Give us Ratings', icon: '/icons/rating.png', onclick: () => router.push('/ratingas') }
     ];
 
     return (
@@ -151,12 +151,13 @@ const Profile = () => {
                     borderRadius: '6px',
                     marginTop: '26px'
                 }}
+                onClick={() => router.push('/referral')}
             />
             <Box component='section' sx={{ width: '100%', marginTop: '7px' }}>
                 {listNavigation.map((item: any) => {
                     return (
                         <Box key={item.title} sx={{ width: '100%', padding: '25px 0', borderBottom: '2px solid #F4F1FF' }}>
-                            <NavigationCard icon={item.icon} title={item.title} onClick={item.onClick} />
+                            <NavigationCard icon={item.icon} title={item.title} onClick={() => router.push('/promo-code')} />
                         </Box>
                     );
                 })}

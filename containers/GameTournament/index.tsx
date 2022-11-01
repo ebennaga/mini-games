@@ -1,8 +1,6 @@
 /* eslint-disable consistent-return */
-/* eslint-disable no-unused-vars */
-import { Box, Typography, Skeleton } from '@mui/material';
+import { Box, Typography, Skeleton, Grid } from '@mui/material';
 import React from 'react';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import NotifDialog from 'components/Dialog/notifDialog';
@@ -19,17 +17,14 @@ import TableRank from './TableRank';
 const GameTournament = () => {
     const router = useRouter();
     // const myCoins = 10;
-    const userState = useSelector((state: any) => state.webpage?.user?.user);
+    const userState = useSelector((state: any) => state?.webpage?.user?.user);
     const coin = userState?.coin;
-    const coins = 200;
     const notify = useNotify();
     const { fetchAPI } = useAPICaller();
 
     const { setUser, clearUser } = useAuthReducer();
 
     const [listingGame, setListingGame] = React.useState<any>(null);
-    const [detailGame, setDetailGame] = React.useState<any>(null);
-    const [sessionGame, setSessionGame] = React.useState<any>(null);
     const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
     const [isLoading, isSetLoading] = React.useState<boolean>(false);
     const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
@@ -46,6 +41,7 @@ const GameTournament = () => {
                 setListingGame(res.data.data);
             }
             isSetLoading(false);
+            console.log(res);
         } catch (e) {
             notify('failed data', 'e');
             isSetLoading(false);
@@ -58,7 +54,15 @@ const GameTournament = () => {
             method: 'GET'
         });
         if (response.status === 200) {
-            setDetailGame(response.data.data);
+            const { data } = response.data;
+            const dataGames = {
+                imageGame: data.banner_url,
+                titleGame: data.name,
+                gameUrl: data.game_url,
+                descriptionGame: data.description
+            };
+            const newState = { ...userState, ...dataGames };
+            setUser(newState);
         } else {
             notify('failed get detail game', 'error');
         }
@@ -77,15 +81,12 @@ const GameTournament = () => {
             });
             if (response.status === 200) {
                 const newState = { ...userState };
-                if (!userState.sessionGame || userState.sessionGame !== response.data.data.session_code) {
-                    newState.sessionGame = response.data.data.session_code;
-                    clearUser();
-                    setUser(newState);
-                }
-                setSessionGame(response.data.data);
-                return true;
+                newState.sessionGame = response.data.data.session_code;
+                clearUser();
+                setUser(newState);
+                return newState;
             }
-            notify('failed get session game', 'error');
+            // notify('failed get session game', 'error');
             return false;
         }
         setLoadingPlay(false);
@@ -101,36 +102,26 @@ const GameTournament = () => {
         getAllData();
     }, []);
 
-    React.useEffect(() => {
-        if (userState && detailGame && sessionGame) {
-            const dataGames = {
-                imageGame: detailGame.banner_url,
-                titleGame: detailGame.name,
-                sessionGame: sessionGame.session_code,
-                gameUrl: detailGame.game_url,
-                descriptionGame: detailGame.description
-            };
-            const newState = { ...userState, ...dataGames };
-
-            if (
-                (!userState.imageGame || userState.imageGame !== detailGame.banner_url) &&
-                (!userState.sessionGame || userState.sessionGame !== sessionGame.session_code) &&
-                (!userState.gameUrl || userState.gameUrl !== detailGame.game_url) &&
-                (!userState.description || userState.description !== detailGame.description)
-            ) {
-                clearUser();
-                setUser(newState);
-            }
+    const refreshAuth = async (data: any) => {
+        const response = await fetchAPI({
+            method: 'GET',
+            endpoint: `auths`
+        });
+        if (response.status === 200) {
+            const dataUser = { ...data };
+            dataUser.coin = response.data.data.coin;
+            setUser(dataUser);
         }
-    }, [userState, sessionGame, detailGame]);
-
+    };
     const handlePlay = async () => {
         if (userState) {
             if (userState?.coin < listingGame.entry_coin) {
                 return setOpenNotifDialog(!openNotifDialog);
             }
             const response = await getGameSession();
+
             if (response) {
+                await refreshAuth(response);
                 return router.push(`/games/${router.query.id}/tournament/${router.query['id-tournament']}/loading`);
             }
             return notify('Ups, Server error!', 'error');
@@ -167,9 +158,20 @@ const GameTournament = () => {
             )}
             <Box component='main' padding='20px' color='#373737'>
                 {isLoading ? (
-                    <Box>
-                        <Skeleton animation='wave' variant='rectangular' width='100%' />
-                    </Box>
+                    // <Box>
+                    //     <Skeleton animation='wave' variant='rectangular' width='100%' />
+                    // </Box>
+                    <Grid container alignItems='flex-end' padding='20px'>
+                        <Grid item xs={4} sx={{ height: '200px' }}>
+                            <Skeleton sx={{ width: '100%', height: '200px', mt: '-18px' }} />
+                        </Grid>
+                        <Grid item xs={4} sx={{ height: '300px' }}>
+                            <Skeleton sx={{ width: '100%', height: '300px' }} />
+                        </Grid>
+                        <Grid item xs={4} sx={{ height: '150px' }}>
+                            <Skeleton sx={{ width: '100%', height: '150px', mt: '-28px' }} />
+                        </Grid>
+                    </Grid>
                 ) : (
                     <Box component='section' padding='18px 0'>
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '37px' }}>

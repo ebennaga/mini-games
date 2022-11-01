@@ -13,7 +13,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                 {dataLeaderboard.length > 1 && (
                     <LeaderboardUser
                         image={dataLeaderboard[1].image}
-                        username={dataLeaderboard[1].user.username}
+                        username={dataLeaderboard[1].user.username || dataLeaderboard[1].user.displayName}
                         score={dataLeaderboard[1].user.total_score}
                     />
                 )}
@@ -60,7 +60,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                 {dataLeaderboard.length > 0 && (
                     <LeaderboardUser
                         image={dataLeaderboard[0].image}
-                        username={dataLeaderboard[0].user.username}
+                        username={dataLeaderboard[0].user.username || dataLeaderboard[0].user.displayName}
                         score={dataLeaderboard[0].user.total_score}
                     />
                 )}
@@ -107,7 +107,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                 {dataLeaderboard.length > 2 && (
                     <LeaderboardUser
                         image={dataLeaderboard[2].image}
-                        username={dataLeaderboard[2].user.username}
+                        username={dataLeaderboard[2].user.username || dataLeaderboard[2].user.displayName}
                         score={dataLeaderboard[2].user.total_score}
                     />
                 )}

@@ -135,32 +135,34 @@ const TopUp = () => {
                                     </Box>
                                     <Typography sx={{ fontSize: '32px', fontWeight: 'bold' }}>{numberFormat(item.coin)}</Typography>
                                 </Box>
-                                <Typography sx={{ fontSize: '15px' }}>{item.description}</Typography>
+                                {/* <Typography sx={{ fontSize: '15px' }}>{item.description}</Typography> */}
                             </Box>
                         </Grid>
                     ))}
             </Grid>
             <Box sx={{ paddingX: '20px' }}>
-                <Box sx={{ display: 'flex', gap: '10px' }}>
+                <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                     <img src='/images/subtract.png' width={22} height={22} alt='subtract' />
                     <Typography sx={{ fontSize: '12px' }}>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. <span style={{ color: '#FF4567' }}>Click here!</span>
+                        If you have problems, please <span style={{ color: '#FF4567' }}>Click here!</span>
                     </Typography>
                 </Box>
                 <Typography sx={{ fontSize: '18px', fontWeight: 700, lineHeight: '33px', mt: '30px' }}>Transaction</Typography>
             </Box>
             <Box sx={{ textAlign: 'center', paddingX: '20px' }}>
                 {histories?.length > 0 &&
-                    histories.map((i: any) => (
-                        <TransactionCard
-                            key={i.id}
-                            title={i.description}
-                            isCoin
-                            amount={i.coin}
-                            subtitle={`Transaction - ${i?.created_at?.slice(10, 16)}`}
-                            created={i?.created_at}
-                        />
-                    ))}
+                    histories
+                        .slice(2)
+                        .map((i: any) => (
+                            <TransactionCard
+                                key={i.id}
+                                title={i.description}
+                                isCoin
+                                amount={i.coin}
+                                subtitle={`Transaction - ${i?.created_at?.slice(11, 16)}`}
+                                created={i?.created_at}
+                            />
+                        ))}
                 {histories?.length === 0 && <Typography sx={{ mt: '10px', color: 'red' }}>There is not any histories top up</Typography>}
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>

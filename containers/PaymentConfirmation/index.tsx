@@ -7,6 +7,8 @@ import Button from 'components/Button/Index';
 import Header from 'components/Header';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
+import { useSelector } from 'react-redux';
+import useAuthReducer from 'hooks/useAuthReducer';
 // import NavigationCard from 'components/NavigationCard';
 // import { Controller, useForm } from 'react-hook-form';
 
@@ -40,6 +42,24 @@ const PaymentConfirmationContainer = () => {
     const router = useRouter();
     const notify = useNotify();
 
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
+    const { setUser } = useAuthReducer();
+
+    const updateUserData = async () => {
+        try {
+            const result = await fetchAPI({
+                endpoint: 'auths',
+                method: 'GET'
+            });
+            if (result.status === 200) {
+                return setUser({ api_token: userState.api_token, ...result.data.data });
+            }
+            return false;
+        } catch (err: any) {
+            return false;
+        }
+    };
+
     const postTopupHandler = async () => {
         const response = await fetchAPI({
             method: 'POST',
@@ -48,13 +68,15 @@ const PaymentConfirmationContainer = () => {
                 coin_id: router.query.id
             }
         });
+        // console.log(response);
         if (response.status === 200) {
             if (!isLoading) {
                 // window.open(response.data.data.payment.redirect_url, '_blank');
                 snap.pay(response?.data?.data?.payment.token, {
                     onSuccess(result: any) {
-                        console.log('success');
-                        console.log('result', result);
+                        updateUserData();
+                        // console.log('success');
+                        // console.log('result', result);
                         notify(result.status_message, 'success');
                         if (result.status_code === '200') {
                             router.push('/success');
@@ -62,7 +84,7 @@ const PaymentConfirmationContainer = () => {
                     },
                     onPending(result: any) {
                         notify(result.status_message, 'success');
-                        console.log('result', result);
+                        // console.log('result', result);
                         if (result.status_code === '201') {
                             router.push('/pending');
                         }
@@ -118,17 +140,8 @@ const PaymentConfirmationContainer = () => {
                             <Typography sx={{ fontWeight: 500 }}>Rp. 10.000</Typography>
                         </Box>
                     </Box>
-                    <Typography sx={{ fontWeight: '400', fontSize: '12px', lineHeight: '12px', color: '#949494', my: '20px' }}>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium odit veniam, ipsam similique repellat in non
-                        voluptatem sapiente deleniti totam maxime id inventore magni alias dolore ratione nulla ut ab sint dolores et.
-                        Repellendus aperiam reiciendis quasi iusto explicabo quia corporis molestias, facere, nam vel fugit corrupti beatae
-                        doloribus! Aperiam consequuntur maiores saepe illo quia, sed blanditiis atque eaque quod sit excepturi itaque
-                        repellendus animi iste cupiditate magnam at magni. <br /> <br />
-                        <Typography sx={{ fontWeight: '400', fontSize: '12px', lineHeight: '12px', color: '#949494' }} component='span'>
-                            Officiis dicta a, aliquid molestiae rerum repudiandae iste ipsum quod unde aspernatur, expedita, quis inventore!
-                            Saepe odio veniam quasi esse quas possimus eveniet sit? Assumenda aperiam id facere laboriosam debitis animi
-                            repellat quam provident, sunt explicabo sed ducimus rem obcaecati aliquid
-                        </Typography>
+                    <Typography sx={{ fontWeight: '400', fontSize: '12px', lineHeight: '12px', color: '#949494', my: '40px' }}>
+                        If you sure want to buy XXX coin for Rp xxxxx , tap Confirm to pay
                     </Typography>
                 </Box>
             </Box>
@@ -157,15 +170,17 @@ const PaymentConfirmationContainer = () => {
             <Box sx={{ padding: '19px' }}>
                 <CheckboxController name='check' form={form} onClick={handleCheckbox} checked={form.watch('check')} />
             </Box> */}
-            <Box sx={{ padding: '20px', position: 'sticky', bottom: '0px', zIndex: 99, mt: '100px' }}>
-                <Button
-                    // disabled={!form.watch('check')}
-                    title='Confirm to pay'
-                    backgoundColor='#A54CE5'
-                    color='white'
-                    onClick={postTopupHandler}
-                    loading={isLoading}
-                />
+            <Box sx={{ position: 'relative', height: '50vh', display: 'flex', justifyContent: 'center' }}>
+                <Box sx={{ position: 'absolute', width: '90%', bottom: '20px' }}>
+                    <Button
+                        // disabled={!form.watch('check')}
+                        title='Confirm to pay'
+                        backgoundColor='#A54CE5'
+                        color='white'
+                        onClick={postTopupHandler}
+                        loading={isLoading}
+                    />
+                </Box>
             </Box>
         </Box>
     );

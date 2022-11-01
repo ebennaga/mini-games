@@ -54,7 +54,7 @@ const InvalidPaymentContainer = () => {
                     <Typography sx={{ fontSize: '35px', mb: '50px', fontWeight: 'bold', lineHeight: 0 }}>Opps!!!</Typography>
                     <img src='/images/invalid.png' alt='failed.png' />
                     <Typography sx={{ fontSize: '14px', color: '#373737', fontWeight: '700' }}>
-                        Trasaction invalid. Lorem ipsum dolor sit amet consectetur. Try it again later.
+                        Invalid transaction , please try again later.
                     </Typography>
                 </Box>
                 <Box sx={{ paddingX: '20px' }}>

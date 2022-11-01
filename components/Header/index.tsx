@@ -42,14 +42,14 @@ const Header: React.FC<HeaderProps> = ({
     const userState = useSelector((state: any) => state?.webpage?.user?.user);
     const classes = useStyles();
     const router = useRouter();
-    const [userData, setUserData] = React.useState<any>(null);
+    // const [userData, setUserData] = React.useState<any>(null);
     const { setUser, clearUser } = useAuthReducer();
     const { fetchAPI, isLoading } = useApiCaller();
     const [isFirebaseLoading, setIsFirebaseLoading] = React.useState<boolean>(false);
     const notify = useNotify();
 
     const fetchData = async () => {
-        if (userState?.api_token) {
+        if (userState?.api_token && !userState.email) {
             try {
                 const result = await fetchAPI({
                     endpoint: 'auths',
@@ -57,11 +57,11 @@ const Header: React.FC<HeaderProps> = ({
                 });
                 if (result.status === 200) {
                     setUser({ ...userState, ...result.data.data });
-                    setUserData(result.data.data);
+                    // setUserData(result.data.data);
                 }
-                if (result.status === 403 || result.message === 'User is not authorized to access this resource with an explicit deny') {
-                    clearUser();
-                }
+                // if (result.status === 403 || result.message === 'User is not authorized to access this resource with an explicit deny') {
+                //     clearUser();
+                // }
             } catch (error) {
                 notify('Fetch account data failed!', 'error');
             }
@@ -71,6 +71,7 @@ const Header: React.FC<HeaderProps> = ({
     React.useEffect(() => {
         fetchData();
     }, []);
+
     const handleLoginGoogle = async (user: User) => {
         if (userState?.api_token == null) {
             const response = await fetchAPI({
@@ -108,6 +109,7 @@ const Header: React.FC<HeaderProps> = ({
             setIsFirebaseLoading(false);
         });
     }, []);
+    console.log(userState);
 
     const handleBack = () => {
         if (hrefBack) {
@@ -116,7 +118,6 @@ const Header: React.FC<HeaderProps> = ({
             router.back();
         }
     };
-
     if (isLoading) {
         return <HeaderSkeleton />;
     }
@@ -216,9 +217,9 @@ const Header: React.FC<HeaderProps> = ({
                             >
                                 {numberFormat(
                                     router.pathname.includes('/shops') && !isLoading
-                                        ? userData?.point
-                                        : userData?.coin
-                                        ? userData?.coin
+                                        ? userState?.point
+                                        : userState?.coin
+                                        ? userState?.coin
                                         : '0'
                                 )}
                             </Typography>

@@ -8,37 +8,50 @@ import useNotify from 'hooks/useNotify';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import numberFormat from 'helper/numberFormat';
 import RankCard from 'components/RankCard';
+import NotifDialog from 'components/Dialog/notifDialog';
+import LoadingResultTournament from './LoadingResultTournament';
 
 const GameResultTournament = () => {
     const userState = useSelector((state: any) => state?.webpage?.user?.user);
     const router = useRouter();
     const { setUser } = useAuthReducer();
     const [authsData, setAuthsData] = React.useState<any>(null);
+    const [firstPosition, setFirstPosition] = React.useState<any>(null);
     const [loadingSession, setLoadingSession] = React.useState<boolean>(false);
-    // const [sessionGame, setSessionGame] = React.useState<any>(null);
+    const [dialogTopup, setDialogTopup] = React.useState<boolean>(false);
 
     const { fetchAPI } = useAPICaller();
+    const { fetchAPI: fetchTournament, isLoading: loadingFetchTournament } = useAPICaller();
+
     const notify = useNotify();
-    // const dataLeaderboard = [
-    //     { image: '/icons/dummy/profile.png', username: 'eben', point: 246000, prize: 1500, rank: 13 },
-    //     { image: '/icons/dummy/profile-2.png', username: 'rinto', point: 236000, prize: 2000, rank: 14 },
-    //     { image: '/icons/dummy/profile-3.png', username: 'arya', point: 10000, prize: 1000, rank: 15 }
-    // ];
 
     const getTournamentAuth = async () => {
         try {
-            const response = await fetchAPI({
+            const response = await fetchTournament({
                 method: 'GET',
                 endpoint: `tournaments/${router.query['id-tournament']}`
             });
+
             if (response?.data.status === 200) {
+                setFirstPosition(response?.data.data.leaderboards[0]);
                 setAuthsData(response?.data.data.auths);
             }
         } catch (error: any) {
             notify(error.message, 'error');
         }
     };
-
+    const refreshAuth = async () => {
+        const response = await fetchAPI({
+            method: 'GET',
+            endpoint: `auths`
+        });
+        if (response.status === 200) {
+            const dataUser = { ...userState };
+            dataUser.coin = response.data.data.coin;
+            return dataUser;
+        }
+        return false;
+    };
     const getGameSession = async () => {
         setLoadingSession(true);
         if (userState) {
@@ -51,15 +64,15 @@ const GameResultTournament = () => {
                 }
             });
             if (response?.status === 200) {
-                // setSessionGame(response.data.data.session_code);
+                const currentData = await refreshAuth();
                 const sessionGame = response.data.data.session_code;
-                if (userState && sessionGame) {
-                    const newState = { ...userState, sessionGame };
+                if (currentData && sessionGame) {
+                    const newState = { ...currentData, sessionGame };
                     setUser(newState);
                     router.push(`/games/${router.query.id}/tournament/${router.query['id-tournament']}/loading`);
                 }
-            } else {
-                notify('failed get session game', 'error');
+            } else if (response.data.message === 'Coin is not enough') {
+                setDialogTopup(true);
             }
         }
         setLoadingSession(false);
@@ -69,6 +82,9 @@ const GameResultTournament = () => {
         getTournamentAuth();
     }, []);
 
+    if (loadingFetchTournament) {
+        return <LoadingResultTournament />;
+    }
     return (
         <Box component='main' width='100%'>
             <Box padding='0 20px'>
@@ -80,7 +96,7 @@ const GameResultTournament = () => {
                 </ButtonBase>
             </Box>
             <Box component='section' textAlign='center' color='#373737' borderBottom='1px solid rgba(40, 38, 38, 0.2)' paddingBottom='32px'>
-                <img src='/images/dummy/game-hopup.svg' width='105px' height='105px' alt='game icon' style={{ borderRadius: '8px' }} />
+                <img src={userState.imageGame} width='105px' height='105px' alt='game icon' style={{ borderRadius: '8px' }} />
                 <Typography
                     component='h2'
                     fontSize='20px'
@@ -89,7 +105,7 @@ const GameResultTournament = () => {
                     paddingBottom='16px'
                     sx={{ color: '#A54CE5' }}
                 >
-                    New High Score
+                    Your High Score
                 </Typography>
                 <Typography component='h3' fontSize='40px' fontWeight={700}>
                     {numberFormat(authsData?.total_score)}
@@ -100,14 +116,14 @@ const GameResultTournament = () => {
                     Your Rank
                 </Typography>
                 <Typography component='h3' textAlign='center' fontSize='40px' fontWeight={700} marginTop='7px'>
-                    {`${authsData?.position}#`}
+                    {`${authsData ? authsData.position : ''}#`}
                 </Typography>
                 <RankCard
-                    rank={1}
+                    rank={firstPosition?.position}
                     image='/icons/dummy/profile-2.png'
-                    username={userState.username}
-                    point={authsData?.total_score}
-                    prize={100}
+                    username={firstPosition?.user.username || userState.displayName}
+                    score={firstPosition?.user.total_score}
+                    point={firstPosition?.user.point_prize}
                     disabledUnderline
                 />
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', my: '10px' }}>
@@ -127,8 +143,8 @@ const GameResultTournament = () => {
                             rank={item.position}
                             image={item.image}
                             username={item.username}
-                            point={item.total_score}
-                            prize={item.point_prize}
+                            score={item.total_score}
+                            point={item.point_prize}
                         />
                     );
                 })}
@@ -168,6 +184,7 @@ const GameResultTournament = () => {
                     )}
                 </ButtonBase>
             </Box>
+            <NotifDialog open={dialogTopup} setOpenDialog={setDialogTopup} body='You dont have enought coins. Topup now!' />
         </Box>
     );
 };

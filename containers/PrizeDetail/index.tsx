@@ -166,6 +166,7 @@ const PrizeDetailContainer = () => {
                 open={open}
                 body='You don’t have Points in your balance. 
 Play Tournament and get points to continue'
+                textButton='Show Tournaments'
             />
             <AgeConfirmationDialog
                 form={form}
