@@ -15,7 +15,7 @@ const Page = () => {
             </Head>
             <Script
                 type='text/javascript'
-                src='https://app.sandbox.midtrans.com/snap/snap.js'
+                src='https://app.midtrans.com/snap/snap.js'
                 data-client-key={process.env.NEXT_PUBLIC_CLIENT_KEY}
             />
             <Layout backgoundColor='#fff' isBackground>
