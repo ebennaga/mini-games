@@ -210,9 +210,9 @@ const ShopsContainer = () => {
                         >
                             <Box>
                                 <Typography sx={{ fontSize: '16px', color: 'white', fontWeight: '700' }}>Lucky Raffle</Typography>
-                                <Typography sx={{ fontSize: '9px', color: 'white' }}>
+                                {/* <Typography sx={{ fontSize: '9px', color: 'white' }}>
                                     Lorem ipsum dolor sit amet consectetur, adipisicing.
-                                </Typography>
+                                </Typography> */}
                             </Box>
                             <Box>
                                 {!isComingSoon && (

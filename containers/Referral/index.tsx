@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import HeaderBack from 'components/HeaderBack';
-import { Box, Typography, ButtonBase, TextField, Tooltip } from '@mui/material';
+import { Box, Typography, ButtonBase, TextField, Tooltip, ListItemButton, ListItemText } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useRouter } from 'next/router';
+import LinkIcon from '@mui/icons-material/Link';
+import EditIcon from '@mui/icons-material/Edit';
+import MessageIcon from '@mui/icons-material/Message';
 
 const Referral = () => {
     const router = useRouter();
@@ -25,13 +28,25 @@ const Referral = () => {
                         Invite your friends
                         <br />& earn free coins
                     </Typography>
-                    <Typography sx={{ color: '#949494', fontWeight: 400, fontSize: '12px', marginBottom: '14px', marginTop: '24px' }}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        <br /> sed do eiusmod tempor incididunt ut labore et dolore
+                    <Typography sx={{ fontWeight: 700, fontSize: '12px', marginBottom: '14px', marginTop: '24px' }}>
+                        How to invite your friends to Prize Play
                     </Typography>
+                    <ListItemButton sx={{ ml: 2 }}>
+                        <LinkIcon />
+
+                        <ListItemText sx={{ ml: 1 }} secondary=' Press Invite yout friends' />
+                    </ListItemButton>
+                    <ListItemButton sx={{ ml: 2 }}>
+                        <EditIcon />
+                        <ListItemText sx={{ ml: 1 }} secondary='Your unique referral cide will be generated' />
+                    </ListItemButton>
+                    <ListItemButton sx={{ ml: 2 }}>
+                        <MessageIcon />
+                        <ListItemText sx={{ ml: 1 }} secondary='Send your referral code to your friends via messenger apps' />
+                    </ListItemButton>
+
                     <Typography sx={{ color: '#949494', fontWeight: 400, fontSize: '12px', marginBottom: '14px', marginTop: '24px' }}>
-                        Ut enim ad minim veniam, quis nostrud exercitation
-                        <br /> ullamco laboris nisi ut aliquip
+                        Every successfull registered friends you will earns +50 Coins.
                     </Typography>
                     <Box sx={{ width: '100%', position: 'relative', marginTop: '24px' }}>
                         <Typography
