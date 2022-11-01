@@ -20,7 +20,7 @@ const LandingPage = () => {
             </Box>
             <Box sx={{ textAlign: 'center', width: '90%', color: '#FFF', mt: 5 }}>
                 <Typography sx={{ mb: 3, fontWeight: 700 }}>PLAY THE GAME - WIN THE PRIZE</Typography>
-                <Typography>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</Typography>
+                {/* <Typography>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</Typography> */}
             </Box>
             <Box
                 sx={{

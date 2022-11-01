@@ -145,18 +145,18 @@ const PrizeDetailContainer = () => {
             </Box>
             <Divider sx={{ my: '25px' }} />
             <Box padding='20px 20px' position='relative'>
-                <Paragraph
+                {/* <Paragraph
                     title='Highlight'
                     paragraph=' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio
                     mattis.Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                />
+                /> */}
                 <Paragraph title='Description' paragraph={data.description} />
-                <Box sx={{ mb: '180px' }}>
+                {/* <Box sx={{ mb: '180px' }}>
                     <Paragraph
                         title='Terms and Conditions'
                         paragraph='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
                     />
-                </Box>
+                </Box> */}
                 <Box sx={{ position: 'sticky', bottom: '20px', zIndex: 0 }}>
                     <Button onClick={handleReedem} title='Reedem' backgoundColor='#A54CE5' color='white' />
                 </Box>

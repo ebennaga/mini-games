@@ -73,9 +73,9 @@ const StatusRoundDialog: React.FC<StatusRoundDialogProps> = ({ open, setOpen, is
                             <img src='/images/md-point-shops.png' alt='points' style={{ width: '40px' }} />
                             <Typography sx={{ fontSize: '40px', fontWeight: 700 }}>350.000</Typography>
                         </Box>
-                        <Typography sx={{ fontWeight: 500, fontSize: '12px', color: '#949494', mt: '135px' }}>
+                        {/* <Typography sx={{ fontWeight: 500, fontSize: '12px', color: '#949494', mt: '135px' }}>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate{' '}
-                        </Typography>
+                        </Typography> */}
                     </Box>
                 </Box>
                 <Box sx={{ width: '90%', paddingY: '20px', position: 'sticky', bottom: '20px' }}>

@@ -46,10 +46,7 @@ const MyReferrals = () => {
                 <Divider />
 
                 <Typography sx={{ color: '#949494', fontWeight: 400, fontSize: '12px', marginBottom: '14px', marginTop: '24px' }}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                </Typography>
-                <Typography sx={{ color: '#949494', fontWeight: 400, fontSize: '12px', marginBottom: '14px', marginTop: '24px' }}>
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                    {" C'mon invite more friends to get more free coins."}
                 </Typography>
 
                 <Box sx={{ borderBottom: 1, borderColor: 'divider', mt: '20px' }}>
