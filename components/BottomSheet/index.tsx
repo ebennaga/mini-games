@@ -96,7 +96,7 @@ const BottomSheetCustom: React.FC<BottomSheetProps> = ({ items, onConfirm, type 
                             </Box>
                         );
                     })}
-                    <Typography
+                    {/* <Typography
                         component='span'
                         sx={{
                             textAlign: 'center',
@@ -108,7 +108,7 @@ const BottomSheetCustom: React.FC<BottomSheetProps> = ({ items, onConfirm, type 
                         }}
                     >
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </Typography>
+                    </Typography> */}
                 </Box>
             ) : (
                 <Box>
