@@ -64,7 +64,6 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                     setYesterdayTransactions(yesterdayTransaction);
                 }
                 if (new Date(item.created_at).getDate() < new Date(yesterday).getDate()) {
-                    console.log('yes', item);
                     daysAgoTransaction.push(item);
                     setDaysAgoTransactions(daysAgoTransaction);
                 }

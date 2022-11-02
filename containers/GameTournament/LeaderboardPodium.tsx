@@ -9,7 +9,7 @@ interface LeaderboardPodiumProps {
 const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }) => {
     return (
         <Grid container alignItems='end'>
-            <Grid item xs={4} sx={{ overflow: 'hidden', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+            <Grid item xs={4} sx={{ overflow: 'hidden', display: 'flex', alignItems: 'center', flexDirection: 'column', mr: '-0.2px' }}>
                 {dataLeaderboard.length > 1 && (
                     <LeaderboardUser
                         image={dataLeaderboard[1].image}
@@ -21,19 +21,21 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                     <Box
                         sx={{
                             background: '#BB7BEC',
-                            marginLeft: '6%',
+                            marginLeft: '10%',
                             width: '120%',
                             height: '18px',
-                            transform: 'perspective(12px) rotateX(8deg)'
+                            transform: 'perspective(12px) rotateX(8deg)',
+                            borderTopLeftRadius: '2px'
                         }}
                     />
                     <Box
                         sx={{
-                            background: 'linear-gradient(180deg, #A54CE5 39.58%, #F4F1FF 100%)',
+                            background: '#B162EB',
                             height: '146px',
                             display: 'flex',
                             flexDirection: 'column',
-                            justifyContent: 'space-between'
+                            justifyContent: 'space-between',
+                            borderTopLeftRadius: '8px'
                         }}
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center', alignSelf: 'end', marginRight: '9px', marginTop: '9px' }}>
@@ -68,19 +70,22 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                     <Box
                         sx={{
                             background: '#BB7BEC',
-                            width: '90%',
+                            width: '83.8%',
                             height: '18px',
-                            transform: 'perspective(12px) rotateX(8deg)'
+                            transform: 'perspective(12px) rotateX(8deg)',
+                            borderRadius: '2px 2px 0 0'
                         }}
                     />
                     <Box
                         sx={{
-                            background: 'linear-gradient(180deg, #A54CE5 39.58%, #F4F1FF 100%)',
+                            background: '#A54CE5',
                             width: '100%',
                             height: '205px',
                             display: 'flex',
                             flexDirection: 'column',
-                            justifyContent: 'space-between'
+                            justifyContent: 'space-between',
+                            borderRadius: '8px 8px 0 0',
+                            zIndex: 2
                         }}
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center', alignSelf: 'end', marginRight: '9px', marginTop: '9px' }}>
@@ -103,7 +108,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                     </Box>
                 </Box>
             </Grid>
-            <Grid item xs={4} sx={{ overflow: 'hidden', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+            <Grid item xs={4} sx={{ overflow: 'hidden', display: 'flex', alignItems: 'center', flexDirection: 'column', ml: '-0.7px' }}>
                 {dataLeaderboard.length > 2 && (
                     <LeaderboardUser
                         image={dataLeaderboard[2].image}
@@ -115,19 +120,21 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                     <Box
                         sx={{
                             background: '#BB7BEC',
-                            marginLeft: '-27%',
+                            marginLeft: '-30%',
                             width: '120%',
                             height: '18px',
-                            transform: 'perspective(12px) rotateX(8deg)'
+                            transform: 'perspective(12px) rotateX(8deg)',
+                            borderTopRightRadius: '2px'
                         }}
                     />
                     <Box
                         sx={{
-                            background: 'linear-gradient(180deg, #A54CE5 39.58%, #F4F1FF 100%)',
+                            background: '#C488F3',
                             height: '104px',
                             display: 'flex',
                             flexDirection: 'column',
-                            justifyContent: 'space-between'
+                            justifyContent: 'space-between',
+                            borderTopRightRadius: '8px'
                         }}
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center', alignSelf: 'end', marginRight: '9px', marginTop: '9px' }}>

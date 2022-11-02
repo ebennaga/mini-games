@@ -119,7 +119,6 @@ const PrizeDetailContainer = () => {
                     <Grid container justifyContent='space-between'>
                         <Grid item xs={6}>
                             <Typography sx={{ fontWeight: 'bold', fontSize: '24px' }}>{data.name}</Typography>
-                            <Typography sx={{ fontWeight: '600', fontSize: '12px' }}>{data.description}</Typography>
                         </Grid>
                         <Grid
                             item
