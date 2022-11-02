@@ -49,7 +49,7 @@ const Header: React.FC<HeaderProps> = ({
     const notify = useNotify();
 
     const fetchData = async () => {
-        if (userState?.api_token && !userState.email) {
+        if (userState?.api_token) {
             try {
                 const result = await fetchAPI({
                     endpoint: 'auths',
