@@ -12,7 +12,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
             <Grid item xs={4} sx={{ overflow: 'hidden', display: 'flex', alignItems: 'center', flexDirection: 'column', mr: '-0.2px' }}>
                 {dataLeaderboard.length > 1 && (
                     <LeaderboardUser
-                        image={dataLeaderboard[1].image}
+                        image={dataLeaderboard[1].user.avatar_url}
                         username={dataLeaderboard[1].user.username || dataLeaderboard[1].user.displayName}
                         score={dataLeaderboard[1].user.total_score}
                     />
@@ -61,7 +61,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
             <Grid item xs={4} sx={{ overflow: 'hidden', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 {dataLeaderboard.length > 0 && (
                     <LeaderboardUser
-                        image={dataLeaderboard[0].image}
+                        image={dataLeaderboard[0].user.avatar_url}
                         username={dataLeaderboard[0].user.username || dataLeaderboard[0].user.displayName}
                         score={dataLeaderboard[0].user.total_score}
                     />
@@ -111,7 +111,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
             <Grid item xs={4} sx={{ overflow: 'hidden', display: 'flex', alignItems: 'center', flexDirection: 'column', ml: '-0.7px' }}>
                 {dataLeaderboard.length > 2 && (
                     <LeaderboardUser
-                        image={dataLeaderboard[2].image}
+                        image={dataLeaderboard[2].user.avatar_url}
                         username={dataLeaderboard[2].user.username || dataLeaderboard[2].user.displayName}
                         score={dataLeaderboard[2].user.total_score}
                     />
