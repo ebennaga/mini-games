@@ -55,6 +55,7 @@ const Header: React.FC<HeaderProps> = ({
                     endpoint: 'auths',
                     method: 'GET'
                 });
+
                 if (result.status === 200) {
                     setUser({ ...userState, ...result.data.data });
                     // setUserData(result.data.data);
@@ -225,7 +226,7 @@ const Header: React.FC<HeaderProps> = ({
                         </Box>
                     </Box>
                     <ButtonBase onClick={() => router.push('/profile')}>
-                        <img src={profilePicture} width='46px' height='46px' alt='profile' />
+                        <img src={userState.avatar_url} width='46px' height='46px' alt='profile' />
                     </ButtonBase>
                 </Box>
             ) : (

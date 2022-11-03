@@ -37,6 +37,7 @@ const GameTournament = () => {
                 endpoint: `/tournaments/${id}`,
                 method: 'GET'
             });
+
             if (res.status === 200) {
                 setListingGame(res.data.data);
             }
