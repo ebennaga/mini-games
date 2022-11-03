@@ -226,7 +226,7 @@ const GameDetailContainer = () => {
                                     <TournamentCard
                                         key={item.id}
                                         time={item.end_time}
-                                        pool={item.total_price}
+                                        pool={item.total_prize}
                                         users={item.total_users}
                                         onClick={() => handleClick(item.id)}
                                         imageGame={detailGame?.banner_url}
@@ -368,7 +368,7 @@ const GameDetailContainer = () => {
                         <Grid item xs={4}>
                             <Box justifyContent='space-between' sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                                 <EmojiEvents />
-                                <Typography sx={{ fontWeight: '700' }}>{numberFormat(detailGame?.auths.highscore)}</Typography>
+                                <Typography sx={{ fontWeight: '700' }}>{numberFormat(detailGame?.auths.highscore_tournament)}</Typography>
                                 <Share />
                             </Box>
                         </Grid>
