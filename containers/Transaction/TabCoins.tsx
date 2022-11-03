@@ -87,7 +87,7 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
     // }, []);
 
     // console.log('yesterday', yesterdayTransaction);
-    console.log('histories', cointTansaction);
+    // console.log('histories', cointTansaction);
     // console.log('coin', cointTansaction);
     // console.log('todays', new Date('2022-10-25T03:23:37.000Z').getDate());
     return (

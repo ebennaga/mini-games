@@ -156,7 +156,6 @@ const TopUp = () => {
                         .map((i: any) => (
                             <TransactionCard
                                 isToday
-                                isYesterday
                                 key={i.id}
                                 title={i.description}
                                 isCoin
