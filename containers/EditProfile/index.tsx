@@ -45,7 +45,7 @@ const EditProfile = () => {
         if (response.status === 200) {
             const dataUser = { ...userState, ...response.data.data };
             setUser(dataUser);
-            console.log('coba', dataUser);
+
             return dataUser;
         }
 
@@ -65,8 +65,6 @@ const EditProfile = () => {
             if (response.status === 200) {
                 await updateUserData();
                 setDialogSuccess(true);
-
-                console.log('response', response);
             }
         } catch (e) {
             console.log('error', 'e');
