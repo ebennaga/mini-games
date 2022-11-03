@@ -9,15 +9,15 @@ const arrayTermCondi = [
     {
         title: 'Introduction',
         subtitle:
-            'Welcome to PT Ultra Sukses Bersama\n' +
-            'These Terms of Service (“Terms”, “Terms of Service”) govern your use of our website located at prizeplay.io (together or individually “Service”) operated by PT Ultra Sukses Bersama.' +
-            'Our Privacy Policy also governs your use of our Service and explains how we collect, safeguard and disclose information that results from your use of our web pages. Your agreement with us includes these Terms and our Privacy Policy (“Agreements”). You acknowledge that you have read and understood Agreements, and agree to be bound of them.' +
-            'If you do not agree with (or cannot comply with) Agreements, then you may not use the Service, but please let us know by emailing at ptultrasuksesbersama@gmail.com so we can try to find a solution. These Terms apply to all visitors, users and others who wish to access or use Service.'
+            'Welcome to PT Ultra Sukses Bersama (“Company”, “we”, “our”, “us”)\n' +
+            'These Terms of Service (“Terms”, “Terms of Service”) govern your use of our website located at prizeplay.io (together or individually “Service”) operated by PT Ultra Sukses Bersama.\n' +
+            'Our Privacy Policy also governs your use of our Service and explains how we collect, safeguard and disclose information that results from your use of our web pages.\n Your agreement with us includes these Terms and our Privacy Policy (“Agreements”). You acknowledge that you have read and understood Agreements, and agree to be bound of them.\n' +
+            'If you do not agree with (or cannot comply with) Agreements, then you may not use the Service, but please let us know by emailing at business.ultrasuksesbersama@gmail.com so we can try to find a solution. These Terms apply to all visitors, users and others who wish to access or use Service.'
     },
     {
         title: 'Communications',
         subtitle:
-            'By using our Service, you agree to subscribe to newsletters, marketing or promotional materials and other information we may send. However, you may opt out of receiving any, or all, of these communications from us by following the unsubscribe link or by emailing at ptultrasuksesbersama@gmail.com.'
+            'By using our Service, you agree to subscribe to newsletters, marketing or promotional materials and other information we may send. However, you may opt out of receiving any, or all, of these communications from us by following the unsubscribe link or by emailing at business.ultrasuksesbersama@gmail.com.'
     },
     {
         title: 'Contests, Sweepstakes and Promotions',
@@ -80,7 +80,7 @@ const arrayTermCondi = [
         title: 'Copyright Policy',
         subtitle:
             'We respect the intellectual property rights of others. It is our policy to respond to any claim that Content posted on Service infringes on the copyright or other intellectual property rights (“Infringement”) of any person or entity.\n' +
-            'If you are a copyright owner, or authorized on behalf of one, and you believe that the copyrighted work has been copied in a way that constitutes copyright infringement, please submit your claim via email to ptultrasuksesbersama@gmail.com, with the subject line: “Copyright Infringement” and include in your claim a detailed description of the alleged Infringement as detailed below, under “DMCA Notice and Procedure for Copyright Infringement Claims”\n' +
+            'If you are a copyright owner, or authorized on behalf of one, and you believe that the copyrighted work has been copied in a way that constitutes copyright infringement, please submit your claim via email to business.ultrasuksesbersama@gmail.com, with the subject line: “Copyright Infringement” and include in your claim a detailed description of the alleged Infringement as detailed below, under “DMCA Notice and Procedure for Copyright Infringement Claims”\n' +
             'You may be held accountable for damages (including costs and attorneys’ fees) for misrepresentation or bad-faith claims on the infringement of any Content found on and/or through Service on your copyright.'
     },
     {
@@ -93,12 +93,12 @@ const arrayTermCondi = [
             '0.4. your address, telephone number, and email address;\n' +
             '0.5. a statement by you that you have a good faith belief that the disputed use is not authorized by the copyright owner, its agent, or the law;\n' +
             '0.6. a statement by you, made under penalty of perjury, that the above information in your notice is accurate and that you are the copyright owner or authorized to act on the copyright owner’s behalf.\n' +
-            'You can contact our Copyright Agent via email at ptultrasuksesbersama@gmail.com.'
+            'You can contact our Copyright Agent via email at business.ultrasuksesbersama@gmail.com.'
     },
     {
         title: 'Error Reporting and Feedback',
         subtitle:
-            'You may provide us either directly at ptultrasuksesbersama@gmail.com or via third party sites and tools with information and feedback concerning errors, suggestions for improvements, ideas, problems, complaints, and other matters related to our Service (“Feedback”). You acknowledge and agree that: (i) you shall not retain, acquire or assert any intellectual property right or other right, title or interest in or to the Feedback; (ii) Company may have development ideas similar to the Feedback; (iii) Feedback does not contain confidential information or proprietary information from you or any third party; and (iv) Company is not under any obligation of confidentiality with respect to the Feedback. In the event the transfer of the ownership to the Feedback is not possible due to applicable mandatory laws, you grant Company and its affiliates an exclusive, transferable, irrevocable, free-of-charge, sub-licensable, unlimited and perpetual right to use (including copy, modify, create derivative works, publish, distribute and commercialize) Feedback in any manner and for any purpose.'
+            'You may provide us either directly at business.ultrasuksesbersama@gmail.com or via third party sites and tools with information and feedback concerning errors, suggestions for improvements, ideas, problems, complaints, and other matters related to our Service (“Feedback”). You acknowledge and agree that: (i) you shall not retain, acquire or assert any intellectual property right or other right, title or interest in or to the Feedback; (ii) Company may have development ideas similar to the Feedback; (iii) Feedback does not contain confidential information or proprietary information from you or any third party; and (iv) Company is not under any obligation of confidentiality with respect to the Feedback. In the event the transfer of the ownership to the Feedback is not possible due to applicable mandatory laws, you grant Company and its affiliates an exclusive, transferable, irrevocable, free-of-charge, sub-licensable, unlimited and perpetual right to use (including copy, modify, create derivative works, publish, distribute and commercialize) Feedback in any manner and for any purpose.'
     },
     {
         title: 'Links To Other Web Sites',
@@ -159,7 +159,8 @@ const arrayTermCondi = [
     },
     {
         title: 'Contact Us',
-        subtitle: 'Please send your feedback, comments, requests for technical support by email: ptultrasuksesbersama@gmail.com.\n\n\n'
+        subtitle:
+            'Please send your feedback, comments, requests for technical support by email: business.ultrasuksesbersama@gmail.com.\n\n\n'
     }
 ];
 const TermsConditions = () => {
@@ -168,7 +169,7 @@ const TermsConditions = () => {
             <HeaderBack title='Terms Conditions' />
             <Box component='section' sx={{ marginTop: '27px', marginBottom: '27px' }}>
                 <Typography fontSize='12px' marginTop='16px' fontWeight={600} component='p'>
-                    Last Updated: Okt 20 2022
+                    Last Updated: 2022-11-01
                 </Typography>
             </Box>
             <Box component='article' sx={{ marginBottom: '50px' }}>

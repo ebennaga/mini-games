@@ -32,7 +32,7 @@ const Profile = () => {
                 flexDirection: 'column'
             }}
         >
-            <HeaderBack title='Profile' isSetting />
+            <HeaderBack title='Profile' isSetting handleBack={() => router.push('/')} />
             <ProfilePicture image='/icons/dummy/profile.png' />
             <Typography component='h3' fontWeight='bold' fontSize='18px' mt='26px'>
                 {!userState?.username ? userState?.email : userState?.username}
@@ -151,6 +151,7 @@ const Profile = () => {
                     borderRadius: '6px',
                     marginTop: '26px'
                 }}
+                onClick={() => router.push('/referral')}
             />
             <Box component='section' sx={{ width: '100%', marginTop: '7px' }}>
                 {listNavigation.map((item: any) => {

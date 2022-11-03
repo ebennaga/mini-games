@@ -141,7 +141,7 @@ const PaymentConfirmationContainer = () => {
                         </Box>
                     </Box>
                     <Typography sx={{ fontWeight: '400', fontSize: '12px', lineHeight: '12px', color: '#949494', my: '40px' }}>
-                        are you sure you want to continue this transaction?
+                        If you sure want to buy XXX coin for Rp xxxxx , tap Confirm to pay
                     </Typography>
                 </Box>
             </Box>
