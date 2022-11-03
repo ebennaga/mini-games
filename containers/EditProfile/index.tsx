@@ -1,26 +1,78 @@
-import { Box, ButtonBase, Typography } from '@mui/material';
+import { Box, ButtonBase, Typography, CircularProgress } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import React from 'react';
 import CreateIcon from '@mui/icons-material/Create';
 import InputEdit from 'components/InputEdit';
 import { useForm } from 'react-hook-form';
+import useAPICaller from 'hooks/useAPICaller';
+import { useSelector } from 'react-redux';
+import useAuthReducer from 'hooks/useAuthReducer';
 import DialogPicture from './DialogPicture';
 import DialogSuccess from './DialogSuccess';
 
 const EditProfile = () => {
     const [dialogPicture, setDialogPicture] = React.useState<boolean>(false);
     const [dialogSuccess, setDialogSuccess] = React.useState<boolean>(false);
-    const [selectedAvatar, setSelectedAvatar] = React.useState('');
-
+    const [selectedAvatar, setSelectedAvatar] = React.useState<any>('');
+    const [image, setImage] = React.useState([]);
+    const [loading, setLoading] = React.useState(false);
+    const userState = useSelector((state: any) => state.webpage.user?.user);
+    const { fetchAPI } = useAPICaller();
+    const { setUser } = useAuthReducer();
     const form = useForm({
         mode: 'all',
         defaultValues: {
             nickname: ''
         }
     });
+    const getData = async () => {
+        const response = await fetchAPI({
+            method: 'GET',
+            endpoint: `avatars`
+        });
 
+        setImage(response.data.data);
+    };
+    React.useEffect(() => {
+        getData();
+    }, []);
+
+    const updateUserData = async () => {
+        const response = await fetchAPI({
+            method: 'GET',
+            endpoint: `auths`
+        });
+        if (response.status === 200) {
+            const dataUser = { ...userState, ...response.data.data };
+            setUser(dataUser);
+            console.log('coba', dataUser);
+            return dataUser;
+        }
+
+        return false;
+    };
     const handleSaveChanges = async () => {
-        setDialogSuccess(true);
+        setLoading(true);
+        try {
+            const response = await fetchAPI({
+                method: 'PUT',
+                endpoint: `user/avatarUsername`,
+                data: {
+                    username: userState.username || userState.email,
+                    avatar_id: selectedAvatar.id
+                }
+            });
+            if (response.status === 200) {
+                await updateUserData();
+                setDialogSuccess(true);
+
+                console.log('response', response);
+            }
+        } catch (e) {
+            console.log('error', 'e');
+        }
+
+        setLoading(false);
     };
 
     return (
@@ -29,7 +81,7 @@ const EditProfile = () => {
             <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
                 <Box>
                     <Box component='section' sx={{ margin: 'auto', width: 'fit-content', paddingTop: '48px', position: 'relative' }}>
-                        <img src={selectedAvatar || '/icons/dummy/profile-2.png'} width='146px' height='146px' alt='profile' />
+                        <img src={selectedAvatar?.image_url || userState.avatar_url} width='146px' height='146px' alt='profile' />
                         <ButtonBase
                             onClick={() => setDialogPicture(true)}
                             sx={{
@@ -50,16 +102,20 @@ const EditProfile = () => {
                         <InputEdit name='nickname' form={form} label='Nickname' value='rintokun' disabled />
                     </Box>
                 </Box>
-                <ButtonBase
-                    onClick={handleSaveChanges}
-                    sx={{ width: '100%', background: '#A54CE5', color: '#fff', padding: '23px 0', borderRadius: '15px' }}
-                >
-                    <Typography component='span' fontSize='14px' fontWeight={700}>
-                        Save Changes
-                    </Typography>
-                </ButtonBase>
+                {loading ? (
+                    <CircularProgress sx={{ marginX: 'auto' }} />
+                ) : (
+                    <ButtonBase
+                        onClick={handleSaveChanges}
+                        sx={{ width: '100%', background: '#A54CE5', color: '#fff', padding: '23px 0', borderRadius: '15px' }}
+                    >
+                        <Typography component='span' fontSize='14px' fontWeight={700}>
+                            Save Changes
+                        </Typography>
+                    </ButtonBase>
+                )}
             </Box>
-            <DialogPicture open={dialogPicture} setOpen={setDialogPicture} setSelectedAvatar={setSelectedAvatar} />
+            <DialogPicture open={dialogPicture} setOpen={setDialogPicture} setSelectedAvatar={setSelectedAvatar} imagesList={image} />
             <DialogSuccess open={dialogSuccess} setOpen={setDialogSuccess} />
         </Box>
     );
