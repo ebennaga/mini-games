@@ -6,6 +6,7 @@ import { Typography, Stack, ButtonBase, Skeleton, Grid, Box } from '@mui/materia
 import { useRouter } from 'next/router';
 import useAPICaller from 'hooks/useAPICaller';
 import Link from 'next/link';
+import useReducer from 'hooks/useAuthReducer';
 import HeaderSkeleton from 'components/Header/HeaderSkeleton';
 import numberFormat from 'helper/numberFormat';
 import TransactionCard from 'containers/Transaction/TransactionCard';
@@ -15,6 +16,7 @@ import TopupSkeleton from './TopupSkeleton';
 
 const TopUp = () => {
     const router = useRouter();
+    const { setUser } = useReducer();
     // const [loading, setLoading] = useState(true);
     const [borderValue, setBorderValue] = useState<string>('none');
     const { fetchAPI, isLoading } = useAPICaller();
@@ -54,8 +56,9 @@ const TopUp = () => {
         };
     }, []);
 
-    const handleTopup = (id: any) => {
+    const handleTopup = (id: any, coin: any, price: any) => {
         if (userState) {
+            setUser({ ...userState, topupData: { coin, price } });
             router.push(`/topup/${id}/payment-confirmation`);
         } else {
             setDialogSignup(true);
@@ -114,7 +117,7 @@ const TopUp = () => {
                             key={item.id}
                             onClick={() => {
                                 // router.push(`/topup/${item.id}/payment-confirmation`);
-                                handleTopup(item.id);
+                                handleTopup(item.id, item.coin, item.price);
                             }}
                         >
                             <Box
