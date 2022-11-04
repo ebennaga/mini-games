@@ -19,18 +19,20 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, coin, pool, users
     const [timeTournament, setTimeTournament] = useState<string>('');
 
     useEffect(() => {
+        const newD = new Date(time).toLocaleString();
         if (time && time[4] === '-' && time[7] === '-') {
             if (!timeTournament) {
-                setTimeTournament(getRemainingTimes(time));
+                setTimeTournament(getRemainingTimes(newD));
+                // setTimeTournament(getRemainingTimes(time));
             }
             setInterval(() => {
-                setTimeTournament(getRemainingTimes(time));
+                // setTimeTournament(getRemainingTimes(time));
+                setTimeTournament(getRemainingTimes(newD));
             }, 6000);
         } else {
             setTimeTournament('Coming Soon');
         }
     }, []);
-
     return (
         <Box
             onClick={onClick}
