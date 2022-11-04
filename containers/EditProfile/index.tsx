@@ -30,9 +30,10 @@ const EditProfile = () => {
             method: 'GET',
             endpoint: `avatars`
         });
-
+        console.log('useravatar', response.data.data);
         setImage(response.data.data);
     };
+
     React.useEffect(() => {
         getData();
     }, []);
@@ -54,16 +55,19 @@ const EditProfile = () => {
     const handleSaveChanges = async () => {
         setLoading(true);
         try {
+            const filter: any = image.filter((item: any) => item.image_url === userState.avatar_url);
             const response = await fetchAPI({
                 method: 'PUT',
                 endpoint: `user/avatarUsername`,
                 data: {
-                    username: userState.username || userState.email,
-                    avatar_id: selectedAvatar.id
+                    username: form.watch('nickname') || userState.username,
+                    avatar_id: selectedAvatar.id || filter[0].id || 1
                 }
             });
+
             if (response.status === 200) {
                 await updateUserData();
+
                 setDialogSuccess(true);
             }
         } catch (e) {
@@ -97,7 +101,7 @@ const EditProfile = () => {
                         </ButtonBase>
                     </Box>
                     <Box sx={{ width: '100%', marginTop: '43px' }}>
-                        <InputEdit name='nickname' form={form} label='Nickname' value='rintokun' disabled />
+                        <InputEdit name='nickname' form={form} label='Nickname' value={userState.username} disabled />
                     </Box>
                 </Box>
                 {loading ? (
