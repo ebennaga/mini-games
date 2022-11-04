@@ -33,7 +33,7 @@ const Profile = () => {
             }}
         >
             <HeaderBack title='Profile' isSetting handleBack={() => router.push('/')} />
-            <ProfilePicture image='/icons/dummy/profile.png' />
+            <ProfilePicture image={userState.avatar_url} />
             <Typography component='h3' fontWeight='bold' fontSize='18px' mt='26px'>
                 {!userState?.username ? userState?.email : userState?.username}
             </Typography>

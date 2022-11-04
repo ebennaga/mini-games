@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { Dialog, ButtonBase, Box, Typography, Grid } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
+// import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import WebcamScreen from 'components/Webcam';
 
 interface DialogPictureProps {
     open: boolean;
     setOpen: any;
     setSelectedAvatar: any;
+    imagesList: any;
 }
 
-const DialogPicture: React.FC<DialogPictureProps> = ({ open, setOpen, setSelectedAvatar }) => {
+const DialogPicture: React.FC<DialogPictureProps> = ({ open, setOpen, setSelectedAvatar, imagesList }) => {
     const [isOpenCamera, setIsOpenCamera] = useState<boolean>(false);
     const handleClickAvatar = (avatar: any) => {
         setSelectedAvatar(avatar);
@@ -39,7 +40,7 @@ const DialogPicture: React.FC<DialogPictureProps> = ({ open, setOpen, setSelecte
                         </Typography>
                     </Box>
                     <Grid container>
-                        <Grid item xs={4} padding='15px 0' alignItems='center' justifyContent='center' display='flex'>
+                        {/* <Grid item xs={4} padding='15px 0' alignItems='center' justifyContent='center' display='flex'>
                             <ButtonBase
                                 onClick={() => setIsOpenCamera(true)}
                                 sx={{
@@ -54,39 +55,27 @@ const DialogPicture: React.FC<DialogPictureProps> = ({ open, setOpen, setSelecte
                             >
                                 <CameraAltIcon sx={{ fontSize: '30px', color: '#373737' }} />
                             </ButtonBase>
-                        </Grid>
-                        <Grid item xs={4} padding='15px 0' alignItems='center' justifyContent='center' display='flex'>
-                            <ButtonBase
-                                onClick={() => handleClickAvatar('/icons/dummy/profile.png')}
-                                sx={{
-                                    backgroundImage: 'url(/icons/dummy/profile.png)',
-                                    backgroundSize: 'cover',
-                                    backgroundPosition: 'center',
-                                    width: '89px',
-                                    height: '89px',
-                                    borderRadius: '100px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center'
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={4} padding='15px 0' alignItems='center' justifyContent='center' display='flex'>
-                            <ButtonBase
-                                onClick={() => handleClickAvatar('/icons/dummy/profile-3.png')}
-                                sx={{
-                                    backgroundImage: 'url(/icons/dummy/profile-3.png)',
-                                    backgroundSize: 'cover',
-                                    backgroundPosition: 'center',
-                                    width: '89px',
-                                    height: '89px',
-                                    borderRadius: '100px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center'
-                                }}
-                            />
-                        </Grid>
+                        </Grid> */}
+                        {imagesList.map((item: any) => {
+                            return (
+                                <Grid item xs={4} padding='15px 0' alignItems='center' justifyContent='center' display='flex' key={item.id}>
+                                    <ButtonBase
+                                        onClick={() => handleClickAvatar(item)}
+                                        sx={{
+                                            backgroundImage: `url(${item.image_url})`,
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center',
+                                            width: '89px',
+                                            height: '89px',
+                                            borderRadius: '100px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center'
+                                        }}
+                                    />
+                                </Grid>
+                            );
+                        })}
                     </Grid>
                 </Box>
             )}

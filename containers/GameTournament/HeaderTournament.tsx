@@ -22,6 +22,8 @@ const HeaderTournament = (props: HeaderTournamentProps) => {
     const { backgroundImage, titleGame, tournamentType, time, totalPlayer, playerImg1, playerImg2, playerImg3 } = props;
     const value = 50;
     const [isExpand, setIsExpand] = React.useState<boolean>(false);
+    const newD = new Date(time).toLocaleString();
+
     return (
         <Box>
             <Box
@@ -68,7 +70,7 @@ const HeaderTournament = (props: HeaderTournamentProps) => {
                             >
                                 <img src='/icons/time.png' width='17px' height='17px' alt='time' />
                                 <Typography component='span' height='18px' fontSize='14px' fontWeight={800} marginLeft='8px'>
-                                    {getRemainingTimes(time)}
+                                    {getRemainingTimes(newD)}
                                 </Typography>
                             </Box>
                         </Box>

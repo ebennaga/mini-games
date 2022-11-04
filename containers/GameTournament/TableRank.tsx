@@ -41,7 +41,7 @@ const TableRank: React.FC<TableRankProps> = ({ dataLeaderboard }) => {
                     <Box key={index}>
                         <RankCard
                             rank={rank}
-                            image={item.image}
+                            image={item.user.avatar_url}
                             username={item.user.username || item.user.displayName}
                             point={item.user.point_prize}
                             score={item.user.total_score}

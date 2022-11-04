@@ -87,7 +87,7 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
     // }, []);
 
     // console.log('yesterday', yesterdayTransaction);
-    console.log('histories', cointTansaction);
+    // console.log('histories', cointTansaction);
     // console.log('coin', cointTansaction);
     // console.log('todays', new Date('2022-10-25T03:23:37.000Z').getDate());
     return (
@@ -111,7 +111,7 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                             title={i.description}
                             isCoin
                             amount={i.coin}
-                            subtitle={`Transaction - ${i?.created_at?.slice(11, 16)}`}
+                            subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
                             created={i?.created_at}
                         />
                     ))}
@@ -126,7 +126,7 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                             title={i.description}
                             isCoin
                             amount={i.coin}
-                            subtitle={`Transaction - ${i?.created_at?.slice(11, 16)}`}
+                            subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
                             created={i?.created_at}
                         />
                     ))}
@@ -146,7 +146,7 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                         title={i.description}
                         isCoin
                         amount={i.coin}
-                        subtitle={`Transaction - ${i?.created_at?.slice(11, 16)}`}
+                        subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
                         created={i?.created_at}
                         isToday={false}
                         isYesterday={false}

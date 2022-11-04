@@ -11,13 +11,15 @@ const CoinsPrizes = () => {
             href: '/topup',
             image: '/images/dummy/coin-banner.png',
             title: 'How to get Coin ?',
-            paragraph: 'To top up coin choose menu COIN, and to join tournament you can find in menu GAMES.'
+            paragraph:
+                'Hi buddies to get coins you can top up coins in the COINS menu, after completing the payment the coins balance will be added immediately or you can invite your friends as much as possible and also running daily missions.'
         },
         {
             href: '/tournaments',
             image: '/images/dummy/point-banner.png',
             title: 'How to get Point ?',
-            paragraph: 'To get points you need to join tournament and then more you play, the more you you get'
+            paragraph:
+                'Hi buddies, to get points you have to join the tournament and win the tournament. The higher your rank, the more points you get!!'
             // customParagraph: (
             //     <>
             //         <Typography component='p' fontWeight={400} lineHeight='12px' fontSize='12px' sx={{ color: '#949494' }}>
@@ -33,7 +35,8 @@ const CoinsPrizes = () => {
             href: '/shops',
             image: '/images/dummy/prize-banner.png',
             title: 'How to get prize ?',
-            paragraph: ' Firstly you need to gain points, and you can redeem prize according to the points you have'
+            paragraph:
+                ' Hi buddies, to get the prizes firstly you have to collect Points, after you have a huge points now it is time for you to redeem your points into  a prizes, so hurry up and join the tournament now!!.'
         }
     ];
 
