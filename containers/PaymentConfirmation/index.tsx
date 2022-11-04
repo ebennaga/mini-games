@@ -9,6 +9,7 @@ import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import { useSelector } from 'react-redux';
 import useAuthReducer from 'hooks/useAuthReducer';
+import numberFormat from 'helper/numberFormat';
 // import NavigationCard from 'components/NavigationCard';
 // import { Controller, useForm } from 'react-hook-form';
 
@@ -105,7 +106,7 @@ const PaymentConfirmationContainer = () => {
             notify('Post data top up failed', 'error');
         }
     };
-
+    console.log(userState);
     return (
         <Box sx={{ width: '100%' }}>
             <Box sx={{ position: 'sticky', top: '0px', backgroundColor: 'white', p: '20px', zIndex: 99 }}>
@@ -133,15 +134,18 @@ const PaymentConfirmationContainer = () => {
                         <Box sx={{ width: '50%', display: 'flex', alignItems: 'flex-end' }}>
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                 <img src='/images/sm-coin.png' alt='coin' />
-                                <Typography sx={{ color: '#373737', fontWeight: 700, fontSize: '32px' }}>100</Typography>
+                                <Typography sx={{ color: '#373737', fontWeight: 700, fontSize: '32px' }}>
+                                    {numberFormat(userState.topupData.coin)}
+                                </Typography>
                             </Box>
                         </Box>
                         <Box>
-                            <Typography sx={{ fontWeight: 500 }}>Rp. 10.000</Typography>
+                            <Typography sx={{ fontWeight: 500 }}>Rp. {numberFormat(userState.topupData.price)}</Typography>
                         </Box>
                     </Box>
                     <Typography sx={{ fontWeight: '400', fontSize: '12px', lineHeight: '12px', color: '#949494', my: '40px' }}>
-                        If you sure want to buy XXX coin for Rp xxxxx , tap Confirm to pay
+                        If you sure want to buy {numberFormat(userState.topupData.coin)} coin for Rp{' '}
+                        {numberFormat(userState.topupData.price)} , tap Confirm to pay
                     </Typography>
                 </Box>
             </Box>

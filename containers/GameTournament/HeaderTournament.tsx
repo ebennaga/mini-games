@@ -23,7 +23,7 @@ const HeaderTournament = (props: HeaderTournamentProps) => {
     const value = 50;
     const [isExpand, setIsExpand] = React.useState<boolean>(false);
     const newD = new Date(time).toLocaleString();
-    console.log(newD);
+
     return (
         <Box>
             <Box
