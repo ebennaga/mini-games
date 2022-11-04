@@ -1,6 +1,7 @@
 import { Box, ButtonBase, Typography } from '@mui/material';
 import getRemainingTimes from 'helper/getRemainingTime';
 import React, { useEffect, useState } from 'react';
+import numberFormat from 'helper/numberFormat';
 
 interface TournamentCardProps {
     image: string;
@@ -121,7 +122,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ image, imageGame, onCli
                                         }
                                     }}
                                 >
-                                    {prizePool}
+                                    {numberFormat(prizePool)}
                                     <Typography
                                         component='span'
                                         sx={{
