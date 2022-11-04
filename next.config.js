@@ -4,11 +4,17 @@ const path = require('path');
 const fs = require('fs');
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath);
-const withPWA = require("next-pwa");
+// const withPWA = require("next-pwa");
 const { i18n} = require('./next-i18next.config')
 
+
+const withPWA = require("next-pwa")({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+});
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig = withPWA({
     reactStrictMode: true,
     swcMinify: true,
     
@@ -28,7 +34,7 @@ const nextConfig = {
       }
       return config;
     }
-};
+});
 // module.exports = withPWA({
 //   pwa: {
 //     dest: "public",
@@ -36,19 +42,21 @@ const nextConfig = {
 //     skipWaiting: true,
 //   },
 // });
-module.exports = withPWA({
-  pwa: {
-    dest: "public",
-    register: true,
-    skipWaiting: true,
-  },
-});
+
+// module.exports = withPWA({
+//   pwa: {
+//     dest: "public",
+//     register: true,
+//     skipWaiting: true,
+//   },
+// });
+
+
 
 // module.exports = nextConfig;
 module.exports = withPWA({
   // next.js config
-
-  
+ 
 })
 module.exports = {
   i18n: {
