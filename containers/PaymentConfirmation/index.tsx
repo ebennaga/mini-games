@@ -106,7 +106,7 @@ const PaymentConfirmationContainer = () => {
             notify('Post data top up failed', 'error');
         }
     };
-    console.log(userState);
+
     return (
         <Box sx={{ width: '100%' }}>
             <Box sx={{ position: 'sticky', top: '0px', backgroundColor: 'white', p: '20px', zIndex: 99 }}>
