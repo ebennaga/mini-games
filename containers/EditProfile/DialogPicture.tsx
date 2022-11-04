@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Dialog, ButtonBase, Box, Typography, Grid } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
+// import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import WebcamScreen from 'components/Webcam';
 
 interface DialogPictureProps {
@@ -40,7 +40,7 @@ const DialogPicture: React.FC<DialogPictureProps> = ({ open, setOpen, setSelecte
                         </Typography>
                     </Box>
                     <Grid container>
-                        <Grid item xs={4} padding='15px 0' alignItems='center' justifyContent='center' display='flex'>
+                        {/* <Grid item xs={4} padding='15px 0' alignItems='center' justifyContent='center' display='flex'>
                             <ButtonBase
                                 onClick={() => setIsOpenCamera(true)}
                                 sx={{
@@ -55,7 +55,7 @@ const DialogPicture: React.FC<DialogPictureProps> = ({ open, setOpen, setSelecte
                             >
                                 <CameraAltIcon sx={{ fontSize: '30px', color: '#373737' }} />
                             </ButtonBase>
-                        </Grid>
+                        </Grid> */}
                         {imagesList.map((item: any) => {
                             return (
                                 <Grid item xs={4} padding='15px 0' alignItems='center' justifyContent='center' display='flex' key={item.id}>
