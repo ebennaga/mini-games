@@ -30,7 +30,7 @@ const EditProfile = () => {
             method: 'GET',
             endpoint: `avatars`
         });
-        console.log('useravatar', response.data.data);
+
         setImage(response.data.data);
     };
 
