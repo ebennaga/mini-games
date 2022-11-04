@@ -56,5 +56,10 @@ module.exports = {
     locales: ['en', 'id'],
     localePath: path.resolve('./public/locales')
   },
+  pwa:{
+    dest:'public',
+    register:true,
+    skipWaiting:true,
+  }
 };
 
