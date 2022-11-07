@@ -157,7 +157,7 @@ const GameResultTournament = () => {
                     </Typography>
                     <img src='/icons/coins.svg' width='12.91px' height='10.95px' alt='coins' style={{ padding: '0 2px' }} />
                     <Typography component='p' fontSize='14px' fontWeight={800} paddingRight='2px'>
-                        10
+                        20
                     </Typography>
                     <Typography component='p' fontSize='14px' fontWeight={600}>
                         for Playing Again

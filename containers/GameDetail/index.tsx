@@ -187,7 +187,7 @@ const GameDetailContainer = () => {
                                         </Grid>
                                         <Grid item xs={4}>
                                             <Typography sx={{ fontSize: '11px', color: 'white' }}>
-                                                {numberFormat(detailGame?.user_sessions)}
+                                                {numberFormat(detailGame?.user_count)}
                                             </Typography>
                                         </Grid>
                                     </Grid>
@@ -289,7 +289,7 @@ const GameDetailContainer = () => {
                                         </Box>
                                     </Grid>
                                     <Grid item xs={9}>
-                                        <Box position='relative' zIndex={2}>
+                                        <Box position='relative' zIndex={2} sx={{ ml: 1 }}>
                                             <Typography sx={{ color: 'white', fontWeight: 'bold', fontSize: '32px', lineHeight: 1 }}>
                                                 Free
                                             </Typography>

@@ -120,12 +120,12 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, coin, pool, users
                             }}
                         >
                             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', ml: 1 }}>
                                     <img src='/images/point-shops.png' width={31} height={31} alt='star' />
                                     <Typography
                                         component='span'
                                         sx={{
-                                            fontSize: '22px',
+                                            fontSize: '20px',
                                             fontWeight: 'bold',
                                             color: '#fff',
                                             display: 'flex',
@@ -140,7 +140,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, coin, pool, users
                                         <Typography
                                             component='span'
                                             sx={{
-                                                fontSize: '11px',
+                                                fontSize: '9px',
                                                 fontWeight: 'bold',
                                                 paddingLeft: '4px',
                                                 '@media (max-width:400px)': { fontSize: '10px' }
@@ -207,7 +207,8 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, coin, pool, users
                                     padding: '11px 15px',
                                     display: 'flex',
                                     justifyContent: 'space-between',
-                                    marginTop: '9px'
+                                    marginTop: '9px',
+                                    ml: 1
                                 }}
                             >
                                 <Typography

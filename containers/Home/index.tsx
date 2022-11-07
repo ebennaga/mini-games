@@ -51,6 +51,7 @@ const HomeContainer = () => {
             const data: any = await getLocalData();
             setDataTutorial(data);
             window.scrollTo(0, 0);
+            console.log('res', res);
             if (res.status === 200) {
                 if (data.isTutorial) {
                     setIsWelcome(true);
@@ -140,7 +141,8 @@ const HomeContainer = () => {
                     <img src='/icons/message.svg' width='36px' height='30px' alt='inbox' />
                 </ButtonBase>
             </Box>
-            <EventCarousel customMaxWidth='91vw' data={datasHome?.banners} />
+            {/* <EventCarousel customMaxWidth='91vw' data={datasHome?.banners} /> */}
+            <EventCarousel customMaxWidth='91vw' />
             {/* <Mission /> */}
             <Box
                 id='games'
@@ -208,7 +210,7 @@ const HomeContainer = () => {
                                     prizePool={item.total_prize}
                                     point={item.entry_coin}
                                     // time='6d 13h 23m'
-                                    time={item.start_time}
+                                    time={item.end_time}
                                     dataLength={datasHome?.tournaments.length}
                                 />
                             );

@@ -7,7 +7,7 @@ import NavigationCard from 'components/NavigationCard';
 import Header from 'components/Header';
 import React, { useEffect, useState } from 'react';
 import ShopsSlider from 'components/ShopsSlider';
-import ShopsCard from 'components/ShopsCard';
+// import ShopsCard from 'components/ShopsCard';
 import { useRouter } from 'next/router';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
@@ -124,18 +124,64 @@ const ShopsContainer = () => {
                 </Grid>
                 {!isComingSoon && (
                     <ShopsSlider>
-                        {dataRedemptions?.banners.map((item: any) => (
+                        {/* {dataRedemptions?.banners.map((item: any) => (
                             <ShopsCard
                                 // productName={itemData[index].label}
-                                onClick={() => {
-                                    router.push(`/shops/prize/${item.id}`);
-                                }}
+                                // onClick={() => {
+                                //     router.push(`/shops/prize/${item.id}`);
+                                // }}
                                 key={item.id}
                                 point={numberFormat(item.points)}
                                 image={item.image_url}
                                 title={item.title}
                             />
-                        ))}
+                        ))} */}
+                        <Box sx={{ px: '15px !important' }}>
+                            <Box
+                                sx={{
+                                    backgroundImage: `url(${'/images/home_banner1.png'})`,
+
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    height: '200px',
+                                    borderRadius: '15px',
+                                    p: '19px',
+                                    display: 'flex',
+
+                                    justifyContent: 'space-between'
+                                }}
+                            />
+                        </Box>
+                        <Box sx={{ px: '15px !important' }}>
+                            <Box
+                                sx={{
+                                    backgroundImage: `url(${'/images/home_banner2.png'})`,
+
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    height: '200px',
+                                    borderRadius: '15px',
+                                    p: '19px',
+                                    display: 'flex',
+                                    justifyContent: 'space-between'
+                                }}
+                            />
+                        </Box>
+                        <Box sx={{ px: '15px !important' }}>
+                            <Box
+                                sx={{
+                                    backgroundImage: `url(${'/images/home_banner3.png'})`,
+
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    height: '200px',
+                                    borderRadius: '15px',
+                                    p: '19px',
+                                    display: 'flex',
+                                    justifyContent: 'space-between'
+                                }}
+                            />
+                        </Box>
                     </ShopsSlider>
                 )}
                 <Box width='100%' padding='0 20px' margin='20px 0px'>
@@ -178,7 +224,9 @@ const ShopsContainer = () => {
                                               </Typography>
                                               <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                                                   <img src='/images/point-shops.png' alt='point-shop' loading='lazy' />
-                                                  <Typography sx={{ fontSize: '13px', fontWeight: '700' }}>{item.price}</Typography>
+                                                  <Typography sx={{ fontSize: '13px', fontWeight: '700' }}>
+                                                      {numberFormat(item.price)}
+                                                  </Typography>
                                               </Box>
                                           </Box>
                                       </Box>
