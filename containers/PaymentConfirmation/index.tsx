@@ -175,7 +175,7 @@ const PaymentConfirmationContainer = () => {
                 <CheckboxController name='check' form={form} onClick={handleCheckbox} checked={form.watch('check')} />
             </Box> */}
             <Box sx={{ position: 'relative', height: '50vh', display: 'flex', justifyContent: 'center' }}>
-                <Box sx={{ position: 'absolute', width: '90%', bottom: '20px' }}>
+                <Box sx={{ position: 'absolute', width: '90%', top: '55px' }}>
                     <Button
                         // disabled={!form.watch('check')}
                         title='Confirm to pay'
