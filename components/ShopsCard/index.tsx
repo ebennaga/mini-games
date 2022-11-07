@@ -7,7 +7,7 @@ interface ShopsCardProps {
     title: string;
     image: any;
     point?: string;
-    onClick: any;
+    onClick?: any;
     productName?: string;
 }
 
@@ -18,6 +18,7 @@ const ShopsCard: React.FC<ShopsCardProps> = ({ title, image, point, onClick, pro
                 onClick={onClick}
                 sx={{
                     backgroundImage: `url(${image}), url(/images/img_error_bg.png)`,
+
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     height: '200px',
@@ -49,6 +50,7 @@ const ShopsCard: React.FC<ShopsCardProps> = ({ title, image, point, onClick, pro
                 </Box>
             </Box>
         </Box>
+
         // <Grid container sx={{ px: '15px', pt: '55px', cursor: 'pointer' }} onClick={onClick}>
         //     <Grid
         //         container
