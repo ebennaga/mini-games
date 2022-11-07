@@ -220,7 +220,7 @@ const GameDetailContainer = () => {
                                 Join tournaments and get points for reedem prize
                             </Typography>
                         </Grid>
-                        <Grid item xs={12} sx={{ border: '1px solid red', mt: '24px' }}>
+                        <Grid item xs={12} sx={{ mt: '24px' }}>
                             <TournamentSlider>
                                 {detailGame?.tournaments.map((item: any, idx: number) => (
                                     <TournamentCard
