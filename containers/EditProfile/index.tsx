@@ -101,7 +101,7 @@ const EditProfile = () => {
                         </ButtonBase>
                     </Box>
                     <Box sx={{ width: '100%', marginTop: '43px' }}>
-                        <InputEdit name='nickname' form={form} label='Nickname' value={userState.username} disabled />
+                        <InputEdit name='nickname' form={form} label='Nickname' value={userState.username.toLowerCase()} disabled />
                     </Box>
                 </Box>
                 {loading ? (

@@ -67,7 +67,7 @@ const RaffleWinners: React.FC<RaffleWinnersProps> = ({ dataList }) => {
                                     ? dataList.length - idx
                                     : currentPage > 1 && dataList.length - (idx + (currentPage - 1) * 7)
                             }
-                            username={item.username}
+                            username={item.username.toLowerCase()}
                             tickets={item.tickets}
                             prize={item.prize}
                         />
