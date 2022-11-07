@@ -33,6 +33,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, coin, pool, users
             setTimeTournament('Coming Soon');
         }
     }, []);
+
     return (
         <Box
             onClick={onClick}
