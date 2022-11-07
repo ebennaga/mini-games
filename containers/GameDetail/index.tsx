@@ -209,7 +209,7 @@ const GameDetailContainer = () => {
             </Box>
             <Box mt={3}>
                 {detailGame?.tournaments.length > 0 && (
-                    <Grid container padding='10px 20px' gap='10px' my={3} overflow='hidden'>
+                    <Grid container padding='10px 20px' gap='0px' my={3} overflow='hidden'>
                         <Grid item xs={6}>
                             <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
                                 Tournaments
@@ -220,7 +220,7 @@ const GameDetailContainer = () => {
                                 Join tournaments and get points for reedem prize
                             </Typography>
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sx={{ border: '1px solid red', mt: '24px' }}>
                             <TournamentSlider>
                                 {detailGame?.tournaments.map((item: any, idx: number) => (
                                     <TournamentCard
@@ -240,16 +240,16 @@ const GameDetailContainer = () => {
                 )}
                 <Grid container padding='0px 20px' direction='column'>
                     <Grid item xs={6}>
-                        <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
+                        <Typography variant='h5' sx={{ fontWeight: '600' }}>
                             Casual Game
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography sx={{ fontSize: '12px', fontWeight: 'light' }}>
+                        <Typography sx={{ fontSize: '12px', fontWeight: 'bold' }}>
                             get a change to got the Ticket to play Tournaments
                         </Typography>
                     </Grid>
-                    <Grid item xs={12} mt='10px' position='relative'>
+                    <Grid item xs={12} mt='24px' position='relative'>
                         <Box
                             sx={{
                                 borderRadius: '20px',
