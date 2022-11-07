@@ -121,7 +121,7 @@ const GameResultTournament = () => {
                 <RankCard
                     rank={firstPosition?.position}
                     image='/icons/dummy/profile-2.png'
-                    username={firstPosition?.user.username || userState.displayName}
+                    username={firstPosition?.user.username.toLowerCase() || userState.displayName}
                     score={firstPosition?.user.total_score}
                     point={firstPosition?.user.point_prize}
                     disabledUnderline
@@ -142,7 +142,7 @@ const GameResultTournament = () => {
                             key={item.id}
                             rank={item.position}
                             image={item.image}
-                            username={item.username}
+                            username={item.username.toLowerCase()}
                             score={item.total_score}
                             point={item.point_prize}
                         />

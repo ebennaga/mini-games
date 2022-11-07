@@ -153,15 +153,7 @@ const SignUp = () => {
                                 name='username'
                                 form={form}
                                 placeholder='Username (Max 12 Character)'
-                                validator={{
-                                    required: true,
-                                    pattern: {
-                                        value: /[a-z]/,
-                                        message: 'can only handle names with lowercase characters'
-                                    },
-                                    // minLength: 6,
-                                    maxLength: 12
-                                }}
+                                validator={{ maxLength: 12, required: true }}
                                 type='text'
                             />
                         </Grid>

@@ -41,9 +41,7 @@ const Input: React.FC<InputProps> = ({
     const errType: string = error?.type;
 
     let helperText: string = '';
-    if (errType === 'pattern') {
-        helperText = error.message;
-    } else if (errType === 'maxLength') {
+    if (errType === 'maxLength') {
         helperText = `${withPH ? placeholder : name} - exceed maximum length`;
     } else if (errType === 'required') {
         helperText = `${withPH ? placeholder : name} - is required`;
