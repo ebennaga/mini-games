@@ -109,7 +109,7 @@ const EditProfile = () => {
                             name='nickname'
                             form={form}
                             label='Nickname'
-                            value={userState.username.toLowerCase()}
+                            value={userState?.username ? userState?.username.toLowerCase() : 'Add nickname!'}
                             disabled
                             validator={{ maxLength: 10, required: true }}
                         />
