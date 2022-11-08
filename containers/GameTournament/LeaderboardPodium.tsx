@@ -1,5 +1,6 @@
 import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
+import numberFormat from 'helper/numberFormat';
 import LeaderboardUser from './LeaderboardUser';
 
 interface LeaderboardPodiumProps {
@@ -13,7 +14,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                 {dataLeaderboard.length > 1 && (
                     <LeaderboardUser
                         image={dataLeaderboard[1].user.avatar_url}
-                        username={dataLeaderboard[1].user.username || dataLeaderboard[1].user.displayName}
+                        username={dataLeaderboard[1].user.username.toLowerCase() || dataLeaderboard[1].user.displayName}
                         score={dataLeaderboard[1].user.total_score}
                     />
                 )}
@@ -42,7 +43,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                             <img src='/images/point-shops.png' width='21px' height='22px' alt='prize' />
                             {dataLeaderboard.length > 1 && (
                                 <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
-                                    {dataLeaderboard[1].user.point_prize}
+                                    {numberFormat(dataLeaderboard[1].user.point_prize)}
                                 </Typography>
                             )}
                         </Box>
@@ -62,7 +63,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                 {dataLeaderboard.length > 0 && (
                     <LeaderboardUser
                         image={dataLeaderboard[0].user.avatar_url}
-                        username={dataLeaderboard[0].user.username || dataLeaderboard[0].user.displayName}
+                        username={dataLeaderboard[0].user.username.toLowerCase() || dataLeaderboard[0].user.displayName}
                         score={dataLeaderboard[0].user.total_score}
                     />
                 )}
@@ -92,7 +93,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                             <img src='/images/point-shops.png' width='21px' height='22px' alt='prize' />
                             {dataLeaderboard.length > 0 && (
                                 <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
-                                    {dataLeaderboard[0].user.point_prize}
+                                    {numberFormat(dataLeaderboard[0].user.point_prize)}
                                 </Typography>
                             )}
                         </Box>
@@ -112,7 +113,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                 {dataLeaderboard.length > 2 && (
                     <LeaderboardUser
                         image={dataLeaderboard[2].user.avatar_url}
-                        username={dataLeaderboard[2].user.username || dataLeaderboard[2].user.displayName}
+                        username={dataLeaderboard[2].user.username.toLowerCase() || dataLeaderboard[2].user.displayName}
                         score={dataLeaderboard[2].user.total_score}
                     />
                 )}
@@ -141,7 +142,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                             <img src='/images/point-shops.png' width='21px' height='22px' alt='prize' />
                             {dataLeaderboard.length > 2 && (
                                 <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
-                                    {dataLeaderboard[2].user.point_prize}
+                                    {numberFormat(dataLeaderboard[2].user.point_prize)}
                                 </Typography>
                             )}
                         </Box>

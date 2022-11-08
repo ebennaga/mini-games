@@ -36,7 +36,7 @@ const RankRaffle: React.FC<IRankRaffle> = ({ key, round, image, username, ticket
                 <Grid item xs={5} sx={{ display: 'flex', alignItems: 'center' }}>
                     <Avatar src={image} alt={username} sx={{ width: '27px', height: '27px' }} />
                     <Typography component='h3' fontSize='14px' fontWeight={700} marginLeft='11px'>
-                        {username}
+                        {username.toLowerCase()}
                     </Typography>
                 </Grid>
                 <Grid item xs={3} sx={{ display: 'flex', alignItems: 'center' }}>

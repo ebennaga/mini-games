@@ -82,7 +82,7 @@ const SignUp = () => {
             endpoint: 'auths/register',
             data: {
                 email: data.email,
-                username: data.username,
+                username: data.username.toLowerCase(),
                 password: data.password,
                 password_confirmation: data.confirmPassword
             }
@@ -153,7 +153,7 @@ const SignUp = () => {
                                 name='username'
                                 form={form}
                                 placeholder='Username (Max 12 Character)'
-                                validator={{ minLength: 6, required: true }}
+                                validator={{ maxLength: 12, required: true }}
                                 type='text'
                             />
                         </Grid>

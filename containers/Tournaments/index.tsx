@@ -47,6 +47,7 @@ const Tournaments = () => {
                     method: 'GET',
                     endpoint: `games/${item.id}`
                 });
+                console.log('response1', response);
                 if (response.status === 200) {
                     setDataGamesDetail((currentValue: any) => [...currentValue, response.data.data]);
                 }
@@ -111,7 +112,7 @@ const Tournaments = () => {
                             <TournamentCard
                                 customWidth='99%'
                                 onClick={() => router.push(`/games/${item.game.id}/tournament/${item.id}`)}
-                                time={item.start_time}
+                                time={item.end_time}
                                 pool={item.total_price}
                                 coin={item.entry_coin}
                                 users={item.total_users}
@@ -135,7 +136,7 @@ const Tournaments = () => {
                                             <TournamentCard
                                                 customWidth='93%'
                                                 onClick={() => router.push(`/games/${item.id}/tournament/${itm.id}`)}
-                                                time={itm.start_time}
+                                                time={itm.end_time}
                                                 pool={itm.total_price}
                                                 coin={itm.entry_coin}
                                                 users={itm.total_users}

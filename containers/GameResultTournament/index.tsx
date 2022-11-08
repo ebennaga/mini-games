@@ -121,7 +121,7 @@ const GameResultTournament = () => {
                 <RankCard
                     rank={firstPosition?.position}
                     image='/icons/dummy/profile-2.png'
-                    username={firstPosition?.user.username || userState.displayName}
+                    username={firstPosition?.user.username.toLowerCase() || userState.displayName}
                     score={firstPosition?.user.total_score}
                     point={firstPosition?.user.point_prize}
                     disabledUnderline
@@ -141,10 +141,10 @@ const GameResultTournament = () => {
                             disabledUnderline
                             key={item.id}
                             rank={item.position}
-                            image={item.image}
-                            username={item.username}
-                            score={item.total_score}
-                            point={item.point_prize}
+                            image={item.avatar_url}
+                            username={item.username.toLowerCase()}
+                            score={item.score}
+                            point={item.point}
                         />
                     );
                 })}
@@ -157,7 +157,7 @@ const GameResultTournament = () => {
                     </Typography>
                     <img src='/icons/coins.svg' width='12.91px' height='10.95px' alt='coins' style={{ padding: '0 2px' }} />
                     <Typography component='p' fontSize='14px' fontWeight={800} paddingRight='2px'>
-                        10
+                        20
                     </Typography>
                     <Typography component='p' fontSize='14px' fontWeight={600}>
                         for Playing Again
