@@ -1,4 +1,4 @@
-import { Box, ButtonBase, Typography, CircularProgress } from '@mui/material';
+import { Box, Button, ButtonBase, Typography, CircularProgress } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import React from 'react';
 import CreateIcon from '@mui/icons-material/Create';
@@ -25,6 +25,10 @@ const EditProfile = () => {
             nickname: ''
         }
     });
+    const {
+        formState: { errors }
+    } = form;
+    console.log('err', errors.nickname);
     const getData = async () => {
         const response = await fetchAPI({
             method: 'GET',
@@ -101,20 +105,28 @@ const EditProfile = () => {
                         </ButtonBase>
                     </Box>
                     <Box sx={{ width: '100%', marginTop: '43px' }}>
-                        <InputEdit name='nickname' form={form} label='Nickname' value={userState.username.toLowerCase()} disabled />
+                        <InputEdit
+                            name='nickname'
+                            form={form}
+                            label='Nickname'
+                            value={userState.username.toLowerCase()}
+                            disabled
+                            validator={{ maxLength: 10, required: true }}
+                        />
                     </Box>
                 </Box>
                 {loading ? (
                     <CircularProgress sx={{ marginX: 'auto' }} />
                 ) : (
-                    <ButtonBase
+                    <Button
                         onClick={handleSaveChanges}
+                        disabled={!!errors.nickname}
                         sx={{ width: '100%', background: '#A54CE5', color: '#fff', padding: '23px 0', borderRadius: '15px' }}
                     >
                         <Typography component='span' fontSize='14px' fontWeight={700}>
                             Save Changes
                         </Typography>
-                    </ButtonBase>
+                    </Button>
                 )}
             </Box>
             <DialogPicture open={dialogPicture} setOpen={setDialogPicture} setSelectedAvatar={setSelectedAvatar} imagesList={image} />

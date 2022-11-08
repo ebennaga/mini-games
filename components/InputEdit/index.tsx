@@ -10,11 +10,23 @@ interface InputEditProps {
     value?: string;
     placeholder?: string;
     disabled: boolean;
+    validator?: any;
 }
 
-const InputEdit: React.FC<InputEditProps> = ({ name, form, label, value, placeholder, disabled }) => {
+const InputEdit: React.FC<InputEditProps> = ({ name, form, label, value, placeholder, disabled, validator }) => {
     const [isDisable, setIsDisable] = React.useState<boolean>(true);
+    const {
+        formState: { errors }
+    } = form;
 
+    const error = errors[name] ? errors[name] : null;
+
+    const errType: string = error?.type;
+
+    let helperText: string = '';
+    if (errType === 'maxLength') {
+        helperText = `${label} - maximum 10 characters allowed`;
+    }
     React.useEffect(() => {
         setIsDisable(disabled);
     }, [disabled]);
@@ -35,12 +47,15 @@ const InputEdit: React.FC<InputEditProps> = ({ name, form, label, value, placeho
             <Controller
                 name={name}
                 control={form.control}
+                rules={validator}
                 render={({ field }) => {
                     return (
                         <TextField
                             fullWidth
                             disabled={isDisable}
                             placeholder={placeholder}
+                            helperText={helperText}
+                            error={!!error}
                             {...field}
                             InputProps={{
                                 id: `input-${name}`,
