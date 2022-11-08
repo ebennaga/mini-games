@@ -143,7 +143,7 @@ const GameResultTournament = () => {
                             rank={item.position}
                             image={item.image}
                             username={item.username.toLowerCase()}
-                            score={item.total_score}
+                            score={item.score}
                             point={item.point_prize}
                         />
                     );
