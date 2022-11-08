@@ -60,6 +60,7 @@ const Header: React.FC<HeaderProps> = ({
                     setUser({ ...userState, ...result.data.data });
                     // setUserData(result.data.data);
                 }
+
                 // if (result.status === 403 || result.message === 'User is not authorized to access this resource with an explicit deny') {
                 //     clearUser();
                 // }
@@ -74,7 +75,7 @@ const Header: React.FC<HeaderProps> = ({
     }, []);
 
     const handleLoginGoogle = async (user: User) => {
-        if (userState?.api_token == null) {
+        if (!userState?.api_token) {
             const response = await fetchAPI({
                 method: 'POST',
                 endpoint: 'auths/login/google',
@@ -84,6 +85,7 @@ const Header: React.FC<HeaderProps> = ({
                     google_id: user.uid
                 }
             });
+
             if (response.status === 200) {
                 setUser(response.data.data);
                 router.push('/');
