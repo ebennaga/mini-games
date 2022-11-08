@@ -35,7 +35,7 @@ const Profile = () => {
             <HeaderBack title='Profile' isSetting handleBack={() => router.push('/')} />
             <ProfilePicture image={userState.avatar_url} />
             <Typography component='h3' fontWeight='bold' fontSize='18px' mt='26px'>
-                {!userState?.username.toLowerCase() ? userState?.email : userState?.username.toLowerCase()}
+                {!userState?.username ? userState?.email : userState?.username.toLowerCase()}
             </Typography>
             <BarExp labelBar='10018/25000' value={70} />
             <Box sx={{ height: '1px', width: '100%', background: '#E6E6E6', my: '24px' }} />
