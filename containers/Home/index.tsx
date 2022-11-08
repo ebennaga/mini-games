@@ -112,7 +112,7 @@ const HomeContainer = () => {
                 sx={{
                     width: '-webkit-fill-available',
                     position: 'sticky',
-                    zIndex: dataTutorial?.isTutorial || dialogLogin ? 1 : 9999,
+                    zIndex: dataTutorial?.isTutorial || dialogLogin ? 1 : 99,
                     // zIndex: 9999,
                     backgroundColor: dataTutorial?.isTutorial ? 'rgba(0, 0, 0, 0)' : 'white',
                     top: 0,
