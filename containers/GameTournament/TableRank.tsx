@@ -19,7 +19,7 @@ const TableRank: React.FC<TableRankProps> = ({ dataLeaderboard }) => {
                 </Grid>
                 <Grid item container xs={10} sx={{ color: 'rgba(40, 38, 38, 0.5)' }}>
                     <Grid item xs={5}>
-                        <Typography paddingLeft='25px' component='h3' fontSize='12px' fontWeight={600}>
+                        <Typography paddingLeft='40px' component='h3' fontSize='12px' fontWeight={600}>
                             Name
                         </Typography>
                     </Grid>

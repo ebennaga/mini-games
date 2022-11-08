@@ -30,15 +30,15 @@ const RankCard: React.FC<IRankCard> = ({ hash = '#', key, rank, image, username,
             }}
         >
             <Grid item xs={2}>
-                <Typography textAlign='center' component='h3' fontSize='12px' fontWeight={700}>
+                <Typography textAlign='center' component='h3' fontSize='12px' fontWeight={600}>
                     {rank}
                     {hash}
                 </Typography>
             </Grid>
             <Grid item container alignItems='center' xs={10} sx={{ color: '#282626', paddingLeft: '10px' }}>
                 <Grid item xs={5} sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Avatar src={image} alt={username} sx={{ width: '27px', height: '27px' }} />
-                    <Typography component='h3' fontSize='14px' fontWeight={700} marginLeft='11px'>
+                    <Avatar src={image} alt={username} sx={{ width: '27px', height: '27px', ml: -1 }} />
+                    <Typography component='h3' fontSize='14px' fontWeight={600} marginLeft='9px'>
                         {username?.toLowerCase()}
                     </Typography>
                 </Grid>
