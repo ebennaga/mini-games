@@ -1,7 +1,10 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-multi-assign */
 import { useState } from 'react';
 import { StatusCodes } from 'http-status-codes';
 import axios from 'axios';
+import { useRouter } from 'next/router';
+import useNotify from 'hooks/useNotify';
 import useAuthReducer from './useAuthReducer';
 
 const TIMEOUTLIMIT = 30000;
@@ -17,6 +20,9 @@ interface IAxiosConfig {
 const useAPICaller = () => {
     const { user: userState } = useAuthReducer();
     const [isLoading, setisLoading] = useState<boolean>(false);
+    const { setUser, clearUser } = useAuthReducer();
+    const router = useRouter();
+    const notify = useNotify();
 
     const axiosInstance = () => {
         const axiosConfig = {
@@ -64,6 +70,12 @@ const useAPICaller = () => {
             return response;
         } catch (e: any) {
             setisLoading(false);
+            if (e.response.status === 403) {
+                clearUser();
+                router.push('/');
+                notify('Your session is expired', 'error');
+                // setUser(userState);
+            }
             response = e.response;
             return response;
         }
