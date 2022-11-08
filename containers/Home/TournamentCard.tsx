@@ -18,11 +18,12 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ image, imageGame, onCli
     const [timeTournament, setTimeTournament] = useState<string>('');
 
     useEffect(() => {
+        const newD = new Date(time).toLocaleString();
         if (time && !timeTournament) {
-            setTimeTournament(getRemainingTimes(time));
+            setTimeTournament(getRemainingTimes(newD));
         }
         setInterval(() => {
-            setTimeTournament(getRemainingTimes(time));
+            setTimeTournament(getRemainingTimes(newD));
         }, 60000);
     }, []);
 

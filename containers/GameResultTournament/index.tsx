@@ -141,10 +141,10 @@ const GameResultTournament = () => {
                             disabledUnderline
                             key={item.id}
                             rank={item.position}
-                            image={item.image}
+                            image={item.avatar_url}
                             username={item.username.toLowerCase()}
-                            score={item.total_score}
-                            point={item.point_prize}
+                            score={item.score}
+                            point={item.point}
                         />
                     );
                 })}

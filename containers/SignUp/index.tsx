@@ -152,8 +152,8 @@ const SignUp = () => {
                             <Input
                                 name='username'
                                 form={form}
-                                placeholder='Username (Max 12 Character)'
-                                validator={{ maxLength: 12, required: true }}
+                                placeholder='Username (Max 10 Character)'
+                                validator={{ maxLength: 10, required: true }}
                                 type='text'
                             />
                         </Grid>

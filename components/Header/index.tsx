@@ -178,53 +178,55 @@ const Header: React.FC<HeaderProps> = ({
             )}
             {userState ? (
                 <Box className={classes.headerRight} sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Box
-                        className={classes.pointContainer}
-                        sx={{
-                            background: isShops ? '#C7E7FF' : '#FFF5CD',
-                            borderRadius: isShops ? '10px' : '27px',
-                            height: '30px',
-                            position: 'relative',
-                            marginRight: '11px'
-                        }}
-                    >
-                        {!isShops && (
-                            <Box sx={{ position: 'absolute', top: '-7px' }}>
-                                <img src='/icons/plus-point.png' width='16px' height='16px' alt='plus point' />
-                            </Box>
-                        )}
+                    <ButtonBase onClick={() => router.push('/topup')}>
                         <Box
-                            className={classes.pointSection}
+                            className={classes.pointContainer}
                             sx={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                padding: '0 9px',
-                                paddingTop: '2px',
-                                gap: '5px'
+                                background: isShops ? '#C7E7FF' : '#FFF5CD',
+                                borderRadius: isShops ? '10px' : '27px',
+                                height: '30px',
+                                position: 'relative',
+                                marginRight: '11px'
                             }}
                         >
-                            {isShops ? (
-                                <img src='/images/point-shops.png' width='20px' height='20.02px' alt='point icon' />
-                            ) : (
-                                <img src='/images/xs-coin.png' width='21px' height='20.02px' alt='point icon' />
+                            {!isShops && (
+                                <Box sx={{ position: 'absolute', top: '-7px' }}>
+                                    <img src='/icons/plus-point.png' width='16px' height='16px' alt='plus point' />
+                                </Box>
                             )}
-                            <Typography
-                                variant='subtitle1'
-                                component='span'
-                                className={classes.pointText}
-                                sx={{ fontWeight: 'bold', fontSize: '14px', color: '#373737' }}
+                            <Box
+                                className={classes.pointSection}
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                    padding: '0 9px',
+                                    paddingTop: '2px',
+                                    gap: '5px'
+                                }}
                             >
-                                {numberFormat(
-                                    router.pathname.includes('/shops') && !isLoading
-                                        ? userState?.point
-                                        : userState?.coin
-                                        ? userState?.coin
-                                        : '0'
+                                {isShops ? (
+                                    <img src='/images/point-shops.png' width='20px' height='20.02px' alt='point icon' />
+                                ) : (
+                                    <img src='/images/xs-coin.png' width='21px' height='20.02px' alt='point icon' />
                                 )}
-                            </Typography>
+                                <Typography
+                                    variant='subtitle1'
+                                    component='span'
+                                    className={classes.pointText}
+                                    sx={{ fontWeight: 'bold', fontSize: '14px', color: '#373737' }}
+                                >
+                                    {numberFormat(
+                                        router.pathname.includes('/shops') && !isLoading
+                                            ? userState?.point
+                                            : userState?.coin
+                                            ? userState?.coin
+                                            : '0'
+                                    )}
+                                </Typography>
+                            </Box>
                         </Box>
-                    </Box>
+                    </ButtonBase>
                     <ButtonBase onClick={() => router.push('/profile')}>
                         <img src={userState.avatar_url} width='46px' height='46px' alt='profile' />
                     </ButtonBase>
