@@ -75,7 +75,7 @@ const Header: React.FC<HeaderProps> = ({
     }, []);
 
     const handleLoginGoogle = async (user: User) => {
-        if (userState?.api_token == null) {
+        if (!userState?.api_token) {
             const response = await fetchAPI({
                 method: 'POST',
                 endpoint: 'auths/login/google',
