@@ -11,7 +11,6 @@ import useAPICaller from 'hooks/useAPICaller';
 import useAuthReducer from 'hooks/useAuthReducer';
 import useNotify from 'hooks/useNotify';
 import Link from 'next/link';
-import { signIn, signOut, useSession } from 'next-auth/react';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useSelector } from 'react-redux';
 
@@ -31,7 +30,6 @@ const Login = () => {
             password: ''
         }
     });
-    const { data: session } = useSession();
     const dataInput = form.watch();
 
     const rules = { required: true };

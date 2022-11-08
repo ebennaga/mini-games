@@ -9,7 +9,6 @@ import { SnackbarProvider } from 'notistack';
 import Router, { useRouter } from 'next/router';
 import useAuthReducer from 'hooks/useAuthReducer';
 import React from 'react';
-import { SessionProvider } from 'next-auth/react';
 import Script from 'next/script';
 import { appWithTranslation } from 'next-i18next';
 import initMyFirebase from '../firebase/firebaseInit';
@@ -66,28 +65,6 @@ function MyApp({ Component, pageProps }: AppProps) {
                 src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3078290294001067'
                 crossOrigin='anonymous'
             />
-            <SessionProvider session={pageProps.session}>
-                <SnackbarProvider
-                    maxSnack={3}
-                    anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'center'
-                    }}
-                    TransitionComponent={Slide}
-                >
-                    <ThemeProvider theme={theme}>
-                        <GlobalStyles
-                            styles={{
-                                // body: { margin: '0 auto', display: 'flex', justifyContent: 'center' }
-                                body: { margin: '0 auto' }
-                            }}
-                        />
-                        {/* <Component {...pageProps} /> */}
-
-                        <Component userData={user} {...pageProps} />
-                    </ThemeProvider>
-                </SnackbarProvider>
-            </SessionProvider>
         </>
     );
 }
