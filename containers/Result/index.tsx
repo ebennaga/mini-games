@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Box, Typography, ButtonBase, CircularProgress } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import { SmartDisplay } from '@mui/icons-material';
@@ -15,6 +16,7 @@ const ResultContainer = () => {
     const { fetchAPI, isLoading } = useAPICaller();
     const { setUser } = useAuthReducer();
     const notify = useNotify();
+    const [listScore, setListScore] = React.useState<any>(null);
 
     const handlePlay = async () => {
         try {
@@ -37,7 +39,18 @@ const ResultContainer = () => {
             notify(e.message, 'error');
         }
     };
+    const getData = async () => {
+        const response = await fetchAPI({
+            method: 'GET',
+            endpoint: `/games/${router.query.id}/score`
+        });
 
+        setListScore(response?.data?.data);
+    };
+
+    React.useEffect(() => {
+        getData();
+    }, []);
     return (
         <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <Box
@@ -66,7 +79,7 @@ const ResultContainer = () => {
                 />
                 <Typography sx={{ fontWeight: 700, fontSize: '24px', color: '#A54CE5' }}>High Score</Typography>
                 <Box>
-                    <Typography sx={{ fontWeight: 700, fontSize: '44px' }}>{numberFormat(23209)}</Typography>
+                    <Typography sx={{ fontWeight: 700, fontSize: '44px' }}>{numberFormat(listScore?.latest_score)}</Typography>
                 </Box>
             </Box>
             <Box sx={{ padding: '20px', position: 'sticky', bottom: '20px' }}>
