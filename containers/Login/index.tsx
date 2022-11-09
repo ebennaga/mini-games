@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Typography, Box, ButtonBase } from '@mui/material';
 import Layout from 'components/Layout/Index';
 import Input from 'components/Input/index';
@@ -17,9 +17,6 @@ import { useSelector } from 'react-redux';
 const Login = () => {
     const router = useRouter();
 
-    const provider = new GoogleAuthProvider();
-    const auth = getAuth();
-    const newUser = auth.currentUser;
     const userState = useSelector((state: any) => state.webpage?.user?.user);
 
     const form = useForm({
@@ -81,6 +78,10 @@ const Login = () => {
     };
 
     const handleLoginGoogle = async () => {
+        const provider = new GoogleAuthProvider();
+        const auth = getAuth();
+        const newUser = auth.currentUser;
+
         signInWithPopup(auth, provider)
             .then(async (result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
@@ -104,7 +105,7 @@ const Login = () => {
                 });
                 // console.log(user);
                 if (response.status === 200) {
-                    const tempData = { ...response.data.data, ...userData };
+                    const tempData = { ...userState, ...response.data.data, ...userData };
                     setUser(tempData);
                     router.push('/');
                 } else if (response.data.message === 'User registration is not completed') {
@@ -116,7 +117,6 @@ const Login = () => {
                 // ...
             })
             .catch((error) => {
-                console.log(error);
                 // Handle Errors here.
                 // const errorCode = error.code;
                 // const errorMessage = error.message;
@@ -126,10 +126,10 @@ const Login = () => {
                 // const credential = GoogleAuthProvider.credentialFromError(error);
                 // ...
                 // console.log('error', error.message);
-                notify('Internal server error', 'error');
+                notify(error?.message, 'error');
             });
     };
-    console.log(userState);
+
     return (
         <Layout backgoundColor='#FFF' border='2px solid #D9D9D9'>
             <Box sx={{ textAlign: 'start', width: '100%' }}>
