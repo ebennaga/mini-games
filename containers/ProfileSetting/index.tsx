@@ -9,11 +9,13 @@ import { useRouter } from 'next/router';
 import useAuthReducer from 'hooks/useAuthReducer';
 import BottomSheetCustom from 'components/BottomSheet';
 import OpenContext from 'hooks/useContext';
+import { useSelector } from 'react-redux';
 import DeleteAccountDialog from './DeleteAccountDialog';
 
 const ProfileSetting = () => {
     const { clearUser } = useAuthReducer();
     const router = useRouter();
+    const userState = useSelector((state: any) => state.webpage.user?.user);
 
     const [deleteDialog, setDeleteDialog] = useState(false);
     const [statusOpen, setOpen] = useState(false);
@@ -64,7 +66,7 @@ const ProfileSetting = () => {
     const handleDelete = () => router.push('/signup');
 
     const generalItem = [
-        { title: 'Avatar & Nickname', icon: '/icons/dummy/profile.png', href: '/profile/edit-profile' },
+        { title: 'Avatar & Nickname', icon: userState?.avatar_url || '/icons/dummy/profile.png', href: '/profile/edit-profile' },
         { title: 'Account & Address', icon: '/icons/email.svg', href: '/profile/settings/email-address' }
     ];
     const supportData = [
