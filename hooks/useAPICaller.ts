@@ -70,7 +70,7 @@ const useAPICaller = () => {
             return response;
         } catch (e: any) {
             setisLoading(false);
-            if (e.response.status === 403) {
+            if (e.response?.status === 403) {
                 clearUser();
                 router.push('/');
                 notify('Your session is expired', 'error');
