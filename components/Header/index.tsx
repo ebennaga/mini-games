@@ -44,11 +44,13 @@ const Header: React.FC<HeaderProps> = ({
     const router = useRouter();
     // const [userData, setUserData] = React.useState<any>(null);
     const { setUser, clearUser } = useAuthReducer();
-    const { fetchAPI, isLoading } = useApiCaller();
+    const { fetchAPI } = useApiCaller();
     const [isFirebaseLoading, setIsFirebaseLoading] = React.useState<boolean>(false);
+    const [isLoading, setIsLoading] = React.useState<boolean>(false);
     const notify = useNotify();
 
     const fetchData = async () => {
+        setIsLoading(true);
         if (userState?.api_token) {
             try {
                 const result = await fetchAPI({
@@ -68,6 +70,7 @@ const Header: React.FC<HeaderProps> = ({
                 notify('Fetch account data failed!', 'error');
             }
         }
+        setIsLoading(false);
     };
 
     React.useEffect(() => {
@@ -87,7 +90,7 @@ const Header: React.FC<HeaderProps> = ({
             });
 
             if (response.status === 200) {
-                setUser(response.data.data);
+                setUser({ ...userState, ...response.data.data });
                 router.push('/');
             } else {
                 notify('Login Failed', 'error');
@@ -98,12 +101,12 @@ const Header: React.FC<HeaderProps> = ({
     React.useEffect(() => {
         setIsFirebaseLoading(true);
         const auth = getAuth();
-        onAuthStateChanged(auth, (user: any) => {
+        onAuthStateChanged(auth, async (user: any) => {
             if (user) {
                 // User is signed in, see docs for a list of available properties
                 // https://firebase.google.com/docs/reference/js/firebase.User
                 const { uid } = user;
-                handleLoginGoogle(user);
+                await handleLoginGoogle(user);
                 // ...
             } else {
                 // User is signed out
