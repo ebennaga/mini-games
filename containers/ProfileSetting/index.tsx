@@ -66,7 +66,7 @@ const ProfileSetting = () => {
     const handleDelete = () => router.push('/signup');
 
     const generalItem = [
-        { title: 'Avatar & Nickname', icon: userState.avatar_url || '/icons/dummy/profile.png', href: '/profile/edit-profile' },
+        { title: 'Avatar & Nickname', icon: userState?.avatar_url || '/icons/dummy/profile.png', href: '/profile/edit-profile' },
         { title: 'Account & Address', icon: '/icons/email.svg', href: '/profile/settings/email-address' }
     ];
     const supportData = [
