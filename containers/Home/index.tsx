@@ -51,7 +51,7 @@ const HomeContainer = () => {
             const data: any = await getLocalData();
             setDataTutorial(data);
             window.scrollTo(0, 0);
-            console.log('res', res);
+            // console.log('res', res);
             if (res.status === 200) {
                 if (data.isTutorial) {
                     setIsWelcome(true);
