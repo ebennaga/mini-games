@@ -116,7 +116,7 @@ const Login = () => {
                 // ...
             })
             .catch((error) => {
-                console.log(error);
+                // console.log(error);
                 // Handle Errors here.
                 // const errorCode = error.code;
                 // const errorMessage = error.message;
@@ -129,7 +129,7 @@ const Login = () => {
                 notify('Internal server error', 'error');
             });
     };
-    console.log(userState);
+    // console.log(userState);
     return (
         <Layout backgoundColor='#FFF' border='2px solid #D9D9D9'>
             <Box sx={{ textAlign: 'start', width: '100%' }}>

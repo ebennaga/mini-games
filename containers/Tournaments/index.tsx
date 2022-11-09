@@ -47,7 +47,7 @@ const Tournaments = () => {
                     method: 'GET',
                     endpoint: `games/${item.id}`
                 });
-                console.log('response1', response);
+                // console.log('response1', response);
                 if (response.status === 200) {
                     setDataGamesDetail((currentValue: any) => [...currentValue, response.data.data]);
                 }

@@ -28,7 +28,7 @@ const EditProfile = () => {
     const {
         formState: { errors }
     } = form;
-    console.log('err', errors.nickname);
+    // console.log('err', errors.nickname);
     const getData = async () => {
         const response = await fetchAPI({
             method: 'GET',
