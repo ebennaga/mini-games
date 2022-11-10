@@ -33,7 +33,7 @@ const Profile = () => {
                 endpoint: `/auths/detail`,
                 method: 'GET'
             });
-            console.log('response', res);
+
             if (res.data?.data) {
                 setDetailGame(res.data.data);
             }

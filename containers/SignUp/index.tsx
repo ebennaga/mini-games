@@ -93,11 +93,16 @@ const SignUp = () => {
             setUser(registerData);
             router.push('/send-otp');
         } else {
-            if (response.data.message === 'Email is already existed') {
-                notify(`${response.data.message}! Otp code has been sent to your email`);
-                setUser({ emailOtp: data.email, password: data.password });
-                await handleSendOtp();
-                return router.push('/send-otp');
+            // if (response.data.message === 'Email is already existed') {
+            //     notify(`${response.data.message}! Otp code has been sent to your email`);
+            //     setUser({ emailOtp: data.email, password: data.password });
+            //     await handleSendOtp();
+            //     return router.push('/send-otp');
+            // }
+            if (response.data.status === 422) {
+                notify(`${response.data.message}`, 'error');
+
+                return router.push('/signup');
             }
             return notify('Signup Error', 'error');
         }
