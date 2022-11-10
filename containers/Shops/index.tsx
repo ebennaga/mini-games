@@ -12,6 +12,10 @@ import { useRouter } from 'next/router';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import getRemainingTimes from 'helper/getRemainingTime';
+import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
+import NotifDialog from 'components/Dialog/notifDialog';
+import { useSelector } from 'react-redux';
+import Link from 'next/link';
 import ShopsSkeleton from './ShopsSkeleton';
 import dataComingSoon from '../../utils/dataComingSoon';
 import ImageListItemComingSoon from '../../components/ImageListComingSoon';
@@ -22,12 +26,15 @@ const ShopsContainer = () => {
     const [borderValue, setBorderValue] = useState<string>('none');
     const [dataRedemptions, setDataRedemptions] = useState<any>(null);
     const [timeLuckyRaffle, setTimeLuckyRaffle] = useState<string>('');
+    const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
+    const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
 
     const isComingSoon = process.env.NEXT_PUBLIC_PRIZES_COMING_SOON === 'true';
 
     const [surveyDialog, setSurveyDialog] = useState<boolean>(true);
     const router = useRouter();
     const notify = useNotify();
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
 
     const { fetchAPI } = useAPICaller();
 
@@ -89,6 +96,13 @@ const ShopsContainer = () => {
     if (isLoading) {
         return <ShopsSkeleton />;
     }
+
+    const handlePlay = async (id: any) => {
+        if (userState) {
+            return router.push(`/shops/prize/${id}`);
+        }
+        return setSignupLoginDialog(true);
+    };
     return (
         <Box sx={{ width: '100%' }}>
             <Box
@@ -203,9 +217,10 @@ const ShopsContainer = () => {
                             : dataRedemptions?.catalogues.map((item: any, idx: number) => (
                                   <ImageListItem sx={{ cursor: 'pointer' }} key={idx}>
                                       <Box
-                                          onClick={() => {
-                                              router.push(`/shops/prize/${item.id}`);
-                                          }}
+                                          //   onClick={() => {
+                                          //       router.push(`/shops/prize/${item.id}`);
+                                          //   }}
+                                          onClick={() => handlePlay(item.id)}
                                       >
                                           <Box sx={{ backgroundColor: '#F4F1FF', padding: '25px', borderRadius: '14px' }}>
                                               <img
@@ -326,12 +341,21 @@ const ShopsContainer = () => {
                             </Box>
                         </Grid>
                         <Grid item xs={7} sx={{ color: 'white' }}>
-                            <Typography sx={{ fontWeight: 'bold' }}>Play & Join the Tournament</Typography>
+                            <Link href='/tournaments'>
+                                <Typography sx={{ fontWeight: 'bold' }}>Play & Join the Tournament</Typography>
+                            </Link>
                             <Typography sx={{ fontSize: '10px' }}>Get the Points and Redeem it with our special prize!</Typography>
                         </Grid>
                     </Grid>
                 </Box>
             </Grid>
+            <NotifDialog
+                open={openNotifDialog}
+                setOpenDialog={setOpenNotifDialog}
+                body='You don’t have Coins in your balance. 
+Top up Coins to continue'
+            />
+            <SignupLoginDialog open={signupLoginDialog} setOpen={setSignupLoginDialog} />
             <SurveyDialog open={surveyDialog} setOpenDialog={setSurveyDialog} />
         </Box>
     );
