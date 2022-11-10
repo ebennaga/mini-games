@@ -5,9 +5,10 @@ import React from 'react';
 interface ImageListItemComingSoonProps {
     image: string;
     name: string;
+    isLive?: boolean;
 }
 
-const ImageListItemComingSoon: React.FC<ImageListItemComingSoonProps> = ({ image, name }) => {
+const ImageListItemComingSoon: React.FC<ImageListItemComingSoonProps> = ({ isLive = false, image, name }) => {
     return (
         <ImageListItem sx={{ cursor: 'pointer' }}>
             <Box>
@@ -29,13 +30,13 @@ const ImageListItemComingSoon: React.FC<ImageListItemComingSoonProps> = ({ image
                             position: 'absolute',
                             top: '12px',
                             right: '8px',
-                            background: '#1F97E8',
-                            color: '#fff',
+                            background: isLive ? '#DDFFDC' : '#1F97E8',
+                            color: isLive ? 'black' : '#fff',
                             borderRadius: '10px',
                             padding: '4px 8px'
                         }}
                     >
-                        <img src='/images/point-shops.png' alt='point-shop' loading='lazy' />
+                        <img src={`${isLive ? '/images/e-voucher.png' : '/images/point-shops.png'}`} alt='point-shop' loading='lazy' />
                         <Typography sx={{ fontSize: '12px', fontWeight: '700' }}>Coming Soon</Typography>
                     </Box>
                 </Box>
