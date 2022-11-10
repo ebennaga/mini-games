@@ -71,10 +71,11 @@ const GameDetailContainer = () => {
     }, [userState, detailGame]);
 
     const handleClick = async (idTournament: any) => {
-        if (userState) {
-            router.push(`/games/${router.query.id}/tournament/${idTournament}`);
-        }
-        return setSignupLoginDialog(true);
+        // if (userState) {
+        //     router.push(`/games/${router.query.id}/tournament/${idTournament}`);
+        // }
+        // return setSignupLoginDialog(true);
+        router.push(`/games/${router.query.id}/tournament/${idTournament}`);
     };
 
     const handlePlay = () => {
