@@ -23,6 +23,7 @@ const RedeemHistoryContainer = () => {
         setIsLoading(true);
         try {
             const response = await fetchAPI({ method: 'GET', endpoint: 'redemptions/history' });
+
             if (!response) {
                 throw new Error('Sorry, Data histories is not ready!');
             }
