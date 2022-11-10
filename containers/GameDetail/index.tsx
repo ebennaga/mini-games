@@ -71,15 +71,11 @@ const GameDetailContainer = () => {
     }, [userState, detailGame]);
 
     const handleClick = async (idTournament: any) => {
-        // if (userState) {
-        //     router.push(`/games/${router.query.id}/tournament/${idTournament}`);
-        // }
-        // return setSignupLoginDialog(true);
         router.push(`/games/${router.query.id}/tournament/${idTournament}`);
     };
 
     const handlePlay = () => {
-        if (userState) {
+        if (userState.api_token) {
             return router.push(`/games/${router.query.id}/casual/`);
         }
         return setSignupLoginDialog(true);
@@ -250,7 +246,7 @@ const GameDetailContainer = () => {
                     </Grid>
                     <Grid item xs={12}>
                         <Typography sx={{ fontSize: '12px', fontWeight: 'bold' }}>
-                            get a change to got the Ticket to play Tournaments
+                            get a chance to got the Ticket to play Tournaments
                         </Typography>
                     </Grid>
                     <Grid item xs={12} mt='24px' position='relative'>

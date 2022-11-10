@@ -114,7 +114,7 @@ const GameTournament = () => {
         }
     };
     const handlePlay = async () => {
-        if (userState) {
+        if (userState.api_token) {
             if (userState?.coin < listingGame.entry_coin) {
                 return setOpenNotifDialog(!openNotifDialog);
             }

@@ -181,7 +181,7 @@ const Header: React.FC<HeaderProps> = ({
                     <img src={logo} width={widthLogo} height={heightLogo} alt='prize play' />
                 </ButtonBase>
             )}
-            {userState ? (
+            {userState && userState?.api_token ? (
                 <Box className={classes.headerRight} sx={{ display: 'flex', alignItems: 'center' }}>
                     <ButtonBase onClick={() => router.push('/topup')}>
                         <Box
