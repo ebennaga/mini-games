@@ -71,7 +71,10 @@ const GameDetailContainer = () => {
     }, [userState, detailGame]);
 
     const handleClick = async (idTournament: any) => {
-        router.push(`/games/${router.query.id}/tournament/${idTournament}`);
+        if (userState) {
+            router.push(`/games/${router.query.id}/tournament/${idTournament}`);
+        }
+        return setSignupLoginDialog(true);
     };
 
     const handlePlay = () => {
@@ -84,6 +87,7 @@ const GameDetailContainer = () => {
     if (isLoading) {
         return <GameDetailSkeleton />;
     }
+    console.log('signuplogindialog', signupLoginDialog);
 
     return (
         <Box width='100%'>

@@ -77,7 +77,9 @@ const ResultContainer = () => {
                         mb: '29px'
                     }}
                 />
-                <Typography sx={{ fontWeight: 700, fontSize: '24px', color: '#A54CE5' }}>High Score</Typography>
+                <Typography sx={{ fontWeight: 700, fontSize: '24px', color: '#A54CE5' }}>
+                    {listScore?.is_high_score ? 'New High Score' : 'Your Score'}
+                </Typography>
                 <Box>
                     <Typography sx={{ fontWeight: 700, fontSize: '44px' }}>{numberFormat(listScore?.latest_score)}</Typography>
                 </Box>
