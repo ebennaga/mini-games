@@ -87,7 +87,6 @@ const GameDetailContainer = () => {
     if (isLoading) {
         return <GameDetailSkeleton />;
     }
-    console.log('signuplogindialog', signupLoginDialog);
 
     return (
         <Box width='100%'>
