@@ -9,6 +9,7 @@ import RewardDialog from 'components/Dialog/RewardDialog';
 import { useRouter } from 'next/router';
 import useNotify from 'hooks/useNotify';
 import useAPICaller from 'hooks/useAPICaller';
+import numberFormat from 'helper/numberFormat';
 import ConfirmSkeleton from './ConfirmationSkeleton';
 
 interface TextFieldProps {
@@ -200,14 +201,12 @@ const PrizeConfirmationContainer = () => {
                     </Grid>
                     <Grid item xs={8}>
                         <Typography sx={{ fontWeight: 'bold', fontSize: '14px' }}>{dataGoods.name}</Typography>
-                        <Typography sx={{ fontWeight: '600', fontSize: '12px', mt: '7px', lineHeight: '12px' }}>
-                            {dataGoods.description}
-                        </Typography>
+
                         <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center', mt: 2 }}>
                             <Box>
                                 <img src='/images/point-shops.png' alt='pointshops' />
                             </Box>
-                            <Typography sx={{ fontWeight: 'bold', fontSize: '12px' }}>{dataGoods.price}</Typography>
+                            <Typography sx={{ fontWeight: 'bold', fontSize: '12px' }}>{numberFormat(dataGoods.price)}</Typography>
                         </Box>
                     </Grid>
                 </Grid>
