@@ -12,6 +12,7 @@ import getLocalData from 'helper/getLocalData';
 import WelcomeDialog from 'components/DialogTutorial/WelcomeDialog';
 import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import { useSelector } from 'react-redux';
+import { AutoAwesome } from '@mui/icons-material';
 import Search from './Search';
 import GamesCard from './GamesCard';
 import EventCarousel from './EventCarousel';
@@ -94,10 +95,12 @@ const HomeContainer = () => {
             setDialogLogin(true);
         }
     };
+
     const isNotif = false;
     if (isLoading || !datasHome) {
         return <HomeSkeleton />;
     }
+
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
             <WelcomeDialog
@@ -172,6 +175,72 @@ const HomeContainer = () => {
                         );
                     })}
                 </GamesSlider>
+            </Box>
+            <Box
+                sx={{
+                    mt: '36px',
+                    position: prevTutorial === 'games' ? 'relative' : 'unset',
+                    p: prevTutorial === 'games' ? 1 : 0,
+                    background: '#fff',
+                    zIndex: 1000,
+                    borderRadius: '5px'
+                }}
+            >
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: '17px' }}>
+                    <Box>
+                        <Typography variant='h6' fontWeight='bold' component='h2'>
+                            Tournaments
+                        </Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', height: '50px' }}>
+                        <AutoAwesome sx={{ color: '#A54CE5', width: '18px', alignSelf: 'flex-start' }} />
+                        <ButtonBase
+                            onClick={() => {
+                                router.push('/live-tournament');
+                            }}
+                            sx={{
+                                padding: '7px 15px',
+                                backgroundColor: '#A54CE5',
+                                borderRadius: '15px',
+                                height: '30px',
+                                alignSelf: 'center'
+                            }}
+                        >
+                            <Typography sx={{ color: 'white', fontWeight: 600, fontSize: '11px' }}>View Live Tournament</Typography>
+                        </ButtonBase>
+                        <AutoAwesome sx={{ color: '#A54CE5', width: '13px', alignSelf: 'flex-end', rotate: '180deg' }} />
+                    </Box>
+                </Box>
+
+                {/* Tournament Card Start */}
+
+                <Box id='tournaments'>
+                    <TournamentSlider customMaxWidth='91vw'>
+                        {datasHome.tournaments.map((item: any) => {
+                            return (
+                                <TournamentCard
+                                    isLive
+                                    key={item.id}
+                                    image={item.banner_url}
+                                    imageGame={item.game.banner_url}
+                                    onClick={
+                                        // () => {}
+                                        // () => router.push(`/games/${item.game.id}/tournament/${item.id}`)
+                                        () => router.push(`/live-tournament/1`)
+                                    }
+                                    totalUser={item.total_users}
+                                    prizePool={item.total_prize}
+                                    point={item.entry_coin}
+                                    // time='6d 13h 23m'
+                                    time={item.end_time}
+                                    dataLength={datasHome?.tournaments.length}
+                                />
+                            );
+                        })}
+                    </TournamentSlider>
+                </Box>
+
+                {/* Tournament Card End */}
             </Box>
             <Box
                 sx={{

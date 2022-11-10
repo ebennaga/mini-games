@@ -75,7 +75,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                     >
                         {isLive && (
                             <Box sx={{}}>
-                                <img src='/images/logo-live-tour.png' alt='logo-live' style={{ width: '35px', height: '35px' }} />
+                                <img src='/images/logo-live-tour.png' alt='logo-live' style={{ width: '50px', height: '50px' }} />
                             </Box>
                         )}
                         <Box
@@ -84,8 +84,8 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                                 alignItems: 'center',
                                 background: 'rgba(55, 55, 55, 0.5)',
                                 width: 'fit-content',
-                                padding: '4.3px 11px',
-                                borderRadius: '10.5px',
+                                padding: '1px 11px',
+                                borderRadius: '20.5px',
                                 color: '#fff',
                                 height: '25px'
                             }}
@@ -99,15 +99,15 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                     {isLive && (
                         <Box
                             sx={{
+                                justifyContent: '',
                                 alignItems: 'flex-start',
                                 display: 'flex',
                                 gap: '10px',
                                 px: '20px'
                             }}
                         >
-                            {/* <Box sx={{ width: '13px', height: '10px', backgroundColor: 'red', borderRadius: '100%' }} /> */}
                             <Circle sx={{ color: 'red', width: '10px' }} />
-                            <Typography sx={{ color: 'white', fontWeight: 700, fontSize: '10px', textAlign: 'start' }}>
+                            <Typography sx={{ color: 'white', fontWeight: 700, fontSize: '11px', textAlign: 'start' }}>
                                 Live Tournament Starbucks Tournament Yeah Yeah Halo2 Bandung
                             </Typography>
                         </Box>
