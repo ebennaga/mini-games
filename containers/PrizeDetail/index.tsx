@@ -100,7 +100,7 @@ const PrizeDetailContainer = () => {
                 <Header isShops hrefBack='/shops' isBack point={numberFormat(userState?.point)} profilePicture='/icons/dummy/profile.png' />
             </Box>
             <PrizeDetailSlider>
-                {data.images.map((item: any, idx: number) => (
+                {data?.images.map((item: any, idx: number) => (
                     <Box key={idx}>
                         <img
                             src={item.image_url}
@@ -118,7 +118,7 @@ const PrizeDetailContainer = () => {
                 <Box sx={{ mt: '15px' }}>
                     <Grid container justifyContent='space-between'>
                         <Grid item xs={6}>
-                            <Typography sx={{ fontWeight: 'bold', fontSize: '24px' }}>{data.name}</Typography>
+                            <Typography sx={{ fontWeight: 'bold', fontSize: '24px' }}>{data?.name}</Typography>
                         </Grid>
                         <Grid
                             item
@@ -138,7 +138,7 @@ const PrizeDetailContainer = () => {
                         <Box>
                             <img src='/images/point-shops.png' alt='pointshops' />
                         </Box>
-                        <Typography sx={{ fontWeight: 'bold', fontSize: '24px' }}>{numberFormat(data.price)}</Typography>
+                        <Typography sx={{ fontWeight: 'bold', fontSize: '24px' }}>{numberFormat(data?.price)}</Typography>
                     </Box>
                 </Box>
             </Box>
@@ -149,7 +149,7 @@ const PrizeDetailContainer = () => {
                     paragraph=' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio
                     mattis.Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
                 /> */}
-                <Paragraph title='Description' paragraph={data.description} />
+                <Paragraph title='Description' paragraph={data?.description} />
                 {/* <Box sx={{ mb: '180px' }}>
                     <Paragraph
                         title='Terms and Conditions'

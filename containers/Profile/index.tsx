@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Box, ButtonBase, Grid, Typography } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import { useSelector } from 'react-redux';
@@ -7,6 +8,8 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import NavigationCard from 'components/NavigationCard';
 import SocialMediaList from 'components/SocialMediaList';
 import { useRouter } from 'next/router';
+import useAPICaller from 'hooks/useAPICaller';
+import useNotify from 'hooks/useNotify';
 import BalanceCard from './BalanceCard';
 import BarExp from './BarExp';
 import HighScoreCard from './HighScoreCard';
@@ -15,11 +18,33 @@ import StatsCard from './StatsCard';
 
 const Profile = () => {
     const router = useRouter();
+    const { fetchAPI } = useAPICaller();
+    const notify = useNotify();
     const userState = useSelector((state: any) => state?.webpage?.user?.user);
+    const [detailGame, setDetailGame] = React.useState<any>(null);
+
     const listNavigation = [
         { title: 'Input Promo Code', icon: '/icons/promo-code.png' }
         // { title: 'Give us Ratings', icon: '/icons/rating.png', onclick: () => router.push('/ratingas') }
     ];
+    const fetchData = async () => {
+        try {
+            const res = await fetchAPI({
+                endpoint: `/auths/detail`,
+                method: 'GET'
+            });
+            console.log('response', res);
+            if (res.data?.data) {
+                setDetailGame(res.data.data);
+            }
+        } catch (e: any) {
+            notify(e.message, 'error');
+        }
+    };
+
+    React.useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <Box
@@ -87,10 +112,10 @@ const Profile = () => {
                 </Box>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
-                        <StatsCard title='Total Earns' icon='/images/point-shops.png' value={1020} />
+                        <StatsCard title='Total Earns' icon='/images/point-shops.png' value={detailGame?.total_earns} />
                     </Grid>
                     <Grid item xs={6}>
-                        <StatsCard title='Total Plays' icon='/icons/plays.png' value={230} />
+                        <StatsCard title='Total Plays' icon='/icons/plays.png' value={detailGame?.totalPlay} />
                     </Grid>
                 </Grid>
             </Box>
@@ -115,7 +140,7 @@ const Profile = () => {
                         <Box>
                             <img src='/icons/redeem-active.svg' alt='redeem' width={20} />
                         </Box>
-                        <Typography sx={{ fontWeight: 'bold' }}>8</Typography>
+                        <Typography sx={{ fontWeight: 'bold' }}>{detailGame?.totalPrize}</Typography>
                     </Box>
                     <ButtonBase href='/shops/redeem-history'>
                         <Typography sx={{ color: '#A54CE5', fontSize: '11px', fontWeight: 'bolder' }}>View Exchanged Prize</Typography>
