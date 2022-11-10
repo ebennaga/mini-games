@@ -122,7 +122,7 @@ const PrizeConfirmationContainer = () => {
         setLoadingRedeem(true);
         const { address, notes, recipient, phone } = data;
         const response = await fetchAPI({
-            method: 'POST',
+            method: 'PUT',
             endpoint: `redemptions/${router.query.id}/redeem`,
             data: {
                 address,
@@ -131,10 +131,10 @@ const PrizeConfirmationContainer = () => {
                 recipient_phone_number: phone
             }
         });
-        if (response.status === 200) {
+        if (response?.status === 200) {
             setOpenDialog(!openDialog);
         } else {
-            notify(response.data.message || 'Redeem failed', 'error');
+            notify(response?.data.message || 'Redeem failed', 'error');
         }
         setLoadingRedeem(false);
     };
