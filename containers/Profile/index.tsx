@@ -152,7 +152,11 @@ const Profile = () => {
                 <Typography component='h3' fontWeight='bold' fontSize='18px' alignItems='start' marginBottom='24px'>
                     High Scores
                 </Typography>
-                <HighScoreCard image='/icons/dummy/menara.png' title='Menara Dingdong' score={1090} />
+                <HighScoreCard
+                    image={detailGame?.highscore[1].banner_url}
+                    title={detailGame?.highscore[1].name}
+                    score={detailGame?.highscore[1].highscore}
+                />
             </Box>
 
             <Box sx={{ height: '1px', width: '100%', background: '#E6E6E6', my: '24px' }} />

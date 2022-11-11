@@ -1,14 +1,34 @@
 import { Box, Typography } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import React from 'react';
+import useAPICaller from 'hooks/useAPICaller';
+import useNotify from 'hooks/useNotify';
+import numberFormat from 'helper/numberFormat';
 
 const HighScoresContainer = () => {
+    const { fetchAPI } = useAPICaller();
+    const notify = useNotify();
     const [borderValue, setBorderValue] = React.useState<string>('none');
-    const highScoresData = [
-        { scores: '80.000', name: 'Hopup', image: '/images/hopup.png' },
-        { scores: '70.000', name: 'Block Stack', image: '/images/block-stack.png' },
-        { scores: '90.000', name: 'Rose Dart', image: '/images/rose-dart.png' }
-    ];
+    const [detailGame, setDetailGame] = React.useState<any>(null);
+
+    const fetchData = async () => {
+        try {
+            const res = await fetchAPI({
+                endpoint: `/auths/detail`,
+                method: 'GET'
+            });
+
+            if (res.data?.data) {
+                setDetailGame(res.data.data);
+            }
+        } catch (e: any) {
+            notify(e.message, 'error');
+        }
+    };
+
+    React.useEffect(() => {
+        fetchData();
+    }, []);
 
     const handleScroll = () => {
         if (window.scrollY === 0) {
@@ -36,10 +56,10 @@ const HighScoresContainer = () => {
                 <HeaderBack title='High Scores' />
             </Box>
             <Box padding='20px'>
-                {highScoresData.map((item: any, idx: any) => (
+                {detailGame?.highscore.map((item: any, idx: any) => (
                     <Box key={idx} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: '30px' }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                            <img src={item.image} alt='hopup' width='60px' />
+                            <img src={item.banner_url} alt='hopup' width='60px' />
                             <Box>
                                 <Typography sx={{ fontWeight: 'bold' }}>{item.name}</Typography>
                                 <Typography sx={{ fontColor: '#949494', fontWeight: 500 }}>High Scores:</Typography>
@@ -47,7 +67,7 @@ const HighScoresContainer = () => {
                         </Box>
                         <Box sx={{ display: 'flex', gap: '10px' }}>
                             <img src='/images/ribbon.png' alt='ribbon' />
-                            <Typography sx={{ fontWeight: '600' }}>{item.scores}</Typography>
+                            <Typography sx={{ fontWeight: '600' }}>{numberFormat(item.highscore)}</Typography>
                         </Box>
                     </Box>
                 ))}

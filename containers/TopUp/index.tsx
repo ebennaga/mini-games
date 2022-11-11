@@ -30,6 +30,7 @@ const TopUp = () => {
         const response = await fetchAPI({
             endpoint: 'transactions/home?search='
         });
+
         if (response.status === 200) {
             setCoins(response.data.data.coins);
             setHistories(response.data.data.history);
