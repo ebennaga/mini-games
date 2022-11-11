@@ -34,7 +34,7 @@ const TabPanelPoinTs: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTrans
                 endpoint: `transactions/history/point`,
                 method: 'GET'
             });
-            // console.log(result);
+            console.log(result);
             if (result.status === 200) {
                 setCointTransaction(result.data.data);
             }
@@ -106,11 +106,11 @@ const TabPanelPoinTs: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTrans
                 {todayTransactions !== null &&
                     todayTransactions?.map((i: any) => (
                         <TransactionCard
+                            type={i.type}
                             isToday
                             key={i.id}
                             title={i.description}
-                            isCoin
-                            amount={i.coin}
+                            amount={i.point}
                             subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
                             created={i?.created_at}
                         />
@@ -121,11 +121,11 @@ const TabPanelPoinTs: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTrans
                 {yesterdayTransactions !== null &&
                     yesterdayTransactions?.map((i: any) => (
                         <TransactionCard
+                            type={i.type}
                             isYesterday
                             key={i.id}
                             title={i.description}
-                            isCoin
-                            amount={i.coin}
+                            amount={i.point}
                             subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
                             created={i?.created_at}
                         />
@@ -142,10 +142,10 @@ const TabPanelPoinTs: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTrans
             {!isLoading &&
                 daysAgoTransactions?.map((i: any) => (
                     <TransactionCard
+                        type={i.type}
                         key={i.id}
                         title={i.description}
-                        isCoin
-                        amount={i.coin}
+                        amount={i.point}
                         subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
                         created={i?.created_at}
                         isToday={false}
