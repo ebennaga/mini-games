@@ -48,7 +48,7 @@ const TopUp = () => {
             }
             if (response.status === 200) {
                 setCoins(response.data.data.coins);
-                setHistories(response.data.data);
+                setHistories(response.data.history);
             } else {
                 throw new Error(response.data.message);
             }
