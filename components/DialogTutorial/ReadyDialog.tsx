@@ -32,7 +32,7 @@ const ReadyDialog: React.FC<ReadyDialogProps> = ({ open, onClose }) => {
                 You Are Ready!
             </Typography>
             <Box sx={{ mb: '20px' }}>
-                <img src='/icons/ready.svg' width='270px' height='223px' alt='Welcome Prize Play' />
+                <img src='/icons/ready.svg' width='270px' height='223px' alt='Welcome Prize Play' loading='lazy' />
             </Box>
             {/* <Typography
                 component='p'

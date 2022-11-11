@@ -19,7 +19,8 @@ import GameDetailSkeleton from './GameDetailSkeleton';
 const GameDetailContainer = () => {
     const isBack = true;
     const router = useRouter();
-    const { fetchAPI, isLoading } = useAPICaller();
+    const { fetchAPI } = useAPICaller();
+    const [isLoading, setIsLoading] = React.useState(true);
     const notify = useNotify();
     const [detailGame, setDetailGame] = React.useState<any>(null);
     const userState = useSelector((state: any) => state.webpage?.user?.user);
@@ -29,6 +30,7 @@ const GameDetailContainer = () => {
     const { setUser, clearUser } = useAuthReducer();
 
     const fetchData = async (id: number) => {
+        setIsLoading(true);
         try {
             const res = await fetchAPI({
                 endpoint: `/games/${id}`,
@@ -37,9 +39,12 @@ const GameDetailContainer = () => {
             if (res.data?.data) {
                 setDetailGame(res.data.data);
             }
+            setIsLoading(false);
         } catch (e) {
             notify('failed data', 'e');
+            setIsLoading(false);
         }
+        setIsLoading(false);
     };
 
     React.useEffect(() => {

@@ -48,9 +48,9 @@ const RewardDialog: React.FC<RewardDialogProps> = ({ open, setOpenDialog, body, 
                 </Box>
                 <Box sx={{ mt: '20px' }}>
                     {router.asPath.includes('/games') ? (
-                        <img src='/images/lg-coins.png' alt='dialog-img' />
+                        <img src='/images/lg-coins.png' alt='dialog-img' loading='lazy' />
                     ) : (
-                        <img src='/images/lg-points.png' alt='dialog-img' />
+                        <img src='/images/lg-points.png' alt='dialog-img' loading='lazy' />
                     )}
                 </Box>
                 <Typography sx={{ fontWeight: 500, mt: '14px' }}>{body}</Typography>

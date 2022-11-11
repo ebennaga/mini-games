@@ -87,7 +87,13 @@ const EditProfile = () => {
             <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
                 <Box>
                     <Box component='section' sx={{ margin: 'auto', width: 'fit-content', paddingTop: '48px', position: 'relative' }}>
-                        <img src={selectedAvatar?.image_url || userState.avatar_url} width='146px' height='146px' alt='profile' />
+                        <img
+                            src={selectedAvatar?.image_url || userState.avatar_url}
+                            width='146px'
+                            height='146px'
+                            alt='profile'
+                            loading='lazy'
+                        />
                         <ButtonBase
                             onClick={() => setDialogPicture(true)}
                             sx={{

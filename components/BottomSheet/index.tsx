@@ -61,6 +61,13 @@ const BottomSheetCustom: React.FC<BottomSheetProps> = ({ items, onConfirm, type 
         setValue((event.target as HTMLInputElement).value);
     };
 
+    const handleClickContactUs = (isPhone: boolean, phone: string) => {
+        onConfirm(value, type);
+        if (isPhone) {
+            window.open(`tel:${phone}`);
+        }
+    };
+
     return (
         <Dialog
             classes={{
@@ -90,9 +97,15 @@ const BottomSheetCustom: React.FC<BottomSheetProps> = ({ items, onConfirm, type 
             {type === 'Contact Us' ? (
                 <Box sx={{ padding: '14px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                     {items.map((list: any, idx: number) => {
+                        const isPhone = list.icon === '/icons/phone.svg';
                         return (
                             <Box key={idx} sx={{ borderBottom: '2px solid #F4F1FF', padding: '20px' }}>
-                                <NavigationCard icon={list.icon} title={list.title} onClick={() => onConfirm(value, type)} />
+                                {/* <NavigationCard icon={list.icon} title={list.title} onClick={() => onConfirm(value, type)} /> */}
+                                <NavigationCard
+                                    icon={list.icon}
+                                    title={list.title}
+                                    onClick={() => handleClickContactUs(isPhone, list.title)}
+                                />
                             </Box>
                         );
                     })}

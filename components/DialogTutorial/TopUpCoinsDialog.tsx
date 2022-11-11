@@ -59,7 +59,7 @@ const TopUpCoinsDialog: React.FC<TopUpCoinsDialogProps> = ({ open, onClose }) =>
                         }}
                     />
                     <Box>
-                        <img src='/icons/coin-not-active.svg' alt='home-icon' />
+                        <img src='/icons/coin-not-active.svg' alt='home-icon' loading='lazy' />
                     </Box>
                 </Grid>
             </Grid>

@@ -33,7 +33,7 @@ const ButtonPlay: React.FC<IButtonPlay> = ({ onClick, title, points, isLoading }
                         {title}
                     </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <img src='/icons/coins.svg' width='25.39px' height='24px' alt='coins' />
+                        <img src='/icons/coins.svg' width='25.39px' height='24px' alt='coins' loading='lazy' />
                         <Typography component='span' fontSize='16px' fontWeight={700} marginLeft='7px'>
                             {points}
                         </Typography>

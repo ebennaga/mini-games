@@ -55,7 +55,7 @@ const PrizesDialog: React.FC<PrizesDialogProps> = ({ open, onClose }) => {
                         }}
                     />
                     <Box>
-                        <img src='/icons/redeem-not-active.svg' alt='home-icon' />
+                        <img src='/icons/redeem-not-active.svg' alt='home-icon' loading='lazy' />
                     </Box>
                 </Grid>
             </Grid>

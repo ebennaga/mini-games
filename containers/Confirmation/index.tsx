@@ -196,6 +196,7 @@ const PrizeConfirmationContainer = () => {
                                     currentTarget.onerror = null;
                                     currentTarget.src = '/images/img_error.svg';
                                 }}
+                                loading='lazy'
                             />
                         </Box>
                     </Grid>
@@ -204,7 +205,7 @@ const PrizeConfirmationContainer = () => {
 
                         <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center', mt: 2 }}>
                             <Box>
-                                <img src='/images/point-shops.png' alt='pointshops' />
+                                <img src='/images/point-shops.png' alt='pointshops' loading='lazy' />
                             </Box>
                             <Typography sx={{ fontWeight: 'bold', fontSize: '12px' }}>{numberFormat(dataGoods.price)}</Typography>
                         </Box>

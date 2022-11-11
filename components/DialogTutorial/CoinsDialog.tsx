@@ -50,7 +50,7 @@ const CoinsDialog: React.FC<ICoinsDialog> = ({ onClose, open }) => {
                     }}
                 >
                     <Box sx={{ position: 'absolute', top: '-7px' }}>
-                        <img src='/icons/plus-point.png' width='16px' height='16px' alt='plus point' />
+                        <img src='/icons/plus-point.png' width='16px' height='16px' alt='plus point' loading='lazy' />
                     </Box>
                     <Box
                         sx={{
@@ -62,7 +62,7 @@ const CoinsDialog: React.FC<ICoinsDialog> = ({ onClose, open }) => {
                             gap: '5px'
                         }}
                     >
-                        <img src='/icons/point.png' width='21px' height='20.02px' alt='point icon' />
+                        <img src='/icons/point.png' width='21px' height='20.02px' alt='point icon' loading='lazy' />
                         <Typography variant='subtitle1' component='span' sx={{ fontWeight: 'bold', fontSize: '14px', color: '#373737' }}>
                             1.000
                         </Typography>

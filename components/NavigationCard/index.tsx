@@ -24,7 +24,7 @@ const NavigationCard: React.FC<INavigationCard> = ({ icon, title, onClick, isBor
             }}
         >
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <img src={icon} alt={title} width='24px' height='24px' />
+                <img src={icon} alt={title} width='24px' height='24px' loading='lazy' />
                 <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: 'start', marginLeft: 1.5 }}>
                     <Typography component='span' fontSize='14px' fontWeight={700}>
                         {title}
@@ -35,7 +35,7 @@ const NavigationCard: React.FC<INavigationCard> = ({ icon, title, onClick, isBor
                 </Box>
             </Box>
             <Box>
-                <img src='/icons/arrow-right.svg' width='6px' height='11px' alt='show detail' />
+                <img src='/icons/arrow-right.svg' width='6px' height='11px' alt='show detail' loading='lazy' />
             </Box>
         </ButtonBase>
     );

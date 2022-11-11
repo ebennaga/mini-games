@@ -26,7 +26,7 @@ const TopGameProgress: React.FC<TopGameProgressProps> = ({ image, title, level, 
                         {title}
                     </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <img src='/icons/progress-dot.png' width='18.5px' height='auto' alt={title} />
+                        <img src='/icons/progress-dot.png' width='18.5px' height='auto' alt={title} loading='lazy' />
                         <Typography component='p' fontSize='14px' fontWeight={600} ml={1}>
                             {level}
                         </Typography>

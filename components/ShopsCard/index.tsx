@@ -29,14 +29,14 @@ const ShopsCard: React.FC<ShopsCardProps> = ({ title, image, point, onClick, pro
                 }}
             >
                 <Box>
-                    <img src='/icons/logo-white.svg' alt='prize play' width='51.5px' height='auto' />
+                    <img src='/icons/logo-white.svg' alt='prize play' width='51.5px' height='auto' loading='lazy' />
                 </Box>
                 <Box>
                     <Box sx={{ display: 'flex' }}>
                         <Typography sx={{ fontWeight: '800', fontSize: '36px', color: 'white', lineHeight: '38px', mr: 0.5 }}>
                             {title.split(' ')[0]}
                         </Typography>
-                        <img src='/icons/fire-icon-white.svg' alt='fire-icon' />
+                        <img src='/icons/fire-icon-white.svg' alt='fire-icon' loading='lazy' />
                     </Box>
                     {title.split(' ').map((text: string, index: number) => {
                         return (

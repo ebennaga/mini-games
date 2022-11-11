@@ -69,7 +69,7 @@ const HeaderTournament = (props: HeaderTournamentProps) => {
                                         alignItems: 'center'
                                     }}
                                 >
-                                    <img src='/icons/time.png' width='17px' height='17px' alt='time' />
+                                    <img src='/icons/time.png' width='17px' height='17px' alt='time' loading='lazy' />
                                     <Typography component='span' height='18px' fontSize='14px' fontWeight={800} marginLeft='8px'>
                                         {getRemainingTimes(newD)}
                                     </Typography>
@@ -116,9 +116,9 @@ const HeaderTournament = (props: HeaderTournamentProps) => {
                                         }}
                                     >
                                         <Box />
-                                        <img src={value >= 40 ? '/images/step-poin.png' : '/images/step.png'} alt='step' />
-                                        <img src={value >= 60 ? '/images/step-poin.png' : '/images/step.png'} alt='step' />
-                                        <img src={value >= 80 ? '/images/step-poin.png' : '/images/step.png'} alt='step' />
+                                        <img src={value >= 40 ? '/images/step-poin.png' : '/images/step.png'} alt='step' loading='lazy' />
+                                        <img src={value >= 60 ? '/images/step-poin.png' : '/images/step.png'} alt='step' loading='lazy' />
+                                        <img src={value >= 80 ? '/images/step-poin.png' : '/images/step.png'} alt='step' loading='lazy' />
                                     </Box>
                                 </Box>
                                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: '15px', pt: '40px', width: '100%' }}>
@@ -131,7 +131,7 @@ const HeaderTournament = (props: HeaderTournamentProps) => {
                                         }}
                                     >
                                         <Box sx={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                            <img src='/images/sm-point.png' alt='' />
+                                            <img src='/images/sm-point.png' alt='point' loading='lazy' />
                                             <Typography sx={{ color: 'white' }}>
                                                 <span style={{ fontWeight: 'bold', fontSize: '20px' }}>2500</span> Pool
                                             </Typography>
@@ -139,13 +139,13 @@ const HeaderTournament = (props: HeaderTournamentProps) => {
                                         <Box sx={{ display: 'flex', width: '40%', justifyContent: 'space-between' }}>
                                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                                                 <Box>
-                                                    <img src='/icons/icon-user.png' alt='user' />
+                                                    <img src='/icons/icon-user.png' alt='user' loading='lazy' />
                                                 </Box>
                                                 <Typography sx={{ fontWeight: 600, color: 'white' }}>150</Typography>
                                             </Box>
                                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                                                 <Box>
-                                                    <img src='/icons/icon-trophy.png' alt='user' />
+                                                    <img src='/icons/icon-trophy.png' alt='user' loading='lazy' />
                                                 </Box>
                                                 <Typography sx={{ fontWeight: 600, color: 'white' }}>50</Typography>
                                             </Box>
@@ -160,7 +160,7 @@ const HeaderTournament = (props: HeaderTournamentProps) => {
                                         }}
                                     >
                                         <Box sx={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                            <img src='/images/sm-point.png' alt='' />
+                                            <img src='/images/sm-point.png' alt='' loading='lazy' />
                                             <Typography sx={{ color: 'white' }}>
                                                 <span style={{ fontWeight: 'bold', fontSize: '25px' }}>5000</span> Pool
                                             </Typography>
@@ -168,13 +168,13 @@ const HeaderTournament = (props: HeaderTournamentProps) => {
                                         <Box sx={{ display: 'flex', width: '40%', justifyContent: 'space-between' }}>
                                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                                                 <Box>
-                                                    <img src='/icons/icon-user.png' alt='user' />
+                                                    <img src='/icons/icon-user.png' alt='user' loading='lazy' />
                                                 </Box>
                                                 <Typography sx={{ fontWeight: 600, color: 'white' }}>400</Typography>
                                             </Box>
                                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                                                 <Box>
-                                                    <img src='/icons/icon-trophy.png' alt='user' />
+                                                    <img src='/icons/icon-trophy.png' alt='user' loading='lazy' />
                                                 </Box>
                                                 <Typography sx={{ fontWeight: 600, color: 'white' }}>250</Typography>
                                             </Box>
@@ -189,7 +189,7 @@ const HeaderTournament = (props: HeaderTournamentProps) => {
                                         }}
                                     >
                                         <Box sx={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                            <img src='/images/sm-point.png' alt='' />
+                                            <img src='/images/sm-point.png' alt='' loading='lazy' />
                                             <Typography sx={{ color: 'white' }}>
                                                 <span style={{ fontWeight: 'bold', fontSize: '30px' }}>8000</span> Pool
                                             </Typography>
@@ -197,13 +197,13 @@ const HeaderTournament = (props: HeaderTournamentProps) => {
                                         <Box sx={{ display: 'flex', width: '40%', justifyContent: 'space-between' }}>
                                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                                                 <Box>
-                                                    <img src='/icons/icon-user.png' alt='user' />
+                                                    <img src='/icons/icon-user.png' alt='user' loading='lazy' />
                                                 </Box>
                                                 <Typography sx={{ fontWeight: 600, color: 'white' }}>500</Typography>
                                             </Box>
                                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                                                 <Box>
-                                                    <img src='/icons/icon-trophy.png' alt='user' />
+                                                    <img src='/icons/icon-trophy.png' alt='user' loading='lazy' />
                                                 </Box>
                                                 <Typography sx={{ fontWeight: 600, color: 'white' }}>350</Typography>
                                             </Box>

@@ -69,7 +69,7 @@ const AgeConfirmationDialog: React.FC<AgeConfirmationDialogProps> = ({ open, set
                     }
                 }}
             >
-                <img src='/icons/error.svg' width='60px' height='60px' alt='failed' />
+                <img src='/icons/error.svg' width='60px' height='60px' alt='failed' loading='lazy' />
                 <Typography component='h2' fontSize='24px' fontWeight={700} mt='21px'>
                     Error
                 </Typography>
