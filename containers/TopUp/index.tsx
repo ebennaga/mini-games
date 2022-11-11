@@ -40,7 +40,7 @@ const TopUp = () => {
         setIsLoading(true);
         try {
             const response = await fetchAPI({
-                endpoint: 'transactions/history'
+                endpoint: 'transactions/home'
             });
             console.log(response.data.data);
             if (!response) {
