@@ -131,6 +131,10 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                             borderRadius: '8px',
                             width: '78px',
                             height: '78px',
+                            '@media (max-width:425px)': {
+                                width: '70px',
+                                height: '70px'
+                            },
                             '@media (max-width:400px)': {
                                 width: '65px',
                                 height: '65px'
@@ -139,7 +143,10 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                     />
                     <Box
                         sx={{
-                            width: '75%',
+                            width: '72%',
+                            '@media (max-width:500px)': {
+                                width: '70%'
+                            },
                             '@media (max-width:470px)': {
                                 width: '70%'
                             },
@@ -160,8 +167,14 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                                         display: 'flex',
                                         alignItems: 'center',
                                         paddingLeft: 0.5,
+                                        '@media (max-width:460px)': {
+                                            fontSize: '20px'
+                                        },
+                                        '@media (max-width:430px)': {
+                                            fontSize: '16px'
+                                        },
                                         '@media (max-width:400px)': {
-                                            fontSize: '18px'
+                                            fontSize: '14px'
                                         }
                                     }}
                                 >

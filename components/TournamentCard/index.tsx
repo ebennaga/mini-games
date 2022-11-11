@@ -125,14 +125,20 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, coin, pool, users
                                     <Typography
                                         component='span'
                                         sx={{
-                                            fontSize: '20px',
+                                            fontSize: '18px',
                                             fontWeight: 'bold',
                                             color: '#fff',
                                             display: 'flex',
                                             alignItems: 'center',
                                             paddingLeft: 0.5,
+                                            '@media (max-width:470px)': {
+                                                fontSize: '16.5px'
+                                            },
+                                            '@media (max-width:430px)': {
+                                                fontSize: '15px'
+                                            },
                                             '@media (max-width:400px)': {
-                                                fontSize: '18px'
+                                                fontSize: '13px'
                                             }
                                         }}
                                     >
