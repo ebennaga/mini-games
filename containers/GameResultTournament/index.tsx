@@ -96,7 +96,14 @@ const GameResultTournament = () => {
                 </ButtonBase>
             </Box>
             <Box component='section' textAlign='center' color='#373737' borderBottom='1px solid rgba(40, 38, 38, 0.2)' paddingBottom='32px'>
-                <img src={userState.imageGame} width='105px' height='105px' alt='game icon' style={{ borderRadius: '8px' }} />
+                <img
+                    src={userState.imageGame}
+                    width='105px'
+                    height='105px'
+                    alt='game icon'
+                    style={{ borderRadius: '8px' }}
+                    loading='lazy'
+                />
                 <Typography
                     component='h2'
                     fontSize='20px'
@@ -155,7 +162,7 @@ const GameResultTournament = () => {
                     <Typography component='p' fontSize='14px' fontWeight={600}>
                         Use your
                     </Typography>
-                    <img src='/icons/coins.svg' width='12.91px' height='10.95px' alt='coins' style={{ padding: '0 2px' }} />
+                    <img src='/icons/coins.svg' width='12.91px' height='10.95px' alt='coins' style={{ padding: '0 2px' }} loading='lazy' />
                     <Typography component='p' fontSize='14px' fontWeight={800} paddingRight='2px'>
                         20
                     </Typography>

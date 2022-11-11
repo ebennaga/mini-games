@@ -24,7 +24,7 @@ const InfoTermPrivacy: React.FC<InfoTermPrivacyProps> = ({ arrayInfo }) => {
             </Box>
 
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginTop: '28px' }}>
-                <img src='/images/prizeplay_black.png' alt='prize_logo' />
+                <img src='/images/prizeplay_black.png' alt='prize_logo' loading='lazy' />
                 <Typography
                     component='span'
                     fontWeight={400}
@@ -45,10 +45,10 @@ const InfoTermPrivacy: React.FC<InfoTermPrivacyProps> = ({ arrayInfo }) => {
 
                 <Box sx={{ marginTop: '28px' }}>
                     <Grid container spacing={2} gap={3}>
-                        <img src='/icons/instagram_grey.png' alt='instagram' />
-                        <img src='/icons/facebook_grey.png' alt='facebook' />
-                        <img src='/icons/tiktok_grey.png' alt='tiktok' />
-                        <img src='/icons/twitter_grey.png' alt='twitter' />
+                        <img src='/icons/instagram_grey.png' alt='instagram' loading='lazy' />
+                        <img src='/icons/facebook_grey.png' alt='facebook' loading='lazy' />
+                        <img src='/icons/tiktok_grey.png' alt='tiktok' loading='lazy' />
+                        <img src='/icons/twitter_grey.png' alt='twitter' loading='lazy' />
                     </Grid>
                 </Box>
             </Box>

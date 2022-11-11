@@ -63,8 +63,8 @@ const InfoCard: React.FC<InfoCardProps> = ({ onClick, title, subTitle, backgroun
                         </Box>
                     </Box>
                     <Box>
-                        <img src={image} width='77px' height='auto' alt='prize play' />
-                        <img src='/icons/logo-white.svg' width='38.8px' height='20px' alt='prize play' />
+                        <img src={image} width='77px' height='auto' alt='prize play' loading='lazy' />
+                        <img src='/icons/logo-white.svg' width='38.8px' height='20px' alt='prize play' loading='lazy' />
                     </Box>
                 </Box>
             </Box>

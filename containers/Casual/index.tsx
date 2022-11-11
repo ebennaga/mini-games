@@ -41,13 +41,12 @@ const CasualContainer = () => {
     };
 
     const fetchData = async (id: number) => {
-        console.log(id);
         try {
             const res = await fetchAPI({
                 endpoint: `/games/${id}`,
                 method: 'GET'
             });
-            if (res.data?.data) {
+            if (res.data?.status === 200) {
                 setDetailGame(res.data.data);
             }
         } catch (e: any) {

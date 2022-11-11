@@ -34,7 +34,7 @@ const SocialMediaList = () => {
                                 onClick={() => router.push(item.href)}
                                 sx={{ background: '#F4F1FF', borderRadius: '8px', height: '100%', width: '100%' }}
                             >
-                                <img src={`/icons${item.icon}`} width='24px' height='24px' alt={item.platform} />
+                                <img src={`/icons${item.icon}`} width='24px' height='24px' alt={item.platform} loading='lazy' />
                                 <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='25px' sx={{ color: '#A54CE5' }}>
                                     {item.idAccount}
                                 </Typography>

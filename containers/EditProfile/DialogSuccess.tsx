@@ -33,7 +33,7 @@ const DialogSuccess: React.FC<DialogSuccessProps> = ({ open, setOpen }) => {
             <Typography component='h2' fontSize='14px' fontWeight={700} mb='10px'>
                 Awesome!
             </Typography>
-            <img src='/images/thumbs-bg-star.svg' width='206px' height='auto' alt='success changes' />
+            <img src='/images/thumbs-bg-star.svg' width='206px' height='auto' alt='success changes' loading='lazy' />
             <Typography component='p' fontSize='14px' fontWeight={400}>
                 Changes has been updated
             </Typography>

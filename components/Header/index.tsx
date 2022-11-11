@@ -153,7 +153,7 @@ const Header: React.FC<HeaderProps> = ({
                     </ButtonBase>
                 ) : (
                     <ButtonBase onClick={() => router.push('/')}>
-                        <img src={logo} width={widthLogo} height={heightLogo} alt='prize play' />
+                        <img src={logo} width={widthLogo} height={heightLogo} alt='prize play' loading='lazy' />
                     </ButtonBase>
                 )}
             </Box>
@@ -180,7 +180,7 @@ const Header: React.FC<HeaderProps> = ({
                 </ButtonBase>
             ) : (
                 <ButtonBase onClick={() => router.push('/')}>
-                    <img src={logo} width={widthLogo} height={heightLogo} alt='prize play' />
+                    <img src={logo} width={widthLogo} height={heightLogo} alt='prize play' loading='lazy' />
                 </ButtonBase>
             )}
             {userState && userState?.api_token ? (
@@ -198,7 +198,7 @@ const Header: React.FC<HeaderProps> = ({
                         >
                             {!isShops && (
                                 <Box sx={{ position: 'absolute', top: '-7px' }}>
-                                    <img src='/icons/plus-point.png' width='16px' height='16px' alt='plus point' />
+                                    <img src='/icons/plus-point.png' width='16px' height='16px' alt='plus point' loading='lazy' />
                                 </Box>
                             )}
                             <Box
@@ -213,9 +213,9 @@ const Header: React.FC<HeaderProps> = ({
                                 }}
                             >
                                 {isShops ? (
-                                    <img src='/images/point-shops.png' width='20px' height='20.02px' alt='point icon' />
+                                    <img src='/images/point-shops.png' width='20px' height='20.02px' alt='point icon' loading='lazy' />
                                 ) : (
-                                    <img src='/images/xs-coin.png' width='21px' height='20.02px' alt='point icon' />
+                                    <img src='/images/xs-coin.png' width='21px' height='20.02px' alt='point icon' loading='lazy' />
                                 )}
                                 <Typography
                                     variant='subtitle1'
@@ -235,7 +235,7 @@ const Header: React.FC<HeaderProps> = ({
                         </Box>
                     </ButtonBase>
                     <ButtonBase onClick={() => router.push('/profile')}>
-                        <img src={userState.avatar_url} width='46px' height='46px' alt='profile' />
+                        <img src={userState.avatar_url} width='46px' height='46px' alt='profile' loading='lazy' />
                     </ButtonBase>
                 </Box>
             ) : (

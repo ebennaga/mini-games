@@ -9,8 +9,15 @@ const AboutUs = () => {
         <Box component='main' sx={{ width: '-webkit-fill-available', padding: '0 20px', color: '#373737' }}>
             <HeaderBack title='About' />
             <Box component='section' sx={{ marginTop: '57px', textAlign: 'center' }}>
-                <img src='/icons/logo.svg' width='150px' height='77.12px' alt='prize play' style={{ marginBottom: '60px' }} />
-                <img src='/images/logo-about.png' width='240.33px' height='188px' alt='logo about' />
+                <img
+                    src='/icons/logo.svg'
+                    width='150px'
+                    height='77.12px'
+                    alt='prize play'
+                    style={{ marginBottom: '60px' }}
+                    loading='lazy'
+                />
+                <img src='/images/logo-about.png' width='240.33px' height='188px' alt='logo about' loading='lazy' />
                 <Box sx={{ marginTop: '51px' }}>
                     {/* <InfoArticle text='Welcome To prizeplay.io' /> */}
                     <Typography sx={{ color: '#949494', fontWeight: 700, size: '18px' }}>Welcome To prizeplay.io</Typography>

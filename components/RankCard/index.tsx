@@ -65,6 +65,7 @@ const RankCard: React.FC<IRankCard> = ({
                         width='19.95px'
                         height='19.95px'
                         alt='score'
+                        loading='lazy'
                     />
                     <Typography component='h3' fontSize='12px' fontWeight={800} paddingLeft='6px'>
                         {numberFormat(point)}

@@ -21,10 +21,10 @@ const TitleSection: React.FC<TitleSectionProps> = ({ title, sutTitle, smallImage
             </Box>
             <Box sx={{ display: 'flex', position: 'absolute', right: '-30px', top: '3px', rotate: '-33deg' }}>
                 <Box>
-                    <img src={smallImage} width='62.79px' height='59.36px' alt='coins' />
+                    <img src={smallImage} width='62.79px' height='59.36px' alt='coins' loading='lazy' />
                 </Box>
                 <Box sx={{ marginLeft: '-25px' }}>
-                    <img src={bigImage} width='83.64px' height='70.93px' alt='coins' />
+                    <img src={bigImage} width='83.64px' height='70.93px' alt='coins' loading='lazy' />
                 </Box>
             </Box>
         </Box>

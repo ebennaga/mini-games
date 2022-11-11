@@ -14,7 +14,7 @@ const HTGCard: React.FC<HTGCardProps> = ({ href, image, title, paragraph, custom
     return (
         <Box sx={{ mt: '30px' }}>
             <ButtonBase href={href} sx={{ width: '100%' }}>
-                <img src={image} alt='coin-banner' style={{ width: '100%' }} />
+                <img src={image} alt='coin-banner' style={{ width: '100%' }} loading='lazy' />
             </ButtonBase>
             <Box sx={{ borderBottom: '2px solid #F4F1FF' }}>
                 <Accordion

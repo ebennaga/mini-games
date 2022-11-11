@@ -28,7 +28,7 @@ const SignupLoginDialog: React.FC<SignupLoginDialogProps> = ({ open, setOpen }) 
             <Typography component='h2' fontSize='14px' fontWeight={700} mb='32px'>
                 Oops.. you do not have access
             </Typography>
-            <img src='/images/delete-logo.svg' width='192px' height='auto' alt='Prize play signup' />
+            <img src='/images/delete-logo.svg' width='192px' height='auto' alt='Prize play signup' loading='lazy' />
             <Typography component='p' fontSize='14px' fontWeight={400} lineHeight='14px' textAlign='center' mt='31px' px='35px'>
                 to continue , please sign up and access all feature
             </Typography>

@@ -54,7 +54,7 @@ const ListOfGamesDialog: React.FC<ListOfGamesDialogProps> = ({ open, onClose }) 
                         }}
                     />
                     <Box>
-                        <img src='/icons/console-not-active.svg' alt='home-icon' />
+                        <img src='/icons/console-not-active.svg' alt='home-icon' loading='lazy' />
                     </Box>
                 </Grid>
             </Grid>

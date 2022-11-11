@@ -51,6 +51,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ value }) => {
                                         width='25.7px'
                                         height='auto'
                                         alt='beginner'
+                                        loading='lazy'
                                     />
                                     <Box sx={{ position: 'absolute', top: -60, display: isShowReward ? 'block' : 'none' }}>
                                         <Box
@@ -91,7 +92,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ value }) => {
                                                     Reward
                                                 </Typography>
                                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                                    <img src='/icons/coins.svg' width='10.5px' height='auto' alt='coins' />
+                                                    <img src='/icons/coins.svg' width='10.5px' height='auto' alt='coins' loading='lazy' />
                                                     <Typography component='h4' fontSize='10px' fontWeight={700} ml={0.5}>
                                                         {item.reward}
                                                     </Typography>

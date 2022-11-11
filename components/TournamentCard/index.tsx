@@ -78,7 +78,9 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, coin, pool, users
                             alignSelf: 'end'
                         }}
                     >
-                        {timeTournament !== 'Coming Soon' && <img src='/icons/clock.png' alt='clock timer' width='14px' height='14px' />}
+                        {timeTournament !== 'Coming Soon' && (
+                            <img src='/icons/clock.png' alt='clock timer' width='14px' height='14px' loading='lazy' />
+                        )}
                         <Typography component='span' sx={{ fontSize: '12px', paddingLeft: '4px' }}>
                             {timeTournament}
                         </Typography>
@@ -121,7 +123,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, coin, pool, users
                         >
                             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', ml: 1 }}>
-                                    <img src='/images/point-shops.png' width={31} height={31} alt='star' />
+                                    <img src='/images/point-shops.png' width={31} height={31} alt='star' loading='lazy' />
                                     <Typography
                                         component='span'
                                         sx={{
@@ -226,7 +228,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, coin, pool, users
                                     View Tournaments
                                 </Typography>
                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                    <img src='/images/coin.png' width='13.81px' height='13.17px' alt='trophy' />
+                                    <img src='/images/coin.png' width='13.81px' height='13.17px' alt='trophy' loading='lazy' />
                                     <Typography
                                         component='span'
                                         sx={{
