@@ -12,7 +12,7 @@ import getLocalData from 'helper/getLocalData';
 import WelcomeDialog from 'components/DialogTutorial/WelcomeDialog';
 import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import { useSelector } from 'react-redux';
-import { AutoAwesome } from '@mui/icons-material';
+// import { AutoAwesome } from '@mui/icons-material';
 import Search from './Search';
 import GamesCard from './GamesCard';
 import EventCarousel from './EventCarousel';
@@ -186,7 +186,7 @@ const HomeContainer = () => {
                     borderRadius: '5px'
                 }}
             >
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: '17px' }}>
+                {/* <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: '17px' }}>
                     <Box>
                         <Typography variant='h6' fontWeight='bold' component='h2'>
                             Tournaments
@@ -210,11 +210,11 @@ const HomeContainer = () => {
                         </ButtonBase>
                         <AutoAwesome sx={{ color: '#A54CE5', width: '13px', alignSelf: 'flex-end', rotate: '180deg' }} />
                     </Box>
-                </Box>
+                </Box> */}
 
                 {/* Tournament Card Start */}
 
-                <Box id='tournaments'>
+                {/* <Box id='tournaments'>
                     <TournamentSlider customMaxWidth='91vw'>
                         {datasHome.tournaments.map((item: any) => {
                             return (
@@ -238,7 +238,7 @@ const HomeContainer = () => {
                             );
                         })}
                     </TournamentSlider>
-                </Box>
+                </Box> */}
 
                 {/* Tournament Card End */}
             </Box>

@@ -95,7 +95,7 @@ const ProfileSetting = () => {
 
     const itemContactUs = [
         { icon: '/icons/email.svg', title: 'business.ultrasuksesbersama@gmail.com' },
-        { icon: '/icons/phone.svg', title: '(+62) 088888111' }
+        { icon: '/icons/phone.svg', title: '+62 21 59992946' }
     ];
 
     const handleHref = (href: string) => {
