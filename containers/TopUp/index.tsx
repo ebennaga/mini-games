@@ -192,6 +192,7 @@ const TopUp = () => {
                                 subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
                                 created={i?.created_at}
                                 status={i.status}
+                                type={i.type}
                             />
                         ))}
                 {histories?.length === 0 && <Typography sx={{ mt: '10px', color: 'red' }}>There is not any histories top up</Typography>}
