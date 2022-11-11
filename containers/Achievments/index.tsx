@@ -19,7 +19,7 @@ const AchievmentsContainer = () => {
             </Grid>
             <Grid container padding='20px'>
                 <Grid item xs={2}>
-                    <img src='/images/profileAchiement.png' alt='pachiev' />
+                    <img src='/images/profileAchiement.png' alt='pachiev' loading='lazy' />
                 </Grid>
                 <Grid item xs={10} direction='row' gap={4}>
                     <Grid item xs={12}>
@@ -28,7 +28,7 @@ const AchievmentsContainer = () => {
                     <Grid container xs={12} justifyContent='space-between' alignItems='center'>
                         <Grid container xs={6} alignItems='center' justifyContent='center' spacing={4}>
                             <Grid item xs={1}>
-                                <img src='/images/badge-level.png' alt='badge' />
+                                <img src='/images/badge-level.png' alt='badge' loading='lazy' />
                             </Grid>
                             <Grid item xs={10}>
                                 <Typography fontWeight='600'>Beginner</Typography>

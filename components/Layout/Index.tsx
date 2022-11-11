@@ -71,7 +71,11 @@ const Layout: React.FC<LayoutProps> = ({
                                 router.push('/');
                             }}
                         >
-                            <img src={`/icons/${router.pathname === '/' ? 'home-active' : 'home-not-active'}.svg`} alt='home-icon' />
+                            <img
+                                src={`/icons/${router.pathname === '/' ? 'home-active' : 'home-not-active'}.svg`}
+                                alt='home-icon'
+                                loading='lazy'
+                            />
                         </ButtonBase>
                     </Grid>
                     <Grid item xs={3}>
@@ -83,6 +87,7 @@ const Layout: React.FC<LayoutProps> = ({
                             <img
                                 src={`/icons/${router.pathname === '/games' ? 'console-active' : 'console-not-active'}.svg`}
                                 alt='home-icon'
+                                loading='lazy'
                             />
                         </ButtonBase>
                     </Grid>
@@ -99,6 +104,7 @@ const Layout: React.FC<LayoutProps> = ({
                                         : 'redeem-not-active'
                                 }.svg`}
                                 alt='home-icon'
+                                loading='lazy'
                             />
                         </ButtonBase>
                     </Grid>
@@ -108,7 +114,11 @@ const Layout: React.FC<LayoutProps> = ({
                                 router.push('/topup');
                             }}
                         >
-                            <img src={`/icons/${router.pathname === '/topup' ? 'coin-active' : 'coin-not-active'}.svg`} alt='home-icon' />
+                            <img
+                                src={`/icons/${router.pathname === '/topup' ? 'coin-active' : 'coin-not-active'}.svg`}
+                                alt='home-icon'
+                                loading='lazy'
+                            />
                         </ButtonBase>
                     </Grid>
                 </Grid>

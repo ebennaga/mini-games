@@ -40,7 +40,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                         }}
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center', alignSelf: 'end', marginRight: '9px', marginTop: '9px' }}>
-                            <img src='/images/point-shops.png' width='21px' height='22px' alt='prize' />
+                            <img src='/images/point-shops.png' width='21px' height='22px' alt='prize' loading='lazy' />
                             {dataLeaderboard.length > 1 && (
                                 <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
                                     {numberFormat(dataLeaderboard[1].user.point_prize)}
@@ -90,7 +90,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                         }}
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center', alignSelf: 'end', marginRight: '9px', marginTop: '9px' }}>
-                            <img src='/images/point-shops.png' width='21px' height='22px' alt='prize' />
+                            <img src='/images/point-shops.png' width='21px' height='22px' alt='prize' loading='lazy' />
                             {dataLeaderboard.length > 0 && (
                                 <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
                                     {numberFormat(dataLeaderboard[0].user.point_prize)}
@@ -139,7 +139,7 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                         }}
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center', alignSelf: 'end', marginRight: '9px', marginTop: '9px' }}>
-                            <img src='/images/point-shops.png' width='21px' height='22px' alt='prize' />
+                            <img src='/images/point-shops.png' width='21px' height='22px' alt='prize' loading='lazy' />
                             {dataLeaderboard.length > 2 && (
                                 <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
                                     {numberFormat(dataLeaderboard[2].user.point_prize)}

@@ -15,7 +15,7 @@ const GetCard: React.FC<GetCardProps> = ({ icon, title, paragraph, secondParagra
     return (
         <Box sx={{ paddingBottom: '45px', borderBottom: '1px solid #E6E6E6' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '42px' }}>
-                <img src={icon} width='53.95px' height='auto' alt={title} />
+                <img src={icon} width='53.95px' height='auto' alt={title} loading='lazy' />
                 <Typography component='h2' fontWeight={700} paddingLeft='20px' fontSize='24px' sx={{ color: '#373737' }}>
                     {title}
                 </Typography>

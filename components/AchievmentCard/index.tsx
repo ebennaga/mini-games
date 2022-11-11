@@ -30,7 +30,7 @@ const AchievmentCard: React.FC<AchievmentCardProps> = ({ xp, isComplete, scores,
                     </Typography>
                     {(isComplete || isClaimed) && (
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <img src='/icons/complete.png' width='16.9px' height='auto' alt='complete' />
+                            <img src='/icons/complete.png' width='16.9px' height='auto' alt='complete' loading='lazy' />
                             <Typography component='span' fontSize='12px' fontWeight={400} ml='6.8px'>
                                 Complete
                             </Typography>
@@ -54,7 +54,7 @@ const AchievmentCard: React.FC<AchievmentCardProps> = ({ xp, isComplete, scores,
                     height: 'fit-content'
                 }}
             >
-                <img src='/images/coin.png' width='22.88px' height='auto' alt='coins' />
+                <img src='/images/coin.png' width='22.88px' height='auto' alt='coins' loading='lazy' />
                 <Typography component='span' fontSize='14px' fontWeight={700} ml='8.1px'>
                     {coints}
                 </Typography>

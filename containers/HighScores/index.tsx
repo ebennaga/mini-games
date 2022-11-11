@@ -66,7 +66,7 @@ const HighScoresContainer = () => {
                             </Box>
                         </Box>
                         <Box sx={{ display: 'flex', gap: '10px' }}>
-                            <img src='/images/ribbon.png' alt='ribbon' />
+                            <img src='/images/ribbon.png' alt='ribbon' loading='lazy' />
                             <Typography sx={{ fontWeight: '600' }}>{numberFormat(item.highscore)}</Typography>
                         </Box>
                     </Box>

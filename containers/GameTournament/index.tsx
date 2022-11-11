@@ -179,14 +179,14 @@ const GameTournament = () => {
                                 Leaderboard
                             </Typography>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
-                                <img src='/icons/xs-troffy.png' alt='troffy' />
+                                <img src='/icons/xs-troffy.png' alt='troffy' loading='lazy' />
                                 <Typography sx={{ fontSize: '14px', fontWeight: 'bold' }}>250</Typography>
                             </Box>
                         </Box>
                         {listingGame?.leaderboards.length < 0 && (
                             <Box sx={{ textAlign: 'center', marginY: '150px' }}>
                                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                                    <img src='/images/leaderboard-img.png' alt='leaderboard' />
+                                    <img src='/images/leaderboard-img.png' alt='leaderboard' loading='lazy' />
                                 </Box>
                                 <Typography sx={{ fontSize: '14px', color: '#949494', fontWeight: 'bold' }}>
                                     Nobody has played yet. Be the first.

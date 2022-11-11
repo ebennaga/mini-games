@@ -40,14 +40,15 @@ const TopUp = () => {
         setIsLoading(true);
         try {
             const response = await fetchAPI({
-                endpoint: 'transactions/home?search='
+                endpoint: 'transactions/history'
             });
+            console.log(response.data.data);
             if (!response) {
                 throw new Error('Data is Empty');
             }
             if (response.status === 200) {
                 setCoins(response.data.data.coins);
-                setHistories(response.data.data.history);
+                setHistories(response.data.data);
             } else {
                 throw new Error(response.data.message);
             }
@@ -105,7 +106,8 @@ const TopUp = () => {
                     backgroundColor: 'white',
                     width: '-webkit-fill-available',
                     top: '-1px',
-                    borderBottom: borderValue
+                    borderBottom: borderValue,
+                    paddingBottom: '20px'
                 }}
             >
                 <Header logo='/icons/logo.svg' profilePicture='/icons/dummy/profile.png' />
@@ -179,7 +181,7 @@ const TopUp = () => {
             <Box sx={{ textAlign: 'center', paddingX: '20px' }}>
                 {histories?.length > 0 &&
                     histories
-                        .slice(2)
+                        .slice(0, 3)
                         .map((i: any) => (
                             <TransactionCard
                                 isToday

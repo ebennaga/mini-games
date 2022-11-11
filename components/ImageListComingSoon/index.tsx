@@ -14,6 +14,7 @@ const ImageListItemComingSoon: React.FC<ImageListItemComingSoonProps> = ({ isLiv
             <Box>
                 <Box sx={{ backgroundColor: '#949494', padding: '25px', borderRadius: '14px', position: 'relative' }}>
                     <img
+                        loading='lazy'
                         src={image}
                         alt={name}
                         style={{ width: '100%' }}
