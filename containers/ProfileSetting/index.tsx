@@ -191,7 +191,7 @@ const ProfileSetting = () => {
                     </Typography>
                     {supportData.map((item: any, index: number) => {
                         return index === 3 ? (
-                            <Box sx={{ borderBottom: '2px solid #F4F1FF', padding: '20px 0' }}>
+                            <Box key={index} sx={{ borderBottom: '2px solid #F4F1FF', padding: '20px 0' }}>
                                 <NavigationCard
                                     icon='/icons/report-issue.svg'
                                     title='Reported Issues'

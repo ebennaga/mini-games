@@ -7,6 +7,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { wrapper } from 'redux/store';
 import { SnackbarProvider } from 'notistack';
 import Router, { useRouter } from 'next/router';
+// import Router from 'next/router';
 import useAuthReducer from 'hooks/useAuthReducer';
 import React from 'react';
 import Script from 'next/script';

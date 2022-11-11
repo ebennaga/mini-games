@@ -7,8 +7,8 @@ import BadgeImages from 'components/BadgeImages';
 import HeaderSkeleton from 'components/Header/HeaderSkeleton';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
-import { Mms } from '@mui/icons-material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+// import { Mms } from '@mui/icons-material';
+// import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import GameSekeleton from './GameSkeleton';
 
 interface GameProps {
@@ -20,25 +20,18 @@ interface GameProps {
 
 // eslint-disable-next-line no-unused-vars
 const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3, totalPlayer }) => {
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setLoading] = useState(true);
     const [borderValue, setBorderValue] = useState<string>('none');
     const [listingGame, setListingGame] = React.useState<any>(null);
     const [searchData, setSearchData] = useState<any>(null);
     // const [isLoading] = React.useState(true);
     const router = useRouter();
     const notify = useNotify();
-    const { fetchAPI, isLoading } = useAPICaller();
+    const { fetchAPI } = useAPICaller();
 
     React.useEffect(() => {
         setTimeout(() => setLoading(false), 3000);
     }, []);
-
-    const handleScroll = () => {
-        if (window.scrollY === 0) {
-            return setBorderValue('none');
-        }
-        return setBorderValue('0.5px solid rgba(148, 148, 148, 0.35)');
-    };
 
     const handleSearch = (key: any, array: any) => {
         return new Promise((resolve, reject) => {
@@ -54,7 +47,9 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
                 endpoint: '/games/home',
                 method: 'GET'
             });
-
+            if (!res) {
+                throw new Error('Data is Empty');
+            }
             if (res.status === 200 && router.query.search) {
                 const resSearch = await handleSearch(router.query.search, res.data.data);
                 setSearchData(resSearch);
@@ -64,9 +59,11 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
                 setListingGame(res.data.data);
             } else {
                 notify(res.message, 'error');
+                setLoading(false);
             }
         } catch (e) {
-            notify('failed data', 'e');
+            notify('failed data', 'error');
+            setLoading(false);
         }
         setLoading(false);
     };
@@ -74,6 +71,13 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
     React.useEffect(() => {
         fetchData();
     }, []);
+
+    const handleScroll = () => {
+        if (window.scrollY === 0) {
+            return setBorderValue('');
+        }
+        return setBorderValue('0.5px solid rgba(148, 148, 148, 0.35)');
+    };
 
     React.useEffect(() => {
         const watchScroll = () => {
@@ -84,6 +88,7 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
     const cards = [
         {
             id: 1,
@@ -118,7 +123,7 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
                 <Header
                     isBack={router.asPath?.includes('search')}
                     logo='/icons/logo.svg'
-                    point={102_300}
+                    // point={102_300}
                     profilePicture='/icons/dummy/profile.png'
                 />
             </Box>
