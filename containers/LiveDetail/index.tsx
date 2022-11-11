@@ -101,7 +101,7 @@ const LiveDetailContainer = () => {
                                 alignItems='center'
                             >
                                 <Grid item xs={8}>
-                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'start' }}>
                                         <ButtonBase
                                             sx={{
                                                 color: 'black',
@@ -109,7 +109,7 @@ const LiveDetailContainer = () => {
                                                 padding: '1px 10px',
                                                 borderRadius: '24px',
                                                 display: 'flex',
-                                                width: '100%',
+                                                width: '105px',
                                                 justifyContent: 'space-between',
                                                 alignItems: 'center',
                                                 gap: '3px'
@@ -125,7 +125,7 @@ const LiveDetailContainer = () => {
                                                 padding: '1px 10px',
                                                 borderRadius: '24px',
                                                 display: 'flex',
-                                                width: '100%',
+                                                width: '100px',
                                                 justifyContent: 'space-between',
                                                 alignItems: 'center',
                                                 gap: '3px'
@@ -136,19 +136,26 @@ const LiveDetailContainer = () => {
                                         </ButtonBase>
                                     </Box>
                                 </Grid>
-                                <Grid item xs={3}>
+                                <Grid item xs='auto'>
                                     <Grid
                                         container
                                         alignItems='center'
-                                        justifyContent='center'
-                                        sx={{ backgroundColor: '#FFDD50', paddingTop: '3px', borderRadius: '10px' }}
+                                        justifyContent='space-between'
+                                        gap='10px'
+                                        width='100px'
+                                        sx={{ backgroundColor: '#FFDD50', paddingTop: '3px', paddingX: '1px', borderRadius: '10px' }}
                                     >
-                                        <Grid item xs={6}>
+                                        <Grid item xs={4}>
                                             <img src='/images/users-img.png' alt='user-img' />
                                         </Grid>
-                                        <Grid item xs={4}>
+                                        <Grid
+                                            item
+                                            xs={6}
+                                            width='100
+                                        %'
+                                        >
                                             <Typography sx={{ fontSize: '11px', color: 'black', fontWeight: 'bold' }}>
-                                                {numberFormat(100)}
+                                                {numberFormat(100000)}
                                             </Typography>
                                         </Grid>
                                     </Grid>
