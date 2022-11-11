@@ -48,7 +48,7 @@ const TopUp = () => {
             }
             if (response.status === 200) {
                 setCoins(response.data.data.coins);
-                setHistories(response.data.history);
+                setHistories(response.data.data.history);
             } else {
                 throw new Error(response.data.message);
             }
@@ -182,10 +182,10 @@ const TopUp = () => {
                 {histories?.length > 0 &&
                     histories
                         .slice(0, 3)
-                        .map((i: any) => (
+                        .map((i: any, idx: number) => (
                             <TransactionCard
                                 isToday
-                                key={i.id}
+                                key={idx}
                                 title={i.description}
                                 isCoin
                                 amount={i.coin}
