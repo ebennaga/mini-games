@@ -24,6 +24,7 @@ interface HeaderProps {
     paddingX?: string;
     isShops?: boolean;
     dataLocal?: any;
+    isHide?: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -37,7 +38,8 @@ const Header: React.FC<HeaderProps> = ({
     widthLogo = '75px',
     heightLogo = '39px',
     isShops = false,
-    dataLocal
+    dataLocal,
+    isHide = false
 }) => {
     const userState = useSelector((state: any) => state?.webpage?.user?.user);
     const classes = useStyles();
@@ -182,7 +184,7 @@ const Header: React.FC<HeaderProps> = ({
                 </ButtonBase>
             )}
             {userState && userState?.api_token ? (
-                <Box className={classes.headerRight} sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box className={classes.headerRight} sx={{ display: isHide ? 'none' : 'flex', alignItems: 'center' }}>
                     <ButtonBase onClick={() => router.push('/topup')}>
                         <Box
                             className={classes.pointContainer}
@@ -237,7 +239,7 @@ const Header: React.FC<HeaderProps> = ({
                     </ButtonBase>
                 </Box>
             ) : (
-                <Box>
+                <Box sx={{ display: isHide ? 'none' : 'block' }}>
                     <ButtonBase
                         onClick={() => router.push('/login')}
                         // onClick={() => signIn()}

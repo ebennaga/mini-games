@@ -80,7 +80,7 @@ const GameDetailContainer = () => {
     };
 
     const handlePlay = () => {
-        if (userState.api_token) {
+        if (userState?.api_token) {
             return router.push(`/games/${router.query.id}/casual/`);
         }
         return setSignupLoginDialog(true);
