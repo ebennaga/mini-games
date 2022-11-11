@@ -34,7 +34,7 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                 endpoint: `transactions/history`,
                 method: 'GET'
             });
-            // console.log(result);
+
             if (result.status === 200) {
                 setCointTransaction(result.data.data);
             }
@@ -106,6 +106,8 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                 {todayTransactions !== null &&
                     todayTransactions?.map((i: any) => (
                         <TransactionCard
+                            status={i.status}
+                            type={i.type}
                             isToday
                             key={i.id}
                             title={i.description}
@@ -121,6 +123,8 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                 {yesterdayTransactions !== null &&
                     yesterdayTransactions?.map((i: any) => (
                         <TransactionCard
+                            status={i.status}
+                            type={i.type}
                             isYesterday
                             key={i.id}
                             title={i.description}
@@ -142,6 +146,8 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
             {!isLoading &&
                 daysAgoTransactions?.map((i: any) => (
                     <TransactionCard
+                        status={i.status}
+                        type={i.type}
                         key={i.id}
                         title={i.description}
                         isCoin

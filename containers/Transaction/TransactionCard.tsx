@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import dateToStringFormat from 'helper/dateToStringFormat';
@@ -10,19 +11,24 @@ interface TransactionCardProps {
     created?: any;
     isToday?: any;
     isYesterday?: any;
+    status?: any;
+    type?: any;
 }
 
 const TransactionCard: React.FC<TransactionCardProps> = ({
     title,
     subtitle,
     amount,
-    isCoin = true,
+    isCoin = false,
     created,
     isYesterday = true,
-    isToday = true
+    isToday = true,
+    status,
+    type
 }) => {
     const date = new Date(created);
     const today = new Date();
+    console.log(status);
     return (
         <Box>
             {!isToday && !isYesterday && (
@@ -57,8 +63,16 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                         <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Typography sx={{ fontWeight: 'bold', fontSize: '13px' }}>{title}</Typography>
-                            {!isCoin && (
-                                <Typography sx={{ textAlign: 'end', fontWeight: 'bold', fontSize: '13px' }}>Place 100th</Typography>
+                            {isCoin && (
+                                <Box
+                                    sx={{
+                                        borderRadius: '15px',
+                                        padding: '4px',
+                                        color: 'white',
+                                        fontSize: '11px',
+                                        backgroundColor: status === 'pending-payment' ? '#FFD833' : status === 'done' ? '#56CF54' : 'red'
+                                    }}
+                                >{`${status === 'pending-payment' ? 'Pending' : status === 'done' ? 'Success' : 'Failed'}`}</Box>
                             )}
                         </Box>
                         <Box
@@ -71,8 +85,8 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
                         >
                             <Typography sx={{ fontSize: '13px' }}>{subtitle}</Typography>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '3px', justifyContent: 'center' }}>
-                                <Typography sx={{ fontSize: '13px', fontWeight: 'bold', color: title?.includes('Join') ? 'red' : 'green' }}>
-                                    {`${title?.includes('Join') ? '-' : '+'}`}
+                                <Typography sx={{ fontSize: '13px', fontWeight: 'bold', color: type === 'MINUS' ? 'red' : 'green' }}>
+                                    {`${type === 'MINUS' ? '-' : '+'}`}
                                     {amount}
                                 </Typography>
                                 <img src={isCoin ? '/images/xs-coin.png' : '/images/xs-point.png'} alt='coin' width={15} />
