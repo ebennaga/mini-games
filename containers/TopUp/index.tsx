@@ -31,7 +31,7 @@ const TopUp = () => {
             endpoint: 'transactions/home?search='
         });
 
-        if (response.status === 200) {
+        if (response?.status === 200) {
             setCoins(response.data.data.coins);
             setHistories(response.data.data.history);
         }
