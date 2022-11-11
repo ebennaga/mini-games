@@ -8,6 +8,7 @@ import HeaderBack from 'components/HeaderBack';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import dateFormat from 'helper/dateFormat';
+import numberFormat from 'helper/numberFormat';
 import RedeemHistoryLoading from './RedeemHistoryLoading';
 
 const RedeemHistoryContainer = () => {
@@ -23,11 +24,13 @@ const RedeemHistoryContainer = () => {
         setIsLoading(true);
         try {
             const response = await fetchAPI({ method: 'GET', endpoint: 'redemptions/history' });
+
             if (!response) {
                 throw new Error('Sorry, Data histories is not ready!');
             }
             if (response.status === 200) {
                 setHistories(response.data.data);
+                // console.log('responseredeem', response.data.data);
                 setTabData(response.data.data);
             } else {
                 throw new Error(response.data.message);
@@ -52,10 +55,10 @@ const RedeemHistoryContainer = () => {
             const filtData = histories?.filter((item: any) => item.status !== 'pending-payment');
             setTabData(filtData);
         } else if (newValue === 2) {
-            const filtData = filterData('packed');
+            const filtData = filterData('paid');
             setTabData(filtData);
         } else if (newValue === 3) {
-            const filtData = filterData('sent');
+            const filtData = filterData('open');
             setTabData(filtData);
         }
     };
@@ -174,7 +177,7 @@ const RedeemHistoryContainer = () => {
                                 <Box sx={{ display: 'flex', alignItems: 'flex-end', width: '100%', mt: '3px' }}>
                                     <Typography sx={{ fontSize: '12px', fontWeight: 400, color: '#949494' }}>Courier:</Typography>
                                     <Typography sx={{ fontSize: '12px', fontWeight: 'bold', color: '#949494', ml: 1 }}>
-                                        {courier}
+                                        {numberFormat(courier)}
                                     </Typography>
                                 </Box>
                                 <Box
@@ -189,7 +192,7 @@ const RedeemHistoryContainer = () => {
                                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                         <img src='/images/new-point.png' height={21} width={21} alt='tablet-redeem' />
                                         <Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#373737', ml: 1 }}>
-                                            {itm.price}
+                                            {numberFormat(itm.price)}
                                         </Typography>
                                     </Box>
                                     <Box sx={{ ml: 10 }}>

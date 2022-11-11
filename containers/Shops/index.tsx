@@ -15,6 +15,7 @@ import getRemainingTimes from 'helper/getRemainingTime';
 import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import NotifDialog from 'components/Dialog/notifDialog';
 import { useSelector } from 'react-redux';
+import Link from 'next/link';
 import ShopsSkeleton from './ShopsSkeleton';
 import dataComingSoon from '../../utils/dataComingSoon';
 import ImageListItemComingSoon from '../../components/ImageListComingSoon';
@@ -340,7 +341,9 @@ const ShopsContainer = () => {
                             </Box>
                         </Grid>
                         <Grid item xs={7} sx={{ color: 'white' }}>
-                            <Typography sx={{ fontWeight: 'bold' }}>Play & Join the Tournament</Typography>
+                            <Link href='/tournaments'>
+                                <Typography sx={{ fontWeight: 'bold' }}>Play & Join the Tournament</Typography>
+                            </Link>
                             <Typography sx={{ fontSize: '10px' }}>Get the Points and Redeem it with our special prize!</Typography>
                         </Grid>
                     </Grid>

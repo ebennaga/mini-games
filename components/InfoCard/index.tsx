@@ -56,11 +56,11 @@ const InfoCard: React.FC<InfoCardProps> = ({ onClick, title, subTitle, backgroun
                         <Typography component='h4' fontSize='16px' fontWeight={700} lineHeight='16px'>
                             {subTitle}
                         </Typography>
-                        <ButtonBase sx={{ padding: '6.6px 28px', bgcolor: bgButton, borderRadius: '19.6px', width: 'fit-content' }}>
+                        <Box sx={{ padding: '6.6px 28px', bgcolor: bgButton, borderRadius: '19.6px', width: 'fit-content' }}>
                             <Typography component='h4' fontSize='12.0781px' fontWeight={700}>
                                 {buttonText}
                             </Typography>
-                        </ButtonBase>
+                        </Box>
                     </Box>
                     <Box>
                         <img src={image} width='77px' height='auto' alt='prize play' />

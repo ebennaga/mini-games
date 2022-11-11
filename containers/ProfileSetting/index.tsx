@@ -95,7 +95,7 @@ const ProfileSetting = () => {
 
     const itemContactUs = [
         { icon: '/icons/email.svg', title: 'business.ultrasuksesbersama@gmail.com' },
-        { icon: '/icons/phone.svg', title: '(+62) 088888111' }
+        { icon: '/icons/phone.svg', title: '+62 21 59992946' }
     ];
 
     const handleHref = (href: string) => {
@@ -191,7 +191,7 @@ const ProfileSetting = () => {
                     </Typography>
                     {supportData.map((item: any, index: number) => {
                         return index === 3 ? (
-                            <Box sx={{ borderBottom: '2px solid #F4F1FF', padding: '20px 0' }}>
+                            <Box key={index} sx={{ borderBottom: '2px solid #F4F1FF', padding: '20px 0' }}>
                                 <NavigationCard
                                     icon='/icons/report-issue.svg'
                                     title='Reported Issues'

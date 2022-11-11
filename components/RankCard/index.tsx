@@ -12,10 +12,22 @@ interface IRankCard {
     disabledUnderline?: boolean;
     isYourRank?: boolean;
     hash?: string;
+    isLive?: boolean;
 }
 
 // eslint-disable-next-line no-unused-vars
-const RankCard: React.FC<IRankCard> = ({ hash = '#', key, rank, image, username, point, score, disabledUnderline, isYourRank }) => {
+const RankCard: React.FC<IRankCard> = ({
+    isLive = false,
+    hash = '#',
+    key,
+    rank,
+    image,
+    username,
+    point,
+    score,
+    disabledUnderline,
+    isYourRank
+}) => {
     return (
         <Grid
             container
@@ -48,7 +60,12 @@ const RankCard: React.FC<IRankCard> = ({ hash = '#', key, rank, image, username,
                     </Typography>
                 </Grid>
                 <Grid item xs={3} sx={{ display: 'flex', alignItems: 'center' }}>
-                    <img src='/images/point-shops.png' width='19.95px' height='19.95px' alt='score' />
+                    <img
+                        src={`${isLive ? '/images/e-voucher.png' : '/images/point-shops.png'}`}
+                        width='19.95px'
+                        height='19.95px'
+                        alt='score'
+                    />
                     <Typography component='h3' fontSize='12px' fontWeight={800} paddingLeft='6px'>
                         {numberFormat(point)}
                     </Typography>

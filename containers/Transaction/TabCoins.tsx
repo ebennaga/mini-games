@@ -34,7 +34,7 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                 endpoint: `transactions/home?search=${search}`,
                 method: 'GET'
             });
-            // console.log(result.data.data.history);
+            // console.log(result);
             if (result.status === 200) {
                 setCointTransaction(result.data.data.history);
             }
