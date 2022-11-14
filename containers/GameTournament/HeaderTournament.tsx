@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
 import { Box, ButtonBase, Typography } from '@mui/material';
 import BadgeImages from 'components/BadgeImages';
@@ -12,17 +13,20 @@ interface HeaderTournamentProps {
     titleGame: string;
     tournamentType: string;
     time: any;
+    end: any;
     totalPlayer: number;
     playerImg1: string;
     playerImg2: string;
     playerImg3: string;
+    isComingSoon?: boolean;
 }
 
 const HeaderTournament = (props: HeaderTournamentProps) => {
-    const { backgroundImage, titleGame, tournamentType, time, totalPlayer, playerImg1, playerImg2, playerImg3 } = props;
+    const { end, backgroundImage, isComingSoon, titleGame, tournamentType, time, totalPlayer, playerImg1, playerImg2, playerImg3 } = props;
     const value = 50;
     const [isExpand, setIsExpand] = React.useState<boolean>(false);
     const newD = new Date(time).toLocaleString();
+    const endT = new Date(end).toLocaleString();
 
     return (
         <Box>
@@ -66,12 +70,36 @@ const HeaderTournament = (props: HeaderTournamentProps) => {
                                         padding: '4.5px 5px',
                                         width: 'fit-content',
                                         display: 'flex',
-                                        alignItems: 'center'
+                                        alignItems: 'center',
+                                        mt: 1
                                     }}
                                 >
                                     <img src='/icons/time.png' width='17px' height='17px' alt='time' loading='lazy' />
                                     <Typography component='span' height='18px' fontSize='14px' fontWeight={800} marginLeft='8px'>
                                         {getRemainingTimes(newD)}
+                                    </Typography>
+                                </Box>
+                            )}
+                            {getRemainingTimes(endT)[0] === '-' && (
+                                <Box
+                                    sx={{
+                                        color: '#282626',
+                                        background: '#FFDD50',
+                                        borderRadius: '19px',
+                                        padding: '4.5px 5px',
+                                        width: 'fit-content',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        mt: 1
+                                    }}
+                                >
+                                    <img src='/icons/time.png' width='17px' height='17px' alt='time' loading='lazy' />
+                                    <Typography component='span' height='18px' fontSize='14px' fontWeight={800} marginLeft='8px'>
+                                        {getRemainingTimes(endT)[0] === '-'
+                                            ? 'Ended'
+                                            : isComingSoon
+                                            ? 'Coming Soon'
+                                            : getRemainingTimes(newD)}
                                     </Typography>
                                 </Box>
                             )}

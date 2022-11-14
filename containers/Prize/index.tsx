@@ -9,6 +9,8 @@ import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import dataComingSoon from 'utils/dataComingSoon';
 import ImageListItemComingSoon from 'components/ImageListComingSoon';
+import { useSelector } from 'react-redux';
+import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import PrizeSkeleton from './PrizeSkeleton';
 
 interface InputPrizesProps {
@@ -50,9 +52,12 @@ const InputPrizes: React.FC<InputPrizesProps> = ({ placeholder, form, name }) =>
 
 const PrizeContainer = () => {
     const router = useRouter();
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
+
     const [borderValue, setBorderValue] = React.useState<string>('none');
     const [isLoading, setIsLoading] = React.useState<boolean>(true);
     const [data, setData] = React.useState<any>(null);
+    const [popupLogin, setPopupLogin] = React.useState<boolean>(false);
 
     const isComingSoon = process.env.NEXT_PUBLIC_PRIZES_COMING_SOON === 'true';
 
@@ -108,6 +113,14 @@ const PrizeContainer = () => {
         getDataPrizes();
     }, []);
 
+    const handleClickCard = (id: string) => {
+        if (userState?.api_token) {
+            router.push(`/shops/prize/${id}`);
+        } else {
+            setPopupLogin(true);
+        }
+    };
+
     if (isLoading) {
         return <PrizeSkeleton />;
     }
@@ -140,7 +153,8 @@ const PrizeContainer = () => {
                               <ImageListItem sx={{ cursor: 'pointer' }} key={item.id}>
                                   <Box
                                       onClick={() => {
-                                          router.push(`/shops/prize/${item.id}`);
+                                          //   router.push(`/shops/prize/${item.id}`);
+                                          handleClickCard(item.id);
                                       }}
                                   >
                                       <Box sx={{ backgroundColor: '#F4F1FF', padding: { xs: '20px', sm: '45px' }, borderRadius: '14px' }}>
@@ -166,6 +180,7 @@ const PrizeContainer = () => {
                           ))}
                 </ImageList>
             </Box>
+            <SignupLoginDialog open={popupLogin} setOpen={setPopupLogin} />
         </Box>
     );
 };
