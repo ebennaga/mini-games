@@ -78,4 +78,4 @@ export type AppThunkAction<ReturnType = Promise<void>> = ThunkAction<ReturnType,
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 
-export const wrapper = createWrapper<AppStore>(makeStore, { debug: true });
+export const wrapper = createWrapper<AppStore>(makeStore, { debug: false });
