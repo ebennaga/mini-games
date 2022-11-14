@@ -100,7 +100,6 @@ const HomeContainer = () => {
     if (isLoading || !datasHome) {
         return <HomeSkeleton />;
     }
-
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
             <WelcomeDialog

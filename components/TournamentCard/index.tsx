@@ -17,6 +17,8 @@ interface TournamentCardProps {
 
 const TournamentCard: React.FC<TournamentCardProps> = ({ time, coin, pool, users, onClick, customWidth, imageGame, backgroundImage }) => {
     const [timeTournament, setTimeTournament] = useState<string>('');
+    const nowTime = new Date().getTime();
+    const endTime = new Date(time).getTime();
 
     useEffect(() => {
         if (time && time[4] === '-' && time[7] === '-') {
@@ -82,7 +84,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, coin, pool, users
                             <img src='/icons/clock.png' alt='clock timer' width='14px' height='14px' loading='lazy' />
                         )}
                         <Typography component='span' sx={{ fontSize: '12px', paddingLeft: '4px' }}>
-                            {timeTournament}
+                            {nowTime > endTime ? 'Ended' : timeTournament}
                         </Typography>
                     </Box>
 
@@ -214,7 +216,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, coin, pool, users
                                     borderRadius: '12px',
                                     padding: '11px 15px',
                                     display: 'flex',
-                                    justifyContent: 'space-between',
+                                    justifyContent: nowTime < endTime ? 'space-between' : 'center',
                                     marginTop: '9px',
                                     ml: 1
                                 }}
@@ -225,22 +227,24 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, coin, pool, users
                                     component='span'
                                     sx={{ color: '#fff', '@media (max-width:400px)': { fontSize: '10px' } }}
                                 >
-                                    View Tournaments
+                                    {`${nowTime > endTime ? 'View Results' : 'View Tournaments'}`}
                                 </Typography>
-                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                    <img src='/images/coin.png' width='13.81px' height='13.17px' alt='trophy' loading='lazy' />
-                                    <Typography
-                                        component='span'
-                                        sx={{
-                                            fontSize: '11px',
-                                            fontWeight: 'bold',
-                                            paddingLeft: '4px',
-                                            '@media (max-width:400px)': { fontSize: '10px' }
-                                        }}
-                                    >
-                                        {coin}
-                                    </Typography>
-                                </Box>
+                                {nowTime < endTime && (
+                                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                        <img src='/images/coin.png' width='13.81px' height='13.17px' alt='trophy' loading='lazy' />
+                                        <Typography
+                                            component='span'
+                                            sx={{
+                                                fontSize: '11px',
+                                                fontWeight: 'bold',
+                                                paddingLeft: '4px',
+                                                '@media (max-width:400px)': { fontSize: '10px' }
+                                            }}
+                                        >
+                                            {coin}
+                                        </Typography>
+                                    </Box>
+                                )}
                             </Box>
                         </Box>
                     </Box>
