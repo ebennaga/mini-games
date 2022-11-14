@@ -52,6 +52,8 @@ const PrizeDetailContainer = () => {
         const response = await fetchAPI({ method: 'GET', endpoint: `redemptions/${router.query.id}` });
         if (response.status === 200) {
             setData(response.data.data);
+        } else if (response.status === 401) {
+            router.push('/shops');
         } else {
             notify(response.data.message, 'error');
         }
