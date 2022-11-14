@@ -128,7 +128,7 @@ const GameTournament = () => {
         }
         return setSignupLoginDialog(true);
     };
-    console.log(listingGame);
+
     return (
         <Box width='100%'>
             {isLoading ? (
@@ -145,6 +145,7 @@ const GameTournament = () => {
                         hrefBack={`/games/${router.query.id}`}
                     />
                     <HeaderTournament
+                        end={listingGame?.end_time}
                         backgroundImage={listingGame?.game.banner_url}
                         titleGame={listingGame?.game.name}
                         tournamentType={listingGame?.name}
