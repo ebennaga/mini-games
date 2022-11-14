@@ -28,6 +28,8 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
     dataLength
 }) => {
     const [timeTournament, setTimeTournament] = useState<string>('');
+    const nowTime = new Date().getTime();
+    const endTime = new Date(time).getTime();
 
     useEffect(() => {
         const newD = new Date(time).toLocaleString();
@@ -92,7 +94,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                         >
                             <img src='/icons/clock.png' alt='clock timer' width='14px' height='14px' />
                             <Typography component='span' height='15px' sx={{ fontSize: '12px', paddingLeft: '4px' }}>
-                                {timeTournament}
+                                {nowTime > endTime ? 'Ended' : timeTournament}
                             </Typography>
                         </Box>
                     </Box>
@@ -248,7 +250,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                                 borderRadius: '12px',
                                 padding: '11px 15px',
                                 display: 'flex',
-                                justifyContent: 'space-between',
+                                justifyContent: nowTime < endTime ? 'space-between' : 'center',
                                 marginTop: '9px'
                             }}
                         >
@@ -258,22 +260,24 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                                 component='span'
                                 sx={{ color: '#fff', '@media (max-width:400px)': { fontSize: '10px' } }}
                             >
-                                View Tournaments
+                                {`${nowTime > endTime ? 'View Results' : 'View Tournaments'}`}
                             </Typography>
-                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                <img src='/images/coin.png' width='13.81px' height='13.17px' alt='trophy' />
-                                <Typography
-                                    component='span'
-                                    sx={{
-                                        fontSize: '12px',
-                                        fontWeight: 'bold',
-                                        paddingLeft: '4px',
-                                        '@media (max-width:400px)': { fontSize: '10px' }
-                                    }}
-                                >
-                                    {point}
-                                </Typography>
-                            </Box>
+                            {nowTime < endTime && (
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <img src='/images/coin.png' width='13.81px' height='13.17px' alt='trophy' />
+                                    <Typography
+                                        component='span'
+                                        sx={{
+                                            fontSize: '12px',
+                                            fontWeight: 'bold',
+                                            paddingLeft: '4px',
+                                            '@media (max-width:400px)': { fontSize: '10px' }
+                                        }}
+                                    >
+                                        {point}
+                                    </Typography>
+                                </Box>
+                            )}
                         </Box>
                     </Box>
                 </Box>

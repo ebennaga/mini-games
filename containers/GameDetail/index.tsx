@@ -14,6 +14,7 @@ import useNotify from 'hooks/useNotify';
 import NotifDialog from 'components/Dialog/notifDialog';
 import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import useAuthReducer from 'hooks/useAuthReducer';
+import getRemainingTimes from 'helper/getRemainingTime';
 import GameDetailSkeleton from './GameDetailSkeleton';
 
 const GameDetailContainer = () => {
@@ -227,18 +228,24 @@ const GameDetailContainer = () => {
                         </Grid>
                         <Grid item xs={12} sx={{ mt: '24px' }}>
                             <TournamentSlider>
-                                {detailGame?.tournaments.map((item: any, idx: number) => (
-                                    <TournamentCard
-                                        key={item.id}
-                                        time={item.end_time}
-                                        pool={item.total_prize}
-                                        users={item.total_users}
-                                        onClick={() => handleClick(item.id)}
-                                        imageGame={detailGame?.banner_url}
-                                        backgroundImage={item.banner_url}
-                                        coin={item.entry_coin}
-                                    />
-                                ))}
+                                {detailGame?.tournaments.map((item: any, idx: number) => {
+                                    const date = new Date(item.start_time).toLocaleString();
+                                    const remainingTime = getRemainingTimes(date);
+                                    const isComingSoon = remainingTime[0] !== '-';
+
+                                    return (
+                                        <TournamentCard
+                                            key={item.id}
+                                            time={isComingSoon ? 'coming soon' : item.end_time}
+                                            pool={item.total_prize}
+                                            users={item.total_users}
+                                            onClick={() => handleClick(item.id)}
+                                            imageGame={detailGame?.banner_url}
+                                            backgroundImage={item.banner_url}
+                                            coin={item.entry_coin}
+                                        />
+                                    );
+                                })}
                             </TournamentSlider>
                         </Grid>
                     </Grid>
