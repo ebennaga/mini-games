@@ -170,6 +170,7 @@ const GameTournament = () => {
                         playerImg1='/icons/dummy/main-ikan.png'
                         playerImg2='/icons/dummy/user-1.png'
                         playerImg3='/icons/dummy/user-2.png'
+                        isComingSoon={isComingSoon}
                     />{' '}
                 </>
             )}
