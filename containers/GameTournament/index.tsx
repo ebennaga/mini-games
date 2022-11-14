@@ -10,6 +10,7 @@ import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import useAuthReducer from 'hooks/useAuthReducer';
+import getRemainingTimes from 'helper/getRemainingTime';
 import HeaderTournament from './HeaderTournament';
 import ButtonPlay from './ButtonPlay';
 import LeaderboardPodium from './LeaderboardPodium';
@@ -30,6 +31,7 @@ const GameTournament = () => {
     const [isLoading, isSetLoading] = React.useState<boolean>(false);
     const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
     const [loadingPlay, setLoadingPlay] = React.useState<boolean>(false);
+    const [isComingSoon, setIsComingSoon] = React.useState<boolean>(false);
 
     const nowTime: any = new Date().getTime();
     const endTime: any = new Date(listingGame?.end_time).getTime();
@@ -106,6 +108,16 @@ const GameTournament = () => {
         getAllData();
     }, []);
 
+    // Check is game tournament started
+    React.useEffect(() => {
+        if (listingGame) {
+            const date = new Date(listingGame.start_time).toLocaleString();
+            const remainingTime = getRemainingTimes(date);
+            const isComingSoonTournament = remainingTime[0] !== '-';
+            setIsComingSoon(isComingSoonTournament);
+        }
+    }, [listingGame]);
+
     const refreshAuth = async (data: any) => {
         const response = await fetchAPI({
             method: 'GET',
@@ -158,6 +170,7 @@ const GameTournament = () => {
                         playerImg1='/icons/dummy/main-ikan.png'
                         playerImg2='/icons/dummy/user-1.png'
                         playerImg3='/icons/dummy/user-2.png'
+                        isComingSoon={isComingSoon}
                     />{' '}
                 </>
             )}
@@ -183,22 +196,24 @@ const GameTournament = () => {
                             <Typography component='h2' fontSize='24px' fontWeight={700}>
                                 Leaderboard
                             </Typography>
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
-                                <img src='/icons/xs-troffy.png' alt='troffy' loading='lazy' />
-                                <Typography sx={{ fontSize: '14px', fontWeight: 'bold' }}>250</Typography>
-                            </Box>
+                            {!isComingSoon && (
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+                                    <img src='/icons/xs-troffy.png' alt='troffy' loading='lazy' />
+                                    <Typography sx={{ fontSize: '14px', fontWeight: 'bold' }}>250</Typography>
+                                </Box>
+                            )}
                         </Box>
-                        {listingGame?.leaderboards.length < 0 && (
+                        {(isComingSoon || listingGame?.leaderboards.length < 0) && (
                             <Box sx={{ textAlign: 'center', marginY: '150px' }}>
                                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                                     <img src='/images/leaderboard-img.png' alt='leaderboard' loading='lazy' />
                                 </Box>
-                                <Typography sx={{ fontSize: '14px', color: '#949494', fontWeight: 'bold' }}>
-                                    Nobody has played yet. Be the first.
+                                <Typography sx={{ fontSize: '14px', color: '#949494', fontWeight: 'bold', mt: 3 }}>
+                                    {isComingSoon ? 'Stay tune for the Tournament' : 'Nobody has played yet. Be the first.'}
                                 </Typography>
                             </Box>
                         )}
-                        {listingGame?.leaderboards && listingGame?.leaderboards.length > 0 && (
+                        {listingGame?.leaderboards && listingGame?.leaderboards.length > 0 && !isComingSoon && (
                             <LeaderboardPodium dataLeaderboard={listingGame?.leaderboards} />
                         )}
                     </Box>
@@ -210,11 +225,13 @@ const GameTournament = () => {
                         })}
                     </Box>
                 ) : (
-                    <Box component='section' marginBottom='40px'>
-                        {listingGame?.leaderboards && listingGame?.leaderboards.length > 0 && (
-                            <TableRank dataLeaderboard={listingGame?.leaderboards} />
-                        )}
-                    </Box>
+                    !isComingSoon && (
+                        <Box component='section' marginBottom='40px'>
+                            {listingGame?.leaderboards && listingGame?.leaderboards.length > 0 && (
+                                <TableRank dataLeaderboard={listingGame?.leaderboards} />
+                            )}
+                        </Box>
+                    )
                 )}
             </Box>
             {nowTime < endTime && (
@@ -222,7 +239,13 @@ const GameTournament = () => {
                     {isLoading ? (
                         <Skeleton sx={{ height: '80px' }} />
                     ) : (
-                        <ButtonPlay onClick={handlePlay} title='Play Tournament' points={listingGame?.entry_coin} isLoading={loadingPlay} />
+                        <ButtonPlay
+                            isComingSoon={isComingSoon}
+                            onClick={handlePlay}
+                            title='Play Tournament'
+                            points={listingGame?.entry_coin}
+                            isLoading={loadingPlay}
+                        />
                     )}
                 </Box>
             )}

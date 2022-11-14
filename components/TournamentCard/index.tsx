@@ -21,8 +21,8 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, coin, pool, users
     const endTime = new Date(time).getTime();
 
     useEffect(() => {
-        const newD = new Date(time).toLocaleString();
         if (time && time[4] === '-' && time[7] === '-') {
+            const newD = new Date(time).toLocaleString();
             if (!timeTournament) {
                 setTimeTournament(getRemainingTimes(newD));
                 // setTimeTournament(getRemainingTimes(time));

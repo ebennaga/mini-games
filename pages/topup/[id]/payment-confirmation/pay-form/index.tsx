@@ -19,4 +19,10 @@ const Page = () => {
     );
 };
 
+Page.getPageProps = async () => {
+    return {
+        protectedRoute: true
+    };
+};
+
 export default Page;

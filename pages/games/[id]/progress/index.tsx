@@ -5,7 +5,7 @@ import Layout from 'components/Layout/Index';
 
 const GameProgressContainer = dynamic(() => import('containers/GameProgress'));
 
-const index = () => {
+const Page = () => {
     return (
         <>
             <Head>
@@ -20,4 +20,10 @@ const index = () => {
     );
 };
 
-export default index;
+Page.getPageProps = async () => {
+    return {
+        protectedRoute: true
+    };
+};
+
+export default Page;
