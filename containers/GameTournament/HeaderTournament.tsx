@@ -76,6 +76,25 @@ const HeaderTournament = (props: HeaderTournamentProps) => {
                                 >
                                     <img src='/icons/time.png' width='17px' height='17px' alt='time' loading='lazy' />
                                     <Typography component='span' height='18px' fontSize='14px' fontWeight={800} marginLeft='8px'>
+                                        {getRemainingTimes(newD)}
+                                    </Typography>
+                                </Box>
+                            )}
+                            {getRemainingTimes(endT)[0] === '-' && (
+                                <Box
+                                    sx={{
+                                        color: '#282626',
+                                        background: '#FFDD50',
+                                        borderRadius: '19px',
+                                        padding: '4.5px 5px',
+                                        width: 'fit-content',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        mt: 1
+                                    }}
+                                >
+                                    <img src='/icons/time.png' width='17px' height='17px' alt='time' loading='lazy' />
+                                    <Typography component='span' height='18px' fontSize='14px' fontWeight={800} marginLeft='8px'>
                                         {getRemainingTimes(endT)[0] === '-'
                                             ? 'Ended'
                                             : isComingSoon
