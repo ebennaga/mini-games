@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable consistent-return */
 import { Box, Typography, Skeleton, Grid } from '@mui/material';
 import React from 'react';
@@ -29,6 +30,9 @@ const GameTournament = () => {
     const [isLoading, isSetLoading] = React.useState<boolean>(false);
     const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
     const [loadingPlay, setLoadingPlay] = React.useState<boolean>(false);
+
+    const nowTime: any = new Date().getTime();
+    const endTime: any = new Date(listingGame?.end_time).getTime();
 
     const fetchData = async (id: number) => {
         isSetLoading(true);
@@ -128,7 +132,7 @@ const GameTournament = () => {
         }
         return setSignupLoginDialog(true);
     };
-    console.log(listingGame);
+
     return (
         <Box width='100%'>
             {isLoading ? (
@@ -145,6 +149,7 @@ const GameTournament = () => {
                         hrefBack={`/games/${router.query.id}`}
                     />
                     <HeaderTournament
+                        end={listingGame?.end_time}
                         backgroundImage={listingGame?.game.banner_url}
                         titleGame={listingGame?.game.name}
                         tournamentType={listingGame?.name}
@@ -212,13 +217,15 @@ const GameTournament = () => {
                     </Box>
                 )}
             </Box>
-            <Box sx={{ padding: '20px', position: 'sticky', bottom: '10px' }}>
-                {isLoading ? (
-                    <Skeleton sx={{ height: '80px' }} />
-                ) : (
-                    <ButtonPlay onClick={handlePlay} title='Play Tournament' points={listingGame?.entry_coin} isLoading={loadingPlay} />
-                )}
-            </Box>
+            {nowTime < endTime && (
+                <Box sx={{ padding: '20px', position: 'sticky', bottom: '10px' }}>
+                    {isLoading ? (
+                        <Skeleton sx={{ height: '80px' }} />
+                    ) : (
+                        <ButtonPlay onClick={handlePlay} title='Play Tournament' points={listingGame?.entry_coin} isLoading={loadingPlay} />
+                    )}
+                </Box>
+            )}
             <NotifDialog
                 open={openNotifDialog}
                 setOpenDialog={setOpenNotifDialog}
