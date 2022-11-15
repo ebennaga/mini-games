@@ -53,8 +53,8 @@ const InvalidPaymentContainer = () => {
                 <Box sx={{ paddingX: '20px', textAlign: 'center' }}>
                     <Typography sx={{ fontSize: '35px', mb: '50px', fontWeight: 'bold', lineHeight: 0 }}>Opps!!!</Typography>
                     <img src='/images/invalid.png' alt='failed.png' />
-                    <Typography sx={{ fontSize: '14px', color: '#373737', fontWeight: '700' }}>
-                        Invalid transaction , please try again later.
+                    <Typography sx={{ fontSize: '14px', color: '#373737', fontWeight: '700', mt: 2 }}>
+                        Oops, sorry . Your transaction has been cancelled. Please make a re-payment to top up your coins.
                     </Typography>
                 </Box>
                 <Box sx={{ paddingX: '20px' }}>
