@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Box, ButtonBase, Grid, Typography } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import { useSelector } from 'react-redux';
@@ -10,6 +9,7 @@ import SocialMediaList from 'components/SocialMediaList';
 import { useRouter } from 'next/router';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
+import useAuthReducer from 'hooks/useAuthReducer';
 import BalanceCard from './BalanceCard';
 import BarExp from './BarExp';
 import HighScoreCard from './HighScoreCard';
@@ -22,6 +22,8 @@ const Profile = () => {
     const notify = useNotify();
     const userState = useSelector((state: any) => state?.webpage?.user?.user);
     const [detailGame, setDetailGame] = React.useState<any>(null);
+
+    const { setUser } = useAuthReducer();
 
     const listNavigation = [
         { title: 'Input Promo Code', icon: '/icons/promo-code.png' }
@@ -36,6 +38,9 @@ const Profile = () => {
 
             if (res.data?.data) {
                 setDetailGame(res.data.data);
+                if (res.data.data.is_password_set) {
+                    setUser({ ...userState, is_password_set: res.data.data.is_password_set });
+                }
             }
         } catch (e: any) {
             notify(e.message, 'error');

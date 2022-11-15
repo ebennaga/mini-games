@@ -36,8 +36,9 @@ const ProfileEmailPassword = () => {
         const { currentPassword, newPassword, confirmNewPassword } = data;
 
         let dataInput = {};
-        if (userState.displayName) {
+        if (!userState.is_password_set) {
             dataInput = {
+                old_password: '',
                 new_password: newPassword,
                 new_password_confirmation: confirmNewPassword
             };
@@ -104,7 +105,7 @@ const ProfileEmailPassword = () => {
                     Enter new password for email account {userState?.email}
                 </Typography>
                 <Box mt='30px'>
-                    {!userState?.displayName && (
+                    {userState?.is_password_set && (
                         <Input type='password' name='currentPassword' form={form} placeholder='Your Current Password' />
                     )}
                 </Box>
@@ -118,7 +119,7 @@ const ProfileEmailPassword = () => {
                     </Typography>
                 </Box>
             </Box>
-            {!userState?.displayName && (
+            {userState?.is_password_set && (
                 <InfoCard text='After changing the password, please log in again with a new password on the Prizeplay' />
             )}
             <ButtonBase
