@@ -4,16 +4,18 @@ import HeaderBack from 'components/HeaderBack';
 import Input from 'components/Input';
 import InputEdit from 'components/InputEdit';
 import InputUnderline from 'components/InputUnderline';
+import useAPICaller from 'hooks/useAPICaller';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import CurrentEmailCard from './CurrentEmailCard';
-// import InfoCard from './InfoCard';
 import PinpointCard from './PinpointCard';
 
-const ProfileEmailAddress = () => {
+const ProfileEmailPassword = () => {
     const userState = useSelector((state: any) => state.webpage?.user?.user);
     const [errConfirm, setErrConfirm] = useState<string>('');
+
+    const { fetchAPI } = useAPICaller();
 
     const form = useForm({
         mode: 'all',
@@ -117,4 +119,4 @@ const ProfileEmailAddress = () => {
     );
 };
 
-export default ProfileEmailAddress;
+export default ProfileEmailPassword;
