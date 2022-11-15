@@ -229,7 +229,7 @@ const GameDetailContainer = () => {
                         <Grid item xs={12} sx={{ mt: '24px' }}>
                             <TournamentSlider>
                                 {detailGame?.tournaments.map((item: any, idx: number) => {
-                                    const date = new Date(item.start_time).toLocaleString();
+                                    const date = new Date(item.start_time).toLocaleString('en-US');
                                     const remainingTime = getRemainingTimes(date);
                                     const isComingSoon = remainingTime[0] !== '-';
 

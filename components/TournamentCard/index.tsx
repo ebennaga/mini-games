@@ -22,7 +22,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({ time, coin, pool, users
 
     useEffect(() => {
         if (time && time[4] === '-' && time[7] === '-') {
-            const newD = new Date(time).toLocaleString();
+            const newD = new Date(time).toLocaleString('en-US');
             if (!timeTournament) {
                 setTimeTournament(getRemainingTimes(newD));
                 // setTimeTournament(getRemainingTimes(time));
