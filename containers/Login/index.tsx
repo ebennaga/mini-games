@@ -63,10 +63,10 @@ const Login = () => {
                 password: data.password
             }
         });
-        if (response.status === 200) {
+        if (response?.status === 200) {
             setUser(response.data.data);
             router.push('/');
-        } else if (response.data.message === 'User registration is not completed') {
+        } else if (response?.data.message === 'User registration is not completed') {
             await handleSendOtp();
             const dataState = { emailOtp: form.watch('email'), password: form.watch('password') };
             setUser(dataState);

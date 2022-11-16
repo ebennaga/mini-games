@@ -22,7 +22,7 @@ const LiveDetailContainer = () => {
             password: ''
         }
     });
-    const newD = new Date().toLocaleString();
+    const newD = new Date().toLocaleString('en-US');
     const [value, setValue] = React.useState(0);
     const handleChangeTabs = (event: SyntheticEvent, newValue: number) => {
         setValue(newValue);
