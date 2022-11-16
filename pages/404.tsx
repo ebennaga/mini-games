@@ -22,7 +22,7 @@ const Page: NextPage = () => {
                 crossOrigin='anonymous'
             />
 
-            <Layout backgoundColor='#fff' isCarousel isTab isBackground>
+            <Layout backgoundColor='#fff' isBackground>
                 <NotFoundContainer />
             </Layout>
         </>
