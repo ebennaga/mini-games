@@ -67,7 +67,8 @@ const ProfileSetting = () => {
 
     const generalItem = [
         { title: 'Avatar & Nickname', icon: userState?.avatar_url || '/icons/dummy/profile.png', href: '/profile/edit-profile' },
-        { title: 'Account & Address', icon: '/icons/email.svg', href: '/profile/settings/email-address' }
+        { title: 'Email & Password', icon: '/icons/email.svg', href: '/profile/settings/email-password' },
+        { title: 'Address', icon: '/icons/map.svg', href: '/profile/settings/address' }
     ];
     const supportData = [
         { title: 'About Prize Play', icon: '/icons/about.svg', href: '/about-us' },

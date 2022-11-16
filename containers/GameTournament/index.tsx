@@ -111,7 +111,7 @@ const GameTournament = () => {
     // Check is game tournament started
     React.useEffect(() => {
         if (listingGame) {
-            const date = new Date(listingGame.start_time).toLocaleString();
+            const date = new Date(listingGame.start_time).toLocaleString('en-US');
             const remainingTime = getRemainingTimes(date);
             const isComingSoonTournament = remainingTime[0] !== '-';
             setIsComingSoon(isComingSoonTournament);
