@@ -10,14 +10,16 @@ import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import CurrentEmailCard from './CurrentEmailCard';
 import InfoCard from './InfoCard';
+import LoadingEmailPassword from './LoadingEmailPassword';
 
 const ProfileEmailPassword = () => {
     const userState = useSelector((state: any) => state.webpage?.user?.user);
     const [errConfirm, setErrConfirm] = useState<string>('');
+    const [isLoadingPage, setIsLoadingPage] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const { fetchAPI } = useAPICaller();
-    const { clearUser } = useAuthReducer();
+    const { clearUser, setUser } = useAuthReducer();
     const notify = useNotify();
     const router = useRouter();
 
@@ -30,6 +32,25 @@ const ProfileEmailPassword = () => {
             confirmNewPassword: ''
         }
     });
+
+    const getAuthDetail = async () => {
+        setIsLoadingPage(true);
+        const response = await fetchAPI({
+            method: 'GET',
+            endpoint: 'auths/detail'
+        });
+
+        if (response.status === 200) {
+            if (response.data.data.is_password_set) {
+                setUser({ ...userState, is_password_set: response.data.data.is_password_set });
+            }
+        }
+        setIsLoadingPage(false);
+    };
+
+    useEffect(() => {
+        if (!userState.is_password_set) getAuthDetail();
+    }, []);
 
     const onSubmit = async (data: any) => {
         setIsLoading(true);
@@ -79,6 +100,9 @@ const ProfileEmailPassword = () => {
 
     const isDisabled = isLoading || (!form.watch('newPassword') && !form.watch('confirmNewPassword')) || !!errConfirm;
 
+    if (isLoadingPage) {
+        return <LoadingEmailPassword />;
+    }
     return (
         <form onSubmit={form.handleSubmit(onSubmit)} style={{ width: '-webkit-fill-available', padding: '0 20px', color: '#373737' }}>
             <HeaderBack title='Email & Password' />
