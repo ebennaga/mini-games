@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
 import { Box, Divider, Grid, Typography, TextField, Skeleton, CircularProgress } from '@mui/material';
@@ -91,6 +92,7 @@ const PrizeConfirmationContainer = () => {
     const [dataGoods, setDataGoods] = React.useState<any>(null);
     const userState = useSelector((state: any) => state.webpage?.user?.user);
     const { fetchAPI } = useAPICaller();
+    const [listAddress, setListAddress] = React.useState([]);
 
     const router = useRouter();
     const notify = useNotify();
@@ -108,6 +110,20 @@ const PrizeConfirmationContainer = () => {
         return form.watch(name);
     };
 
+    const getAuthData = async () => {
+        const response = await fetchAPI({
+            method: 'GET',
+            endpoint: 'auths/detail'
+        });
+        // setListAddress(response.data.data);
+        if (response.status === 200 && response.data.data.primary_address) {
+            const { address, notes, receipent_name, phone_number } = response.data.data.primary_address[0];
+            form.setValue('address', address);
+            form.setValue('notes', notes);
+            form.setValue('recipient', receipent_name);
+            form.setValue('phone', phone_number);
+        }
+    };
     const getDetailGoods = async () => {
         setIsLoading(true);
         const response = await fetchAPI({
@@ -173,8 +189,9 @@ const PrizeConfirmationContainer = () => {
 
     React.useEffect(() => {
         getDetailGoods();
+        getAuthData();
     }, []);
-
+    // console.log('listredeem', listAddress);
     if (isLoading) {
         return <ConfirmSkeleton />;
     }

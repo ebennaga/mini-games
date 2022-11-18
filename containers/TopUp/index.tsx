@@ -42,7 +42,7 @@ const TopUp = () => {
             const response = await fetchAPI({
                 endpoint: 'transactions/home'
             });
-            console.log(response.data.data);
+
             if (!response) {
                 throw new Error('Data is Empty');
             }
