@@ -5,6 +5,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
+import numberFormat from 'helper/numberFormat';
 import TabPanelTransaction from './TabPanelTransaction';
 import TransactionCard from './TransactionCard';
 
@@ -110,7 +111,7 @@ const TabPanelPoinTs: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTrans
                             isToday
                             key={i.id}
                             title={i.description}
-                            amount={i.point}
+                            amount={numberFormat(i.point)}
                             subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
                             created={i?.created_at}
                         />
@@ -145,7 +146,7 @@ const TabPanelPoinTs: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTrans
                         type={i.type}
                         key={i.id}
                         title={i.description}
-                        amount={i.point}
+                        amount={numberFormat(i.point)}
                         subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
                         created={i?.created_at}
                         isToday={false}
