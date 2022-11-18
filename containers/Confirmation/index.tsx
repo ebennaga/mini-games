@@ -191,7 +191,7 @@ const PrizeConfirmationContainer = () => {
         getDetailGoods();
         getAuthData();
     }, []);
-    // console.log('listredeem', listAddress);
+
     if (isLoading) {
         return <ConfirmSkeleton />;
     }
