@@ -45,10 +45,10 @@ const ProfileAddress = () => {
             endpoint: 'auths/detail'
         });
         if (response.status === 200 && response.data.data.primary_address) {
-            const { address, notes, receipent_name, phone_number } = response.data.data.primary_address[0];
+            const { address, notes, recipient_name, phone_number } = response.data.data.primary_address;
             form.setValue('address', address);
             form.setValue('notes', notes);
-            form.setValue('recipient', receipent_name);
+            form.setValue('recipient', recipient_name);
             form.setValue('phone', phone_number);
         }
     };
