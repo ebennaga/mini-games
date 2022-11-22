@@ -32,7 +32,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
     const endTime = new Date(time).getTime();
 
     useEffect(() => {
-        const newD = new Date(time).toLocaleString();
+        const newD = new Date(time).toLocaleString('en-US');
         if (time && !timeTournament) {
             setTimeTournament(getRemainingTimes(newD));
         }

@@ -25,8 +25,8 @@ const HeaderTournament = (props: HeaderTournamentProps) => {
     const { end, backgroundImage, isComingSoon, titleGame, tournamentType, time, totalPlayer, playerImg1, playerImg2, playerImg3 } = props;
     const value = 50;
     const [isExpand, setIsExpand] = React.useState<boolean>(false);
-    const newD = new Date(time).toLocaleString();
-    const endT = new Date(end).toLocaleString();
+    const newD = new Date(time).toLocaleString('en-US');
+    const endT = new Date(end).toLocaleString('en-US');
 
     return (
         <Box>

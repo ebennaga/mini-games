@@ -42,7 +42,7 @@ const TopUp = () => {
             const response = await fetchAPI({
                 endpoint: 'transactions/home'
             });
-            console.log(response.data.data);
+
             if (!response) {
                 throw new Error('Data is Empty');
             }
@@ -197,16 +197,18 @@ const TopUp = () => {
                         ))}
                 {histories?.length === 0 && <Typography sx={{ mt: '10px', color: 'red' }}>There is not any histories top up</Typography>}
             </Box>
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
-                <ButtonBase
-                    onClick={() => {
-                        router.push('/transaction');
-                    }}
-                    sx={{ color: '#A54CE5' }}
-                >
-                    Show All <East fontSize='inherit' sx={{ ml: '3px' }} />
-                </ButtonBase>
-            </Box>
+            {userState && (
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+                    <ButtonBase
+                        onClick={() => {
+                            router.push('/transaction');
+                        }}
+                        sx={{ color: '#A54CE5' }}
+                    >
+                        Show All <East fontSize='inherit' sx={{ ml: '3px' }} />
+                    </ButtonBase>
+                </Box>
+            )}
             <Box
                 onClick={() => {
                     router.push('/coins-prizes');

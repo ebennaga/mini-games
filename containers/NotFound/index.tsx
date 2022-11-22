@@ -4,10 +4,9 @@ import Header from 'components/Header';
 import Button from 'components/Button/Index';
 import { useRouter } from 'next/router';
 
-const InvalidPaymentContainer = () => {
+const FailedPaymentContainer = () => {
     const [borderValue, setBorderValue] = React.useState<string>('none');
     const router = useRouter();
-
     const handleScroll = () => {
         if (window.scrollY === 0) {
             return setBorderValue('none');
@@ -51,10 +50,10 @@ const InvalidPaymentContainer = () => {
             >
                 <Box />
                 <Box sx={{ paddingX: '20px', textAlign: 'center' }}>
-                    <Typography sx={{ fontSize: '35px', mb: '50px', fontWeight: 'bold', lineHeight: 0 }}>Opps!!!</Typography>
-                    <img src='/images/invalid.png' alt='failed.png' />
+                    <Typography sx={{ fontSize: '35px', fontWeight: 'bold', lineHeight: 0, mb: 5 }}>404 Not Found Page</Typography>
+                    <img src='/images/invalid.png' alt='failed.png' loading='lazy' />
                     <Typography sx={{ fontSize: '14px', color: '#373737', fontWeight: '700', mt: 2 }}>
-                        Oops, sorry . Your transaction has been cancelled. Please make a re-payment to top up your coins.
+                        OHH NO, We coudn`t find the page you were looking for.
                     </Typography>
                 </Box>
                 <Box sx={{ paddingX: '20px' }}>
@@ -72,4 +71,4 @@ const InvalidPaymentContainer = () => {
     );
 };
 
-export default InvalidPaymentContainer;
+export default FailedPaymentContainer;

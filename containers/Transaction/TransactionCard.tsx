@@ -28,7 +28,7 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
 }) => {
     const date = new Date(created);
     const today = new Date();
-    console.log(status);
+
     return (
         <Box>
             {!isToday && !isYesterday && (

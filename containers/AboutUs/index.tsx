@@ -41,7 +41,11 @@ const AboutUs = () => {
                         Updates and events will constantly be updated on this website for all to see! Thank you for your kind support, and
                         your gratitude!
                     </Typography>
-                    <Typography sx={{ mt: 1, color: '#949494', fontWeight: 700, fontSize: '14px' }}>Have Fun!!</Typography>
+                    <Typography sx={{ mt: 1, color: '#949494', fontWeight: 700, fontSize: '14px' }}>Have a nice play</Typography>
+                    <Typography sx={{ mt: 1, color: '#949494', fontWeight: 400, fontSize: '14px' }}>
+                        Our services has been registered in the Business Licensing to Support Business Activities Registration of Domestic
+                        Electronic System Operators (TD PSE), with TDPSE number: 008079.01/DJAI.PSE/10/2022
+                    </Typography>
                 </Box>
             </Box>
             <Box sx={{ borderTop: '1px solid #E6E6E6', marginTop: '25px' }}>
