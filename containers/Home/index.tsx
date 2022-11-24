@@ -28,7 +28,7 @@ const HomeContainer = () => {
     const [datasHome, setDatasHome] = React.useState<any>(null);
     const [dataTutorial, setDataTutorial] = useState<any>(null);
     const [isWelcome, setIsWelcome] = useState<boolean>(false);
-    const [openBanner, setOpenBanner] = React.useState(true);
+    const [openBanner, setOpenBanner] = React.useState(false);
     const [prevTutorial, setPrevTutorial] = useState<string>('');
     const [dialogLogin, setDialogLogin] = useState<boolean>(false);
 
@@ -44,6 +44,16 @@ const HomeContainer = () => {
         }
     });
 
+    const isShowBanner = async (data: any) => {
+        const today = new Date();
+        const currentDate = today.getDate();
+        const expiresDate = data.expires;
+        if (expiresDate === currentDate) {
+            return true;
+        }
+        return false;
+    };
+
     const fetchData = async () => {
         try {
             const res = await fetchAPI({
@@ -52,11 +62,12 @@ const HomeContainer = () => {
             });
 
             const data: any = await getLocalData();
-            setDataTutorial(data);
+            setDataTutorial(data.tutorial);
             window.scrollTo(0, 0);
             if (res.status === 200) {
-                if (data.isTutorial) {
-                    setOpenBanner(true);
+                if (data.tutorial.isTutorial) {
+                    const isBanner = await isShowBanner(data.banner);
+                    setOpenBanner(isBanner);
                     // setIsWelcome(true);
                 }
                 setDatasHome(res.data.data);
