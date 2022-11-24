@@ -47,8 +47,11 @@ const HomeContainer = () => {
     const isShowBanner = async (data: any) => {
         const today = new Date();
         const currentDate = today.getDate();
-        const expiresDate = data.expires;
-        if (expiresDate === currentDate) {
+        const expiresDate = data?.expires;
+        if (expiresDate.length > 5) {
+            return true;
+        }
+        if (String(expiresDate).length === 2 && expiresDate === currentDate) {
             return true;
         }
         return false;
@@ -65,11 +68,13 @@ const HomeContainer = () => {
             setDataTutorial(data.tutorial);
             window.scrollTo(0, 0);
             if (res.status === 200) {
-                if (data.tutorial.isTutorial) {
-                    const isBanner = await isShowBanner(data.banner);
-                    setOpenBanner(isBanner);
-                    // setIsWelcome(true);
-                }
+                // if (data.tutorial.isTutorial) {
+                //     const isBanner = await isShowBanner(data.banner);
+                //     setOpenBanner(isBanner);
+                //     // setIsWelcome(true);
+                // }
+                const isBanner = await isShowBanner(data.banner);
+                setOpenBanner(isBanner);
                 setDatasHome(res.data.data);
             }
         } catch (e: any) {
