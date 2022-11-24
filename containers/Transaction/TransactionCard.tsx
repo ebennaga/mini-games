@@ -70,9 +70,16 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
                                         padding: '4px',
                                         color: 'white',
                                         fontSize: '11px',
-                                        backgroundColor: status === 'pending-payment' ? '#FFD833' : status === 'done' ? '#56CF54' : 'red'
+                                        backgroundColor:
+                                            status === 'pending-payment'
+                                                ? '#FFD833'
+                                                : status === 'done' || status === 'paid'
+                                                ? '#56CF54'
+                                                : 'red'
                                     }}
-                                >{`${status === 'pending-payment' ? 'Pending' : status === 'done' ? 'Success' : 'Failed'}`}</Box>
+                                >{`${
+                                    status === 'pending-payment' ? 'Pending' : status === 'done' || status === 'paid' ? 'Success' : 'Failed'
+                                }`}</Box>
                             )}
                         </Box>
                         <Box
