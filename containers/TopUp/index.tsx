@@ -156,7 +156,7 @@ const TopUp = () => {
                                     position: 'relative'
                                 }}
                             >
-                                {item.id !== '1' && (
+                                {/* {item.id !== '1' && (
                                     <Box
                                         sx={{
                                             position: 'absolute',
@@ -185,7 +185,7 @@ const TopUp = () => {
                                             BONUS {item.id === '2' ? '10' : item.id === '3' ? '15' : '20'}%
                                         </Typography>
                                     </Box>
-                                )}
+                                )} */}
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: '20px' }}>
                                     <Typography sx={{ fontSize: '12px', fontWeight: 'bold' }}>Rp. {numberFormat(item.price)}</Typography>
                                 </Box>
@@ -194,10 +194,7 @@ const TopUp = () => {
                                         <img src='/images/poin.png' alt='point' />
                                     </Box>
                                     <Typography sx={{ fontSize: '30px', fontWeight: 'bold' }}>
-                                        {`${item.coin}+`}
-                                        <span style={{ fontSize: '15px' }}>{`${
-                                            item.id === '25' ? '10' : item.id === '3' ? '75' : '200'
-                                        }`}</span>
+                                        {`${item.coin}`}
                                     </Typography>
                                 </Box>
                                 {/* <Typography sx={{ fontSize: '15px' }}>{item.description}</Typography> */}
