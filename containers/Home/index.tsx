@@ -52,6 +52,9 @@ const HomeContainer = () => {
             return true;
         }
         if (String(expiresDate).length === 2 && expiresDate === currentDate) {
+            const local = { ...data };
+            local.isShow = true;
+            localStorage.setItem('popUpBanner', JSON.stringify(local));
             return true;
         }
         return false;
@@ -68,11 +71,9 @@ const HomeContainer = () => {
             setDataTutorial(data.tutorial);
             window.scrollTo(0, 0);
             if (res.status === 200) {
-                // if (data.tutorial.isTutorial) {
-                //     const isBanner = await isShowBanner(data.banner);
-                //     setOpenBanner(isBanner);
-                //     // setIsWelcome(true);
-                // }
+                if (data.tutorial.isTutorial) {
+                    setIsWelcome(true);
+                }
                 const isBanner = await isShowBanner(data.banner);
                 setOpenBanner(isBanner);
                 setDatasHome(res.data.data);
