@@ -17,9 +17,7 @@ interface IAdvertiseDialog {
 const AdvertiseDialog: React.FC<IAdvertiseDialog> = ({ open, setOpen }) => {
     const handleClose = () => {
         const local: any = localStorage.getItem('popUpBanner');
-        const resLocal: any = JSON.parse(local);
-
-        console.log('reslocal', resLocal);
+        const resLocal: any = { ...JSON.parse(local) };
         resLocal.isShow = false;
         const date = new Date();
         resLocal.expires = date.getDate() + 1;

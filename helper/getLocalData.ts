@@ -1,8 +1,13 @@
 const getLocalData = () => {
     return new Promise((resolve) => {
-        const local: any = localStorage.getItem('tutorial');
-        const localString = JSON.parse(local);
-        resolve(localString);
+        const tutorial: any = localStorage.getItem('tutorial');
+        const banner: any = localStorage.getItem('popUpBanner');
+
+        const localStringTutorial = JSON.parse(tutorial);
+        const localStringBanner = JSON.parse(banner);
+
+        const resData = { tutorial: localStringTutorial, banner: localStringBanner };
+        resolve(resData);
     });
 };
 
