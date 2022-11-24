@@ -71,11 +71,11 @@ const HomeContainer = () => {
             setDataTutorial(data.tutorial);
             window.scrollTo(0, 0);
             if (res.status === 200) {
-                if (data.tutorial.isTutorial) {
-                    setIsWelcome(true);
-                }
                 const isBanner = await isShowBanner(data.banner);
                 setOpenBanner(isBanner);
+                if (data.tutorial.isTutorial && !data.banner.isShow) {
+                    setIsWelcome(true);
+                }
                 setDatasHome(res.data.data);
             }
         } catch (e: any) {
