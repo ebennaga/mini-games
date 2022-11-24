@@ -16,7 +16,7 @@ const LeaderboardUser: React.FC<LeaderboardUserProps> = ({ image, username, scor
                 {username?.toLowerCase()}
             </Typography>
             <Typography component='h4' fontSize='12px' fontWeight={400}>
-                {numberFormat(score)}
+                {numberFormat(Number(score))}
             </Typography>
         </Box>
     );
