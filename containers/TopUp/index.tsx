@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import Header from 'components/Header';
@@ -137,7 +138,7 @@ const TopUp = () => {
                 {coins?.length > 0 &&
                     coins.map((item: any) => (
                         <Grid
-                            sx={{ cursor: 'pointer' }}
+                            sx={{ cursor: 'pointer', mt: '40px' }}
                             item
                             xs={5}
                             key={item.id}
@@ -151,18 +152,53 @@ const TopUp = () => {
                                     width: '90%',
                                     padding: '8px',
                                     background: 'linear-gradient(0.35turn, #FFEDA7 20% ,#FFEA98 12.5%, #FFEDA7 80%, #FFEA98 20%)',
-                                    borderRadius: '10px'
+                                    borderRadius: '10px',
+                                    position: 'relative'
                                 }}
                             >
+                                {item.id !== '1' && (
+                                    <Box
+                                        sx={{
+                                            position: 'absolute',
+                                            padding: '10px',
+                                            width: '32px',
+                                            height: '32px',
+                                            backgroundColor: '#F5DD00',
+                                            borderRadius: '100%',
+                                            p: '10px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            right: -15,
+                                            zIndex: 3,
+                                            top: -15,
+                                            rotate: '30deg'
+                                        }}
+                                    >
+                                        <Typography
+                                            sx={{
+                                                fontSize: '10px',
+                                                fontWeight: 'bold',
+                                                textAlign: 'center'
+                                            }}
+                                        >
+                                            BONUS {item.id === '2' ? '10' : item.id === '3' ? '15' : '20'}%
+                                        </Typography>
+                                    </Box>
+                                )}
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: '20px' }}>
-                                    <Box />
                                     <Typography sx={{ fontSize: '12px', fontWeight: 'bold' }}>Rp. {numberFormat(item.price)}</Typography>
                                 </Box>
-                                <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                     <Box>
                                         <img src='/images/poin.png' alt='point' />
                                     </Box>
-                                    <Typography sx={{ fontSize: '32px', fontWeight: 'bold' }}>{numberFormat(item.coin)}</Typography>
+                                    <Typography sx={{ fontSize: '30px', fontWeight: 'bold' }}>
+                                        {`${item.coin}+`}
+                                        <span style={{ fontSize: '15px' }}>{`${
+                                            item.id === '25' ? '10' : item.id === '3' ? '75' : '200'
+                                        }`}</span>
+                                    </Typography>
                                 </Box>
                                 {/* <Typography sx={{ fontSize: '15px' }}>{item.description}</Typography> */}
                             </Box>

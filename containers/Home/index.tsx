@@ -13,6 +13,7 @@ import WelcomeDialog from 'components/DialogTutorial/WelcomeDialog';
 import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import { useSelector } from 'react-redux';
 // import { AutoAwesome } from '@mui/icons-material';
+import AdvertiseDialog from 'components/DialogTutorial/AdvertiseDialog';
 import Search from './Search';
 import GamesCard from './GamesCard';
 import EventCarousel from './EventCarousel';
@@ -27,6 +28,7 @@ const HomeContainer = () => {
     const [datasHome, setDatasHome] = React.useState<any>(null);
     const [dataTutorial, setDataTutorial] = useState<any>(null);
     const [isWelcome, setIsWelcome] = useState<boolean>(false);
+    const [openBanner, setOpenBanner] = React.useState(true);
     const [prevTutorial, setPrevTutorial] = useState<string>('');
     const [dialogLogin, setDialogLogin] = useState<boolean>(false);
 
@@ -54,7 +56,8 @@ const HomeContainer = () => {
             window.scrollTo(0, 0);
             if (res.status === 200) {
                 if (data.isTutorial) {
-                    setIsWelcome(true);
+                    setOpenBanner(true);
+                    // setIsWelcome(true);
                 }
                 setDatasHome(res.data.data);
             }
@@ -95,13 +98,17 @@ const HomeContainer = () => {
             setDialogLogin(true);
         }
     };
-
+    const handleDialog = () => {
+        setOpenBanner(false);
+        setIsWelcome(true);
+    };
     const isNotif = false;
     if (isLoading || !datasHome) {
         return <HomeSkeleton />;
     }
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
+            <AdvertiseDialog open={openBanner} setOpen={handleDialog} />
             <WelcomeDialog
                 open={isWelcome && userState}
                 setOpen={setIsWelcome}
