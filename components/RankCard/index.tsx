@@ -56,7 +56,7 @@ const RankCard: React.FC<IRankCard> = ({
                 </Grid>
                 <Grid item xs={4}>
                     <Typography component='h3' fontSize='14px' fontWeight={600}>
-                        {numberFormat(score)}
+                        {numberFormat(Number(score))}
                     </Typography>
                 </Grid>
                 <Grid item xs={3} sx={{ display: 'flex', alignItems: 'center' }}>
