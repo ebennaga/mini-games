@@ -3,6 +3,7 @@ import getRemainingTimes from 'helper/getRemainingTime';
 import React, { useEffect, useState } from 'react';
 import numberFormat from 'helper/numberFormat';
 import { Circle } from '@mui/icons-material';
+import TypeTournamentCard from 'components/TournamentCard/TyypeTournamentCard';
 
 interface TournamentCardProps {
     image: string;
@@ -14,6 +15,7 @@ interface TournamentCardProps {
     time: string;
     dataLength?: number;
     isLive?: boolean;
+    type: string;
 }
 
 const TournamentCard: React.FC<TournamentCardProps> = ({
@@ -25,7 +27,8 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
     prizePool,
     point,
     time,
-    dataLength
+    dataLength,
+    type
 }) => {
     const [timeTournament, setTimeTournament] = useState<string>('');
     const nowTime = new Date().getTime();
@@ -67,12 +70,14 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                     justifyContent: 'space-between'
                 }}
             >
-                <Box sx={{ alignSelf: !isLive ? 'flex-end' : '' }}>
+                <Box sx={{ alignSelf: !isLive ? 'flex-end' : '', padding: type ? '15px' : 0, width: '-webkit-fill-available' }}>
                     <Box
                         sx={{
-                            padding: '17px',
-                            display: isLive ? 'flex' : '',
-                            justifyContent: isLive ? 'space-between' : ''
+                            padding: type ? 0 : '17px',
+                            display: 'flex',
+                            justifyContent: 'space-between'
+                            // display: isLive ? 'flex' : '',
+                            // justifyContent: isLive ? 'space-between' : ''
                         }}
                     >
                         {isLive && (
@@ -80,6 +85,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                                 <img src='/images/logo-live-tour.png' alt='logo-live' style={{ width: '35px', height: '35px' }} />
                             </Box>
                         )}
+                        <TypeTournamentCard type={type} />
                         <Box
                             sx={{
                                 display: 'flex',
