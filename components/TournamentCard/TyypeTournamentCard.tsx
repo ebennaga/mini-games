@@ -38,7 +38,7 @@ const TypeTournamentCard: React.FC<TypeTournamentCardProps> = ({ type, isTranspa
                     </Typography>
                 </Box>
             )}
-            {(type === 'HIGHSCORE' || type === 'high score') && (
+            {(type === 'HIGHSCORE' || type === 'high score' || type === 'highscore') && (
                 <Box
                     sx={{
                         background: isTransparent ? 'rgba(0, 0, 0, 0)' : '#fff',
