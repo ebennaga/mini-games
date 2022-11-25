@@ -51,20 +51,22 @@ const TabPanelPoinTs: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTrans
     React.useEffect(() => {
         const yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
+        const today = new Date();
         const todayTransaction: any = [];
         const yesterdayTransaction: any = [];
         const daysAgoTransaction: any = [];
         if (!isLoading) {
             cointTansaction?.map((item: any) => {
-                if (new Date(item.created_at).getDate() === new Date().getDate()) {
+                const date = new Date(item.created_at);
+                if (String(today).slice(4, 15) === String(date).slice(4, 15)) {
                     todayTransaction.push(item);
                     setTodayTransactions(todayTransaction);
                 }
-                if (new Date(item.created_at).getDate() === new Date(yesterday).getDate()) {
+                if (String(yesterday).slice(4, 15) === String(date).slice(4, 15)) {
                     yesterdayTransaction.push(item);
                     setYesterdayTransactions(yesterdayTransaction);
                 }
-                if (new Date(item.created_at).getDate() < new Date(yesterday).getDate()) {
+                if (date.getDate() < new Date(yesterday).getDate()) {
                     daysAgoTransaction.push(item);
                     setDaysAgoTransactions(daysAgoTransaction);
                 }
