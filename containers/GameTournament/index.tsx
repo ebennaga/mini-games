@@ -113,7 +113,7 @@ const GameTournament = () => {
         if (listingGame) {
             const date = new Date(listingGame.start_time).toLocaleString('en-US');
             const remainingTime = getRemainingTimes(date);
-            const isComingSoonTournament = remainingTime[0] !== '-';
+            const isComingSoonTournament = remainingTime[0] !== '-' || listingGame.status !== 'OPEN';
             setIsComingSoon(isComingSoonTournament);
         }
     }, [listingGame]);
@@ -171,6 +171,7 @@ const GameTournament = () => {
                         playerImg2='/icons/dummy/user-1.png'
                         playerImg3='/icons/dummy/user-2.png'
                         isComingSoon={isComingSoon}
+                        type={listingGame?.type}
                     />{' '}
                 </>
             )}

@@ -35,18 +35,54 @@ const TopUp = () => {
         { id: 5, image: '/images/payment/gopay.png' },
         { id: 6, image: '/images/payment/qris.png' }
     ];
+
+    // const coinTest = [
+    //     {
+    //         id: '1',
+    //         name: '100 Coin',
+    //         coin: 100,
+    //         bonus: 0,
+    //         price: 10000,
+    //         description: 'Lorem lorem'
+    //     },
+    //     {
+    //         id: '2',
+    //         name: '250 Coin',
+    //         coin: 250,
+    //         bonus: 0,
+    //         price: 25000,
+    //         description: 'Lorem lorem'
+    //     },
+    //     {
+    //         id: '3',
+    //         name: '500 Coin',
+    //         coin: 500,
+    //         bonus: 75,
+    //         price: 50000,
+    //         description: 'Lorem lorem'
+    //     },
+    //     {
+    //         id: '4',
+    //         name: '1000 Coin',
+    //         coin: 1000,
+    //         bonus: 200,
+    //         price: 100000,
+    //         description: 'Lorem lorem'
+    //     }
+    // ];
     const userState = useSelector((state: any) => state.webpage?.user?.user);
 
     const getTopupData = async () => {
         setIsLoading(true);
         try {
             const response = await fetchAPI({
-                endpoint: 'transactions/home'
+                endpoint: 'transactions/home     '
             });
 
             if (!response) {
                 throw new Error('Data is Empty');
             }
+            console.log(response);
             if (response.status === 200) {
                 setCoins(response.data.data.coins);
                 setHistories(response.data.data.history);
@@ -138,7 +174,7 @@ const TopUp = () => {
                 {coins?.length > 0 &&
                     coins.map((item: any) => (
                         <Grid
-                            sx={{ cursor: 'pointer', mt: '40px' }}
+                            sx={{ cursor: 'pointer', mt: '5px' }}
                             item
                             xs={5}
                             key={item.id}
@@ -156,7 +192,7 @@ const TopUp = () => {
                                     position: 'relative'
                                 }}
                             >
-                                {/* {item.id !== '1' && (
+                                {item.bonus > 0 && (
                                     <Box
                                         sx={{
                                             position: 'absolute',
@@ -169,9 +205,9 @@ const TopUp = () => {
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
-                                            right: -15,
+                                            right: -8,
                                             zIndex: 3,
-                                            top: -15,
+                                            top: -8,
                                             rotate: '30deg'
                                         }}
                                     >
@@ -182,10 +218,10 @@ const TopUp = () => {
                                                 textAlign: 'center'
                                             }}
                                         >
-                                            BONUS {item.id === '2' ? '10' : item.id === '3' ? '15' : '20'}%
+                                            BONUS <span style={{ fontSize: '15px' }}>{String((item.bonus / item.coin) * 100)}%</span>
                                         </Typography>
                                     </Box>
-                                )} */}
+                                )}
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: '20px' }}>
                                     <Typography sx={{ fontSize: '12px', fontWeight: 'bold' }}>Rp. {numberFormat(item.price)}</Typography>
                                 </Box>
@@ -195,6 +231,7 @@ const TopUp = () => {
                                     </Box>
                                     <Typography sx={{ fontSize: '30px', fontWeight: 'bold' }}>
                                         {`${item.coin}`}
+                                        {item.bonus > 0 && <span style={{ fontSize: '15px' }}>{`+${item.bonus}`}</span>}
                                     </Typography>
                                 </Box>
                                 {/* <Typography sx={{ fontSize: '15px' }}>{item.description}</Typography> */}
