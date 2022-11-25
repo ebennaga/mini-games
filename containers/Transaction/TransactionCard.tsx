@@ -28,6 +28,7 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
 }) => {
     const date = new Date(created);
     const today = new Date();
+    console.log(String(date).slice(4, 15));
 
     return (
         <Box>
@@ -41,7 +42,7 @@ const TransactionCard: React.FC<TransactionCardProps> = ({
                             sx={{
                                 width: '10px',
                                 height: '10px',
-                                backgroundColor: String(today).slice(8, 11) === String(date).slice(8, 11) ? '#A54CE5' : 'transparent',
+                                backgroundColor: String(today).slice(4, 15) === String(date).slice(4, 15) ? '#A54CE5' : 'transparent',
                                 borderRadius: '100%'
                             }}
                         />
