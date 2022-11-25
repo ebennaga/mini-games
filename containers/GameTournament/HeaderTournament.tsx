@@ -6,6 +6,7 @@ import getRemainingTimes from 'helper/getRemainingTime';
 // import Header from 'components/Header';
 import React from 'react';
 import { ExpandMore, ExpandLess } from '@mui/icons-material';
+import TypeTournamentCard from 'components/TournamentCard/TyypeTournamentCard';
 import CostumProgress from './CostumProgress';
 
 interface HeaderTournamentProps {
@@ -19,10 +20,12 @@ interface HeaderTournamentProps {
     playerImg2: string;
     playerImg3: string;
     isComingSoon?: boolean;
+    type: string;
 }
 
 const HeaderTournament = (props: HeaderTournamentProps) => {
-    const { end, backgroundImage, isComingSoon, titleGame, tournamentType, time, totalPlayer, playerImg1, playerImg2, playerImg3 } = props;
+    const { type, end, backgroundImage, isComingSoon, titleGame, tournamentType, time, totalPlayer, playerImg1, playerImg2, playerImg3 } =
+        props;
     const value = 50;
     const [isExpand, setIsExpand] = React.useState<boolean>(false);
     const newD = new Date(time).toLocaleString('en-US');
@@ -61,6 +64,7 @@ const HeaderTournament = (props: HeaderTournamentProps) => {
                             <Typography component='h3' fontSize='14px' fontWeight={700}>
                                 {tournamentType}
                             </Typography>
+                            <TypeTournamentCard type={type} isTransparent />
                             {getRemainingTimes(newD) && getRemainingTimes(newD)[0] !== '-' && (
                                 <Box
                                     sx={{
