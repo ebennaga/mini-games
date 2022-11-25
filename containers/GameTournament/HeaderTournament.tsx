@@ -58,10 +58,10 @@ const HeaderTournament = (props: HeaderTournamentProps) => {
                 >
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end' }}>
                         <Box sx={{ color: '#fff' }}>
-                            <Typography component='h2' fontSize='24px' fontWeight={700}>
+                            <Typography component='h3' fontSize='14px' fontWeight={700}>
                                 {titleGame}
                             </Typography>
-                            <Typography component='h3' fontSize='14px' fontWeight={700}>
+                            <Typography component='h2' fontSize='24px' fontWeight={700}>
                                 {tournamentType}
                             </Typography>
                             <TypeTournamentCard type={type} isTransparent />
