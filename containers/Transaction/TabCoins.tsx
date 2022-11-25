@@ -34,7 +34,7 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                 endpoint: `transactions/history`,
                 method: 'GET'
             });
-
+            console.log('coin :', result);
             if (result.status === 200) {
                 setCointTransaction(result.data.data);
             }
@@ -104,12 +104,12 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
             <Box>
                 <Typography sx={{ fontWeight: 'bold', mt: '15px' }}>Today</Typography>
                 {todayTransactions !== null &&
-                    todayTransactions?.map((i: any) => (
+                    todayTransactions?.map((i: any, idx: number) => (
                         <TransactionCard
                             status={i.status}
                             type={i.type}
                             isToday
-                            key={i.id}
+                            key={idx}
                             title={i.description}
                             isCoin
                             amount={i.coin}
@@ -121,12 +121,12 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
             <Box>
                 <Typography sx={{ fontWeight: 'bold', mt: '15px' }}>Yesterday</Typography>
                 {yesterdayTransactions !== null &&
-                    yesterdayTransactions?.map((i: any) => (
+                    yesterdayTransactions?.map((i: any, idx: number) => (
                         <TransactionCard
                             status={i.status}
                             type={i.type}
                             isYesterday
-                            key={i.id}
+                            key={idx}
                             title={i.description}
                             isCoin
                             amount={i.coin}
@@ -144,11 +144,11 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                 )}
             </Box>
             {!isLoading &&
-                daysAgoTransactions?.map((i: any) => (
+                daysAgoTransactions?.map((i: any, idx: number) => (
                     <TransactionCard
                         status={i.status}
                         type={i.type}
-                        key={i.id}
+                        key={idx}
                         title={i.description}
                         isCoin
                         amount={i.coin}

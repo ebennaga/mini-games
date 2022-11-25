@@ -36,40 +36,40 @@ const TopUp = () => {
         { id: 6, image: '/images/payment/qris.png' }
     ];
 
-    // const coinTest = [
-    //     {
-    //         id: '1',
-    //         name: '100 Coin',
-    //         coin: 100,
-    //         bonus: 0,
-    //         price: 10000,
-    //         description: 'Lorem lorem'
-    //     },
-    //     {
-    //         id: '2',
-    //         name: '250 Coin',
-    //         coin: 250,
-    //         bonus: 0,
-    //         price: 25000,
-    //         description: 'Lorem lorem'
-    //     },
-    //     {
-    //         id: '3',
-    //         name: '500 Coin',
-    //         coin: 500,
-    //         bonus: 75,
-    //         price: 50000,
-    //         description: 'Lorem lorem'
-    //     },
-    //     {
-    //         id: '4',
-    //         name: '1000 Coin',
-    //         coin: 1000,
-    //         bonus: 200,
-    //         price: 100000,
-    //         description: 'Lorem lorem'
-    //     }
-    // ];
+    const coinTest = [
+        {
+            id: '1',
+            name: '100 Coin',
+            coin: 100,
+            bonus: 0,
+            price: 10000,
+            description: 'Lorem lorem'
+        },
+        {
+            id: '2',
+            name: '250 Coin',
+            coin: 250,
+            bonus: 0,
+            price: 25000,
+            description: 'Lorem lorem'
+        },
+        {
+            id: '3',
+            name: '500 Coin',
+            coin: 500,
+            bonus: 75,
+            price: 50000,
+            description: 'Lorem lorem'
+        },
+        {
+            id: '4',
+            name: '1000 Coin',
+            coin: 1000,
+            bonus: 200,
+            price: 100000,
+            description: 'Lorem lorem'
+        }
+    ];
     const userState = useSelector((state: any) => state.webpage?.user?.user);
 
     const getTopupData = async () => {
@@ -171,8 +171,8 @@ const TopUp = () => {
                 </Box>
             </Box>
             <Grid container justifyContent='center' rowGap={2} columnGap={2} sx={{ flexWrap: 'wrap' }} marginBottom='20px'>
-                {coins?.length > 0 &&
-                    coins.map((item: any) => (
+                {coinTest?.length > 0 &&
+                    coinTest.map((item: any) => (
                         <Grid
                             sx={{ cursor: 'pointer', mt: '5px' }}
                             item

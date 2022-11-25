@@ -35,7 +35,7 @@ const TabPanelPoinTs: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTrans
                 endpoint: `transactions/history/point`,
                 method: 'GET'
             });
-            console.log(result);
+            console.log('point: ', result);
             if (result.status === 200) {
                 setCointTransaction(result.data.data);
             }
@@ -105,11 +105,11 @@ const TabPanelPoinTs: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTrans
             <Box>
                 <Typography sx={{ fontWeight: 'bold', mt: '15px' }}>Today</Typography>
                 {todayTransactions !== null &&
-                    todayTransactions?.map((i: any) => (
+                    todayTransactions?.map((i: any, idx: number) => (
                         <TransactionCard
                             type={i.type}
                             isToday
-                            key={i.id}
+                            key={idx}
                             title={i.description}
                             amount={numberFormat(i.point)}
                             subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
@@ -120,11 +120,11 @@ const TabPanelPoinTs: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTrans
             <Box>
                 <Typography sx={{ fontWeight: 'bold', mt: '15px' }}>Yesterday</Typography>
                 {yesterdayTransactions !== null &&
-                    yesterdayTransactions?.map((i: any) => (
+                    yesterdayTransactions?.map((i: any, idx: number) => (
                         <TransactionCard
                             type={i.type}
                             isYesterday
-                            key={i.id}
+                            key={idx}
                             title={i.description}
                             amount={i.point}
                             subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
@@ -141,10 +141,10 @@ const TabPanelPoinTs: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTrans
                 )}
             </Box>
             {!isLoading &&
-                daysAgoTransactions?.map((i: any) => (
+                daysAgoTransactions?.map((i: any, idx: number) => (
                     <TransactionCard
                         type={i.type}
-                        key={i.id}
+                        key={idx}
                         title={i.description}
                         amount={numberFormat(i.point)}
                         subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
