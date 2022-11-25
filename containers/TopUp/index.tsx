@@ -47,6 +47,7 @@ const TopUp = () => {
             if (!response) {
                 throw new Error('Data is Empty');
             }
+            console.log(response);
             if (response.status === 200) {
                 setCoins(response.data.data.coins);
                 setHistories(response.data.data.history);
@@ -156,7 +157,7 @@ const TopUp = () => {
                                     position: 'relative'
                                 }}
                             >
-                                {/* {item.id !== '1' && (
+                                {/* {item.id !== '1' && item.bonus (
                                     <Box
                                         sx={{
                                             position: 'absolute',
@@ -182,7 +183,7 @@ const TopUp = () => {
                                                 textAlign: 'center'
                                             }}
                                         >
-                                            BONUS {item.id === '2' ? '10' : item.id === '3' ? '15' : '20'}%
+                                            BONUS {item.id === '2' ? String((item.bonus/item.coin)*100) : item.id === '3' ? String((item.bonus/item.coin)*100) : String((item.bonus/item.coin)*100)}%
                                         </Typography>
                                     </Box>
                                 )} */}
@@ -195,6 +196,9 @@ const TopUp = () => {
                                     </Box>
                                     <Typography sx={{ fontSize: '30px', fontWeight: 'bold' }}>
                                         {`${item.coin}`}
+                                        {/* <span style={{ fontSize: '15px' }}>{`+${
+                                            item.id === item.bonus ? '10' : item.id === '3' ? item.bonus : item.bonus
+                                        }`}</span> */}
                                     </Typography>
                                 </Box>
                                 {/* <Typography sx={{ fontSize: '15px' }}>{item.description}</Typography> */}
