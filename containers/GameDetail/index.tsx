@@ -231,10 +231,11 @@ const GameDetailContainer = () => {
                                 {detailGame?.tournaments.map((item: any, idx: number) => {
                                     const date = new Date(item.start_time).toLocaleString('en-US');
                                     const remainingTime = getRemainingTimes(date);
-                                    const isComingSoon = remainingTime[0] !== '-';
+                                    const isComingSoon = remainingTime[0] !== '-' || item.status !== 'OPEN';
 
                                     return (
                                         <TournamentCard
+                                            status={item.status}
                                             key={item.id}
                                             time={isComingSoon ? 'coming soon' : item.end_time}
                                             pool={item.total_prize}
@@ -243,6 +244,7 @@ const GameDetailContainer = () => {
                                             imageGame={detailGame?.banner_url}
                                             backgroundImage={item.banner_url}
                                             coin={item.entry_coin}
+                                            type={item.type}
                                         />
                                     );
                                 })}

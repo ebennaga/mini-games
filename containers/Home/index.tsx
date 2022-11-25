@@ -303,6 +303,7 @@ const HomeContainer = () => {
                                     // time='6d 13h 23m'
                                     time={item.end_time}
                                     dataLength={datasHome?.tournaments.length}
+                                    type={item.type}
                                 />
                             );
                         })}

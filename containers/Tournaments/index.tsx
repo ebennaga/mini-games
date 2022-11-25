@@ -107,6 +107,13 @@ const Tournaments = () => {
                 </Box>
                 <TournamentSliderGD spacing='large'>
                     {dataFeeds.tournaments.map((item: any, index: number) => {
+                        // Filter to get data status tournament
+                        const filter = {
+                            ...dataGamesDetail
+                                .map((game: any) => game?.tournaments.filter((i: any) => i.id === item.id)[0])
+                                .filter((j: any) => j)[0]
+                        };
+
                         return (
                             <TournamentCard
                                 customWidth='99%'
@@ -118,6 +125,8 @@ const Tournaments = () => {
                                 key={index}
                                 imageGame={item.game.banner_url}
                                 backgroundImage={item.banner_url}
+                                type={item.type}
+                                status={filter?.status || 'OPEN'}
                             />
                         );
                     })}
@@ -142,6 +151,8 @@ const Tournaments = () => {
                                                 key={index}
                                                 imageGame={item.banner_url}
                                                 backgroundImage={itm.banner_url}
+                                                type={itm.type}
+                                                status={itm.status}
                                             />
                                         );
                                     })}
