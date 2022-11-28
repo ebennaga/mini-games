@@ -82,7 +82,6 @@ const TopUp = () => {
             if (!response) {
                 throw new Error('Data is Empty');
             }
-            console.log(response);
             if (response.status === 200) {
                 setCoins(response.data.data.coins);
                 setHistories(response.data.data.history);
@@ -118,9 +117,9 @@ const TopUp = () => {
         };
     }, []);
 
-    const handleTopup = (id: any, coin: any, price: any) => {
+    const handleTopup = (id: any, coin: any, price: any, bonus: number) => {
         if (userState) {
-            setUser({ ...userState, topupData: { coin, price } });
+            setUser({ ...userState, topupData: { coin, price, bonus } });
             router.push(`/topup/${id}/payment-confirmation`);
         } else {
             setDialogSignup(true);
@@ -180,7 +179,7 @@ const TopUp = () => {
                             key={item.id}
                             onClick={() => {
                                 // router.push(`/topup/${item.id}/payment-confirmation`);
-                                handleTopup(item.id, item.coin, item.price);
+                                handleTopup(item.id, item.coin, item.price, item.bonus);
                             }}
                         >
                             <Box
