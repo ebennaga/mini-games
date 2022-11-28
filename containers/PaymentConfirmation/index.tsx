@@ -127,20 +127,58 @@ const PaymentConfirmationContainer = () => {
                             mt: '30px',
                             borderRadius: '15px',
                             display: 'flex',
+                            flexDirection: 'column',
                             justifyContent: 'space-between',
-                            height: '120px'
+                            height: '120px',
+                            position: 'relative'
                         }}
                     >
+                        {userState.topupData.bonus !== 0 && (
+                            <Box
+                                sx={{
+                                    position: 'absolute',
+                                    padding: '10px',
+                                    width: '32px',
+                                    height: '32px',
+                                    backgroundColor: '#F5DD00',
+                                    borderRadius: '100%',
+                                    p: '10px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    right: -8,
+                                    zIndex: 3,
+                                    top: -8,
+                                    rotate: '30deg'
+                                }}
+                            >
+                                <Typography
+                                    sx={{
+                                        fontSize: '10px',
+                                        fontWeight: 'bold',
+                                        textAlign: 'center'
+                                    }}
+                                >
+                                    BONUS{' '}
+                                    <span style={{ fontSize: '15px' }}>
+                                        {String((userState.topupData.bonus / userState.topupData.coin) * 100)}%
+                                    </span>
+                                </Typography>
+                            </Box>
+                        )}
+                        <Box>
+                            <Typography sx={{ fontWeight: 500 }}>Rp. {numberFormat(userState.topupData.price)}</Typography>
+                        </Box>
                         <Box sx={{ width: '50%', display: 'flex', alignItems: 'flex-end' }}>
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                 <img src='/images/sm-coin.png' alt='coin' />
-                                <Typography sx={{ color: '#373737', fontWeight: 700, fontSize: '32px' }}>
+                                <Typography sx={{ color: '#373737', fontWeight: 700, fontSize: '32px', ml: 1 }}>
                                     {numberFormat(userState.topupData.coin)}
+                                    {userState.topupData.bonus > 0 && (
+                                        <span style={{ fontSize: '15px' }}>{`+${userState.topupData.bonus}`}</span>
+                                    )}
                                 </Typography>
                             </Box>
-                        </Box>
-                        <Box>
-                            <Typography sx={{ fontWeight: 500 }}>Rp. {numberFormat(userState.topupData.price)}</Typography>
                         </Box>
                     </Box>
                     <Typography sx={{ fontWeight: '400', fontSize: '12px', lineHeight: '12px', color: '#949494', my: '40px' }}>
