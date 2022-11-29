@@ -11,8 +11,8 @@ const HomeSkeleton = () => {
 
     return (
         <Box sx={{ width: '100%', marginTop: '20px' }}>
-            <HeaderSkeleton />
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 5 }}>
+            <HeaderSkeleton page='home' />
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 5.5 }}>
                 <Skeleton sx={{ width: '80%', height: '58px' }} />
                 <Skeleton sx={{ width: '10%', height: '58px' }} />
             </Box>
