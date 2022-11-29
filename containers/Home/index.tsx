@@ -120,6 +120,7 @@ const HomeContainer = () => {
         setIsWelcome(true);
     };
     const isNotif = false;
+
     if (isLoading || !datasHome) {
         return <HomeSkeleton />;
     }
@@ -145,7 +146,7 @@ const HomeContainer = () => {
                     borderBottom: borderValue
                 }}
             >
-                <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' dataLocal={dataTutorial} isHide />
+                <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' dataLocal={dataTutorial} />
             </Box>
             <Box component='section' sx={{ display: 'flex', alignItems: 'center' }}>
                 <Search form={form} name='search' placeholder='Search Games' onSubmit={handleSearch} />
