@@ -97,6 +97,7 @@ const HomeContainer = () => {
     };
 
     const isNotif = false;
+
     if (isLoading || !datasHome) {
         return <HomeSkeleton />;
     }
