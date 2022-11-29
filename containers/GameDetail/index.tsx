@@ -14,12 +14,14 @@ import useNotify from 'hooks/useNotify';
 import NotifDialog from 'components/Dialog/notifDialog';
 import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import useAuthReducer from 'hooks/useAuthReducer';
+import getRemainingTimes from 'helper/getRemainingTime';
 import GameDetailSkeleton from './GameDetailSkeleton';
 
 const GameDetailContainer = () => {
     const isBack = true;
     const router = useRouter();
-    const { fetchAPI, isLoading } = useAPICaller();
+    const { fetchAPI } = useAPICaller();
+    const [isLoading, setIsLoading] = React.useState(true);
     const notify = useNotify();
     const [detailGame, setDetailGame] = React.useState<any>(null);
     const userState = useSelector((state: any) => state.webpage?.user?.user);
@@ -29,6 +31,7 @@ const GameDetailContainer = () => {
     const { setUser, clearUser } = useAuthReducer();
 
     const fetchData = async (id: number) => {
+        setIsLoading(true);
         try {
             const res = await fetchAPI({
                 endpoint: `/games/${id}`,
@@ -37,9 +40,12 @@ const GameDetailContainer = () => {
             if (res.data?.data) {
                 setDetailGame(res.data.data);
             }
+            setIsLoading(false);
         } catch (e) {
             notify('failed data', 'e');
+            setIsLoading(false);
         }
+        setIsLoading(false);
     };
 
     React.useEffect(() => {
@@ -222,18 +228,26 @@ const GameDetailContainer = () => {
                         </Grid>
                         <Grid item xs={12} sx={{ mt: '24px' }}>
                             <TournamentSlider>
-                                {detailGame?.tournaments.map((item: any, idx: number) => (
-                                    <TournamentCard
-                                        key={item.id}
-                                        time={item.end_time}
-                                        pool={item.total_prize}
-                                        users={item.total_users}
-                                        onClick={() => handleClick(item.id)}
-                                        imageGame={detailGame?.banner_url}
-                                        backgroundImage={item.banner_url}
-                                        coin={item.entry_coin}
-                                    />
-                                ))}
+                                {detailGame?.tournaments.map((item: any, idx: number) => {
+                                    const date = new Date(item.start_time).toLocaleString('en-US');
+                                    const remainingTime = getRemainingTimes(date);
+                                    const isComingSoon = remainingTime[0] !== '-' || item.status !== 'OPEN';
+
+                                    return (
+                                        <TournamentCard
+                                            status={item.status}
+                                            key={item.id}
+                                            time={isComingSoon ? 'coming soon' : item.end_time}
+                                            pool={item.total_prize}
+                                            users={item.total_users}
+                                            onClick={() => handleClick(item.id)}
+                                            imageGame={detailGame?.banner_url}
+                                            backgroundImage={item.banner_url}
+                                            coin={item.entry_coin}
+                                            type={item.type}
+                                        />
+                                    );
+                                })}
                             </TournamentSlider>
                         </Grid>
                     </Grid>

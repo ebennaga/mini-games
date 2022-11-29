@@ -6,6 +6,8 @@ import { AccessTime, HelpOutline } from '@mui/icons-material';
 import numberFormat from 'helper/numberFormat';
 import getRemainingTimes from 'helper/getRemainingTime';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import ParentTabs from './TabParent';
 import TabPrizes from './TabPrizes';
 import TabLeaderboard from './TabLeaderboard';
@@ -20,13 +22,25 @@ const LiveDetailContainer = () => {
             password: ''
         }
     });
-    const newD = new Date().toLocaleString();
+    const newD = new Date().toLocaleString('en-US');
     const [value, setValue] = React.useState(0);
     const handleChangeTabs = (event: SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
+
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
+
     const [openDialogPass, setOpenDialogPass] = React.useState(false);
     const [openDialogBarcode, setOpenDialogBarcode] = React.useState(true);
+    const [openDialogLogin, setOpenDialogLogin] = React.useState<boolean>(false);
+
+    const handleJoinEvent = () => {
+        if (userState?.api_token) {
+            setOpenDialogPass(!openDialogPass);
+        } else {
+            setOpenDialogLogin(true);
+        }
+    };
 
     return (
         <Box width='100%'>
@@ -183,7 +197,8 @@ const LiveDetailContainer = () => {
             <Box sx={{ position: 'sticky', bottom: '20px', zIndex: 0, mx: '20px' }}>
                 <ButtonBase
                     onClick={() => {
-                        setOpenDialogPass(!openDialogPass);
+                        // setOpenDialogPass(!openDialogPass);
+                        handleJoinEvent();
                     }}
                     sx={{
                         display: 'flex',
@@ -204,6 +219,7 @@ const LiveDetailContainer = () => {
             </Box>
             <DialogPassword form={form} open={openDialogPass} setOpen={setOpenDialogPass} />
             <DialogBarcode open={openDialogBarcode} setOpen={setOpenDialogBarcode} />
+            <SignupLoginDialog open={openDialogLogin} setOpen={setOpenDialogLogin} />
         </Box>
     );
 };

@@ -34,7 +34,7 @@ const PrizeDetailContainer = () => {
         mode: 'all',
         defaultValues: {
             date: new Date().getDate() || '',
-            month: new Date().getMonth()?.toLocaleString() || '',
+            month: new Date().getMonth()?.toLocaleString('en-US') || '',
             year: new Date().getFullYear() || ''
         }
     });
@@ -52,6 +52,8 @@ const PrizeDetailContainer = () => {
         const response = await fetchAPI({ method: 'GET', endpoint: `redemptions/${router.query.id}` });
         if (response.status === 200) {
             setData(response.data.data);
+        } else if (response.status === 401) {
+            router.push('/shops');
         } else {
             notify(response.data.message, 'error');
         }

@@ -50,10 +50,10 @@ const FailedPaymentContainer = () => {
             >
                 <Box />
                 <Box sx={{ paddingX: '20px', textAlign: 'center' }}>
-                    <Typography sx={{ fontSize: '35px', fontWeight: 'bold', lineHeight: 0 }}>Failed</Typography>
-                    <img src='/images/failed.png' alt='failed.png' />
-                    <Typography sx={{ fontSize: '14px', color: '#373737', fontWeight: '700' }}>
-                        Transaction incomplete. Check your balance.
+                    <Typography sx={{ fontSize: '35px', fontWeight: 'bold', lineHeight: 0, mb: 5 }}>Failed</Typography>
+                    <img src='/images/failed.png' alt='failed.png' loading='lazy' />
+                    <Typography sx={{ fontSize: '14px', color: '#373737', fontWeight: '700', mt: 2 }}>
+                        OHH NO, there seems to be a connections problem , Please kindly check your history and try again later.
                     </Typography>
                 </Box>
                 <Box sx={{ paddingX: '20px' }}>

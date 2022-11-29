@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Box, ButtonBase, Grid, Typography } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import { useSelector } from 'react-redux';
@@ -115,7 +114,7 @@ const Profile = () => {
                         <StatsCard title='Total Earns' icon='/images/point-shops.png' value={detailGame?.total_earns} />
                     </Grid>
                     <Grid item xs={6}>
-                        <StatsCard title='Total Plays' icon='/icons/plays.png' value={detailGame?.totalPlay} />
+                        <StatsCard title='Total Plays' icon='/icons/plays.png' value={detailGame?.total_play} />
                     </Grid>
                 </Grid>
             </Box>
@@ -140,7 +139,7 @@ const Profile = () => {
                         <Box>
                             <img src='/icons/redeem-active.svg' alt='redeem' width={20} />
                         </Box>
-                        <Typography sx={{ fontWeight: 'bold' }}>{detailGame?.totalPrize}</Typography>
+                        <Typography sx={{ fontWeight: 'bold' }}>{detailGame?.total_prize}</Typography>
                     </Box>
                     <ButtonBase href='/shops/redeem-history'>
                         <Typography sx={{ color: '#A54CE5', fontSize: '11px', fontWeight: 'bolder' }}>View Exchanged Prize</Typography>

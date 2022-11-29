@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
 import { Box, Divider, Grid, Typography, TextField, Skeleton, CircularProgress } from '@mui/material';
@@ -10,7 +11,9 @@ import { useRouter } from 'next/router';
 import useNotify from 'hooks/useNotify';
 import useAPICaller from 'hooks/useAPICaller';
 import numberFormat from 'helper/numberFormat';
+import { useSelector } from 'react-redux';
 import ConfirmSkeleton from './ConfirmationSkeleton';
+import CheckboxController from './Checkbox';
 
 interface TextFieldProps {
     form: any;
@@ -76,7 +79,9 @@ const PrizeConfirmationContainer = () => {
             address: '',
             notes: '',
             recipient: '',
-            phone: ''
+            phone: '',
+            dokumentasi: false,
+            ongkir: false
         }
     });
     const [openDialog, setOpenDialog] = React.useState<boolean>(false);
@@ -85,8 +90,9 @@ const PrizeConfirmationContainer = () => {
     const [loadingRedeem, setLoadingRedeem] = React.useState<boolean>(false);
     const [isDisabled, setIsDisabled] = React.useState<boolean>(true);
     const [dataGoods, setDataGoods] = React.useState<any>(null);
-
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
     const { fetchAPI } = useAPICaller();
+    const [listAddress, setListAddress] = React.useState([]);
 
     const router = useRouter();
     const notify = useNotify();
@@ -104,6 +110,20 @@ const PrizeConfirmationContainer = () => {
         return form.watch(name);
     };
 
+    const getAuthData = async () => {
+        const response = await fetchAPI({
+            method: 'GET',
+            endpoint: 'auths/detail'
+        });
+        // setListAddress(response.data.data);
+        if (response.status === 200 && response.data.data.primary_address) {
+            const { address, notes, recipient_name, phone_number } = response.data.data.primary_address;
+            form.setValue('address', address);
+            form.setValue('notes', notes);
+            form.setValue('recipient', recipient_name);
+            form.setValue('phone', phone_number);
+        }
+    };
     const getDetailGoods = async () => {
         setIsLoading(true);
         const response = await fetchAPI({
@@ -141,11 +161,11 @@ const PrizeConfirmationContainer = () => {
     };
 
     React.useEffect(() => {
-        ['address', 'recipient', 'phone'].forEach((item: any) => {
-            if (formValue(item) !== '') {
+        ['address', 'recipient', 'phone', 'dokumentasi', 'ongkir'].forEach((item: any) => {
+            if (formValue(item) !== '' || formValue(item) === true) {
                 setIsDisabled(false);
             }
-            if (formValue(item) === '') {
+            if (formValue(item) === '' || formValue(item) === false) {
                 setIsDisabled(true);
             }
         });
@@ -162,12 +182,20 @@ const PrizeConfirmationContainer = () => {
     }, []);
 
     React.useEffect(() => {
+        if (dataGoods?.price > userState?.point) {
+            router.push(`/shops/prize/${router.query.id}`);
+        }
+    }, [router, userState, dataGoods]);
+
+    React.useEffect(() => {
         getDetailGoods();
+        getAuthData();
     }, []);
 
     if (isLoading) {
         return <ConfirmSkeleton />;
     }
+
     return (
         <Box sx={{ width: '100%', pb: '20px' }}>
             <Box
@@ -196,6 +224,7 @@ const PrizeConfirmationContainer = () => {
                                     currentTarget.onerror = null;
                                     currentTarget.src = '/images/img_error.svg';
                                 }}
+                                loading='lazy'
                             />
                         </Box>
                     </Grid>
@@ -204,7 +233,7 @@ const PrizeConfirmationContainer = () => {
 
                         <Box sx={{ display: 'flex', gap: '8px', alignItems: 'center', mt: 2 }}>
                             <Box>
-                                <img src='/images/point-shops.png' alt='pointshops' />
+                                <img src='/images/point-shops.png' alt='pointshops' loading='lazy' />
                             </Box>
                             <Typography sx={{ fontWeight: 'bold', fontSize: '12px' }}>{numberFormat(dataGoods.price)}</Typography>
                         </Box>
@@ -221,11 +250,31 @@ const PrizeConfirmationContainer = () => {
                         <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
                             Address
                         </Typography>
-                        <div style={{ position: 'relative', zIndex: 0, marginBottom: '185px' }}>
+                        <div style={{ position: 'relative', zIndex: 0, marginBottom: '135px' }}>
                             <TextFieldInput type='text' label='Address' form={form} name='address' validator={rules} />
                             <TextFieldInput type='text' label='Notes' form={form} name='notes' />
                             <TextFieldInput type='text' label={`Recipient's Name`} form={form} name='recipient' validator={rules} />
                             <TextFieldInput type='tel' label='Phone Number' form={form} name='phone' validator={rules} />
+                            <Box>
+                                <CheckboxController
+                                    label='1. Bersedia didokumentasikan sebagai bukti telah menerima hadiah.'
+                                    name='dokumentasi'
+                                    form={form}
+                                    onChange={(e: any) => {
+                                        form.setValue('dokumentasi', e.target.checked);
+                                    }}
+                                    checked={form.watch('dokumentasi')}
+                                />
+                                <CheckboxController
+                                    label='2. Ongkos kirim ditanggung oleh pemenang'
+                                    name='ongkir'
+                                    form={form}
+                                    onChange={(e: any) => {
+                                        form.setValue('ongkir', e.target.checked);
+                                    }}
+                                    checked={form.watch('ongkir')}
+                                />
+                            </Box>
                         </div>
                     </Box>
                 </Box>

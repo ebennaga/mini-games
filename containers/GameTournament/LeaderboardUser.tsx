@@ -13,10 +13,10 @@ const LeaderboardUser: React.FC<LeaderboardUserProps> = ({ image, username, scor
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Avatar alt={username} src={image} />
             <Typography component='h3' fontSize='14px' fontWeight={700}>
-                {username.toLowerCase()}
+                {username?.toLowerCase()}
             </Typography>
             <Typography component='h4' fontSize='12px' fontWeight={400}>
-                {numberFormat(score)}
+                {numberFormat(Number(score))}
             </Typography>
         </Box>
     );

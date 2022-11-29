@@ -15,7 +15,7 @@ const LayoutLoggedIn: React.FC<LayoutLoggedInProps> = ({ myCoin, children }) => 
                 <Grid item xs={2}>
                     <ButtonBase>
                         {/* <ArrowCircleLeft sx={{ width: '35px', height: '35px', color: '#A54CE5' }} /> */}
-                        <img src='/images/arrowBack.png' alt='arrowBack' />
+                        <img src='/images/arrowBack.png' alt='arrowBack' loading='lazy' />
                     </ButtonBase>
                 </Grid>
                 <Grid container justifyContent='space-between' alignItems='center' xs={4}>
@@ -31,15 +31,15 @@ const LayoutLoggedIn: React.FC<LayoutLoggedInProps> = ({ myCoin, children }) => 
                             }}
                             component='div'
                         >
-                            <img src='/images/coin.png' alt='coin' />
+                            <img src='/images/coin.png' alt='coin' loading='lazy' />
                             <Typography fontWeight='bold'>{myCoin}</Typography>
                             <Box sx={{ position: 'absolute', bottom: '25px', left: '0px' }}>
-                                <img src='/images/badge-plus.png' alt='badge' />
+                                <img src='/images/badge-plus.png' alt='badge' loading='lazy' />
                             </Box>
                         </Box>
                     </Grid>
                     <Grid item xs={3}>
-                        <img src='/images/avatar.png' alt='avatar' />
+                        <img src='/images/avatar.png' alt='avatar' loading='lazy' />
                     </Grid>
                 </Grid>
             </Grid>

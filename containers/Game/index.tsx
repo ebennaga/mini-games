@@ -150,7 +150,7 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
                             }}
                         >
                             <Box sx={{ width: '100%', textAlign: 'center' }}>
-                                <img src={item.banner_url} alt='' style={{ width: '150px', borderRadius: '10px' }} />
+                                <img src={item.banner_url} alt='' style={{ width: '150px', borderRadius: '10px' }} loading='lazy' />
                                 <Typography sx={{ fontSize: '18px', fontWeight: 700 }}>{item.name}</Typography>
                                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                                     <BadgeImages

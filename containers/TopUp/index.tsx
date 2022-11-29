@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import Header from 'components/Header';
@@ -34,14 +35,50 @@ const TopUp = () => {
         { id: 5, image: '/images/payment/gopay.png' },
         { id: 6, image: '/images/payment/qris.png' }
     ];
+
+    // const coinTest = [
+    //     {
+    //         id: '1',
+    //         name: '100 Coin',
+    //         coin: 100,
+    //         bonus: 0,
+    //         price: 10000,
+    //         description: 'Lorem lorem'
+    //     },
+    //     {
+    //         id: '2',
+    //         name: '250 Coin',
+    //         coin: 250,
+    //         bonus: 0,
+    //         price: 25000,
+    //         description: 'Lorem lorem'
+    //     },
+    //     {
+    //         id: '3',
+    //         name: '500 Coin',
+    //         coin: 500,
+    //         bonus: 75,
+    //         price: 50000,
+    //         description: 'Lorem lorem'
+    //     },
+    //     {
+    //         id: '4',
+    //         name: '1000 Coin',
+    //         coin: 1000,
+    //         bonus: 200,
+    //         price: 100000,
+    //         description: 'Lorem lorem'
+    //     }
+    // ];
     const userState = useSelector((state: any) => state.webpage?.user?.user);
 
     const getTopupData = async () => {
         setIsLoading(true);
         try {
             const response = await fetchAPI({
-                endpoint: 'transactions/home?search='
+                endpoint: 'transactions/home     '
             });
+
             if (!response) {
                 throw new Error('Data is Empty');
             }
@@ -80,9 +117,9 @@ const TopUp = () => {
         };
     }, []);
 
-    const handleTopup = (id: any, coin: any, price: any) => {
+    const handleTopup = (id: any, coin: any, price: any, bonus: number) => {
         if (userState) {
-            setUser({ ...userState, topupData: { coin, price } });
+            setUser({ ...userState, topupData: { coin, price, bonus } });
             router.push(`/topup/${id}/payment-confirmation`);
         } else {
             setDialogSignup(true);
@@ -105,7 +142,8 @@ const TopUp = () => {
                     backgroundColor: 'white',
                     width: '-webkit-fill-available',
                     top: '-1px',
-                    borderBottom: borderValue
+                    borderBottom: borderValue,
+                    paddingBottom: '20px'
                 }}
             >
                 <Header logo='/icons/logo.svg' profilePicture='/icons/dummy/profile.png' />
@@ -135,13 +173,13 @@ const TopUp = () => {
                 {coins?.length > 0 &&
                     coins.map((item: any) => (
                         <Grid
-                            sx={{ cursor: 'pointer' }}
+                            sx={{ cursor: 'pointer', mt: '5px' }}
                             item
                             xs={5}
                             key={item.id}
                             onClick={() => {
                                 // router.push(`/topup/${item.id}/payment-confirmation`);
-                                handleTopup(item.id, item.coin, item.price);
+                                handleTopup(item.id, item.coin, item.price, item.bonus);
                             }}
                         >
                             <Box
@@ -149,18 +187,51 @@ const TopUp = () => {
                                     width: '90%',
                                     padding: '8px',
                                     background: 'linear-gradient(0.35turn, #FFEDA7 20% ,#FFEA98 12.5%, #FFEDA7 80%, #FFEA98 20%)',
-                                    borderRadius: '10px'
+                                    borderRadius: '10px',
+                                    position: 'relative'
                                 }}
                             >
+                                {item.bonus > 0 && (
+                                    <Box
+                                        sx={{
+                                            position: 'absolute',
+                                            padding: '10px',
+                                            width: '32px',
+                                            height: '32px',
+                                            backgroundColor: '#F5DD00',
+                                            borderRadius: '100%',
+                                            p: '10px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            right: -8,
+                                            zIndex: 3,
+                                            top: -8,
+                                            rotate: '30deg'
+                                        }}
+                                    >
+                                        <Typography
+                                            sx={{
+                                                fontSize: '10px',
+                                                fontWeight: 'bold',
+                                                textAlign: 'center'
+                                            }}
+                                        >
+                                            BONUS <span style={{ fontSize: '15px' }}>{String((item.bonus / item.coin) * 100)}%</span>
+                                        </Typography>
+                                    </Box>
+                                )}
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: '20px' }}>
-                                    <Box />
                                     <Typography sx={{ fontSize: '12px', fontWeight: 'bold' }}>Rp. {numberFormat(item.price)}</Typography>
                                 </Box>
-                                <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                     <Box>
                                         <img src='/images/poin.png' alt='point' />
                                     </Box>
-                                    <Typography sx={{ fontSize: '32px', fontWeight: 'bold' }}>{numberFormat(item.coin)}</Typography>
+                                    <Typography sx={{ fontSize: '30px', fontWeight: 'bold' }}>
+                                        {`${item.coin}`}
+                                        {item.bonus > 0 && <span style={{ fontSize: '15px' }}>{`+${item.bonus}`}</span>}
+                                    </Typography>
                                 </Box>
                                 {/* <Typography sx={{ fontSize: '15px' }}>{item.description}</Typography> */}
                             </Box>
@@ -179,30 +250,34 @@ const TopUp = () => {
             <Box sx={{ textAlign: 'center', paddingX: '20px' }}>
                 {histories?.length > 0 &&
                     histories
-                        .slice(2)
-                        .map((i: any) => (
+                        .slice(0, 3)
+                        .map((i: any, idx: number) => (
                             <TransactionCard
                                 isToday
-                                key={i.id}
+                                key={idx}
                                 title={i.description}
                                 isCoin
                                 amount={i.coin}
                                 subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
                                 created={i?.created_at}
+                                status={i.status}
+                                type={i.type}
                             />
                         ))}
                 {histories?.length === 0 && <Typography sx={{ mt: '10px', color: 'red' }}>There is not any histories top up</Typography>}
             </Box>
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
-                <ButtonBase
-                    onClick={() => {
-                        router.push('/transaction');
-                    }}
-                    sx={{ color: '#A54CE5' }}
-                >
-                    Show All <East fontSize='inherit' sx={{ ml: '3px' }} />
-                </ButtonBase>
-            </Box>
+            {userState && (
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+                    <ButtonBase
+                        onClick={() => {
+                            router.push('/transaction');
+                        }}
+                        sx={{ color: '#A54CE5' }}
+                    >
+                        Show All <East fontSize='inherit' sx={{ ml: '3px' }} />
+                    </ButtonBase>
+                </Box>
+            )}
             <Box
                 onClick={() => {
                     router.push('/coins-prizes');

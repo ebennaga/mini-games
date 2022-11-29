@@ -23,7 +23,7 @@ const BadgeCard: React.FC<BadgeCardProps> = ({ title, scores, isClaimed, onClick
                     alignItems: 'center'
                 }}
             >
-                <img src='/icons/badge.png' width='45.2px' height='auto' alt='badge' />
+                <img src='/icons/badge.png' width='45.2px' height='auto' alt='badge' loading='lazy' />
                 <Typography component='h3' fontSize='14px' fontWeight={700} mr='8px' mt='18px'>
                     {title}
                 </Typography>

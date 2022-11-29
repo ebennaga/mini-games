@@ -29,7 +29,7 @@ const SwitchCard: React.FC<SwitchCardProps> = ({ icon, title, onChange, name, fo
     return (
         <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <img src={icon} alt={title} width='24px' height='24px' />
+                <img src={icon} alt={title} width='24px' height='24px' loading='lazy' />
                 <Typography component='span' fontSize='14px' fontWeight={700} marginLeft={1.5}>
                     {title}
                 </Typography>

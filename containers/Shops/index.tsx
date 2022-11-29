@@ -150,23 +150,23 @@ const ShopsContainer = () => {
                                 title={item.title}
                             />
                         ))} */}
-                        <Box sx={{ px: '15px !important' }}>
+                        <Box sx={{}}>
                             <Box
                                 sx={{
                                     backgroundImage: `url(${'/images/home_banner1.png'})`,
-
                                     backgroundSize: 'cover',
                                     backgroundPosition: 'center',
                                     height: '200px',
                                     borderRadius: '15px',
-                                    p: '19px',
+                                    // p: '19px',
                                     display: 'flex',
-
+                                    width: '95%',
+                                    ml: '10px',
                                     justifyContent: 'space-between'
                                 }}
                             />
                         </Box>
-                        <Box sx={{ px: '15px !important' }}>
+                        <Box sx={{}}>
                             <Box
                                 sx={{
                                     backgroundImage: `url(${'/images/home_banner2.png'})`,
@@ -175,13 +175,14 @@ const ShopsContainer = () => {
                                     backgroundPosition: 'center',
                                     height: '200px',
                                     borderRadius: '15px',
-                                    p: '19px',
+                                    width: '95%',
+                                    ml: '10px',
                                     display: 'flex',
                                     justifyContent: 'space-between'
                                 }}
                             />
                         </Box>
-                        <Box sx={{ px: '15px !important' }}>
+                        <Box sx={{}}>
                             <Box
                                 sx={{
                                     backgroundImage: `url(${'/images/home_banner3.png'})`,
@@ -190,7 +191,8 @@ const ShopsContainer = () => {
                                     backgroundPosition: 'center',
                                     height: '200px',
                                     borderRadius: '15px',
-                                    p: '19px',
+                                    width: '95%',
+                                    ml: '10px',
                                     display: 'flex',
                                     justifyContent: 'space-between'
                                 }}

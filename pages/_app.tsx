@@ -21,6 +21,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
 
     React.useEffect(() => {
+        if (!localStorage.getItem('popUpBanner')) {
+            const dataLocal = {
+                expires: new Date(),
+                isShow: true
+            };
+            localStorage.setItem('popUpBanner', JSON.stringify(dataLocal));
+        }
         if (!localStorage.getItem('tutorial')) {
             const dataLocal = {
                 isTutorial: true,

@@ -31,12 +31,12 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
     const getTransaction = async (search: any) => {
         try {
             const result = await fetchAPI({
-                endpoint: `transactions/home?search=${search}`,
+                endpoint: `transactions/history`,
                 method: 'GET'
             });
-            // console.log(result);
+            console.log('coin :', result);
             if (result.status === 200) {
-                setCointTransaction(result.data.data.history);
+                setCointTransaction(result.data.data);
             }
         } catch (e) {
             // notify('Internal server error', 'error');
@@ -50,20 +50,22 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
     React.useEffect(() => {
         const yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
+        const today = new Date();
         const todayTransaction: any = [];
         const yesterdayTransaction: any = [];
         const daysAgoTransaction: any = [];
         if (!isLoading) {
             cointTansaction?.map((item: any) => {
-                if (new Date(item.created_at).getDate() === new Date().getDate()) {
+                const date = new Date(item.created_at);
+                if (String(today).slice(4, 15) === String(date).slice(4, 15)) {
                     todayTransaction.push(item);
                     setTodayTransactions(todayTransaction);
                 }
-                if (new Date(item.created_at).getDate() === new Date(yesterday).getDate()) {
+                if (String(yesterday).slice(4, 15) === String(date).slice(4, 15)) {
                     yesterdayTransaction.push(item);
                     setYesterdayTransactions(yesterdayTransaction);
                 }
-                if (new Date(item.created_at).getDate() < new Date(yesterday).getDate()) {
+                if (date.getDate() < new Date(yesterday).getDate()) {
                     daysAgoTransaction.push(item);
                     setDaysAgoTransactions(daysAgoTransaction);
                 }
@@ -104,10 +106,12 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
             <Box>
                 <Typography sx={{ fontWeight: 'bold', mt: '15px' }}>Today</Typography>
                 {todayTransactions !== null &&
-                    todayTransactions?.map((i: any) => (
+                    todayTransactions?.map((i: any, idx: number) => (
                         <TransactionCard
+                            status={i.status}
+                            type={i.type}
                             isToday
-                            key={i.id}
+                            key={idx}
                             title={i.description}
                             isCoin
                             amount={i.coin}
@@ -119,10 +123,12 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
             <Box>
                 <Typography sx={{ fontWeight: 'bold', mt: '15px' }}>Yesterday</Typography>
                 {yesterdayTransactions !== null &&
-                    yesterdayTransactions?.map((i: any) => (
+                    yesterdayTransactions?.map((i: any, idx: number) => (
                         <TransactionCard
+                            status={i.status}
+                            type={i.type}
                             isYesterday
-                            key={i.id}
+                            key={idx}
                             title={i.description}
                             isCoin
                             amount={i.coin}
@@ -140,9 +146,11 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                 )}
             </Box>
             {!isLoading &&
-                daysAgoTransactions?.map((i: any) => (
+                daysAgoTransactions?.map((i: any, idx: number) => (
                     <TransactionCard
-                        key={i.id}
+                        status={i.status}
+                        type={i.type}
+                        key={idx}
                         title={i.description}
                         isCoin
                         amount={i.coin}

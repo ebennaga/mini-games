@@ -13,6 +13,7 @@ import WelcomeDialog from 'components/DialogTutorial/WelcomeDialog';
 import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import { useSelector } from 'react-redux';
 // import { AutoAwesome } from '@mui/icons-material';
+import AdvertiseDialog from 'components/DialogTutorial/AdvertiseDialog';
 import Search from './Search';
 import GamesCard from './GamesCard';
 import EventCarousel from './EventCarousel';
@@ -27,6 +28,7 @@ const HomeContainer = () => {
     const [datasHome, setDatasHome] = React.useState<any>(null);
     const [dataTutorial, setDataTutorial] = useState<any>(null);
     const [isWelcome, setIsWelcome] = useState<boolean>(false);
+    const [openBanner, setOpenBanner] = React.useState(false);
     const [prevTutorial, setPrevTutorial] = useState<string>('');
     const [dialogLogin, setDialogLogin] = useState<boolean>(false);
 
@@ -42,6 +44,22 @@ const HomeContainer = () => {
         }
     });
 
+    const isShowBanner = async (data: any) => {
+        const today = new Date();
+        const currentDate = today.getDate();
+        const expiresDate = data?.expires;
+        if (expiresDate.length > 5) {
+            return true;
+        }
+        if (String(expiresDate).length === 2 && expiresDate === currentDate) {
+            const local = { ...data };
+            local.isShow = true;
+            localStorage.setItem('popUpBanner', JSON.stringify(local));
+            return true;
+        }
+        return false;
+    };
+
     const fetchData = async () => {
         try {
             const res = await fetchAPI({
@@ -50,10 +68,12 @@ const HomeContainer = () => {
             });
 
             const data: any = await getLocalData();
-            setDataTutorial(data);
+            setDataTutorial(data.tutorial);
             window.scrollTo(0, 0);
             if (res.status === 200) {
-                if (data.isTutorial) {
+                const isBanner = await isShowBanner(data.banner);
+                setOpenBanner(isBanner);
+                if (data.tutorial.isTutorial && !data.banner.isShow) {
                     setIsWelcome(true);
                 }
                 setDatasHome(res.data.data);
@@ -95,15 +115,18 @@ const HomeContainer = () => {
             setDialogLogin(true);
         }
     };
-
+    const handleDialog = () => {
+        setOpenBanner(false);
+        setIsWelcome(true);
+    };
     const isNotif = false;
 
     if (isLoading || !datasHome) {
         return <HomeSkeleton />;
     }
-
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
+            <AdvertiseDialog open={openBanner} setOpen={handleDialog} />
             <WelcomeDialog
                 open={isWelcome && userState}
                 setOpen={setIsWelcome}
@@ -281,6 +304,7 @@ const HomeContainer = () => {
                                     // time='6d 13h 23m'
                                     time={item.end_time}
                                     dataLength={datasHome?.tournaments.length}
+                                    type={item.type}
                                 />
                             );
                         })}

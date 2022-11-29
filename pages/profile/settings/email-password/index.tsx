@@ -3,13 +3,13 @@ import Head from 'next/head';
 import Layout from 'components/Layout/Index';
 import dynamic from 'next/dynamic';
 
-const ProfileSettingContainer = dynamic(() => import('containers/ProfileEmailAddress'));
+const ProfileSettingContainer = dynamic(() => import('containers/ProfileEmailPassword'));
 
 const Page = () => {
     return (
         <>
             <Head>
-                <title>Settings Email & Address | Prize Play</title>
+                <title>Settings Email & Password | Prize Play</title>
                 <meta name='description' content='Play for fun and prize' />
                 <link rel='icon' href='/favicon.ico' />
             </Head>
