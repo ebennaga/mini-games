@@ -171,10 +171,10 @@ const Profile = () => {
             </ButtonBase>
             <ButtonBase
                 sx={{
-                    background: 'url(/images/dummy/banner-4.png)',
+                    background: 'url(/images/dummy/banner-invite.png)',
                     backgroundPosition: 'right',
                     backgroundSize: 'cover',
-                    height: '90px',
+                    height: '140px',
                     width: '100%',
                     borderRadius: '6px',
                     marginTop: '26px'
