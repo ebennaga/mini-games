@@ -4,7 +4,6 @@ import React from 'react';
 import numberFormat from 'helper/numberFormat';
 import Header from 'components/Header';
 import { HelpOutline, EmojiEvents, Share } from '@mui/icons-material';
-import Button from 'components/Button/Index';
 import { useSelector } from 'react-redux';
 import TournamentCard from 'components/TournamentCard';
 import TournamentSlider from 'components/TournamentSlider/TournamentSliderGD';
@@ -15,6 +14,7 @@ import NotifDialog from 'components/Dialog/notifDialog';
 import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import useAuthReducer from 'hooks/useAuthReducer';
 import getRemainingTimes from 'helper/getRemainingTime';
+import TitleTournament from 'components/TitleTournament';
 import GameDetailSkeleton from './GameDetailSkeleton';
 
 const GameDetailContainer = () => {
@@ -27,6 +27,8 @@ const GameDetailContainer = () => {
     const userState = useSelector((state: any) => state.webpage?.user?.user);
     const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
     const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
+    const [isCasualTournament, setIsCasualTournament] = React.useState<number>(1);
+    const [isGrandTournament, setIsGrandTournament] = React.useState<number>(0);
 
     const { setUser, clearUser } = useAuthReducer();
 
@@ -37,8 +39,20 @@ const GameDetailContainer = () => {
                 endpoint: `/games/${id}`,
                 method: 'GET'
             });
-            if (res.data?.data) {
-                setDetailGame(res.data.data);
+            const dataRes = res.data?.data;
+            if (dataRes) {
+                setDetailGame(dataRes);
+
+                // Read data for validate is tournament appears or not
+                dataRes.tournaments.map((item: any) => {
+                    if (item.total_prize?.point > 0) {
+                        return setIsGrandTournament(isGrandTournament + 1);
+                    }
+                    if (item.total_prize?.coin > 0) {
+                        return setIsCasualTournament(isCasualTournament + 1);
+                    }
+                    return null;
+                });
             }
             setIsLoading(false);
         } catch (e) {
@@ -76,8 +90,11 @@ const GameDetailContainer = () => {
         }
     }, [userState, detailGame]);
 
-    const handleClick = async (idTournament: any) => {
-        router.push(`/games/${router.query.id}/tournament/${idTournament}`);
+    const handleClick = async (idTournament: any, typeTournament: 'casual' | 'grand') => {
+        if (typeTournament === 'casual') {
+            return router.push(`/games/${router.query.id}/casual-tournament/${idTournament}`);
+        }
+        return router.push(`/games/${router.query.id}/tournament/${idTournament}`);
     };
 
     const handlePlay = () => {
@@ -124,7 +141,7 @@ const GameDetailContainer = () => {
                 <Box
                     sx={{
                         backgroundImage: 'linear-gradient(180deg, #353535 9.93%, rgba(53, 53, 53, 0) 90.83%)',
-                        width: '99.5%',
+                        width: '-webkit-fill-available',
                         height: '50%',
                         position: 'absolute',
                         top: '0px'
@@ -205,7 +222,7 @@ const GameDetailContainer = () => {
                 <Box
                     sx={{
                         backgroundImage: 'linear-gradient(transparent, #353535)',
-                        width: '99.5%',
+                        width: '-webkit-fill-available',
                         height: '50%',
                         position: 'absolute',
                         bottom: '0px',
@@ -214,17 +231,14 @@ const GameDetailContainer = () => {
                 />
             </Box>
             <Box mt={3}>
-                {detailGame?.tournaments.length > 0 && (
+                {detailGame?.tournaments.length > 0 && isGrandTournament > 0 && (
                     <Grid container padding='10px 20px' gap='0px' my={3} overflow='hidden'>
-                        <Grid item xs={6}>
-                            <Typography variant='h5' sx={{ fontWeight: 'bold' }}>
-                                Tournaments
-                            </Typography>
-                        </Grid>
                         <Grid item xs={12}>
-                            <Typography sx={{ fontSize: '12px', fontWeight: '600' }}>
-                                Join tournaments and get points for reedem prize
-                            </Typography>
+                            <TitleTournament
+                                image='/icons/y.png'
+                                title='Grand Tournaments'
+                                subTitle='Tournaments and get points for redeem prize'
+                            />
                         </Grid>
                         <Grid item xs={12} sx={{ mt: '24px' }}>
                             <TournamentSlider>
@@ -233,112 +247,149 @@ const GameDetailContainer = () => {
                                     const remainingTime = getRemainingTimes(date);
                                     const isComingSoon = remainingTime[0] !== '-' || item.status !== 'OPEN';
 
-                                    return (
-                                        <TournamentCard
-                                            status={item.status}
-                                            key={item.id}
-                                            time={isComingSoon ? 'coming soon' : item.end_time}
-                                            pool={item.total_prize}
-                                            users={item.total_users}
-                                            onClick={() => handleClick(item.id)}
-                                            imageGame={detailGame?.banner_url}
-                                            backgroundImage={item.banner_url}
-                                            coin={item.entry_coin}
-                                            type={item.type}
-                                        />
-                                    );
+                                    if (item.total_prize.point > 0) {
+                                        return (
+                                            <TournamentCard
+                                                status={item.status}
+                                                key={item.id}
+                                                time={isComingSoon ? 'coming soon' : item.end_time}
+                                                pool={item.total_prize.point}
+                                                users={item.total_users}
+                                                onClick={() => handleClick(item.id, 'grand')}
+                                                imageGame={detailGame?.banner_url}
+                                                backgroundImage={item.banner_url}
+                                                coin={item.entry_coin}
+                                                type={item.type}
+                                            />
+                                        );
+                                    }
+                                    return null;
                                 })}
                             </TournamentSlider>
                         </Grid>
                     </Grid>
                 )}
-                <Grid container padding='0px 20px' direction='column'>
-                    <Grid item xs={6}>
-                        <Typography variant='h5' sx={{ fontWeight: '600' }}>
-                            Casual Game
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography sx={{ fontSize: '12px', fontWeight: 'bold' }}>
-                            get a chance to got the Ticket to play Tournaments
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} mt='24px' position='relative'>
-                        <Box
-                            sx={{
-                                borderRadius: '20px',
-                                backgroundImage: `url(${
-                                    detailGame?.tournaments.length > 0 ? detailGame?.tournaments[0].banner_url : detailGame?.banner_url
-                                })`,
-                                height: '260px',
-                                display: 'flex',
-                                flexDirection: 'column-reverse',
-                                backgroundSize: 'cover',
-                                position: 'relative',
-                                zIndex: 0
-                            }}
-                        >
+                <Box sx={{ bgcolor: '#F8EEFF', padding: '5px 0 34px 0' }}>
+                    {detailGame?.tournaments.length > 0 && isCasualTournament > 0 && (
+                        <Grid container paddingX='20px' gap='0px' mt={3} overflow='hidden'>
+                            <Grid item xs={12}>
+                                <TitleTournament
+                                    image='/icons/y.png'
+                                    title='Casual Tournaments'
+                                    subTitle='Joins casual tournaments and get coins for the real chalenge in Prize Tournament'
+                                />
+                            </Grid>
+                            <Grid item xs={12} sx={{ mt: '24px' }}>
+                                <TournamentSlider>
+                                    {detailGame?.tournaments.map((item: any, idx: number) => {
+                                        const date = new Date(item.start_time).toLocaleString('en-US');
+                                        const remainingTime = getRemainingTimes(date);
+                                        const isComingSoon = remainingTime[0] !== '-' || item.status !== 'OPEN';
+
+                                        if (item.total_prize.coin === 0) {
+                                            return (
+                                                <TournamentCard
+                                                    status={item.status}
+                                                    key={item.id}
+                                                    time={isComingSoon ? 'coming soon' : item.end_time}
+                                                    pool={item.total_prize}
+                                                    users={item.total_users}
+                                                    onClick={() => handleClick(item.id, 'casual')}
+                                                    imageGame={detailGame?.banner_url}
+                                                    backgroundImage={item.banner_url}
+                                                    coin={item.entry_coin}
+                                                    type={item.type}
+                                                    typeTournament='casual'
+                                                />
+                                            );
+                                        }
+                                        return null;
+                                    })}
+                                </TournamentSlider>
+                            </Grid>
+                        </Grid>
+                    )}
+                    <Grid container padding='0px 20px' mt={3} direction='column'>
+                        <Grid item xs={12}>
+                            <TitleTournament title='Casual Game' subTitle='Improve your skills risk-free' />
+                        </Grid>
+                        <Grid item xs={12} mt='24px' position='relative'>
                             <Box
                                 sx={{
-                                    background: 'linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%)',
                                     borderRadius: '20px',
-                                    height: '100%',
+                                    backgroundImage: `url(${
+                                        detailGame?.tournaments.length > 0 ? detailGame?.tournaments[0].banner_url : detailGame?.banner_url
+                                    })`,
+                                    height: '260px',
                                     display: 'flex',
-                                    alignItems: 'flex-end'
+                                    flexDirection: 'column-reverse',
+                                    backgroundSize: 'cover',
+                                    position: 'relative',
+                                    zIndex: 0
                                 }}
                             >
-                                <Grid container sx={{ padding: '15px' }} spacing={1} alignItems='center'>
-                                    <Grid item xs={3}>
-                                        <Box
-                                            sx={{
-                                                height: '78px',
-                                                width: '78px',
-                                                borderRadius: '8px',
-                                                background: `url(${detailGame?.banner_url})`,
-                                                backgroundPosition: 'center',
-                                                backgroundSize: 'cover'
-                                            }}
-                                        >
-                                            {/* <img src={detailGame?.banner_url} alt='banner' style={{ width: '100%', borderRadius: '8px' }} /> */}
-                                        </Box>
-                                    </Grid>
-                                    <Grid item xs={9}>
-                                        <Box position='relative' zIndex={2} sx={{ ml: 1 }}>
-                                            <Typography sx={{ color: 'white', fontWeight: 'bold', fontSize: '32px', lineHeight: 1 }}>
-                                                Free
-                                            </Typography>
-                                            <ButtonBase
-                                                onClick={handlePlay}
-                                                sx={{
-                                                    backgroundColor: '#A54CE5',
-                                                    borderRadius: '15px',
-                                                    width: '100%',
-                                                    height: '40px'
-                                                }}
-                                            >
-                                                <Typography sx={{ color: 'white', fontWeight: 'bold', gontSize: '14px' }}>
-                                                    Play Casual
-                                                </Typography>
-                                            </ButtonBase>
-                                            {/* <Button onClick={handlePlay} height='40px' title='Play Casual' backgoundColor='#A54CE5' color='white' /> */}
-                                        </Box>
-                                    </Grid>
-                                </Grid>
                                 <Box
                                     sx={{
-                                        backgroundImage: 'linear-gradient(transparent, black)',
-                                        height: '50px',
-                                        borderRadius: '0px 0px 20px 20px'
+                                        background: 'linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 100%)',
+                                        borderRadius: '20px',
+                                        height: '100%',
+                                        display: 'flex',
+                                        alignItems: 'flex-end'
                                     }}
-                                    position='absolute'
-                                    zIndex={1}
-                                    bottom='0%'
-                                    width='100%'
-                                />
+                                >
+                                    <Grid container sx={{ padding: '15px' }} spacing={1} alignItems='center'>
+                                        <Grid item xs={3}>
+                                            <Box
+                                                sx={{
+                                                    height: '78px',
+                                                    width: '78px',
+                                                    borderRadius: '8px',
+                                                    background: `url(${detailGame?.banner_url})`,
+                                                    backgroundPosition: 'center',
+                                                    backgroundSize: 'cover'
+                                                }}
+                                            >
+                                                {/* <img src={detailGame?.banner_url} alt='banner' style={{ width: '100%', borderRadius: '8px' }} /> */}
+                                            </Box>
+                                        </Grid>
+                                        <Grid item xs={9}>
+                                            <Box position='relative' zIndex={2} sx={{ ml: 1 }}>
+                                                <Typography sx={{ color: 'white', fontWeight: 'bold', fontSize: '32px', lineHeight: 1 }}>
+                                                    Free
+                                                </Typography>
+                                                <ButtonBase
+                                                    onClick={handlePlay}
+                                                    sx={{
+                                                        backgroundColor: '#A54CE5',
+                                                        borderRadius: '15px',
+                                                        width: '100%',
+                                                        height: '40px'
+                                                    }}
+                                                >
+                                                    <Typography sx={{ color: 'white', fontWeight: 'bold', gontSize: '14px' }}>
+                                                        Play Casual
+                                                    </Typography>
+                                                </ButtonBase>
+                                                {/* <Button onClick={handlePlay} height='40px' title='Play Casual' backgoundColor='#A54CE5' color='white' /> */}
+                                            </Box>
+                                        </Grid>
+                                    </Grid>
+                                    <Box
+                                        sx={{
+                                            backgroundImage: 'linear-gradient(transparent, black)',
+                                            height: '50px',
+                                            borderRadius: '0px 0px 20px 20px'
+                                        }}
+                                        position='absolute'
+                                        zIndex={1}
+                                        bottom='0%'
+                                        width='100%'
+                                    />
+                                </Box>
                             </Box>
-                        </Box>
+                        </Grid>
                     </Grid>
-                </Grid>
+                </Box>
                 <Grid container padding='10px 20px' mt={3}>
                     <Grid item xs={6}>
                         <Typography variant='h5' sx={{ fontWeight: 'bold' }}>

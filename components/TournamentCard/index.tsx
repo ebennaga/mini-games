@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { Box, ButtonBase, Typography } from '@mui/material';
@@ -16,6 +17,7 @@ interface TournamentCardProps {
     backgroundImage: string;
     type: string;
     status: string;
+    typeTournament?: 'casual' | 'grand';
 }
 
 const TournamentCard: React.FC<TournamentCardProps> = ({
@@ -28,7 +30,8 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
     imageGame,
     backgroundImage,
     type,
-    status
+    status,
+    typeTournament = 'grand'
 }) => {
     const [timeTournament, setTimeTournament] = useState<string>('');
     const nowTime = new Date().getTime();
@@ -163,18 +166,20 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                                             }
                                         }}
                                     >
-                                        {numberFormat(pool)}
-                                        <Typography
-                                            component='span'
-                                            sx={{
-                                                fontSize: '9px',
-                                                fontWeight: 'bold',
-                                                paddingLeft: '4px',
-                                                '@media (max-width:400px)': { fontSize: '10px' }
-                                            }}
-                                        >
-                                            Pool
-                                        </Typography>
+                                        {typeTournament === 'grand' ? numberFormat(pool) : 'Free'}
+                                        {typeTournament === 'grand' && (
+                                            <Typography
+                                                component='span'
+                                                sx={{
+                                                    fontSize: '9px',
+                                                    fontWeight: 'bold',
+                                                    paddingLeft: '4px',
+                                                    '@media (max-width:400px)': { fontSize: '10px' }
+                                                }}
+                                            >
+                                                Pool
+                                            </Typography>
+                                        )}
                                     </Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -233,7 +238,8 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                                     borderRadius: '12px',
                                     padding: '11px 15px',
                                     display: 'flex',
-                                    justifyContent: nowTime < endTime ? 'space-between' : 'center',
+                                    // justifyContent: nowTime < endTime ? 'space-between' : 'center',
+                                    justifyContent: 'center',
                                     marginTop: '9px',
                                     ml: 1
                                 }}
@@ -244,9 +250,15 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                                     component='span'
                                     sx={{ color: '#fff', '@media (max-width:400px)': { fontSize: '10px' } }}
                                 >
-                                    {`${nowTime > endTime ? 'View Results' : 'View Tournaments'}`}
+                                    {`${
+                                        nowTime > endTime
+                                            ? 'View Results'
+                                            : typeTournament === 'grand'
+                                            ? 'View Tournaments'
+                                            : 'View Casual Tournament'
+                                    }`}
                                 </Typography>
-                                {nowTime < endTime && (
+                                {/* {nowTime < endTime && (
                                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                         <img src='/images/coin.png' width='13.81px' height='13.17px' alt='trophy' loading='lazy' />
                                         <Typography
@@ -261,7 +273,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                                             {coin}
                                         </Typography>
                                     </Box>
-                                )}
+                                )} */}
                             </Box>
                         </Box>
                     </Box>
