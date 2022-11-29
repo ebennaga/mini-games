@@ -120,6 +120,7 @@ const HomeContainer = () => {
         setIsWelcome(true);
     };
     const isNotif = false;
+
     if (isLoading || !datasHome) {
         return <HomeSkeleton />;
     }
