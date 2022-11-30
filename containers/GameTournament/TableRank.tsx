@@ -10,7 +10,7 @@ interface TableRankProps {
 const TableRank: React.FC<TableRankProps> = ({ dataLeaderboard }) => {
     const sorting = dataLeaderboard && dataLeaderboard.filter((item: any) => item.position > 3);
     const lastRank = dataLeaderboard.at(-1);
-    console.log(lastRank);
+
     return (
         <>
             <Grid container sx={{ borderBottom: '1px solid rgba(40, 38, 38, 0.2)', padding: '13px 0' }}>
