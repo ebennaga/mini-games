@@ -51,7 +51,9 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard, 
                             />
                             {dataLeaderboard.length > 1 && (
                                 <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
-                                    {numberFormat(dataLeaderboard[1].user.point_prize)}
+                                    {type === 'casual'
+                                        ? numberFormat(dataLeaderboard[1].user.prize?.coin)
+                                        : numberFormat(dataLeaderboard[1].user.prize?.point)}
                                 </Typography>
                             )}
                         </Box>
@@ -107,7 +109,10 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard, 
                             />
                             {dataLeaderboard.length > 0 && (
                                 <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
-                                    {numberFormat(dataLeaderboard[0].user.point_prize)}
+                                    {/* {numberFormat(dataLeaderboard[0].user.prize)} */}
+                                    {type === 'casual'
+                                        ? numberFormat(dataLeaderboard[0].user.prize?.coin)
+                                        : numberFormat(dataLeaderboard[0].user.prize?.point)}
                                 </Typography>
                             )}
                         </Box>
@@ -162,7 +167,10 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard, 
                             />
                             {dataLeaderboard.length > 2 && (
                                 <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
-                                    {numberFormat(dataLeaderboard[2].user.point_prize)}
+                                    {/* {numberFormat(dataLeaderboard[2].user.point_prize)} */}
+                                    {type === 'casual'
+                                        ? numberFormat(dataLeaderboard[2].user.prize?.coin)
+                                        : numberFormat(dataLeaderboard[2].user.prize?.point)}
                                 </Typography>
                             )}
                         </Box>

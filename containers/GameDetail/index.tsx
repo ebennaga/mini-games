@@ -44,7 +44,7 @@ const GameDetailContainer = () => {
                 setDetailGame(dataRes);
 
                 // Read data for validate is tournament appears or not
-                dataRes.tournaments.map((item: any) => {
+                dataRes?.tournaments?.map((item: any) => {
                     if (item.total_prize?.point > 0) {
                         return setIsGrandTournament(isGrandTournament + 1);
                     }
@@ -53,10 +53,19 @@ const GameDetailContainer = () => {
                     }
                     return null;
                 });
+                dataRes?.free_tournaments?.map((item: any) => {
+                    // if (item.total_prize?.point > 0) {
+                    //     return setIsGrandTournament(isGrandTournament + 1);
+                    // }
+                    if (item.total_prize?.coin > 0) {
+                        return setIsCasualTournament(isCasualTournament + 1);
+                    }
+                    return null;
+                });
             }
             setIsLoading(false);
-        } catch (e) {
-            notify('failed data', 'e');
+        } catch (e: any) {
+            notify(e.message, 'e');
             setIsLoading(false);
         }
         setIsLoading(false);
@@ -267,7 +276,7 @@ const GameDetailContainer = () => {
                     </Grid>
                 )}
                 <Box sx={{ bgcolor: '#F8EEFF', padding: '5px 0 34px 0' }}>
-                    {detailGame?.tournaments.length > 0 && isCasualTournament > 0 && (
+                    {detailGame?.free_tournaments?.length > 0 && isCasualTournament > 0 && (
                         <Grid container paddingX='20px' gap='0px' mt={3} overflow='hidden'>
                             <Grid item xs={12}>
                                 <TitleTournament
@@ -278,7 +287,7 @@ const GameDetailContainer = () => {
                             </Grid>
                             <Grid item xs={12} sx={{ mt: '24px' }}>
                                 <TournamentSlider>
-                                    {detailGame?.tournaments.map((item: any, idx: number) => {
+                                    {detailGame?.free_tournaments?.map((item: any, idx: number) => {
                                         const date = new Date(item.start_time).toLocaleString('en-US');
                                         const remainingTime = getRemainingTimes(date);
                                         const isComingSoon = remainingTime[0] !== '-' || item.status !== 'OPEN';

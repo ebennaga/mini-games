@@ -46,7 +46,7 @@ const TableRank: React.FC<TableRankProps> = ({ dataLeaderboard, type }) => {
                             rank={rank}
                             image={item.user.avatar_url}
                             username={item.user.username?.toLowerCase() || item.user.displayName}
-                            point={item.user.point_prize}
+                            point={type === 'casual' ? item.user.prize.coin : item.user.prize.point}
                             score={item.user.total_score}
                             type={type}
                         />
@@ -81,7 +81,8 @@ const TableRank: React.FC<TableRankProps> = ({ dataLeaderboard, type }) => {
                             rank={lastRank?.position}
                             image={lastRank?.user.avatar_url}
                             username={lastRank?.user.username?.toLowerCase() || lastRank?.user.displayName}
-                            point={lastRank?.user?.coin_prize || lastRank?.user.point_prize}
+                            // point={lastRank?.user?.coin_prize || lastRank?.user.point_prize}
+                            point={type === 'casual' ? lastRank?.user.prize.coin : lastRank?.user.prize.point}
                             score={lastRank?.user.total_score}
                             type={type}
                         />
