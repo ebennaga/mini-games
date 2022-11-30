@@ -12,26 +12,27 @@ import getLocalData from 'helper/getLocalData';
 import WelcomeDialog from 'components/DialogTutorial/WelcomeDialog';
 import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import { useSelector } from 'react-redux';
-// import { AutoAwesome } from '@mui/icons-material';
 import AdvertiseDialog from 'components/DialogTutorial/AdvertiseDialog';
 import Search from './Search';
 import GamesCard from './GamesCard';
-import EventCarousel from './EventCarousel';
 import GamesSlider from './GamesSlider';
 import TournamentCard from './TournamentCard';
 import HomeSkeleton from './HomeSkeleton';
 import ButtonLanding from 'components/Button/Index';
+import DialogBanner from 'components/DialogBanner';
 
 const HomeContainer = () => {
     const router = useRouter();
 
     const [borderValue, setBorderValue] = useState<string>('none');
-    const [datasHome, setDatasHome] = React.useState<any>(null);
+    const [datasHome, setDatasHome] = useState<any>(null);
     const [dataTutorial, setDataTutorial] = useState<any>(null);
     const [isWelcome, setIsWelcome] = useState<boolean>(false);
-    const [openBanner, setOpenBanner] = React.useState(false);
+    const [openBanner, setOpenBanner] = useState(false);
+    const [openBannerTournament, setOpenBannerTournament] = useState(false);
     const [prevTutorial, setPrevTutorial] = useState<string>('');
     const [dialogLogin, setDialogLogin] = useState<boolean>(false);
+    const [readyDialog, setReadyDialog] = useState<boolean>(false);
 
     const userState = useSelector((state: any) => state.webpage?.user?.user);
 
@@ -67,11 +68,9 @@ const HomeContainer = () => {
                 endpoint: '/home/feeds',
                 method: 'GET'
             });
-
             const data: any = await getLocalData();
             setDataTutorial(data.tutorial);
             window.scrollTo(0, 0);
-            console.log(res);
             if (res.status === 200) {
                 const isBanner = await isShowBanner(data.banner);
                 setOpenBanner(isBanner);
@@ -88,6 +87,15 @@ const HomeContainer = () => {
     React.useEffect(() => {
         fetchData();
     }, []);
+
+    React.useEffect(() => {
+        const local: any = localStorage.getItem('tutorial');
+        const resLocal: any = JSON.parse(local);
+        // console.log(resLocal.isTutorial);
+        if (!resLocal.isTutorial && !openBanner && userState && !readyDialog) {
+            setOpenBannerTournament(true);
+        }
+    }, [isWelcome, openBanner, readyDialog]);
 
     const handleScroll = () => {
         if (window.scrollY === 0) {
@@ -128,6 +136,7 @@ const HomeContainer = () => {
     }
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
+            <DialogBanner open={openBannerTournament} setOpen={setOpenBannerTournament} />
             <AdvertiseDialog open={openBanner} setOpen={handleDialog} />
             <WelcomeDialog
                 open={isWelcome && userState}
@@ -135,6 +144,8 @@ const HomeContainer = () => {
                 dataLocal={dataTutorial}
                 setDataLocal={setDataTutorial}
                 setPrevTutorial={setPrevTutorial}
+                readyDialog={readyDialog}
+                setReadyDialog={setReadyDialog}
             />
             <Box
                 sx={{
@@ -178,7 +189,6 @@ const HomeContainer = () => {
                     borderRadius: '10px',
                     backgroundImage: 'url(/images/dummy/bg-gradient-home.png)',
                     backgroundSize: 'cover',
-                    // paddingY: '20px',
                     textAlign: 'center',
                     position: 'relative'
                 }}
@@ -244,8 +254,8 @@ const HomeContainer = () => {
                     }}
                 >
                     <Box sx={{ position: 'relative' }}>
-                        <img src='/icons/coin-home-lg.png' alt='coinhome' />
-                        <img src='/icons/coin-home-sm.png' alt='coinhome' style={{ position: 'absolute', bottom: 0, right: 0 }} />
+                        <img src='/icons/coint-home.png' alt='coinhome' />
+                        {/* <img src='/icons/coin-home-sm.png' alt='coinhome' style={{ position: 'absolute', bottom: 0, right: 0 }} /> */}
                     </Box>
                     <Box>
                         <Typography sx={{ fontWeight: 'bold', fontSize: '10px' }}>How to get Coins</Typography>
@@ -269,8 +279,8 @@ const HomeContainer = () => {
                     }}
                 >
                     <Box sx={{ position: 'relative' }}>
-                        <img src='/icons/point-home-lg.png' alt='pointhome' />
-                        <img src='/icons/point-home-sm.png' alt='coinhome' style={{ position: 'absolute', bottom: 0, right: 0 }} />
+                        <img src='/icons/point-home.png' alt='pointhome' />
+                        {/* <img src='/icons/point-home-sm.png' alt='coinhome' style={{ position: 'absolute', bottom: 0, right: 0 }} /> */}
                     </Box>
                     <Box>
                         <Typography sx={{ fontWeight: 'bold', fontSize: '10px' }}>How to win Points</Typography>
@@ -313,7 +323,7 @@ const HomeContainer = () => {
                             Grand Tournaments
                         </Typography>
                     </Box>
-                    <Link href='/tournaments'>
+                    <Link href='/grand-tournaments'>
                         <a style={{ textDecoration: 'none !important', fontWeight: 600, textDecorationLine: 'none', color: '#A54CE5' }}>
                             View All
                         </a>

@@ -6,7 +6,7 @@ import React from 'react';
 const TournamentsSkeleton = () => {
     return (
         <Box width='-webkit-fill-available'>
-            <HeaderBack title='Grand Tournaments' isTournament />
+            <HeaderBack title='Casual Tournaments' isTournament />
             <Skeleton sx={{ height: '30px', width: '200px', mt: 3 }} />
             <TournamentSliderSkeleton />
             {[...Array(2)].map((_item: any, index: number) => {

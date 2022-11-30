@@ -343,7 +343,7 @@ const ShopsContainer = () => {
                             </Box>
                         </Grid>
                         <Grid item xs={7} sx={{ color: 'white' }}>
-                            <Link href='/tournaments'>
+                            <Link href='/grand-tournaments'>
                                 <Typography sx={{ fontWeight: 'bold' }}>Play & Join the Tournament</Typography>
                             </Link>
                             <Typography sx={{ fontSize: '10px' }}>Get the Points and Redeem it with our special prize!</Typography>

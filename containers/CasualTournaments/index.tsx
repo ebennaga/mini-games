@@ -97,7 +97,7 @@ const Tournaments = () => {
                     width: '-webkit-fill-available'
                 }}
             >
-                <HeaderBack title='Grand Tournaments' isTournament />
+                <HeaderBack title='Casual Tournaments' isTournament />
             </Box>
             <Box component='section' marginTop='45px' marginBottom='45px'>
                 <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
