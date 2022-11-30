@@ -292,7 +292,7 @@ const HomeContainer = () => {
                     </Box>
                 </Box>
             </Box>
-            <Box>
+            {/* <Box>
                 <ButtonBase
                     sx={{
                         background: 'url(/images/dummy/banner-invite.png)',
@@ -304,6 +304,17 @@ const HomeContainer = () => {
                         marginBottom: '26px'
                     }}
                     onClick={() => router.push('/referral')}
+                />
+            </Box> */}
+            <Box sx={{ marginBottom: '26px' }}>
+                <InfoCard
+                    onClick={() => router.push('/topup')}
+                    buttonText='Top Up'
+                    title='Top up Coins Now &'
+                    subTitle='Join Tournament'
+                    background='/images/coins-bg.png'
+                    image='/images/coin-big.png'
+                    bgButton='#FFD833'
                 />
             </Box>
             <Box
@@ -321,7 +332,7 @@ const HomeContainer = () => {
                             <img src='/icons/noto_money-bag.png' alt='money-bag' />
                         </Box>
                         <Typography variant='subtitle1' fontWeight='bold' component='h1'>
-                            Grand Tournaments
+                            Tournaments
                         </Typography>
                     </Box>
                     <Box
@@ -364,7 +375,7 @@ const HomeContainer = () => {
 
                 {/* Tournament Card End */}
             </Box>
-            <Box
+            {/* <Box
                 sx={{
                     mt: '36px',
                     position: prevTutorial === 'games' ? 'relative' : 'unset',
@@ -418,7 +429,7 @@ const HomeContainer = () => {
                         })}
                     </TournamentSlider>
                 </Box>
-            </Box>
+            </Box> */}
             <Box
                 id='games'
                 sx={{
@@ -469,7 +480,7 @@ const HomeContainer = () => {
                 image='/images/hopup.png'
                 linearBackground='linear-gradient(216deg, rgb(25 84 159 / 72%) 14%, rgba(28,37,69,1) 87%)'
             /> */}
-            <InfoCard
+            {/* <InfoCard
                 onClick={() => router.push('/topup')}
                 buttonText='Top Up'
                 title='Top up Coins Now &'
@@ -477,7 +488,7 @@ const HomeContainer = () => {
                 background='/images/coins-bg.png'
                 image='/images/coin-big.png'
                 bgButton='#FFD833'
-            />
+            /> */}
             {/* <InfoCard
                 onClick={() => router.push('/shops')}
                 buttonText='Top Up'
