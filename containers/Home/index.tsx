@@ -208,7 +208,15 @@ const HomeContainer = () => {
                     </Typography>
                 </Box>
                 <Box sx={{ position: 'absolute', left: '50%', translate: '-50%', bottom: '25px', width: '165px' }}>
-                    <ButtonLanding title='Play Game' backgoundColor='#A54CE5' color='white' height='40px' />
+                    <ButtonLanding
+                        title='Play Game'
+                        backgoundColor='#A54CE5'
+                        color='white'
+                        height='40px'
+                        onClick={() => {
+                            router.push('/games');
+                        }}
+                    />
                 </Box>
             </Box>
             <Box
