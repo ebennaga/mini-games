@@ -123,7 +123,7 @@ const Tournaments = () => {
                                 customWidth='99%'
                                 onClick={() => router.push(`/games/${item.game.id}/tournament/${item.id}`)}
                                 time={item.end_time}
-                                pool={item.total_price}
+                                pool={userState.page === 'grand' ? item.total_prize.point : item.total_prize.coin}
                                 coin={item.entry_coin}
                                 users={item.total_users}
                                 key={index}
@@ -136,36 +136,68 @@ const Tournaments = () => {
                     })}
                 </TournamentSliderGD>
             </Box>
-            {dataGamesDetail.map((item: any) => {
-                return (
-                    item.tournaments.length > 0 && (
-                        <Box component='section' marginBottom='46px'>
-                            <GameHeader image={item.banner_url} title={item.name} />
-                            <Box marginTop='24px'>
-                                <TournamentSliderGD>
-                                    {item.tournaments.map((itm: any, index: number) => {
-                                        return (
-                                            <TournamentCard
-                                                customWidth='93%'
-                                                onClick={() => router.push(`/games/${item.id}/tournament/${itm.id}`)}
-                                                time={itm.end_time}
-                                                pool={itm.total_price}
-                                                coin={itm.entry_coin}
-                                                users={itm.total_users}
-                                                key={index}
-                                                imageGame={item.banner_url}
-                                                backgroundImage={itm.banner_url}
-                                                type={itm.type}
-                                                status={itm.status}
-                                            />
-                                        );
-                                    })}
-                                </TournamentSliderGD>
+            {userState.page === 'grand' &&
+                dataGamesDetail.map((item: any) => {
+                    return (
+                        item.tournaments?.length > 0 && (
+                            <Box component='section' marginBottom='46px'>
+                                <GameHeader image={item.banner_url} title={item.name} />
+                                <Box marginTop='24px'>
+                                    <TournamentSliderGD>
+                                        {item.tournaments.map((itm: any, index: number) => {
+                                            return (
+                                                <TournamentCard
+                                                    customWidth='93%'
+                                                    onClick={() => router.push(`/games/${item.id}/tournament/${itm.id}`)}
+                                                    time={itm.end_time}
+                                                    pool={itm.total_prize.point}
+                                                    coin={itm.entry_coin}
+                                                    users={itm.total_users}
+                                                    key={index}
+                                                    imageGame={item.banner_url}
+                                                    backgroundImage={itm.banner_url}
+                                                    type={itm.type}
+                                                    status={itm.status}
+                                                />
+                                            );
+                                        })}
+                                    </TournamentSliderGD>
+                                </Box>
                             </Box>
-                        </Box>
-                    )
-                );
-            })}
+                        )
+                    );
+                })}
+            {userState.page === 'casual' &&
+                dataGamesDetail.map((item: any) => {
+                    return (
+                        item.free_tournaments?.length > 0 && (
+                            <Box component='section' marginBottom='46px'>
+                                <GameHeader image={item.banner_url} title={item.name} />
+                                <Box marginTop='24px'>
+                                    <TournamentSliderGD>
+                                        {item.tournaments.map((itm: any, index: number) => {
+                                            return (
+                                                <TournamentCard
+                                                    customWidth='93%'
+                                                    onClick={() => router.push(`/games/${item.id}/tournament/${itm.id}`)}
+                                                    time={itm.end_time}
+                                                    pool={itm.total_prize.coin}
+                                                    coin={itm.entry_coin}
+                                                    users={itm.total_users}
+                                                    key={index}
+                                                    imageGame={item.banner_url}
+                                                    backgroundImage={itm.banner_url}
+                                                    type={itm.type}
+                                                    status={itm.status}
+                                                />
+                                            );
+                                        })}
+                                    </TournamentSliderGD>
+                                </Box>
+                            </Box>
+                        )
+                    );
+                })}
         </Box>
     );
 };

@@ -5,6 +5,7 @@ import { Box, ButtonBase, Typography } from '@mui/material';
 import getRemainingTimes from 'helper/getRemainingTime';
 import numberFormat from 'helper/numberFormat';
 import TyypeTournamentCard from './TyypeTournamentCard';
+import { useSelector } from 'react-redux';
 
 interface TournamentCardProps {
     users: string;
@@ -36,6 +37,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
     const [timeTournament, setTimeTournament] = useState<string>('');
     const nowTime = new Date().getTime();
     const endTime = new Date(time).getTime();
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
 
     useEffect(() => {
         if (time && time[4] === '-' && time[7] === '-') {
@@ -53,7 +55,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
             setTimeTournament('Coming Soon');
         }
     }, []);
-
+    console.log(pool);
     return (
         <Box
             onClick={onClick}
@@ -145,7 +147,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                         >
                             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', ml: 1 }}>
-                                    {typeTournament === 'grand' && (
+                                    {userState.page === 'grand' && (
                                         <img src='/images/point-shops.png' width={31} height={31} alt='star' loading='lazy' />
                                     )}
                                     <Typography
@@ -168,8 +170,9 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                                             }
                                         }}
                                     >
-                                        {typeTournament === 'grand' ? numberFormat(pool) : 'Free'}
-                                        {typeTournament === 'grand' && (
+                                        {userState.page === 'casual' && 'Free'}
+                                        {userState.page === 'grand' && pool}
+                                        {userState.page === 'grand' && (
                                             <Typography
                                                 component='span'
                                                 sx={{
@@ -255,7 +258,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                                     {`${
                                         nowTime > endTime
                                             ? 'View Results'
-                                            : typeTournament === 'grand'
+                                            : userState.page === 'grand'
                                             ? 'View Tournaments'
                                             : 'View Casual Tournament'
                                     }`}
