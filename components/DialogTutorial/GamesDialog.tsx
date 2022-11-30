@@ -26,7 +26,7 @@ const GamesDialog: React.FC<IGamesDialog> = ({ open, onClose }) => {
                     background: 'rgba(0,0,0,0.0)',
                     boxShadow: 'none',
                     '@media (max-width:430px)': {
-                        top: '405px'
+                        top: '685px'
                     }
                 }
             }}
