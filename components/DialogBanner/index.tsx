@@ -1,4 +1,4 @@
-import { Box, ButtonBase, Dialog, Typography } from '@mui/material';
+import { Box, ButtonBase, Dialog } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import React from 'react';
 import Button from 'components/Button/Index';
@@ -17,8 +17,16 @@ const DialogBanner: React.FC<DialogBannerProps> = ({ open, setOpen }) => {
     const userState = useSelector((state: any) => state.webpage?.user?.user);
 
     return (
-        <Dialog open={open} onClose={setOpen}>
-            <Box sx={{ backgroundImage: 'url(/images/dummy/banner-welcome.svg)', width: '370px', height: '512px', position: 'relative' }}>
+        <Dialog open={open} onClose={setOpen} maxWidth='xl'>
+            <Box
+                sx={{
+                    backgroundImage: 'url(/images/dummy/banner-welcome.svg)',
+                    width: '330px',
+                    height: '512px',
+                    backgroundSize: 'cover',
+                    position: 'relative'
+                }}
+            >
                 <Box sx={{ width: '95%', display: 'flex', justifyContent: 'end', mt: '20px' }}>
                     <ButtonBase
                         disableRipple
