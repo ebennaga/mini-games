@@ -322,7 +322,7 @@ const HomeContainer = () => {
                     bgButton='#FFD833'
                 />
             </Box>
-            {datasGrands.length > 0 && (
+            {datasGrands?.length > 0 && (
                 <Box
                     sx={{
                         position: prevTutorial === 'games' ? 'relative' : 'unset',
