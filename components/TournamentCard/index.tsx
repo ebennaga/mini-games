@@ -170,9 +170,9 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                                             }
                                         }}
                                     >
-                                        {userState.page === 'casual' && 'Free'}
-                                        {userState.page === 'grand' && pool}
-                                        {userState.page === 'grand' && (
+                                        {typeTournament === 'casual' && 'Free'}
+                                        {typeTournament === 'grand' && pool}
+                                        {typeTournament === 'grand' && (
                                             <Typography
                                                 component='span'
                                                 sx={{
