@@ -165,7 +165,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                             }
                         }}
                     >
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Box sx={{ display: 'flex', justifyContent: isCasual ? 'center' : 'space-between' }}>
                             {isCasual && <Typography sx={{ color: 'white', fontWeight: 'bold' }}>Free</Typography>}
                             {!isCasual && (
                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>

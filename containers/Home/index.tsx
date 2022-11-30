@@ -20,6 +20,7 @@ import TournamentCard from './TournamentCard';
 import HomeSkeleton from './HomeSkeleton';
 import ButtonLanding from 'components/Button/Index';
 import DialogBanner from 'components/DialogBanner';
+import useAuthReducer from 'hooks/useAuthReducer';
 
 const HomeContainer = () => {
     const router = useRouter();
@@ -35,7 +36,7 @@ const HomeContainer = () => {
     const [readyDialog, setReadyDialog] = useState<boolean>(false);
 
     const userState = useSelector((state: any) => state.webpage?.user?.user);
-
+    const { setUser } = useAuthReducer();
     const notify = useNotify();
     const { fetchAPI, isLoading } = useAPICaller();
 
@@ -323,11 +324,16 @@ const HomeContainer = () => {
                             Grand Tournaments
                         </Typography>
                     </Box>
-                    <Link href='/grand-tournaments'>
+                    <Box
+                        onClick={() => {
+                            router.push('/tournaments');
+                            setUser({ ...userState, page: 'grand' });
+                        }}
+                    >
                         <a style={{ textDecoration: 'none !important', fontWeight: 600, textDecorationLine: 'none', color: '#A54CE5' }}>
                             View All
                         </a>
-                    </Link>
+                    </Box>
                 </Box>
 
                 {/* Tournament Card Start */}
@@ -340,7 +346,9 @@ const HomeContainer = () => {
                                     key={item.id}
                                     image={item.banner_url}
                                     imageGame={item.game.banner_url}
-                                    onClick={() => router.push(`/games/${item.game.id}/tournament/${item.id}`)}
+                                    onClick={() => {
+                                        router.push(`/games/${item.game.id}/tournament/${item.id}`);
+                                    }}
                                     totalUser={item.total_users}
                                     prizePool={item.total_prize}
                                     point={item.entry_coin}
@@ -375,11 +383,16 @@ const HomeContainer = () => {
                             Casual Tournaments
                         </Typography>
                     </Box>
-                    <Link href='/tournaments'>
+                    <Box
+                        onClick={() => {
+                            router.push('/tournaments');
+                            setUser({ ...userState, page: 'casual' });
+                        }}
+                    >
                         <a style={{ textDecoration: 'none !important', fontWeight: 600, textDecorationLine: 'none', color: '#A54CE5' }}>
                             View All
                         </a>
-                    </Link>
+                    </Box>
                 </Box>
                 <Box id='tournaments'>
                     <TournamentSlider customMaxWidth='91vw'>
@@ -390,7 +403,9 @@ const HomeContainer = () => {
                                     key={item.id}
                                     image={item.banner_url}
                                     imageGame={item.game.banner_url}
-                                    onClick={() => router.push(`/games/${item.game.id}/tournament/${item.id}`)}
+                                    onClick={() => {
+                                        router.push(`/games/${item.game.id}/tournament/${item.id}`);
+                                    }}
                                     totalUser={item.total_users}
                                     prizePool={item.total_prize}
                                     point={item.entry_coin}

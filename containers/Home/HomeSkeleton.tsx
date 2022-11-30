@@ -20,7 +20,7 @@ const HomeSkeleton = () => {
             {/* <Box my={3}>
                 <EventCarousel customMaxWidth='91vw' />
             </Box> */}
-            <Box
+            {/* <Box
                 sx={{
                     width: '100%',
                     height: '411px',
@@ -45,6 +45,9 @@ const HomeSkeleton = () => {
                 <Box sx={{ position: 'absolute', left: '50%', translate: '-50%', bottom: '25px', width: '165px' }}>
                     <ButtonLanding title='Play Game' backgoundColor='#A54CE5' color='white' height='40px' />
                 </Box>
+            </Box> */}
+            <Box sx={{ mb: '20px' }}>
+                <Skeleton variant='rounded' width='100%' height='411px' />
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', columnGap: '5px', mb: '15px' }}>
                 <Box
