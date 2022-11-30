@@ -14,7 +14,7 @@ interface IRankCard {
     isYourRank?: boolean;
     hash?: string;
     isLive?: boolean;
-    type: 'casual' | 'grand';
+    type?: 'casual' | 'grand';
 }
 
 // eslint-disable-next-line no-unused-vars

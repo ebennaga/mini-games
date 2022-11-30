@@ -19,6 +19,7 @@ const GameResultTournament = () => {
     const [firstPosition, setFirstPosition] = React.useState<any>(null);
     const [loadingSession, setLoadingSession] = React.useState<boolean>(false);
     const [dialogTopup, setDialogTopup] = React.useState<boolean>(false);
+    const [typeTournament, setTypeTournament] = React.useState<'casual' | 'grand'>('grand');
 
     const { fetchAPI } = useAPICaller();
     const { fetchAPI: fetchTournament, isLoading: loadingFetchTournament } = useAPICaller();
@@ -33,8 +34,14 @@ const GameResultTournament = () => {
             });
 
             if (response?.data.status === 200) {
-                setFirstPosition(response?.data.data.leaderboards[0]);
-                setAuthsData(response?.data.data.auths);
+                const resData = response.data.data;
+                setFirstPosition(resData.leaderboards[0]);
+                setAuthsData(resData.auths);
+                if (resData.total_prize.coin > 0) {
+                    setTypeTournament('casual');
+                } else {
+                    setTypeTournament('grand');
+                }
             }
         } catch (error: any) {
             notify(error.message, 'error');
@@ -132,6 +139,7 @@ const GameResultTournament = () => {
                     score={firstPosition?.user.total_score}
                     point={firstPosition?.user.point_prize}
                     disabledUnderline
+                    type={typeTournament}
                 />
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', my: '10px' }}>
                     {[...Array(3)].map((_item: any, index: number) => (
@@ -151,6 +159,7 @@ const GameResultTournament = () => {
                             image={item.avatar_url}
                             username={item.username?.toLowerCase()}
                             score={item.score}
+                            type={typeTournament}
                             point={item.point}
                         />
                     );
