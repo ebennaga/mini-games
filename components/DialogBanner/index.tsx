@@ -38,7 +38,7 @@ const DialogBanner: React.FC<DialogBannerProps> = ({ open, setOpen }) => {
                         <Close sx={{ color: 'white', fontWeight: 'bold' }} />
                     </ButtonBase>
                 </Box>
-                <Box sx={{ position: 'absolute', bottom: 25, left: '50%', translate: '-50%', width: '60%' }}>
+                <Box sx={{ position: 'absolute', bottom: 25, left: '50%', translate: '-50%', width: '70%' }}>
                     <Button
                         title='Go to Casual Tournaments'
                         backgoundColor='#FFD833'
