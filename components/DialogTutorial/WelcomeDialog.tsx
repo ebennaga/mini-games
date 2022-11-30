@@ -15,9 +15,19 @@ interface IWelcomeDialog {
     dataLocal: any;
     setDataLocal: any;
     setPrevTutorial: any;
+    readyDialog: any;
+    setReadyDialog: any;
 }
 
-const WelcomeDialog: React.FC<IWelcomeDialog> = ({ open, setOpen, dataLocal, setDataLocal, setPrevTutorial }) => {
+const WelcomeDialog: React.FC<IWelcomeDialog> = ({
+    open,
+    setOpen,
+    dataLocal,
+    setDataLocal,
+    setPrevTutorial,
+    readyDialog,
+    setReadyDialog
+}) => {
     const [coinsDialog, setCoinsDialog] = useState<boolean>(false);
     const [profileDialog, setProfileDialog] = useState<boolean>(false);
     const [gamesDialog, setGamesDialog] = useState<boolean>(false);
@@ -25,7 +35,7 @@ const WelcomeDialog: React.FC<IWelcomeDialog> = ({ open, setOpen, dataLocal, set
     const [listGamesDialog, setListGamesDialog] = useState<boolean>(false);
     const [prizesDialog, setPrizesDialog] = useState<boolean>(false);
     const [topUpDialog, setTopUpDialog] = useState<boolean>(false);
-    const [readyDialog, setReadyDialog] = useState<boolean>(false);
+    // const [readyDialog, setReadyDialog] = useState<boolean>(false);
 
     const handleClose = () => {
         const local: any = localStorage.getItem('tutorial');
@@ -109,7 +119,7 @@ const WelcomeDialog: React.FC<IWelcomeDialog> = ({ open, setOpen, dataLocal, set
             </Dialog>
 
             <CoinsDialog open={coinsDialog} onClose={() => handleCloseDialog('coins', setCoinsDialog, setProfileDialog)} />
-            <ProfileDialog open={profileDialog} onClose={() => handleCloseDialog('profile', setProfileDialog, setGamesDialog, 250)} />
+            <ProfileDialog open={profileDialog} onClose={() => handleCloseDialog('profile', setProfileDialog, setGamesDialog, 980)} />
             <GamesDialog open={gamesDialog} onClose={() => handleCloseDialog('games', setGamesDialog, setTournamentDialog, 600)} />
             <TournamentDialog
                 open={tournamentDialog}

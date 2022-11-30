@@ -12,28 +12,31 @@ import getLocalData from 'helper/getLocalData';
 import WelcomeDialog from 'components/DialogTutorial/WelcomeDialog';
 import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import { useSelector } from 'react-redux';
-// import { AutoAwesome } from '@mui/icons-material';
 import AdvertiseDialog from 'components/DialogTutorial/AdvertiseDialog';
 import Search from './Search';
 import GamesCard from './GamesCard';
-import EventCarousel from './EventCarousel';
 import GamesSlider from './GamesSlider';
 import TournamentCard from './TournamentCard';
 import HomeSkeleton from './HomeSkeleton';
+import ButtonLanding from 'components/Button/Index';
+import DialogBanner from 'components/DialogBanner';
+import useAuthReducer from 'hooks/useAuthReducer';
 
 const HomeContainer = () => {
     const router = useRouter();
 
     const [borderValue, setBorderValue] = useState<string>('none');
-    const [datasHome, setDatasHome] = React.useState<any>(null);
+    const [datasHome, setDatasHome] = useState<any>(null);
     const [dataTutorial, setDataTutorial] = useState<any>(null);
     const [isWelcome, setIsWelcome] = useState<boolean>(false);
-    const [openBanner, setOpenBanner] = React.useState(false);
+    const [openBanner, setOpenBanner] = useState(false);
+    const [openBannerTournament, setOpenBannerTournament] = useState(false);
     const [prevTutorial, setPrevTutorial] = useState<string>('');
     const [dialogLogin, setDialogLogin] = useState<boolean>(false);
+    const [readyDialog, setReadyDialog] = useState<boolean>(false);
 
     const userState = useSelector((state: any) => state.webpage?.user?.user);
-
+    const { setUser } = useAuthReducer();
     const notify = useNotify();
     const { fetchAPI, isLoading } = useAPICaller();
 
@@ -66,7 +69,6 @@ const HomeContainer = () => {
                 endpoint: '/home/feeds',
                 method: 'GET'
             });
-
             const data: any = await getLocalData();
             setDataTutorial(data.tutorial);
             window.scrollTo(0, 0);
@@ -86,6 +88,15 @@ const HomeContainer = () => {
     React.useEffect(() => {
         fetchData();
     }, []);
+
+    React.useEffect(() => {
+        const local: any = localStorage.getItem('tutorial');
+        const resLocal: any = JSON.parse(local);
+        // console.log(resLocal.isTutorial);
+        if (!resLocal.isTutorial && !openBanner && userState && !readyDialog) {
+            setOpenBannerTournament(true);
+        }
+    }, [isWelcome, openBanner, readyDialog]);
 
     const handleScroll = () => {
         if (window.scrollY === 0) {
@@ -126,6 +137,7 @@ const HomeContainer = () => {
     }
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
+            <DialogBanner open={openBannerTournament} setOpen={setOpenBannerTournament} />
             <AdvertiseDialog open={openBanner} setOpen={handleDialog} />
             <WelcomeDialog
                 open={isWelcome && userState}
@@ -133,6 +145,8 @@ const HomeContainer = () => {
                 dataLocal={dataTutorial}
                 setDataLocal={setDataTutorial}
                 setPrevTutorial={setPrevTutorial}
+                readyDialog={readyDialog}
+                setReadyDialog={setReadyDialog}
             />
             <Box
                 sx={{
@@ -167,9 +181,244 @@ const HomeContainer = () => {
                     <img src='/icons/message.svg' width='36px' height='30px' alt='inbox' />
                 </ButtonBase>
             </Box>
-            {/* <EventCarousel customMaxWidth='91vw' data={datasHome?.banners} /> */}
-            <EventCarousel customMaxWidth='91vw' />
-            {/* <Mission /> */}
+            <Box
+                sx={{
+                    width: '100%',
+                    height: '411px',
+                    background: '#6FC0FB',
+                    mb: '20px',
+                    borderRadius: '10px',
+                    backgroundImage: 'url(/images/dummy/bg-gradient-home.png)',
+                    backgroundSize: 'cover',
+                    textAlign: 'center',
+                    position: 'relative'
+                }}
+            >
+                <Box sx={{ top: '20px', position: 'absolute', left: '50%', translate: '-50%', width: '100%' }}>
+                    <Typography sx={{ mb: '20px', color: 'white', fontSize: '26px', fontWeight: 700, lineHeight: '27px' }}>
+                        Play free game, <br /> win attractive prize!
+                    </Typography>
+                    <Typography sx={{ color: 'white', fontSize: '12px', fontWeight: 500 }}>
+                        Play free tournament, collect coins to join grand <br /> tournaments and win the prizes.
+                    </Typography>
+                </Box>
+                <Box sx={{ position: 'absolute', left: '50%', translate: '-50%', bottom: '25px', width: '165px' }}>
+                    <ButtonLanding title='Play Game' backgoundColor='#A54CE5' color='white' height='40px' />
+                </Box>
+            </Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    // border: '1px solid red',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    columnGap: '5px',
+                    mb: '15px',
+                    width: '100%'
+                }}
+            >
+                <Box
+                    sx={{
+                        width: '28%',
+                        height: '182px',
+                        background: '#F4F4F4',
+                        borderRadius: '9px',
+                        padding: '10px',
+                        textAlign: 'center',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-around'
+                    }}
+                >
+                    <Box>
+                        <img src='/icons/prize-home.png' alt='coinhome' />
+                    </Box>
+                    <Box>
+                        <Typography sx={{ fontWeight: 'bold', fontSize: '10px' }}>How to win Prize</Typography>
+                        <Typography sx={{ fontSize: '8px', color: '#949494', lineHeight: '8px' }}>
+                            firstly you have to collect Points, after you have a huge points now it is time for you to redeem your points
+                            into a prizes, so hurry up and join the tournament now!!
+                        </Typography>
+                    </Box>
+                </Box>
+                <Box
+                    sx={{
+                        width: '28%',
+                        height: '182px',
+                        background: '#F4F4F4',
+                        borderRadius: '9px',
+                        padding: '10px',
+                        textAlign: 'center',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-around'
+                    }}
+                >
+                    <Box sx={{ position: 'relative' }}>
+                        <img src='/icons/coint-home.png' alt='coinhome' />
+                        {/* <img src='/icons/coin-home-sm.png' alt='coinhome' style={{ position: 'absolute', bottom: 0, right: 0 }} /> */}
+                    </Box>
+                    <Box>
+                        <Typography sx={{ fontWeight: 'bold', fontSize: '10px' }}>How to get Coins</Typography>
+                        <Typography sx={{ fontSize: '8px', color: '#949494', lineHeight: '8px' }}>
+                            firstly you have to collect Points, after you have a huge points now it is time for you to redeem your points
+                            into a prizes, so hurry up and join the tournament now!!
+                        </Typography>
+                    </Box>
+                </Box>
+                <Box
+                    sx={{
+                        width: '28%',
+                        height: '182px',
+                        background: '#F4F4F4',
+                        borderRadius: '9px',
+                        padding: '10px',
+                        textAlign: 'center',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-around'
+                    }}
+                >
+                    <Box sx={{ position: 'relative' }}>
+                        <img src='/icons/point-home.png' alt='pointhome' />
+                        {/* <img src='/icons/point-home-sm.png' alt='coinhome' style={{ position: 'absolute', bottom: 0, right: 0 }} /> */}
+                    </Box>
+                    <Box>
+                        <Typography sx={{ fontWeight: 'bold', fontSize: '10px' }}>How to win Points</Typography>
+                        <Typography sx={{ fontSize: '8px', color: '#949494', lineHeight: '8px' }}>
+                            firstly you have to collect Points, after you have a huge points now it is time for you to redeem your points
+                            into a prizes, so hurry up and join the tournament now!!
+                        </Typography>
+                    </Box>
+                </Box>
+            </Box>
+            <Box>
+                <ButtonBase
+                    sx={{
+                        background: 'url(/images/dummy/banner-invite.png)',
+                        backgroundPosition: 'right',
+                        backgroundSize: 'cover',
+                        height: '140px',
+                        width: '100%',
+                        borderRadius: '6px',
+                        marginBottom: '26px'
+                    }}
+                    onClick={() => router.push('/referral')}
+                />
+            </Box>
+            <Box
+                sx={{
+                    position: prevTutorial === 'games' ? 'relative' : 'unset',
+                    p: prevTutorial === 'games' ? 1 : 0,
+                    background: '#fff',
+                    zIndex: 1000,
+                    borderRadius: '5px'
+                }}
+            >
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: '17px' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '15px' }}>
+                        <Box>
+                            <img src='/icons/noto_money-bag.png' alt='money-bag' />
+                        </Box>
+                        <Typography variant='subtitle1' fontWeight='bold' component='h1'>
+                            Grand Tournaments
+                        </Typography>
+                    </Box>
+                    <Box
+                        onClick={() => {
+                            router.push('/tournaments');
+                            setUser({ ...userState, page: 'grand' });
+                        }}
+                    >
+                        <a style={{ textDecoration: 'none !important', fontWeight: 600, textDecorationLine: 'none', color: '#A54CE5' }}>
+                            View All
+                        </a>
+                    </Box>
+                </Box>
+
+                {/* Tournament Card Start */}
+
+                <Box id='tournaments'>
+                    <TournamentSlider customMaxWidth='91vw'>
+                        {datasHome.tournaments.map((item: any) => {
+                            return (
+                                <TournamentCard
+                                    key={item.id}
+                                    image={item.banner_url}
+                                    imageGame={item.game.banner_url}
+                                    onClick={() => {
+                                        router.push(`/games/${item.game.id}/tournament/${item.id}`);
+                                    }}
+                                    totalUser={item.total_users}
+                                    prizePool={item.total_prize}
+                                    point={item.entry_coin}
+                                    // time='6d 13h 23m'
+                                    time={item.end_time}
+                                    dataLength={datasHome?.tournaments.length}
+                                    type={item.type}
+                                />
+                            );
+                        })}
+                    </TournamentSlider>
+                </Box>
+
+                {/* Tournament Card End */}
+            </Box>
+            <Box
+                sx={{
+                    mt: '36px',
+                    position: prevTutorial === 'games' ? 'relative' : 'unset',
+                    p: prevTutorial === 'games' ? 1 : 0,
+                    background: '#fff',
+                    zIndex: 1000,
+                    borderRadius: '5px'
+                }}
+            >
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: '17px' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '15px' }}>
+                        <Box>
+                            <img src='/icons/free.png' alt='money-bag' />
+                        </Box>
+                        <Typography variant='subtitle1' fontWeight='bold' component='h1'>
+                            Casual Tournaments
+                        </Typography>
+                    </Box>
+                    <Box
+                        onClick={() => {
+                            router.push('/tournaments');
+                            setUser({ ...userState, page: 'casual' });
+                        }}
+                    >
+                        <a style={{ textDecoration: 'none !important', fontWeight: 600, textDecorationLine: 'none', color: '#A54CE5' }}>
+                            View All
+                        </a>
+                    </Box>
+                </Box>
+                <Box id='tournaments'>
+                    <TournamentSlider customMaxWidth='91vw'>
+                        {datasHome.tournaments.map((item: any) => {
+                            return (
+                                <TournamentCard
+                                    isCasual
+                                    key={item.id}
+                                    image={item.banner_url}
+                                    imageGame={item.game.banner_url}
+                                    onClick={() => {
+                                        router.push(`/games/${item.game.id}/tournament/${item.id}`);
+                                    }}
+                                    totalUser={item.total_users}
+                                    prizePool={item.total_prize}
+                                    point={item.entry_coin}
+                                    // time='6d 13h 23m'
+                                    time={item.end_time}
+                                    dataLength={datasHome?.tournaments.length}
+                                    type={item.type}
+                                />
+                            );
+                        })}
+                    </TournamentSlider>
+                </Box>
+            </Box>
             <Box
                 id='games'
                 sx={{
@@ -200,119 +449,6 @@ const HomeContainer = () => {
                     })}
                 </GamesSlider>
             </Box>
-            <Box
-                sx={{
-                    mt: '36px',
-                    position: prevTutorial === 'games' ? 'relative' : 'unset',
-                    p: prevTutorial === 'games' ? 1 : 0,
-                    background: '#fff',
-                    zIndex: 1000,
-                    borderRadius: '5px'
-                }}
-            >
-                {/* <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: '17px' }}>
-                    <Box>
-                        <Typography variant='h6' fontWeight='bold' component='h2'>
-                            Tournaments
-                        </Typography>
-                    </Box>
-                    <Box sx={{ display: 'flex', height: '50px' }}>
-                        <AutoAwesome sx={{ color: '#A54CE5', width: '18px', alignSelf: 'flex-start' }} />
-                        <ButtonBase
-                            onClick={() => {
-                                router.push('/live-tournament');
-                            }}
-                            sx={{
-                                padding: '7px 15px',
-                                backgroundColor: '#A54CE5',
-                                borderRadius: '15px',
-                                height: '30px',
-                                alignSelf: 'center'
-                            }}
-                        >
-                            <Typography sx={{ color: 'white', fontWeight: 600, fontSize: '11px' }}>View Live Tournament</Typography>
-                        </ButtonBase>
-                        <AutoAwesome sx={{ color: '#A54CE5', width: '13px', alignSelf: 'flex-end', rotate: '180deg' }} />
-                    </Box>
-                </Box> */}
-
-                {/* Tournament Card Start */}
-
-                {/* <Box id='tournaments'>
-                    <TournamentSlider customMaxWidth='91vw'>
-                        {datasHome.tournaments.map((item: any) => {
-                            return (
-                                <TournamentCard
-                                    isLive
-                                    key={item.id}
-                                    image={item.banner_url}
-                                    imageGame={item.game.banner_url}
-                                    onClick={
-                                        // () => {}
-                                        // () => router.push(`/games/${item.game.id}/tournament/${item.id}`)
-                                        () => router.push(`/live-tournament/1`)
-                                    }
-                                    totalUser={item.total_users}
-                                    prizePool={item.total_prize}
-                                    point={item.entry_coin}
-                                    // time='6d 13h 23m'
-                                    time={item.end_time}
-                                    dataLength={datasHome?.tournaments.length}
-                                />
-                            );
-                        })}
-                    </TournamentSlider>
-                </Box> */}
-
-                {/* Tournament Card End */}
-            </Box>
-            <Box
-                sx={{
-                    mt: '36px',
-                    position: prevTutorial === 'games' ? 'relative' : 'unset',
-                    p: prevTutorial === 'games' ? 1 : 0,
-                    background: '#fff',
-                    zIndex: 1000,
-                    borderRadius: '5px'
-                }}
-            >
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: '17px' }}>
-                    <Typography variant='h6' fontWeight='bold' component='h2'>
-                        Tournaments
-                    </Typography>
-                    <Link href='/tournaments'>
-                        <a style={{ textDecoration: 'none !important', fontWeight: 600, textDecorationLine: 'none', color: '#A54CE5' }}>
-                            View All Tournaments
-                        </a>
-                    </Link>
-                </Box>
-
-                {/* Tournament Card Start */}
-
-                <Box id='tournaments'>
-                    <TournamentSlider customMaxWidth='91vw'>
-                        {datasHome.tournaments.map((item: any) => {
-                            return (
-                                <TournamentCard
-                                    key={item.id}
-                                    image={item.banner_url}
-                                    imageGame={item.game.banner_url}
-                                    onClick={() => router.push(`/games/${item.game.id}/tournament/${item.id}`)}
-                                    totalUser={item.total_users}
-                                    prizePool={item.total_prize}
-                                    point={item.entry_coin}
-                                    // time='6d 13h 23m'
-                                    time={item.end_time}
-                                    dataLength={datasHome?.tournaments.length}
-                                    type={item.type}
-                                />
-                            );
-                        })}
-                    </TournamentSlider>
-                </Box>
-
-                {/* Tournament Card End */}
-            </Box>
             {/* <InfoCard
                 onClick={undefined}
                 title='Block Stack'
@@ -342,7 +478,7 @@ const HomeContainer = () => {
                 image='/images/coin-big.png'
                 bgButton='#FFD833'
             />
-            <InfoCard
+            {/* <InfoCard
                 onClick={() => router.push('/shops')}
                 buttonText='Top Up'
                 title='Win Tournament &'
@@ -351,7 +487,7 @@ const HomeContainer = () => {
                 image='/images/lg-points.png'
                 bgButton='#6FC0FB'
                 linearBackground='linear-gradient(216deg, rgb(255 255 255 / 0%) 14%, rgb(156 209 247) 87%)'
-            />
+            /> */}
             <SignupLoginDialog open={dialogLogin} setOpen={setDialogLogin} />
         </Box>
     );
