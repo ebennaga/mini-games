@@ -5,9 +5,10 @@ import React from 'react';
 
 interface TableRankProps {
     dataLeaderboard: any;
+    type: 'casual' | 'grand';
 }
 
-const TableRank: React.FC<TableRankProps> = ({ dataLeaderboard }) => {
+const TableRank: React.FC<TableRankProps> = ({ dataLeaderboard, type }) => {
     const sorting = dataLeaderboard && dataLeaderboard.filter((item: any) => item.position > 3);
     const lastRank = dataLeaderboard.at(-1);
 
@@ -47,6 +48,7 @@ const TableRank: React.FC<TableRankProps> = ({ dataLeaderboard }) => {
                             username={item.user.username?.toLowerCase() || item.user.displayName}
                             point={item.user.point_prize}
                             score={item.user.total_score}
+                            type={type}
                         />
                     </Box>
                 );
@@ -79,8 +81,9 @@ const TableRank: React.FC<TableRankProps> = ({ dataLeaderboard }) => {
                             rank={lastRank?.position}
                             image={lastRank?.user.avatar_url}
                             username={lastRank?.user.username?.toLowerCase() || lastRank?.user.displayName}
-                            point={lastRank?.user.point_prize}
+                            point={lastRank?.user?.coin_prize || lastRank?.user.point_prize}
                             score={lastRank?.user.total_score}
+                            type={type}
                         />
                     </Box>
                 </>
