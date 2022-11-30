@@ -8,6 +8,7 @@ import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import GameHeader from './GameHeader';
 import TournamentsSkeleton from './TournamentsSkeleton';
 
@@ -16,6 +17,7 @@ const Tournaments = () => {
     const [borderValue, setBorderValue] = useState<string>('none');
     const [dataFeeds, setDataFeeds] = useState<any>(null);
     const [dataGamesDetail, setDataGamesDetail] = useState<Array<any>>([]);
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
 
     const { fetchAPI } = useAPICaller();
     const notify = useNotify();
@@ -97,7 +99,7 @@ const Tournaments = () => {
                     width: '-webkit-fill-available'
                 }}
             >
-                <HeaderBack title='Grand Tournaments' isTournament />
+                <HeaderBack title={`${userState.page === 'grand' ? 'Grand Tournaments' : 'Casual Tournaments'}`} isTournament />
             </Box>
             <Box component='section' marginTop='45px' marginBottom='45px'>
                 <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>

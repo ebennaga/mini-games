@@ -16,6 +16,7 @@ interface TournamentCardProps {
     dataLength?: number;
     isLive?: boolean;
     type: string;
+    isCasual?: boolean;
 }
 
 const TournamentCard: React.FC<TournamentCardProps> = ({
@@ -28,7 +29,8 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
     point,
     time,
     dataLength,
-    type
+    type,
+    isCasual
 }) => {
     const [timeTournament, setTimeTournament] = useState<string>('');
     const nowTime = new Date().getTime();
@@ -163,43 +165,46 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                             }
                         }}
                     >
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                <img src={isLive ? '/images/e-voucher.png' : '/images/point-shops.png'} width={31} alt='star' />
-                                <Typography
-                                    component='span'
-                                    sx={{
-                                        fontSize: '24px',
-                                        fontWeight: 'bold',
-                                        color: '#fff',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        paddingLeft: 0.5,
-                                        '@media (max-width:460px)': {
-                                            fontSize: '20px'
-                                        },
-                                        '@media (max-width:430px)': {
-                                            fontSize: '16px'
-                                        },
-                                        '@media (max-width:400px)': {
-                                            fontSize: '14px'
-                                        }
-                                    }}
-                                >
-                                    {numberFormat(prizePool)}
+                        <Box sx={{ display: 'flex', justifyContent: isCasual ? 'center' : 'space-between' }}>
+                            {isCasual && <Typography sx={{ color: 'white', fontWeight: 'bold' }}>Free</Typography>}
+                            {!isCasual && (
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <img src={isLive ? '/images/e-voucher.png' : '/images/point-shops.png'} width={31} alt='star' />
                                     <Typography
                                         component='span'
                                         sx={{
-                                            fontSize: '12px',
+                                            fontSize: '24px',
                                             fontWeight: 'bold',
-                                            paddingLeft: '4px',
-                                            '@media (max-width:400px)': { fontSize: '10px' }
+                                            color: '#fff',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            paddingLeft: 0.5,
+                                            '@media (max-width:460px)': {
+                                                fontSize: '20px'
+                                            },
+                                            '@media (max-width:430px)': {
+                                                fontSize: '16px'
+                                            },
+                                            '@media (max-width:400px)': {
+                                                fontSize: '14px'
+                                            }
                                         }}
                                     >
-                                        Pool
+                                        {numberFormat(prizePool)}
+                                        <Typography
+                                            component='span'
+                                            sx={{
+                                                fontSize: '12px',
+                                                fontWeight: 'bold',
+                                                paddingLeft: '4px',
+                                                '@media (max-width:400px)': { fontSize: '10px' }
+                                            }}
+                                        >
+                                            Pool
+                                        </Typography>
                                     </Typography>
-                                </Typography>
-                            </Box>
+                                </Box>
+                            )}
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <Box
                                     sx={{
@@ -260,15 +265,26 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                                 marginTop: '9px'
                             }}
                         >
-                            <Typography
-                                fontSize='11px'
-                                fontWeight={600}
-                                component='span'
-                                sx={{ color: '#fff', '@media (max-width:400px)': { fontSize: '10px' } }}
-                            >
-                                {`${nowTime > endTime ? 'View Results' : 'View Tournaments'}`}
-                            </Typography>
-                            {nowTime < endTime && (
+                            {isCasual ? (
+                                <Typography
+                                    fontSize='11px'
+                                    fontWeight={600}
+                                    component='span'
+                                    sx={{ color: '#fff', '@media (max-width:400px)': { fontSize: '10px' } }}
+                                >
+                                    {`View Casual Tournaments`}
+                                </Typography>
+                            ) : (
+                                <Typography
+                                    fontSize='11px'
+                                    fontWeight={600}
+                                    component='span'
+                                    sx={{ color: '#fff', '@media (max-width:400px)': { fontSize: '10px' } }}
+                                >
+                                    {`${nowTime > endTime ? 'View Results' : 'View Tournaments'}`}
+                                </Typography>
+                            )}
+                            {nowTime < endTime && !isCasual && (
                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                     <img src='/images/coin.png' width='13.81px' height='13.17px' alt='trophy' />
                                     <Typography

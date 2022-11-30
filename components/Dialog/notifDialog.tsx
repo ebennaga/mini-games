@@ -60,7 +60,7 @@ const RewardDialog: React.FC<RewardDialogProps> = ({ open, setOpenDialog, body, 
                             if (router.asPath.includes('/games')) {
                                 return router.push('/topup');
                             }
-                            return router.push('/grand-tournaments');
+                            return router.push('/tournaments');
                         }}
                         title={textButton || 'Top up Now!'}
                         border='1px solid #A54CE5'

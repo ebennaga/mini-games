@@ -3,6 +3,8 @@ import { Close } from '@mui/icons-material';
 import React from 'react';
 import Button from 'components/Button/Index';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import useAuthReducer from 'hooks/useAuthReducer';
 
 interface DialogBannerProps {
     open: boolean;
@@ -11,6 +13,9 @@ interface DialogBannerProps {
 
 const DialogBanner: React.FC<DialogBannerProps> = ({ open, setOpen }) => {
     const router = useRouter();
+    const { setUser } = useAuthReducer();
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
+
     return (
         <Dialog open={open} onClose={setOpen}>
             <Box sx={{ backgroundImage: 'url(/images/dummy/banner-welcome.svg)', width: '370px', height: '512px', position: 'relative' }}>
@@ -31,7 +36,8 @@ const DialogBanner: React.FC<DialogBannerProps> = ({ open, setOpen }) => {
                         color='#A54CE5'
                         height='40px'
                         onClick={() => {
-                            router.push('/casual-tournaments');
+                            router.push('/tournaments');
+                            setUser({ ...userState, page: 'casual' });
                         }}
                     />
                 </Box>

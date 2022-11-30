@@ -15,7 +15,7 @@ const CoinsPrizes = () => {
                 'Hi buddies to get coins you can top up coins in the COINS menu, after completing the payment the coins balance will be added immediately or you can invite your friends as much as possible and also running daily missions.'
         },
         {
-            href: '/grand-tournaments',
+            href: '/tournaments',
             image: '/images/dummy/point-banner.png',
             title: 'How to get Point ?',
             paragraph:

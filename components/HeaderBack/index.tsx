@@ -3,6 +3,7 @@ import React from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 
 interface HeaderBackProps {
     title?: string;
@@ -13,6 +14,7 @@ interface HeaderBackProps {
 
 const HeaderBack: React.FC<HeaderBackProps> = ({ title, isSetting, handleBack, isTournament = false }) => {
     const router = useRouter();
+    const userState = useSelector((state: any) => state.webpage?.user?.user);
 
     const back = (e: any) => {
         e.preventDefault();
@@ -34,7 +36,7 @@ const HeaderBack: React.FC<HeaderBackProps> = ({ title, isSetting, handleBack, i
                 </Typography>
                 {isTournament && (
                     <img
-                        src={`${router.pathname === '/grand-tournaments' ? '/icons/noto_money-bag.png' : '/icons/free.png'}`}
+                        src={`${userState.page === 'grand' ? '/icons/noto_money-bag.png' : '/icons/free.png'}`}
                         alt='free'
                         style={{ position: 'absolute', right: 20, top: 0, rotate: '30deg' }}
                     />
