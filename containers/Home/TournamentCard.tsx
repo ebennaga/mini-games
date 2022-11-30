@@ -272,7 +272,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                                     component='span'
                                     sx={{ color: '#fff', '@media (max-width:400px)': { fontSize: '10px' } }}
                                 >
-                                    {`View Casual Tournaments`}
+                                    View Casual Tournaments
                                 </Typography>
                             ) : (
                                 <Typography

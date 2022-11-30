@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
 import numberFormat from 'helper/numberFormat';
@@ -5,9 +6,10 @@ import LeaderboardUser from './LeaderboardUser';
 
 interface LeaderboardPodiumProps {
     dataLeaderboard: any;
+    type: 'casual' | 'grand';
 }
 
-const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }) => {
+const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard, type }) => {
     return (
         <Grid container alignItems='end'>
             <Grid item xs={4} sx={{ overflow: 'hidden', display: 'flex', alignItems: 'center', flexDirection: 'column', mr: '-0.2px' }}>
@@ -40,7 +42,13 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                         }}
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center', alignSelf: 'end', marginRight: '9px', marginTop: '9px' }}>
-                            <img src='/images/point-shops.png' width='21px' height='22px' alt='prize' loading='lazy' />
+                            <img
+                                src={type === 'casual' ? '/images/coin.png' : '/images/point-shops.png'}
+                                width='21px'
+                                height='22px'
+                                alt='prize'
+                                loading='lazy'
+                            />
                             {dataLeaderboard.length > 1 && (
                                 <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
                                     {numberFormat(dataLeaderboard[1].user.point_prize)}
@@ -90,7 +98,13 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                         }}
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center', alignSelf: 'end', marginRight: '9px', marginTop: '9px' }}>
-                            <img src='/images/point-shops.png' width='21px' height='22px' alt='prize' loading='lazy' />
+                            <img
+                                src={type === 'casual' ? '/images/coin.png' : '/images/point-shops.png'}
+                                width='21px'
+                                height='22px'
+                                alt='prize'
+                                loading='lazy'
+                            />
                             {dataLeaderboard.length > 0 && (
                                 <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
                                     {numberFormat(dataLeaderboard[0].user.point_prize)}
@@ -139,7 +153,13 @@ const LeaderboardPodium: React.FC<LeaderboardPodiumProps> = ({ dataLeaderboard }
                         }}
                     >
                         <Box sx={{ display: 'flex', alignItems: 'center', alignSelf: 'end', marginRight: '9px', marginTop: '9px' }}>
-                            <img src='/images/point-shops.png' width='21px' height='22px' alt='prize' loading='lazy' />
+                            <img
+                                src={type === 'casual' ? '/images/coin.png' : '/images/point-shops.png'}
+                                width='21px'
+                                height='22px'
+                                alt='prize'
+                                loading='lazy'
+                            />
                             {dataLeaderboard.length > 2 && (
                                 <Typography component='span' fontSize='12px' fontWeight={700} marginLeft='5px' sx={{ color: '#fff' }}>
                                     {numberFormat(dataLeaderboard[2].user.point_prize)}
