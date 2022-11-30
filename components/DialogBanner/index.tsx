@@ -22,8 +22,9 @@ const DialogBanner: React.FC<DialogBannerProps> = ({ open, setOpen }) => {
                 sx={{
                     backgroundImage: 'url(/images/dummy/banner-welcome.svg)',
                     width: '330px',
-                    height: '512px',
-                    backgroundSize: 'cover',
+                    height: '459px',
+                    backgroundSize: 'contain',
+                    backgroundRepeat: 'no-repeat',
                     position: 'relative'
                 }}
             >
