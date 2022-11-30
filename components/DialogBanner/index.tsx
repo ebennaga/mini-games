@@ -31,7 +31,7 @@ const DialogBanner: React.FC<DialogBannerProps> = ({ open, setOpen }) => {
                         color='#A54CE5'
                         height='40px'
                         onClick={() => {
-                            router.push('/casual-tournaments');
+                            router.push('/tournaments');
                         }}
                     />
                 </Box>

@@ -356,7 +356,7 @@ const HomeContainer = () => {
 
                 {/* Tournament Card End */}
             </Box>
-            {/* <Box
+            <Box
                 sx={{
                     mt: '36px',
                     position: prevTutorial === 'games' ? 'relative' : 'unset',
@@ -386,6 +386,7 @@ const HomeContainer = () => {
                         {datasHome.tournaments.map((item: any) => {
                             return (
                                 <TournamentCard
+                                    isCasual
                                     key={item.id}
                                     image={item.banner_url}
                                     imageGame={item.game.banner_url}
@@ -402,7 +403,7 @@ const HomeContainer = () => {
                         })}
                     </TournamentSlider>
                 </Box>
-            </Box> */}
+            </Box>
             <Box
                 id='games'
                 sx={{
