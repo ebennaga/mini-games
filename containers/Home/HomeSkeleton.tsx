@@ -4,8 +4,8 @@ import InfoCard from 'components/InfoCard';
 import TournamentSliderSkeleton from 'components/TournamentSlider/TournamentSliderSkeleton';
 import { useRouter } from 'next/router';
 import React from 'react';
-import EventCarousel from './EventCarousel';
-import ButtonLanding from 'components/Button/Index';
+// import EventCarousel from './EventCarousel';
+// import ButtonLanding from 'components/Button/Index';
 
 const HomeSkeleton = () => {
     const router = useRouter();

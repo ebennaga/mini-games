@@ -1,7 +1,7 @@
 import { Box, ButtonBase, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Header from 'components/Header';
-import Link from 'next/link';
+// import Link from 'next/link';
 import TournamentSlider from 'components/TournamentSlider';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
@@ -13,14 +13,14 @@ import WelcomeDialog from 'components/DialogTutorial/WelcomeDialog';
 import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import { useSelector } from 'react-redux';
 import AdvertiseDialog from 'components/DialogTutorial/AdvertiseDialog';
+import ButtonLanding from 'components/Button/Index';
+import DialogBanner from 'components/DialogBanner';
+import useAuthReducer from 'hooks/useAuthReducer';
 import Search from './Search';
 import GamesCard from './GamesCard';
 import GamesSlider from './GamesSlider';
 import TournamentCard from './TournamentCard';
 import HomeSkeleton from './HomeSkeleton';
-import ButtonLanding from 'components/Button/Index';
-import DialogBanner from 'components/DialogBanner';
-import useAuthReducer from 'hooks/useAuthReducer';
 
 const HomeContainer = () => {
     const router = useRouter();
