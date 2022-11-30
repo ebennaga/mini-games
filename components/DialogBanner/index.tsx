@@ -1,4 +1,4 @@
-import { Box, ButtonBase, Dialog, Typography } from '@mui/material';
+import { Box, ButtonBase, Dialog } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import React from 'react';
 import Button from 'components/Button/Index';
