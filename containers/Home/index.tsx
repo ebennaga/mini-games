@@ -321,7 +321,7 @@ const HomeContainer = () => {
                             <img src='/icons/noto_money-bag.png' alt='money-bag' />
                         </Box>
                         <Typography variant='subtitle1' fontWeight='bold' component='h1'>
-                            Grand Tournaments
+                            Tournaments
                         </Typography>
                     </Box>
                     <Box
@@ -364,7 +364,7 @@ const HomeContainer = () => {
 
                 {/* Tournament Card End */}
             </Box>
-            <Box
+            {/* <Box
                 sx={{
                     mt: '36px',
                     position: prevTutorial === 'games' ? 'relative' : 'unset',
@@ -418,7 +418,7 @@ const HomeContainer = () => {
                         })}
                     </TournamentSlider>
                 </Box>
-            </Box>
+            </Box> */}
             <Box
                 id='games'
                 sx={{

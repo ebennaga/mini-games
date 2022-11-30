@@ -143,7 +143,7 @@ const HomeSkeleton = () => {
                         <img src='/icons/noto_money-bag.png' alt='money-bag' />
                     </Box>
                     <Typography variant='subtitle1' fontWeight='bold' component='h1'>
-                        Grand Tournaments
+                        Tournaments
                     </Typography>
                 </Box>
                 <Skeleton sx={{ height: '30px', width: '20%' }} />
