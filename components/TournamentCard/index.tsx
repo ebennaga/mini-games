@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { Box, ButtonBase, Typography } from '@mui/material';
 import getRemainingTimes from 'helper/getRemainingTime';
 import numberFormat from 'helper/numberFormat';
-import TyypeTournamentCard from './TyypeTournamentCard';
 import { useSelector } from 'react-redux';
+import TyypeTournamentCard from './TyypeTournamentCard';
 
 interface TournamentCardProps {
     users: string;
