@@ -17,8 +17,17 @@ const DialogBanner: React.FC<DialogBannerProps> = ({ open, setOpen }) => {
     const userState = useSelector((state: any) => state.webpage?.user?.user);
 
     return (
-        <Dialog open={open} onClose={setOpen}>
-            <Box sx={{ backgroundImage: 'url(/images/dummy/banner-welcome.svg)', width: '370px', height: '512px', position: 'relative' }}>
+        <Dialog open={open} onClose={setOpen} maxWidth='xl'>
+            <Box
+                sx={{
+                    backgroundImage: 'url(/images/dummy/banner-welcome.svg)',
+                    width: '330px',
+                    height: '459px',
+                    backgroundSize: 'contain',
+                    backgroundRepeat: 'no-repeat',
+                    position: 'relative'
+                }}
+            >
                 <Box sx={{ width: '95%', display: 'flex', justifyContent: 'end', mt: '20px' }}>
                     <ButtonBase
                         disableRipple
@@ -29,7 +38,7 @@ const DialogBanner: React.FC<DialogBannerProps> = ({ open, setOpen }) => {
                         <Close sx={{ color: 'white', fontWeight: 'bold' }} />
                     </ButtonBase>
                 </Box>
-                <Box sx={{ position: 'absolute', bottom: 25, left: '50%', translate: '-50%', width: '60%' }}>
+                <Box sx={{ position: 'absolute', bottom: 25, left: '50%', translate: '-50%', width: '70%' }}>
                     <Button
                         title='Go to Casual Tournaments'
                         backgoundColor='#FFD833'

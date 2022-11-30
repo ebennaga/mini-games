@@ -99,6 +99,7 @@ const Tournaments = () => {
                     width: '-webkit-fill-available'
                 }}
             >
+                {/* <HeaderBack title='Tournaments' /> */}
                 <HeaderBack title={`${userState.page === 'grand' ? 'Grand Tournaments' : 'Casual Tournaments'}`} isTournament />
             </Box>
             <Box component='section' marginTop='45px' marginBottom='45px'>

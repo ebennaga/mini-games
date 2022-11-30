@@ -10,7 +10,7 @@ interface TournamentCardProps {
     imageGame: string;
     onClick: any;
     totalUser: number;
-    prizePool: number;
+    prizePool: any;
     point: number;
     time: string;
     dataLength?: number;
@@ -35,6 +35,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
     const [timeTournament, setTimeTournament] = useState<string>('');
     const nowTime = new Date().getTime();
     const endTime = new Date(time).getTime();
+    const prize: any = prizePool?.point;
 
     useEffect(() => {
         const newD = new Date(time).toLocaleString('en-US');
@@ -45,7 +46,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
             setTimeTournament(getRemainingTimes(newD));
         }, 60000);
     }, []);
-
+    console.log(prizePool);
     return (
         <ButtonBase
             onClick={onClick}
@@ -165,7 +166,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                             }
                         }}
                     >
-                        <Box sx={{ display: 'flex', justifyContent: isCasual ? 'center' : 'space-between' }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                             {isCasual && <Typography sx={{ color: 'white', fontWeight: 'bold' }}>Free</Typography>}
                             {!isCasual && (
                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -190,7 +191,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                                             }
                                         }}
                                     >
-                                        {numberFormat(prizePool)}
+                                        {numberFormat(prize)}
                                         <Typography
                                             component='span'
                                             sx={{

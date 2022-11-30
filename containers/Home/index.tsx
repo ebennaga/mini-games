@@ -27,6 +27,8 @@ const HomeContainer = () => {
 
     const [borderValue, setBorderValue] = useState<string>('none');
     const [datasHome, setDatasHome] = useState<any>(null);
+    const [datasCasual, setDatasCasual] = useState<any>(null);
+    const [datasGrands, setDatasGrands] = useState<any>(null);
     const [dataTutorial, setDataTutorial] = useState<any>(null);
     const [isWelcome, setIsWelcome] = useState<boolean>(false);
     const [openBanner, setOpenBanner] = useState(false);
@@ -72,6 +74,7 @@ const HomeContainer = () => {
             const data: any = await getLocalData();
             setDataTutorial(data.tutorial);
             window.scrollTo(0, 0);
+            console.log(res);
             if (res.status === 200) {
                 const isBanner = await isShowBanner(data.banner);
                 setOpenBanner(isBanner);
@@ -79,6 +82,8 @@ const HomeContainer = () => {
                     setIsWelcome(true);
                 }
                 setDatasHome(res.data.data);
+                setDatasCasual(res.data.data.free_tournaments);
+                setDatasGrands(res.data.data.tournaments);
             }
         } catch (e: any) {
             notify('failed data', 'e');
@@ -261,8 +266,8 @@ const HomeContainer = () => {
                     <Box>
                         <Typography sx={{ fontWeight: 'bold', fontSize: '10px' }}>How to get Coins</Typography>
                         <Typography sx={{ fontSize: '8px', color: '#949494', lineHeight: '8px' }}>
-                            firstly you have to collect Points, after you have a huge points now it is time for you to redeem your points
-                            into a prizes, so hurry up and join the tournament now!!
+                            You can top up coins in the COINS menu. After that, the coins balance will be added immediately or you can
+                            invite your friends as much as possible and also running daily missions.
                         </Typography>
                     </Box>
                 </Box>
@@ -286,13 +291,13 @@ const HomeContainer = () => {
                     <Box>
                         <Typography sx={{ fontWeight: 'bold', fontSize: '10px' }}>How to win Points</Typography>
                         <Typography sx={{ fontSize: '8px', color: '#949494', lineHeight: '8px' }}>
-                            firstly you have to collect Points, after you have a huge points now it is time for you to redeem your points
-                            into a prizes, so hurry up and join the tournament now!!
+                            Hi buddies, to get points you have to join the tournament and win the tournament. The higher your rank, the more
+                            points you get!!
                         </Typography>
                     </Box>
                 </Box>
             </Box>
-            <Box>
+            {/* <Box>
                 <ButtonBase
                     sx={{
                         background: 'url(/images/dummy/banner-invite.png)',
@@ -305,120 +310,135 @@ const HomeContainer = () => {
                     }}
                     onClick={() => router.push('/referral')}
                 />
+            </Box> */}
+            <Box sx={{ marginBottom: '26px' }}>
+                <InfoCard
+                    onClick={() => router.push('/topup')}
+                    buttonText='Top Up'
+                    title='Top up Coins Now &'
+                    subTitle='Join Tournament'
+                    background='/images/coins-bg.png'
+                    image='/images/coin-big.png'
+                    bgButton='#FFD833'
+                />
             </Box>
-            <Box
-                sx={{
-                    position: prevTutorial === 'games' ? 'relative' : 'unset',
-                    p: prevTutorial === 'games' ? 1 : 0,
-                    background: '#fff',
-                    zIndex: 1000,
-                    borderRadius: '5px'
-                }}
-            >
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: '17px' }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '15px' }}>
-                        <Box>
-                            <img src='/icons/noto_money-bag.png' alt='money-bag' />
+            {datasGrands?.length > 0 && (
+                <Box
+                    sx={{
+                        position: prevTutorial === 'games' ? 'relative' : 'unset',
+                        p: prevTutorial === 'games' ? 1 : 0,
+                        background: '#fff',
+                        zIndex: 1000,
+                        borderRadius: '5px'
+                    }}
+                >
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: '17px' }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '15px' }}>
+                            <Box>
+                                <img src='/icons/noto_money-bag.png' alt='money-bag' />
+                            </Box>
+                            <Typography variant='subtitle1' fontWeight='bold' component='h1'>
+                                Grand Tournaments
+                            </Typography>
                         </Box>
-                        <Typography variant='subtitle1' fontWeight='bold' component='h1'>
-                            Grand Tournaments
-                        </Typography>
-                    </Box>
-                    <Box
-                        onClick={() => {
-                            router.push('/tournaments');
-                            setUser({ ...userState, page: 'grand' });
-                        }}
-                    >
-                        <a style={{ textDecoration: 'none !important', fontWeight: 600, textDecorationLine: 'none', color: '#A54CE5' }}>
-                            View All
-                        </a>
-                    </Box>
-                </Box>
-
-                {/* Tournament Card Start */}
-
-                <Box id='tournaments'>
-                    <TournamentSlider customMaxWidth='91vw'>
-                        {datasHome.tournaments.map((item: any) => {
-                            return (
-                                <TournamentCard
-                                    key={item.id}
-                                    image={item.banner_url}
-                                    imageGame={item.game.banner_url}
-                                    onClick={() => {
-                                        router.push(`/games/${item.game.id}/tournament/${item.id}`);
-                                    }}
-                                    totalUser={item.total_users}
-                                    prizePool={item.total_prize}
-                                    point={item.entry_coin}
-                                    // time='6d 13h 23m'
-                                    time={item.end_time}
-                                    dataLength={datasHome?.tournaments.length}
-                                    type={item.type}
-                                />
-                            );
-                        })}
-                    </TournamentSlider>
-                </Box>
-
-                {/* Tournament Card End */}
-            </Box>
-            <Box
-                sx={{
-                    mt: '36px',
-                    position: prevTutorial === 'games' ? 'relative' : 'unset',
-                    p: prevTutorial === 'games' ? 1 : 0,
-                    background: '#fff',
-                    zIndex: 1000,
-                    borderRadius: '5px'
-                }}
-            >
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: '17px' }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '15px' }}>
-                        <Box>
-                            <img src='/icons/free.png' alt='money-bag' />
+                        <Box
+                            onClick={() => {
+                                router.push('/tournaments');
+                                setUser({ ...userState, page: 'grand' });
+                            }}
+                        >
+                            <a style={{ textDecoration: 'none !important', fontWeight: 600, textDecorationLine: 'none', color: '#A54CE5' }}>
+                                View All
+                            </a>
                         </Box>
-                        <Typography variant='subtitle1' fontWeight='bold' component='h1'>
-                            Casual Tournaments
-                        </Typography>
                     </Box>
-                    <Box
-                        onClick={() => {
-                            router.push('/tournaments');
-                            setUser({ ...userState, page: 'casual' });
-                        }}
-                    >
-                        <a style={{ textDecoration: 'none !important', fontWeight: 600, textDecorationLine: 'none', color: '#A54CE5' }}>
-                            View All
-                        </a>
+
+                    {/* Tournament Card Start */}
+
+                    <Box id='tournaments'>
+                        <TournamentSlider customMaxWidth='91vw'>
+                            {datasGrands.map((item: any) => {
+                                return (
+                                    <TournamentCard
+                                        key={item.id}
+                                        image={item.banner_url}
+                                        imageGame={item.game.banner_url}
+                                        onClick={() => {
+                                            router.push(`/games/${item.game.id}/tournament/${item.id}`);
+                                        }}
+                                        totalUser={item.total_users}
+                                        prizePool={item.total_prize}
+                                        point={item.entry_coin}
+                                        // time='6d 13h 23m'
+                                        time={item.end_time}
+                                        dataLength={datasHome?.tournaments.length}
+                                        type={item.type}
+                                    />
+                                );
+                            })}
+                        </TournamentSlider>
+                    </Box>
+
+                    {/* Tournament Card End */}
+                </Box>
+            )}
+            {datasCasual?.length > 0 && (
+                <Box
+                    sx={{
+                        mt: '36px',
+                        position: prevTutorial === 'games' ? 'relative' : 'unset',
+                        p: prevTutorial === 'games' ? 1 : 0,
+                        background: '#fff',
+                        zIndex: 1000,
+                        borderRadius: '5px'
+                    }}
+                >
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: '17px' }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '15px' }}>
+                            <Box>
+                                <img src='/icons/free.png' alt='money-bag' />
+                            </Box>
+                            <Typography variant='subtitle1' fontWeight='bold' component='h1'>
+                                Casual Tournaments
+                            </Typography>
+                        </Box>
+                        <Box
+                            onClick={() => {
+                                router.push('/tournaments');
+                                setUser({ ...userState, page: 'casual' });
+                            }}
+                        >
+                            <a style={{ textDecoration: 'none !important', fontWeight: 600, textDecorationLine: 'none', color: '#A54CE5' }}>
+                                View All
+                            </a>
+                        </Box>
+                    </Box>
+                    <Box id='tournaments'>
+                        <TournamentSlider customMaxWidth='91vw'>
+                            {datasCasual?.map((item: any) => {
+                                return (
+                                    <TournamentCard
+                                        isCasual
+                                        key={item.id}
+                                        image={item.banner_url}
+                                        imageGame={item.game.banner_url}
+                                        onClick={() => {
+                                            router.push(`/games/${item.game.id}/tournament/${item.id}`);
+                                        }}
+                                        totalUser={item.total_users}
+                                        prizePool={item.total_prize}
+                                        point={item.entry_coin}
+                                        // time='6d 13h 23m'
+                                        time={item.end_time}
+                                        dataLength={datasHome?.tournaments.length}
+                                        type={item.type}
+                                    />
+                                );
+                            })}
+                        </TournamentSlider>
                     </Box>
                 </Box>
-                <Box id='tournaments'>
-                    <TournamentSlider customMaxWidth='91vw'>
-                        {datasHome.tournaments.map((item: any) => {
-                            return (
-                                <TournamentCard
-                                    isCasual
-                                    key={item.id}
-                                    image={item.banner_url}
-                                    imageGame={item.game.banner_url}
-                                    onClick={() => {
-                                        router.push(`/games/${item.game.id}/tournament/${item.id}`);
-                                    }}
-                                    totalUser={item.total_users}
-                                    prizePool={item.total_prize}
-                                    point={item.entry_coin}
-                                    // time='6d 13h 23m'
-                                    time={item.end_time}
-                                    dataLength={datasHome?.tournaments.length}
-                                    type={item.type}
-                                />
-                            );
-                        })}
-                    </TournamentSlider>
-                </Box>
-            </Box>
+            )}
             <Box
                 id='games'
                 sx={{
@@ -469,7 +489,7 @@ const HomeContainer = () => {
                 image='/images/hopup.png'
                 linearBackground='linear-gradient(216deg, rgb(25 84 159 / 72%) 14%, rgba(28,37,69,1) 87%)'
             /> */}
-            <InfoCard
+            {/* <InfoCard
                 onClick={() => router.push('/topup')}
                 buttonText='Top Up'
                 title='Top up Coins Now &'
@@ -477,7 +497,7 @@ const HomeContainer = () => {
                 background='/images/coins-bg.png'
                 image='/images/coin-big.png'
                 bgButton='#FFD833'
-            />
+            /> */}
             {/* <InfoCard
                 onClick={() => router.push('/shops')}
                 buttonText='Top Up'
