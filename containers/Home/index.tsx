@@ -74,7 +74,6 @@ const HomeContainer = () => {
             const data: any = await getLocalData();
             setDataTutorial(data.tutorial);
             window.scrollTo(0, 0);
-            console.log(res);
             if (res.status === 200) {
                 const isBanner = await isShowBanner(data.banner);
                 setOpenBanner(isBanner);
@@ -135,6 +134,12 @@ const HomeContainer = () => {
         setOpenBanner(false);
         setIsWelcome(true);
     };
+
+    const handlePlayGame = () => {
+        router.push('/tournaments');
+        setUser({ ...userState, page: 'casual' });
+    };
+
     const isNotif = false;
 
     if (isLoading || !datasHome) {
@@ -208,15 +213,7 @@ const HomeContainer = () => {
                     </Typography>
                 </Box>
                 <Box sx={{ position: 'absolute', left: '50%', translate: '-50%', bottom: '25px', width: '165px' }}>
-                    <ButtonLanding
-                        title='Play Game'
-                        backgoundColor='#A54CE5'
-                        color='white'
-                        height='40px'
-                        onClick={() => {
-                            router.push('/games');
-                        }}
-                    />
+                    <ButtonLanding title='Play Game' backgoundColor='#A54CE5' color='white' height='40px' onClick={handlePlayGame} />
                 </Box>
             </Box>
             <Box
