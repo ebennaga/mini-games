@@ -27,7 +27,7 @@ const GameDetailContainer = () => {
     const userState = useSelector((state: any) => state.webpage?.user?.user);
     const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
     const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
-    const [isCasualTournament, setIsCasualTournament] = React.useState<number>(1);
+    const [isCasualTournament, setIsCasualTournament] = React.useState<number>(0);
     const [isGrandTournament, setIsGrandTournament] = React.useState<number>(0);
 
     const { setUser, clearUser } = useAuthReducer();
@@ -90,10 +90,7 @@ const GameDetailContainer = () => {
         }
     }, [userState, detailGame]);
 
-    const handleClick = async (idTournament: any, typeTournament: 'casual' | 'grand') => {
-        if (typeTournament === 'casual') {
-            return router.push(`/games/${router.query.id}/casual-tournament/${idTournament}`);
-        }
+    const handleClick = async (idTournament: any) => {
         return router.push(`/games/${router.query.id}/tournament/${idTournament}`);
     };
 
@@ -235,7 +232,7 @@ const GameDetailContainer = () => {
                     <Grid container padding='10px 20px' gap='0px' my={3} overflow='hidden'>
                         <Grid item xs={12}>
                             <TitleTournament
-                                image='/icons/y.png'
+                                image='/icons/noto_money-bag.png'
                                 title='Grand Tournaments'
                                 subTitle='Tournaments and get points for redeem prize'
                             />
@@ -255,7 +252,7 @@ const GameDetailContainer = () => {
                                                 time={isComingSoon ? 'coming soon' : item.end_time}
                                                 pool={item.total_prize.point}
                                                 users={item.total_users}
-                                                onClick={() => handleClick(item.id, 'grand')}
+                                                onClick={() => handleClick(item.id)}
                                                 imageGame={detailGame?.banner_url}
                                                 backgroundImage={item.banner_url}
                                                 coin={item.entry_coin}
@@ -274,7 +271,7 @@ const GameDetailContainer = () => {
                         <Grid container paddingX='20px' gap='0px' mt={3} overflow='hidden'>
                             <Grid item xs={12}>
                                 <TitleTournament
-                                    image='/icons/y.png'
+                                    image='/icons/free.png'
                                     title='Casual Tournaments'
                                     subTitle='Joins casual tournaments and get coins for the real chalenge in Prize Tournament'
                                 />
@@ -286,7 +283,7 @@ const GameDetailContainer = () => {
                                         const remainingTime = getRemainingTimes(date);
                                         const isComingSoon = remainingTime[0] !== '-' || item.status !== 'OPEN';
 
-                                        if (item.total_prize.coin === 0) {
+                                        if (item.total_prize.coin > 0) {
                                             return (
                                                 <TournamentCard
                                                     status={item.status}
@@ -294,7 +291,7 @@ const GameDetailContainer = () => {
                                                     time={isComingSoon ? 'coming soon' : item.end_time}
                                                     pool={item.total_prize}
                                                     users={item.total_users}
-                                                    onClick={() => handleClick(item.id, 'casual')}
+                                                    onClick={() => handleClick(item.id)}
                                                     imageGame={detailGame?.banner_url}
                                                     backgroundImage={item.banner_url}
                                                     coin={item.entry_coin}

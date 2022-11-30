@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { Grid, Typography, Avatar } from '@mui/material';
 import numberFormat from 'helper/numberFormat';
 import React from 'react';
@@ -13,6 +14,7 @@ interface IRankCard {
     isYourRank?: boolean;
     hash?: string;
     isLive?: boolean;
+    type: 'casual' | 'grand';
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -26,7 +28,8 @@ const RankCard: React.FC<IRankCard> = ({
     point,
     score,
     disabledUnderline,
-    isYourRank
+    isYourRank,
+    type
 }) => {
     return (
         <Grid
@@ -61,7 +64,7 @@ const RankCard: React.FC<IRankCard> = ({
                 </Grid>
                 <Grid item xs={3} sx={{ display: 'flex', alignItems: 'center' }}>
                     <img
-                        src={`${isLive ? '/images/e-voucher.png' : '/images/point-shops.png'}`}
+                        src={`${isLive ? '/images/e-voucher.png' : type === 'casual' ? '/images/coin.png' : '/images/point-shops.png'}`}
                         width='19.95px'
                         height='19.95px'
                         alt='score'

@@ -45,7 +45,8 @@ const GameTournament = () => {
             });
 
             if (res.status === 200) {
-                setListingGame(res.data.data);
+                const resData = res.data.data;
+                setListingGame(resData);
             }
             isSetLoading(false);
         } catch (e) {
@@ -200,11 +201,13 @@ const GameTournament = () => {
                             {!isComingSoon && (
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
                                     <img src='/icons/xs-troffy.png' alt='troffy' loading='lazy' />
-                                    <Typography sx={{ fontSize: '14px', fontWeight: 'bold' }}>250</Typography>
+                                    <Typography sx={{ fontSize: '14px', fontWeight: 'bold' }}>
+                                        {listingGame?.leaderboards?.length}
+                                    </Typography>
                                 </Box>
                             )}
                         </Box>
-                        {(isComingSoon || listingGame?.leaderboards.length < 0) && (
+                        {(isComingSoon || listingGame?.leaderboards.length === 0) && (
                             <Box sx={{ textAlign: 'center', marginY: '150px' }}>
                                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                                     <img src='/images/leaderboard-img.png' alt='leaderboard' loading='lazy' />
@@ -215,7 +218,10 @@ const GameTournament = () => {
                             </Box>
                         )}
                         {listingGame?.leaderboards && listingGame?.leaderboards.length > 0 && !isComingSoon && (
-                            <LeaderboardPodium dataLeaderboard={listingGame?.leaderboards} />
+                            <LeaderboardPodium
+                                dataLeaderboard={listingGame?.leaderboards}
+                                type={listingGame.total_prize.coin > 0 ? 'casual' : 'grand'}
+                            />
                         )}
                     </Box>
                 )}
@@ -229,7 +235,10 @@ const GameTournament = () => {
                     !isComingSoon && (
                         <Box component='section' marginBottom='40px'>
                             {listingGame?.leaderboards && listingGame?.leaderboards.length > 0 && (
-                                <TableRank dataLeaderboard={listingGame?.leaderboards} />
+                                <TableRank
+                                    dataLeaderboard={listingGame?.leaderboards}
+                                    type={listingGame.total_prize.coin > 0 ? 'casual' : 'grand'}
+                                />
                             )}
                         </Box>
                     )
@@ -246,6 +255,7 @@ const GameTournament = () => {
                             title='Play Tournament'
                             points={listingGame?.entry_coin}
                             isLoading={loadingPlay}
+                            typeTournament={listingGame.total_prize.coin > 0 ? 'casual' : 'grand'}
                         />
                     )}
                 </Box>

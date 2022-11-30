@@ -145,7 +145,9 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                         >
                             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', ml: 1 }}>
-                                    <img src='/images/point-shops.png' width={31} height={31} alt='star' loading='lazy' />
+                                    {typeTournament === 'grand' && (
+                                        <img src='/images/point-shops.png' width={31} height={31} alt='star' loading='lazy' />
+                                    )}
                                     <Typography
                                         component='span'
                                         sx={{
