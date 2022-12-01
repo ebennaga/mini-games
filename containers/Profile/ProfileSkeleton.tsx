@@ -145,20 +145,10 @@ const ProfileSkeletonDetail: React.FC<ProfileSkeletonProps> = ({ isLoading }) =>
                 <Skeleton variant='rounded' width='20%' height={12} />
             </Box>
             <Box sx={{ display: 'flex', mt: '-20px', flexDirection: 'column' }}>
-                <ButtonBase
-                    sx={{
-                        background: 'url(/images/dummy/banner-invite.png)',
-                        backgroundPosition: 'right',
-                        backgroundSize: 'contain',
-                        backgroundRepeat: 'no-repeat',
-                        height: '200px',
-                        width: '90%',
-                        borderRadius: '6px',
-                        mx: 'auto'
-                    }}
-                    onClick={() => router.push('/referral')}
-                />
-                <Box component='section' sx={{ width: '90%', marginTop: '7px', mx: 'auto' }}>
+                <Box onClick={() => router.push('/referral')} sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                    <img src='/images/dummy/banner-invite.png' alt='yy' style={{ width: '90%' }} />
+                </Box>
+                <Box component='section' sx={{ width: '100%', marginTop: '7px', mx: 'auto' }}>
                     {listNavigation.map((item: any) => {
                         return (
                             <Box key={item.title} sx={{ width: '100%', paddingBottom: '20px', borderBottom: '2px solid #F4F1FF' }}>
