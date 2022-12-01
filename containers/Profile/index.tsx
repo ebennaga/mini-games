@@ -50,8 +50,8 @@ const Profile = () => {
     React.useEffect(() => {
         fetchData();
     }, []);
-
-    if (isLoading) {
+    const loadings: boolean = true;
+    if (loadings) {
         return <ProfileSkeletonDetail isLoading={isLoading} />;
     }
 
@@ -186,10 +186,10 @@ const Profile = () => {
                     background: 'url(/images/dummy/banner-invite.png)',
                     backgroundPosition: 'right',
                     backgroundSize: 'cover',
-                    height: '140px',
+                    height: '200px',
                     width: '100%',
                     borderRadius: '6px',
-                    marginTop: '26px'
+                    marginTop: '0px'
                 }}
                 onClick={() => router.push('/referral')}
             />
