@@ -81,8 +81,8 @@ const Tournaments = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-
-    if (isLoading) {
+    const loadings: boolean = true;
+    if (loadings) {
         return <TournamentsSkeleton />;
     }
 
