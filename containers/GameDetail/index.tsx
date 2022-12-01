@@ -109,7 +109,7 @@ const GameDetailContainer = () => {
         }
         return setSignupLoginDialog(true);
     };
-
+    const Loadings: boolean = true;
     if (isLoading) {
         return <GameDetailSkeleton />;
     }

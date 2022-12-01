@@ -136,7 +136,7 @@ const HomeContainer = () => {
     };
 
     const handlePlayGame = () => {
-        router.push('/tournaments');
+        router.push('/games');
         setUser({ ...userState, page: 'casual' });
     };
 
@@ -346,7 +346,7 @@ const HomeContainer = () => {
                                 Grand Tournaments
                             </Typography>
                         </Box>
-                        <Box
+                        <ButtonBase
                             onClick={() => {
                                 router.push('/tournaments');
                                 setUser({ ...userState, page: 'grand' });
@@ -355,7 +355,7 @@ const HomeContainer = () => {
                             <a style={{ textDecoration: 'none !important', fontWeight: 600, textDecorationLine: 'none', color: '#A54CE5' }}>
                                 View All
                             </a>
-                        </Box>
+                        </ButtonBase>
                     </Box>
 
                     {/* Tournament Card Start */}
@@ -407,7 +407,7 @@ const HomeContainer = () => {
                                 Casual Tournaments
                             </Typography>
                         </Box>
-                        <Box
+                        <ButtonBase
                             onClick={() => {
                                 router.push('/tournaments');
                                 setUser({ ...userState, page: 'casual' });
@@ -416,7 +416,7 @@ const HomeContainer = () => {
                             <a style={{ textDecoration: 'none !important', fontWeight: 600, textDecorationLine: 'none', color: '#A54CE5' }}>
                                 View All
                             </a>
-                        </Box>
+                        </ButtonBase>
                     </Box>
                     <Box id='tournaments'>
                         <TournamentSlider customMaxWidth='91vw'>
