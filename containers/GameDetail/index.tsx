@@ -259,7 +259,7 @@ const GameDetailContainer = () => {
                                                 status={item.status}
                                                 key={item.id}
                                                 time={isComingSoon ? 'coming soon' : item.end_time}
-                                                pool={item.total_prize.point}
+                                                pool={numberFormat(item.total_prize.point)}
                                                 users={item.total_users}
                                                 onClick={() => handleClick(item.id)}
                                                 imageGame={detailGame?.banner_url}
