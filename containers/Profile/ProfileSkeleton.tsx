@@ -148,7 +148,7 @@ const ProfileSkeletonDetail: React.FC<ProfileSkeletonProps> = ({ isLoading }) =>
                 <Box onClick={() => router.push('/referral')} sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                     <img src='/images/dummy/banner-invite.png' alt='yy' style={{ width: '90%' }} />
                 </Box>
-                <Box component='section' sx={{ width: '100%', marginTop: '7px', mx: 'auto' }}>
+                <Box component='section' sx={{ width: '90%', marginTop: '7px', mx: 'auto' }}>
                     {listNavigation.map((item: any) => {
                         return (
                             <Box key={item.title} sx={{ width: '100%', paddingBottom: '20px', borderBottom: '2px solid #F4F1FF' }}>
