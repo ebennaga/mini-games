@@ -121,6 +121,8 @@ const PrizeContainer = () => {
         }
     };
 
+    // const Loading: boolean = true;
+
     if (isLoading) {
         return <PrizeSkeleton />;
     }

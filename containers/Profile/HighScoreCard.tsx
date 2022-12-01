@@ -12,7 +12,7 @@ const HighScoreCard: React.FC<HighScoreCardProps> = ({ image, title, score }) =>
     return (
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <img src={image} width='64px' height='64px' alt='games' />
+                <img src={image} width='64px' height='64px' alt='games' loading='lazy' style={{ borderRadius: '5px' }} />
                 <Box sx={{ marginLeft: 2 }}>
                     <Typography component='h3' fontSize='14px' fontWeight={700}>
                         {title}

@@ -2,7 +2,11 @@ import { Box, ButtonBase, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { useRouter } from 'next/router';
 
-const SocialMediaList = () => {
+interface SocialMediaListProps {
+    skeleton?: any;
+}
+
+const SocialMediaList: React.FC<SocialMediaListProps> = ({ skeleton }) => {
     const router = useRouter();
     const socialMediaData = [
         {
@@ -22,7 +26,10 @@ const SocialMediaList = () => {
     ];
 
     return (
-        <Box component='section' sx={{ width: '100%', marginTop: '32px', marginBottom: '50px' }}>
+        <Box
+            component='section'
+            sx={{ width: skeleton ? '90%' : '100%', marginTop: '32px', marginBottom: '50px', mx: skeleton ? 'auto' : '' }}
+        >
             <Typography component='h3' fontWeight='bold' fontSize='18px' alignItems='start' marginBottom='24px'>
                 Follow Social Media
             </Typography>

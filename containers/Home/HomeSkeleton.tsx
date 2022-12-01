@@ -94,8 +94,8 @@ const HomeSkeleton = () => {
                     <Box>
                         <Typography sx={{ fontWeight: 'bold', fontSize: '10px' }}>How to get Coins</Typography>
                         <Typography sx={{ fontSize: '8px', color: '#949494', lineHeight: '8px' }}>
-                            firstly you have to collect Points, after you have a huge points now it is time for you to redeem your points
-                            into a prizes, so hurry up and join the tournament now!!
+                            You can top up coins in the COINS menu. After that, the coins balance will be added immediately or you can
+                            invite your friends as much as possible and also running daily missions.
                         </Typography>
                     </Box>
                 </Box>
@@ -119,13 +119,22 @@ const HomeSkeleton = () => {
                     <Box>
                         <Typography sx={{ fontWeight: 'bold', fontSize: '10px' }}>How to win Points</Typography>
                         <Typography sx={{ fontSize: '8px', color: '#949494', lineHeight: '8px' }}>
-                            firstly you have to collect Points, after you have a huge points now it is time for you to redeem your points
-                            into a prizes, so hurry up and join the tournament now!!
+                            Hi buddies, to get points you have to join the tournament and win the tournament. The higher your rank, the more
+                            points you get!!
                         </Typography>
                     </Box>
                 </Box>
             </Box>
-            <ButtonBase
+            <InfoCard
+                onClick={() => router.push('/topup')}
+                buttonText='Top Up'
+                title='Top up Coins Now &'
+                subTitle='Join Tournament'
+                background='/images/coins-bg.png'
+                image='/images/coin-big.png'
+                bgButton='#FFD833'
+            />
+            {/* <ButtonBase
                 sx={{
                     background: 'url(/images/dummy/banner-invite.png)',
                     backgroundPosition: 'right',
@@ -136,14 +145,14 @@ const HomeSkeleton = () => {
                     marginBottom: '26px'
                 }}
                 onClick={() => router.push('/referral')}
-            />
-            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            /> */}
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: '20px' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', columnGap: '15px' }}>
                     <Box>
                         <img src='/icons/noto_money-bag.png' alt='money-bag' />
                     </Box>
                     <Typography variant='subtitle1' fontWeight='bold' component='h1'>
-                        Tournaments
+                        Grand Tournaments
                     </Typography>
                 </Box>
                 <Skeleton sx={{ height: '30px', width: '20%' }} />
@@ -175,7 +184,7 @@ const HomeSkeleton = () => {
                     <Skeleton sx={{ height: '170px' }} />
                 </Grid>
             </Grid>
-            <InfoCard
+            {/* <InfoCard
                 onClick={() => router.push('/topup')}
                 buttonText='Top Up'
                 title='Top up Coins Now &'
@@ -183,7 +192,7 @@ const HomeSkeleton = () => {
                 background='/images/coins-bg.png'
                 image='/images/coin-big.png'
                 bgButton='#FFD833'
-            />
+            /> */}
             {/* <InfoCard
                 onClick={() => router.push('/shops')}
                 buttonText='Top Up'

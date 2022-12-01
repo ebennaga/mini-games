@@ -1,14 +1,15 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Skeleton, Typography } from '@mui/material';
 import numberFormat from 'helper/numberFormat';
 import React from 'react';
 
 interface StatsCardProps {
     title: string;
     icon: any;
-    value: number;
+    value?: number;
+    isLoading?: any;
 }
 
-const StatsCard: React.FC<StatsCardProps> = ({ title, icon, value }) => {
+const StatsCard: React.FC<StatsCardProps> = ({ title, icon, value, isLoading = false }) => {
     return (
         <Box
             sx={{
@@ -26,9 +27,13 @@ const StatsCard: React.FC<StatsCardProps> = ({ title, icon, value }) => {
             </Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', margin: '16px 0 11px 0' }}>
                 <img src={icon} width={24} height='auto' alt='coins' />
-                <Typography component='p' sx={{ fontSize: '19px', marginLeft: 1, fontWeight: 700 }}>
-                    {numberFormat(value)}
-                </Typography>
+                {isLoading ? (
+                    <Skeleton variant='rounded' width='100px' height='20px' sx={{ marginLeft: 1 }} />
+                ) : (
+                    <Typography component='p' sx={{ fontSize: '19px', marginLeft: 1, fontWeight: 700 }}>
+                        {numberFormat(value)}
+                    </Typography>
+                )}
             </Box>
         </Box>
     );
