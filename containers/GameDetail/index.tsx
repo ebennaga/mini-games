@@ -266,6 +266,7 @@ const GameDetailContainer = () => {
                                                 backgroundImage={item.banner_url}
                                                 coin={item.entry_coin}
                                                 type={item.type}
+                                                typeTournament={item.entry_coin === 0 ? 'casual' : 'grand'}
                                             />
                                         );
                                     }

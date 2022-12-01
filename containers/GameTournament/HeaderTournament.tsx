@@ -6,7 +6,7 @@ import getRemainingTimes from 'helper/getRemainingTime';
 // import Header from 'components/Header';
 import React from 'react';
 import { ExpandMore, ExpandLess } from '@mui/icons-material';
-import TypeTournamentCard from 'components/TournamentCard/TyypeTournamentCard';
+import TypeTournamentCard from 'components/TournamentCard/TypeTournamentCard';
 import CostumProgress from './CostumProgress';
 
 interface HeaderTournamentProps {
