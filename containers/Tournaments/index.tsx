@@ -195,7 +195,7 @@ const Tournaments = () => {
                                                     customWidth='93%'
                                                     onClick={() => router.push(`/games/${item.id}/tournament/${itm.id}`)}
                                                     time={itm.end_time}
-                                                    pool={itm.total_prize.point}
+                                                    pool={numberFormat(itm.total_prize.point)}
                                                     coin={itm.entry_coin}
                                                     users={itm.total_users}
                                                     key={index}
