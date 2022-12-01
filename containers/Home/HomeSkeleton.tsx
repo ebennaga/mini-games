@@ -88,8 +88,8 @@ const HomeSkeleton = () => {
                     }}
                 >
                     <Box sx={{ position: 'relative' }}>
-                        <img src='/icons/coin-home-lg.png' alt='coinhome' />
-                        <img src='/icons/coin-home-sm.png' alt='coinhome' style={{ position: 'absolute', bottom: 0, right: 0 }} />
+                        <img src='/icons/coint-home.png' alt='coinhome' />
+                        {/* <img src='/icons/coin-home-sm.png' alt='coinhome' style={{ position: 'absolute', bottom: 0, right: 0 }} /> */}
                     </Box>
                     <Box>
                         <Typography sx={{ fontWeight: 'bold', fontSize: '10px' }}>How to get Coins</Typography>
@@ -113,8 +113,8 @@ const HomeSkeleton = () => {
                     }}
                 >
                     <Box sx={{ position: 'relative' }}>
-                        <img src='/icons/point-home-lg.png' alt='pointhome' />
-                        <img src='/icons/point-home-sm.png' alt='coinhome' style={{ position: 'absolute', bottom: 0, right: 0 }} />
+                        <img src='/icons/point-home.png' alt='pointhome' />
+                        {/* <img src='/icons/point-home-sm.png' alt='coinhome' style={{ position: 'absolute', bottom: 0, right: 0 }} /> */}
                     </Box>
                     <Box>
                         <Typography sx={{ fontWeight: 'bold', fontSize: '10px' }}>How to win Points</Typography>
