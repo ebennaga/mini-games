@@ -50,8 +50,8 @@ const Profile = () => {
     React.useEffect(() => {
         fetchData();
     }, []);
-    const loadings: boolean = true;
-    if (loadings) {
+
+    if (isLoading) {
         return <ProfileSkeletonDetail isLoading={isLoading} />;
     }
 
