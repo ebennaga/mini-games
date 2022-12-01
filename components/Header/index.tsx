@@ -124,7 +124,7 @@ const Header: React.FC<HeaderProps> = ({
         }
     };
     if (isLoading) {
-        return <HeaderSkeleton />;
+        return <HeaderSkeleton isPage />;
     }
     if (isFirebaseLoading) {
         return (

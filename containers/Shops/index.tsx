@@ -28,7 +28,6 @@ const ShopsContainer = () => {
     const [timeLuckyRaffle, setTimeLuckyRaffle] = useState<string>('');
     const [signupLoginDialog, setSignupLoginDialog] = React.useState<boolean>(false);
     const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
-
     const isComingSoon = process.env.NEXT_PUBLIC_PRIZES_COMING_SOON === 'true';
 
     const [surveyDialog, setSurveyDialog] = useState<boolean>(true);

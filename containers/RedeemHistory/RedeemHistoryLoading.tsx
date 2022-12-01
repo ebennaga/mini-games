@@ -1,4 +1,4 @@
-import { Box, Grid, Skeleton } from '@mui/material';
+import { Box, Grid, Skeleton, Tab, Tabs } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import React from 'react';
 
@@ -9,11 +9,68 @@ const RedeemHistoryLoading = () => {
                 <HeaderBack title='Redeem History' />
             </Box>
             <Grid container spacing={2} padding='20px'>
-                {[...Array(4)].map((_item: any, index: number) => (
-                    <Grid item xs={3} key={index}>
-                        <Skeleton sx={{ width: '100%', height: '50px' }} />
-                    </Grid>
-                ))}
+                <Box sx={{ mt: '20px', maxWidth: { xs: 370, sm: 480 }, bgcolor: 'background.paper' }}>
+                    <Tabs
+                        indicatorColor='secondary'
+                        textColor='inherit'
+                        // value={value}
+                        // onChange={handleChange}
+                        variant='scrollable'
+                        scrollButtons={false}
+                        aria-label='scrollable prevent tabs example'
+                    >
+                        <Tab
+                            disableRipple
+                            sx={{
+                                textTransform: 'none',
+                                '&.Mui-selected': {
+                                    fontWeight: 'bold'
+                                }
+                            }}
+                            label='Semua'
+                        />
+                        <Tab
+                            disableRipple
+                            sx={{
+                                textTransform: 'none',
+                                '&.Mui-selected': {
+                                    fontWeight: 'bold'
+                                }
+                            }}
+                            label='Diproses'
+                        />
+                        <Tab
+                            disableRipple
+                            sx={{
+                                textTransform: 'none',
+                                '&.Mui-selected': {
+                                    fontWeight: 'bold'
+                                }
+                            }}
+                            label='Dikemas'
+                        />
+                        <Tab
+                            disableRipple
+                            sx={{
+                                textTransform: 'none',
+                                '&.Mui-selected': {
+                                    fontWeight: 'bold'
+                                }
+                            }}
+                            label='Dikirim'
+                        />
+                        <Tab
+                            disableRipple
+                            sx={{
+                                textTransform: 'none',
+                                '&.Mui-selected': {
+                                    fontWeight: 'bold'
+                                }
+                            }}
+                            label='Selesai'
+                        />
+                    </Tabs>
+                </Box>
                 <Grid item xs={12} borderBottom='1px solid rgba(0, 0, 0, 0.1)' />
             </Grid>
             {[...Array(4)].map((_item: any, index: number) => (

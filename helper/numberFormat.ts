@@ -1,4 +1,4 @@
-const numberFormat = (number: number) => {
+const numberFormat = (number: number | any) => {
     const localeString = number?.toLocaleString('en-US') || '';
     const result = localeString.split(',').join('.');
     return result;
