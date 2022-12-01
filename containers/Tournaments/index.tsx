@@ -100,7 +100,7 @@ const Tournaments = () => {
                 }}
             >
                 {/* <HeaderBack title='Tournaments' /> */}
-                <HeaderBack title={`${userState.page === 'grand' ? 'Grand Tournaments' : 'Casual Tournaments'}`} isTournament />
+                <HeaderBack title={`${userState?.page === 'casual' ? 'Casual Tournaments' : 'Grand Tournaments'}`} isTournament />
             </Box>
             <Box component='section' marginTop='45px' marginBottom='45px'>
                 <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
@@ -110,7 +110,7 @@ const Tournaments = () => {
                     </Typography>
                 </Box>
                 <TournamentSliderGD spacing='large'>
-                    {userState.page === 'casual'
+                    {userState?.page === 'casual'
                         ? dataFeeds.free_tournaments.map((item: any, index: number) => {
                               // Filter to get data status tournament
                               const filter = {
@@ -124,7 +124,7 @@ const Tournaments = () => {
                                       customWidth='99%'
                                       onClick={() => router.push(`/games/${item.game.id}/tournament/${item.id}`)}
                                       time={item.end_time}
-                                      pool={userState.page === 'grand' ? item.total_prize.point : item.total_prize.coin}
+                                      pool={item.total_prize.coin}
                                       coin={item.entry_coin}
                                       users={item.total_users}
                                       key={index}
@@ -132,7 +132,7 @@ const Tournaments = () => {
                                       backgroundImage={item.banner_url}
                                       type={item.type}
                                       status={filter?.status || 'OPEN'}
-                                      typeTournament={item.entry_coin === 0 ? 'casual' : 'grand'}
+                                      typeTournament='casual'
                                   />
                               );
                           })
@@ -149,7 +149,7 @@ const Tournaments = () => {
                                       customWidth='99%'
                                       onClick={() => router.push(`/games/${item.game.id}/tournament/${item.id}`)}
                                       time={item.end_time}
-                                      pool={userState.page === 'grand' ? item.total_prize.point : item.total_prize.coin}
+                                      pool={item.total_prize.point}
                                       coin={item.entry_coin}
                                       users={item.total_users}
                                       key={index}
@@ -157,13 +157,13 @@ const Tournaments = () => {
                                       backgroundImage={item.banner_url}
                                       type={item.type}
                                       status={filter?.status || 'OPEN'}
-                                      typeTournament={item.entry_coin === 0 ? 'casual' : 'grand'}
+                                      typeTournament='grand'
                                   />
                               );
                           })}
                 </TournamentSliderGD>
             </Box>
-            {userState.page === 'grand' &&
+            {userState?.page !== 'casual' &&
                 dataGamesDetail.map((item: any) => {
                     return (
                         item.tournaments?.length > 0 && (
@@ -195,7 +195,7 @@ const Tournaments = () => {
                         )
                     );
                 })}
-            {userState.page === 'casual' &&
+            {userState?.page === 'casual' &&
                 dataGamesDetail.map((item: any) => {
                     return (
                         item.free_tournaments?.length > 0 && (

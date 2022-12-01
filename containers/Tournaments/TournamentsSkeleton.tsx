@@ -8,7 +8,7 @@ const TournamentsSkeleton = () => {
     const userState = useSelector((state: any) => state.webpage?.user?.user);
     return (
         <Box width='-webkit-fill-available'>
-            <HeaderBack title={`${userState.page === 'grand' ? 'Grand Tournaments' : 'Casual Tournaments'}`} isTournament />
+            <HeaderBack title={`${userState?.page === 'casual' ? 'Casual Tournaments' : 'Grand Tournaments'}`} isTournament />
             <Skeleton sx={{ height: '30px', width: '200px', mt: 3 }} />
             <TournamentSliderSkeleton />
             {[...Array(2)].map((_item: any, index: number) => {
