@@ -5,7 +5,7 @@ import { Box, ButtonBase, Typography } from '@mui/material';
 import getRemainingTimes from 'helper/getRemainingTime';
 import numberFormat from 'helper/numberFormat';
 import { useSelector } from 'react-redux';
-import TyypeTournamentCard from './TyypeTournamentCard';
+import TypeTournamentCard from './TypeTournamentCard';
 
 interface TournamentCardProps {
     users: string;
@@ -55,7 +55,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
             setTimeTournament('Coming Soon');
         }
     }, []);
-    console.log(pool);
+
     return (
         <Box
             onClick={onClick}
@@ -89,7 +89,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                     }}
                 >
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <TyypeTournamentCard type={type} />
+                        <TypeTournamentCard type={type} />
                         <Box
                             sx={{
                                 display: 'flex',
@@ -147,7 +147,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                         >
                             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', ml: 1 }}>
-                                    {userState.page === 'grand' && (
+                                    {(typeTournament === 'grand' || userState?.page === 'grand') && (
                                         <img src='/images/point-shops.png' width={31} height={31} alt='star' loading='lazy' />
                                     )}
                                     <Typography
@@ -258,7 +258,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
                                     {`${
                                         nowTime > endTime
                                             ? 'View Results'
-                                            : userState.page === 'grand'
+                                            : typeTournament === 'grand' || userState?.page === 'grand'
                                             ? 'View Tournaments'
                                             : 'View Casual Tournament'
                                     }`}

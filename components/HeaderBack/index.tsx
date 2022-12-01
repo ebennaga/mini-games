@@ -36,7 +36,7 @@ const HeaderBack: React.FC<HeaderBackProps> = ({ title, isSetting, handleBack, i
                 </Typography>
                 {isTournament && (
                     <img
-                        src={`${userState.page === 'grand' ? '/icons/noto_money-bag.png' : '/icons/free.png'}`}
+                        src={`${userState?.page === 'grand' ? '/icons/noto_money-bag.png' : '/icons/free.png'}`}
                         alt='free'
                         style={{ position: 'absolute', right: 20, top: 0, rotate: '30deg' }}
                     />

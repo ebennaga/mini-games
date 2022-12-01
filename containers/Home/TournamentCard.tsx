@@ -3,7 +3,7 @@ import getRemainingTimes from 'helper/getRemainingTime';
 import React, { useEffect, useState } from 'react';
 import numberFormat from 'helper/numberFormat';
 import { Circle } from '@mui/icons-material';
-import TypeTournamentCard from 'components/TournamentCard/TyypeTournamentCard';
+import TypeTournamentCard from 'components/TournamentCard/TypeTournamentCard';
 
 interface TournamentCardProps {
     image: string;
@@ -46,7 +46,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
             setTimeTournament(getRemainingTimes(newD));
         }, 60000);
     }, []);
-    console.log(prizePool);
+
     return (
         <ButtonBase
             onClick={onClick}
