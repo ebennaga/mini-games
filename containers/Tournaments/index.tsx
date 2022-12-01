@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
 import { Box, Typography } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
@@ -9,6 +10,7 @@ import useNotify from 'hooks/useNotify';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+
 import GameHeader from './GameHeader';
 import TournamentsSkeleton from './TournamentsSkeleton';
 
@@ -109,59 +111,75 @@ const Tournaments = () => {
                         On Going Tourney
                     </Typography>
                 </Box>
-                <TournamentSliderGD spacing='large'>
-                    {userState.page === 'casual'
-                        ? dataFeeds.free_tournaments.map((item: any, index: number) => {
-                              // Filter to get data status tournament
-                              const filter = {
-                                  ...dataGamesDetail
-                                      .map((game: any) => game?.tournaments.filter((i: any) => i.id === item.id)[0])
-                                      .filter((j: any) => j)[0]
-                              };
+                <Box>
+                    {userState.page === 'casual' ? (
+                        dataFeeds.free_tournaments.length > 0 ? (
+                            <TournamentSliderGD spacing='large'>
+                                {dataFeeds.free_tournaments.map((item: any, index: number) => {
+                                    // Filter to get data status tournament
+                                    const filter = {
+                                        ...dataGamesDetail
+                                            .map((game: any) => game?.tournaments.filter((i: any) => i.id === item.id)[0])
+                                            .filter((j: any) => j)[0]
+                                    };
+                                    return (
+                                        <TournamentCard
+                                            customWidth='99%'
+                                            onClick={() => router.push(`/games/${item.game.id}/tournament/${item.id}`)}
+                                            time={item.end_time}
+                                            pool={userState.page === 'grand' ? item.total_prize.point : item.total_prize.coin}
+                                            coin={item.entry_coin}
+                                            users={item.total_users}
+                                            key={index}
+                                            imageGame={item.game.banner_url}
+                                            backgroundImage={item.banner_url}
+                                            type={item.type}
+                                            status={filter?.status || 'OPEN'}
+                                            typeTournament={item.entry_coin === 0 ? 'casual' : 'grand'}
+                                        />
+                                    );
+                                })}
+                            </TournamentSliderGD>
+                        ) : (
+                            <Box sx={{ display: 'flex', textAlign: 'center', flexDirection: 'column' }}>
+                                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                                    <img src='/images/leaderboard-img.png' alt='leaderboard' loading='lazy' />
+                                </Box>
+                                <Typography sx={{ fontSize: '14px', color: '#949494', fontWeight: 'bold', mt: 3 }}>
+                                    Stay Tune For The Tournament
+                                </Typography>
+                            </Box>
+                        )
+                    ) : (
+                        <TournamentSliderGD spacing='large'>
+                            {dataFeeds.tournaments.map((item: any, index: number) => {
+                                // Filter to get data status tournament
+                                const filter = {
+                                    ...dataGamesDetail
+                                        .map((game: any) => game?.tournaments.filter((i: any) => i.id === item.id)[0])
+                                        .filter((j: any) => j)[0]
+                                };
 
-                              return (
-                                  <TournamentCard
-                                      customWidth='99%'
-                                      onClick={() => router.push(`/games/${item.game.id}/tournament/${item.id}`)}
-                                      time={item.end_time}
-                                      pool={userState.page === 'grand' ? item.total_prize.point : item.total_prize.coin}
-                                      coin={item.entry_coin}
-                                      users={item.total_users}
-                                      key={index}
-                                      imageGame={item.game.banner_url}
-                                      backgroundImage={item.banner_url}
-                                      type={item.type}
-                                      status={filter?.status || 'OPEN'}
-                                      typeTournament={item.entry_coin === 0 ? 'casual' : 'grand'}
-                                  />
-                              );
-                          })
-                        : dataFeeds.tournaments.map((item: any, index: number) => {
-                              // Filter to get data status tournament
-                              const filter = {
-                                  ...dataGamesDetail
-                                      .map((game: any) => game?.tournaments.filter((i: any) => i.id === item.id)[0])
-                                      .filter((j: any) => j)[0]
-                              };
-
-                              return (
-                                  <TournamentCard
-                                      customWidth='99%'
-                                      onClick={() => router.push(`/games/${item.game.id}/tournament/${item.id}`)}
-                                      time={item.end_time}
-                                      pool={userState.page === 'grand' ? item.total_prize.point : item.total_prize.coin}
-                                      coin={item.entry_coin}
-                                      users={item.total_users}
-                                      key={index}
-                                      imageGame={item.game.banner_url}
-                                      backgroundImage={item.banner_url}
-                                      type={item.type}
-                                      status={filter?.status || 'OPEN'}
-                                      typeTournament={item.entry_coin === 0 ? 'casual' : 'grand'}
-                                  />
-                              );
-                          })}
-                </TournamentSliderGD>
+                                return (
+                                    <TournamentCard
+                                        customWidth='99%'
+                                        onClick={() => router.push(`/games/${item.game.id}/tournament/${item.id}`)}
+                                        time={item.end_time}
+                                        pool={userState.page === 'grand' ? item.total_prize.point : item.total_prize.coin}
+                                        coin={item.entry_coin}
+                                        users={item.total_users}
+                                        key={index}
+                                        imageGame={item.game.banner_url}
+                                        backgroundImage={item.banner_url}
+                                        type={item.type}
+                                        status={filter?.status || 'OPEN'}
+                                        typeTournament={item.entry_coin === 0 ? 'casual' : 'grand'}
+                                    />
+                                );
+                            })}
+                        </TournamentSliderGD>
+                    )}
+                </Box>
             </Box>
             {userState.page === 'grand' &&
                 dataGamesDetail.map((item: any) => {
