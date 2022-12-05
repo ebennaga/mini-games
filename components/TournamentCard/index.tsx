@@ -40,7 +40,7 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
     const userState = useSelector((state: any) => state.webpage?.user?.user);
 
     useEffect(() => {
-        if (time && time[4] === '-' && time[7] === '-') {
+        if (time && time[4] === '-' && time[7] === '-' && status === 'OPEN') {
             const newD = new Date(time).toLocaleString('en-US');
             if (!timeTournament) {
                 setTimeTournament(getRemainingTimes(newD));
