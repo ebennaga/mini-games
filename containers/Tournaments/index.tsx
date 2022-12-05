@@ -140,6 +140,7 @@ const Tournaments = () => {
                                             .map((game: any) => game?.tournaments.filter((i: any) => i.id === item.id)[0])
                                             .filter((j: any) => j)[0]
                                     };
+
                                     return (
                                         <SwiperSlide key={index}>
                                             <TournamentCard
@@ -184,14 +185,14 @@ const Tournaments = () => {
                                             customWidth='93%'
                                             onClick={() => router.push(`/games/${item.game.id}/tournament/${item.id}`)}
                                             time={item.end_time}
-                                            pool={item.total_prize.coin}
+                                            pool={item.total_prize.point}
                                             coin={item.entry_coin}
                                             users={item.total_users}
                                             imageGame={item.game.banner_url}
                                             backgroundImage={item.banner_url}
                                             type={item.type}
                                             status={filter?.status || 'OPEN'}
-                                            typeTournament='casual'
+                                            typeTournament='grand'
                                         />
                                     </SwiperSlide>
                                 );
@@ -202,29 +203,34 @@ const Tournaments = () => {
             </Box>
             {userState?.page !== 'casual' &&
                 dataGamesDetail.map((item: any) => {
+                    const isShow = item.tournaments.filter((value: any) => value.entry_coin > 0);
+
                     return (
-                        item.tournaments?.length > 0 && (
+                        item.tournaments?.length > 0 &&
+                        isShow.length > 0 && (
                             <Box component='section' marginBottom='46px'>
                                 <GameHeader image={item.banner_url} title={item.name} />
                                 <Box marginTop='24px' sx={{ width: { xs: '100vw', sm: '100%', md: '100%', lg: '100%' } }}>
                                     <TournamentSwiper>
                                         {item.tournaments.map((itm: any, index: number) => {
                                             return (
-                                                <SwiperSlide key={index}>
-                                                    <TournamentCard
-                                                        customWidth='93%'
-                                                        onClick={() => router.push(`/games/${item.id}/tournament/${itm.id}`)}
-                                                        time={itm.end_time}
-                                                        pool={numberFormat(itm.total_prize.point)}
-                                                        coin={itm.entry_coin}
-                                                        users={itm.total_users}
-                                                        imageGame={item.banner_url}
-                                                        backgroundImage={itm.banner_url}
-                                                        type={itm.type}
-                                                        status={itm.status}
-                                                        typeTournament={item.entry_coin === 0 ? 'casual' : 'grand'}
-                                                    />
-                                                </SwiperSlide>
+                                                itm.entry_coin > 0 && (
+                                                    <SwiperSlide key={index}>
+                                                        <TournamentCard
+                                                            customWidth='93%'
+                                                            onClick={() => router.push(`/games/${item.id}/tournament/${itm.id}`)}
+                                                            time={itm.end_time}
+                                                            pool={numberFormat(itm.total_prize.point)}
+                                                            coin={itm.entry_coin}
+                                                            users={itm.total_users}
+                                                            imageGame={item.banner_url}
+                                                            backgroundImage={itm.banner_url}
+                                                            type={itm.type}
+                                                            status={itm.status}
+                                                            typeTournament={item.entry_coin === 0 ? 'casual' : 'grand'}
+                                                        />
+                                                    </SwiperSlide>
+                                                )
                                             );
                                         })}
                                     </TournamentSwiper>
@@ -235,29 +241,34 @@ const Tournaments = () => {
                 })}
             {userState?.page === 'casual' &&
                 dataGamesDetail.map((item: any) => {
+                    const isShow = item.tournaments.filter((value: any) => value.entry_coin === 0);
+
                     return (
-                        item.free_tournaments?.length > 0 && (
+                        item.tournaments?.length > 0 &&
+                        isShow.length > 0 && (
                             <Box component='section' marginBottom='46px'>
                                 <GameHeader image={item.banner_url} title={item.name} />
                                 <Box marginTop='24px' sx={{ width: { xs: '100vw', sm: '100%', md: '100%', lg: '100%' } }}>
                                     <TournamentSwiper>
                                         {item.tournaments.map((itm: any, index: number) => {
                                             return (
-                                                <SwiperSlide key={index}>
-                                                    <TournamentCard
-                                                        customWidth='103%'
-                                                        onClick={() => router.push(`/games/${item.id}/tournament/${itm.id}`)}
-                                                        time={itm.end_time}
-                                                        pool={itm.total_prize.coin}
-                                                        coin={itm.entry_coin}
-                                                        users={itm.total_users}
-                                                        imageGame={item.banner_url}
-                                                        backgroundImage={itm.banner_url}
-                                                        type={itm.type}
-                                                        status={itm.status}
-                                                        typeTournament={item.entry_coin === 0 ? 'casual' : 'grand'}
-                                                    />
-                                                </SwiperSlide>
+                                                itm.entry_coin === 0 && (
+                                                    <SwiperSlide key={index}>
+                                                        <TournamentCard
+                                                            customWidth='93%'
+                                                            onClick={() => router.push(`/games/${item.id}/tournament/${itm.id}`)}
+                                                            time={itm.end_time}
+                                                            pool={itm.total_prize.coin}
+                                                            coin={itm.entry_coin}
+                                                            users={itm.total_users}
+                                                            imageGame={item.banner_url}
+                                                            backgroundImage={itm.banner_url}
+                                                            type={itm.type}
+                                                            status={itm.status}
+                                                            typeTournament={item.entry_coin === 0 ? 'casual' : 'grand'}
+                                                        />
+                                                    </SwiperSlide>
+                                                )
                                             );
                                         })}
                                     </TournamentSwiper>
