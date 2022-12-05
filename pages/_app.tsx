@@ -13,6 +13,8 @@ import React from 'react';
 import Script from 'next/script';
 import { appWithTranslation } from 'next-i18next';
 import initMyFirebase from '../firebase/firebaseInit';
+// eslint-disable-next-line import/no-unresolved
+import 'swiper/css';
 
 function MyApp({ Component, pageProps }: AppProps) {
     initMyFirebase();
