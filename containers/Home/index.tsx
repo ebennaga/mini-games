@@ -393,7 +393,7 @@ const HomeContainer = () => {
                             </a>
                         </ButtonBase>
                     </Box>
-                    <Box id='tournaments'>
+                    <Box id='tournaments' sx={{ width: { xs: '100vw', sm: '100%', md: '100%', lg: '100%' } }}>
                         <TournamentSwiper>
                             {datasCasual?.map((item: any) => {
                                 return (
