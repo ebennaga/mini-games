@@ -154,13 +154,7 @@ const GameTournament = () => {
                 </Box>
             ) : (
                 <>
-                    <Header
-                        isBack
-                        point={coin}
-                        profilePicture='/icons/dummy/profile-2.png'
-                        paddingX='20px'
-                        hrefBack={`/games/${router.query.id}`}
-                    />
+                    <Header isBack point={coin} profilePicture='/icons/dummy/profile-2.png' paddingX='20px' />
                     <HeaderTournament
                         end={listingGame?.end_time}
                         backgroundImage={listingGame?.game.banner_url}

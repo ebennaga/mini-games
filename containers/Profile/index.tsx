@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import React from 'react';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import NavigationCard from 'components/NavigationCard';
+// import NavigationCard from 'components/NavigationCard';
 import SocialMediaList from 'components/SocialMediaList';
 import { useRouter } from 'next/router';
 import useAPICaller from 'hooks/useAPICaller';
@@ -24,10 +24,10 @@ const Profile = () => {
     const [detailGame, setDetailGame] = React.useState<any>(null);
     const [isLoading, setIsLoading] = React.useState<any>(false);
 
-    const listNavigation = [
-        { title: 'Input Promo Code', icon: '/icons/promo-code.png' }
-        // { title: 'Give us Ratings', icon: '/icons/rating.png', onclick: () => router.push('/ratingas') }
-    ];
+    // const listNavigation = [
+    //     { title: 'Input Promo Code', icon: '/icons/promo-code.png' }
+    //     // { title: 'Give us Ratings', icon: '/icons/rating.png', onclick: () => router.push('/ratingas') }
+    // ];
     const fetchData = async () => {
         setIsLoading(true);
         try {
@@ -120,7 +120,7 @@ const Profile = () => {
                 </Box>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
-                        <StatsCard title='Total Earns' icon='/images/point-shops.png' value={detailGame?.total_earnings['point']} />
+                        <StatsCard title='Total Earns' icon='/images/point-shops.png' value={detailGame?.total_earnings.point} />
                     </Grid>
                     <Grid item xs={6}>
                         <StatsCard title='Total Plays' icon='/icons/plays.png' value={detailGame?.total_play} />
@@ -181,7 +181,7 @@ const Profile = () => {
                     Show All <ArrowForwardIcon sx={{ fontSize: '16px', ml: 0.7 }} />
                 </Typography>
             </ButtonBase>
-            <ButtonBase
+            {/* <ButtonBase
                 sx={{
                     background: 'url(/images/dummy/banner-invite.png)',
                     backgroundPosition: 'right',
@@ -192,8 +192,8 @@ const Profile = () => {
                     marginTop: '0px'
                 }}
                 onClick={() => router.push('/referral')}
-            />
-            <Box component='section' sx={{ width: '100%', marginTop: '7px' }}>
+            /> */}
+            {/* <Box component='section' sx={{ width: '100%', marginTop: '7px' }}>
                 {listNavigation.map((item: any) => {
                     return (
                         <Box key={item.title} sx={{ width: '100%', padding: '25px 0', borderBottom: '2px solid #F4F1FF' }}>
@@ -201,7 +201,7 @@ const Profile = () => {
                         </Box>
                     );
                 })}
-            </Box>
+            </Box> */}
             <SocialMediaList />
         </Box>
     );
