@@ -207,26 +207,27 @@ const Tournaments = () => {
                             <Box component='section' marginBottom='46px'>
                                 <GameHeader image={item.banner_url} title={item.name} />
                                 <Box marginTop='24px' sx={{ width: { xs: '100vw', sm: '100%', md: '100%', lg: '100%' } }}>
-                                    <TournamentSliderGD>
+                                    <TournamentSwiper>
                                         {item.tournaments.map((itm: any, index: number) => {
                                             return (
-                                                <TournamentCard
-                                                    customWidth='93%'
-                                                    onClick={() => router.push(`/games/${item.id}/tournament/${itm.id}`)}
-                                                    time={itm.end_time}
-                                                    pool={numberFormat(itm.total_prize.point)}
-                                                    coin={itm.entry_coin}
-                                                    users={itm.total_users}
-                                                    key={index}
-                                                    imageGame={item.banner_url}
-                                                    backgroundImage={itm.banner_url}
-                                                    type={itm.type}
-                                                    status={itm.status}
-                                                    typeTournament={item.entry_coin === 0 ? 'casual' : 'grand'}
-                                                />
+                                                <SwiperSlide key={index}>
+                                                    <TournamentCard
+                                                        customWidth='93%'
+                                                        onClick={() => router.push(`/games/${item.id}/tournament/${itm.id}`)}
+                                                        time={itm.end_time}
+                                                        pool={numberFormat(itm.total_prize.point)}
+                                                        coin={itm.entry_coin}
+                                                        users={itm.total_users}
+                                                        imageGame={item.banner_url}
+                                                        backgroundImage={itm.banner_url}
+                                                        type={itm.type}
+                                                        status={itm.status}
+                                                        typeTournament={item.entry_coin === 0 ? 'casual' : 'grand'}
+                                                    />
+                                                </SwiperSlide>
                                             );
                                         })}
-                                    </TournamentSliderGD>
+                                    </TournamentSwiper>
                                 </Box>
                             </Box>
                         )
@@ -239,26 +240,27 @@ const Tournaments = () => {
                             <Box component='section' marginBottom='46px'>
                                 <GameHeader image={item.banner_url} title={item.name} />
                                 <Box marginTop='24px' sx={{ width: { xs: '100vw', sm: '100%', md: '100%', lg: '100%' } }}>
-                                    <TournamentSliderGD>
+                                    <TournamentSwiper>
                                         {item.tournaments.map((itm: any, index: number) => {
                                             return (
-                                                <TournamentCard
-                                                    customWidth='103%'
-                                                    onClick={() => router.push(`/games/${item.id}/tournament/${itm.id}`)}
-                                                    time={itm.end_time}
-                                                    pool={itm.total_prize.coin}
-                                                    coin={itm.entry_coin}
-                                                    users={itm.total_users}
-                                                    key={index}
-                                                    imageGame={item.banner_url}
-                                                    backgroundImage={itm.banner_url}
-                                                    type={itm.type}
-                                                    status={itm.status}
-                                                    typeTournament={item.entry_coin === 0 ? 'casual' : 'grand'}
-                                                />
+                                                <SwiperSlide key={index}>
+                                                    <TournamentCard
+                                                        customWidth='103%'
+                                                        onClick={() => router.push(`/games/${item.id}/tournament/${itm.id}`)}
+                                                        time={itm.end_time}
+                                                        pool={itm.total_prize.coin}
+                                                        coin={itm.entry_coin}
+                                                        users={itm.total_users}
+                                                        imageGame={item.banner_url}
+                                                        backgroundImage={itm.banner_url}
+                                                        type={itm.type}
+                                                        status={itm.status}
+                                                        typeTournament={item.entry_coin === 0 ? 'casual' : 'grand'}
+                                                    />
+                                                </SwiperSlide>
                                             );
                                         })}
-                                    </TournamentSliderGD>
+                                    </TournamentSwiper>
                                 </Box>
                             </Box>
                         )
