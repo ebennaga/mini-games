@@ -13,7 +13,6 @@ import WelcomeDialog from 'components/DialogTutorial/WelcomeDialog';
 import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import { useSelector } from 'react-redux';
 import AdvertiseDialog from 'components/DialogTutorial/AdvertiseDialog';
-import ButtonLanding from 'components/Button/Index';
 import DialogBanner from 'components/DialogBanner';
 import useAuthReducer from 'hooks/useAuthReducer';
 import { SwiperSlide } from 'swiper/react';
@@ -24,6 +23,7 @@ import GamesCard from './GamesCard';
 import TournamentCard from './TournamentCard';
 import HomeSkeleton from './HomeSkeleton';
 import GameSwiper from './GameSwiper';
+import EventTournamentSlider from './EventTournamentSlider';
 
 const HomeContainer = () => {
     const router = useRouter();
@@ -138,11 +138,6 @@ const HomeContainer = () => {
         setIsWelcome(true);
     };
 
-    const handlePlayGame = () => {
-        router.push('/games');
-        setUser({ ...userState, page: 'casual' });
-    };
-
     const isNotif = false;
 
     if (isLoading || !datasHome) {
@@ -194,31 +189,7 @@ const HomeContainer = () => {
                     <img src='/icons/message.svg' width='36px' height='30px' alt='inbox' />
                 </ButtonBase>
             </Box>
-            <Box
-                sx={{
-                    width: '100%',
-                    height: '411px',
-                    background: '#6FC0FB',
-                    mb: '20px',
-                    borderRadius: '10px',
-                    backgroundImage: 'url(/images/dummy/bg-gradient-home.png)',
-                    backgroundSize: 'cover',
-                    textAlign: 'center',
-                    position: 'relative'
-                }}
-            >
-                <Box sx={{ top: '20px', position: 'absolute', left: '50%', translate: '-50%', width: '100%' }}>
-                    <Typography sx={{ mb: '20px', color: 'white', fontSize: '26px', fontWeight: 700, lineHeight: '27px' }}>
-                        Play free game, <br /> win attractive prize!
-                    </Typography>
-                    <Typography sx={{ color: 'white', fontSize: '12px', fontWeight: 500 }}>
-                        Play free tournament, collect coins to join grand <br /> tournaments and win the prizes.
-                    </Typography>
-                </Box>
-                <Box sx={{ position: 'absolute', left: '50%', translate: '-50%', bottom: '25px', width: '165px' }}>
-                    <ButtonLanding title='Play Game' backgoundColor='#A54CE5' color='white' height='40px' onClick={handlePlayGame} />
-                </Box>
-            </Box>
+            <EventTournamentSlider />
             <Box
                 sx={{
                     display: 'flex',
