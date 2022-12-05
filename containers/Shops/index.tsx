@@ -6,7 +6,8 @@ import numberFormat from 'helper/numberFormat';
 import NavigationCard from 'components/NavigationCard';
 import Header from 'components/Header';
 import React, { useEffect, useState } from 'react';
-import ShopsSlider from 'components/ShopsSlider';
+import ShopsSwiper from 'components/ShopsSlider/ShopsSwiper';
+import { SwiperSlide } from 'swiper/react';
 // import ShopsCard from 'components/ShopsCard';
 import { useRouter } from 'next/router';
 import useAPICaller from 'hooks/useAPICaller';
@@ -136,8 +137,9 @@ const ShopsContainer = () => {
                     </Grid>
                 </Grid>
                 {!isComingSoon && (
-                    <ShopsSlider>
-                        {/* {dataRedemptions?.banners.map((item: any) => (
+                    <Box sx={{ width: { xs: '100vw', sm: '100%', md: '100%', lg: '100%' } }}>
+                        <ShopsSwiper>
+                            {/* {dataRedemptions?.banners.map((item: any) => (
                             <ShopsCard
                                 // productName={itemData[index].label}
                                 // onClick={() => {
@@ -149,55 +151,47 @@ const ShopsContainer = () => {
                                 title={item.title}
                             />
                         ))} */}
-                        <Box sx={{}}>
-                            <Box
-                                sx={{
-                                    backgroundImage: `url(${'/images/home_banner1.png'})`,
-                                    backgroundSize: 'cover',
-                                    backgroundPosition: 'center',
-                                    height: '200px',
-                                    borderRadius: '15px',
-                                    // p: '19px',
-                                    display: 'flex',
-                                    width: '95%',
-                                    ml: '10px',
-                                    justifyContent: 'space-between'
-                                }}
-                            />
-                        </Box>
-                        <Box sx={{}}>
-                            <Box
-                                sx={{
-                                    backgroundImage: `url(${'/images/home_banner2.png'})`,
-
-                                    backgroundSize: 'cover',
-                                    backgroundPosition: 'center',
-                                    height: '200px',
-                                    borderRadius: '15px',
-                                    width: '95%',
-                                    ml: '10px',
-                                    display: 'flex',
-                                    justifyContent: 'space-between'
-                                }}
-                            />
-                        </Box>
-                        <Box sx={{}}>
-                            <Box
-                                sx={{
-                                    backgroundImage: `url(${'/images/home_banner3.png'})`,
-
-                                    backgroundSize: 'cover',
-                                    backgroundPosition: 'center',
-                                    height: '200px',
-                                    borderRadius: '15px',
-                                    width: '95%',
-                                    ml: '10px',
-                                    display: 'flex',
-                                    justifyContent: 'space-between'
-                                }}
-                            />
-                        </Box>
-                    </ShopsSlider>
+                            <SwiperSlide>
+                                <Box
+                                    sx={{
+                                        backgroundImage: `url(${'/images/home_banner1.png'})`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center',
+                                        height: '200px',
+                                        borderRadius: '15px',
+                                        width: '95%',
+                                        ml: '10px'
+                                    }}
+                                />
+                            </SwiperSlide>
+                            <SwiperSlide>
+                                <Box
+                                    sx={{
+                                        backgroundImage: `url(${'/images/home_banner2.png'})`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center',
+                                        height: '200px',
+                                        borderRadius: '15px',
+                                        width: '95%',
+                                        ml: '10px'
+                                    }}
+                                />
+                            </SwiperSlide>
+                            <SwiperSlide>
+                                <Box
+                                    sx={{
+                                        backgroundImage: `url(${'/images/home_banner3.png'})`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center',
+                                        height: '200px',
+                                        borderRadius: '15px',
+                                        width: '95%',
+                                        ml: '10px'
+                                    }}
+                                />
+                            </SwiperSlide>
+                        </ShopsSwiper>
+                    </Box>
                 )}
                 <Box width='100%' padding='0 20px' margin='20px 0px'>
                     <Grid container justifyContent='space-between' alignItems='center'>
