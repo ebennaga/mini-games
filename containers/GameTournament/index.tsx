@@ -154,13 +154,7 @@ const GameTournament = () => {
                 </Box>
             ) : (
                 <>
-                    <Header
-                        isBack
-                        point={coin}
-                        profilePicture='/icons/dummy/profile-2.png'
-                        paddingX='20px'
-                        hrefBack={`/games/${router.query.id}`}
-                    />
+                    <Header isBack point={coin} profilePicture='/icons/dummy/profile-2.png' paddingX='20px' />
                     <HeaderTournament
                         end={listingGame?.end_time}
                         backgroundImage={listingGame?.game.banner_url}
@@ -220,7 +214,7 @@ const GameTournament = () => {
                         {listingGame?.leaderboards && listingGame?.leaderboards.length > 0 && !isComingSoon && (
                             <LeaderboardPodium
                                 dataLeaderboard={listingGame?.leaderboards}
-                                type={listingGame.total_prize.coin > 0 ? 'casual' : 'grand'}
+                                type={listingGame?.entry_coin === 0 ? 'casual' : 'grand'}
                             />
                         )}
                     </Box>
@@ -237,7 +231,7 @@ const GameTournament = () => {
                             {listingGame?.leaderboards && listingGame?.leaderboards.length > 0 && (
                                 <TableRank
                                     dataLeaderboard={listingGame?.leaderboards}
-                                    type={listingGame.total_prize.coin > 0 ? 'casual' : 'grand'}
+                                    type={listingGame?.entry_coin === 0 ? 'casual' : 'grand'}
                                 />
                             )}
                         </Box>
@@ -255,7 +249,7 @@ const GameTournament = () => {
                             title='Play Tournament'
                             points={listingGame?.entry_coin}
                             isLoading={loadingPlay}
-                            typeTournament={listingGame.total_prize.coin > 0 ? 'casual' : 'grand'}
+                            typeTournament={listingGame?.entry_coin === 0 ? 'casual' : 'grand'}
                         />
                     )}
                 </Box>

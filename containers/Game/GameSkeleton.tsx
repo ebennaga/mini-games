@@ -7,9 +7,11 @@ const GameSekeleton = () => {
     return (
         <Box sx={{ width: '100%' }}>
             <Box padding='20px'>
-                <HeaderSkeleton />
+                <HeaderSkeleton isPage />
                 <Box sx={{ mt: '50px' }}>
-                    <Skeleton sx={{ width: '120px', height: '50px' }} />
+                    <Box sx={{ width: '90%', paddingX: '20px', mb: '20px' }}>
+                        <Typography sx={{ fontSize: '30px', fontWeight: 'bold' }}>Games</Typography>
+                    </Box>
                     <Grid justifyContent='start' container gap='55px' sx={{ mt: '20px' }}>
                         {[...Array(6)].map((i: any, idx: number) => (
                             <Grid item xs={5} key={idx}>

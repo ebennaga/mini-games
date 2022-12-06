@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import React from 'react';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import NavigationCard from 'components/NavigationCard';
+// import NavigationCard from 'components/NavigationCard';
 import SocialMediaList from 'components/SocialMediaList';
 import { useRouter } from 'next/router';
 import useAPICaller from 'hooks/useAPICaller';
@@ -14,6 +14,7 @@ import BarExp from './BarExp';
 import HighScoreCard from './HighScoreCard';
 import ProfilePicture from './ProfilePicture';
 import StatsCard from './StatsCard';
+import ProfileSkeletonDetail from './ProfileSkeleton';
 
 const Profile = () => {
     const router = useRouter();
@@ -21,12 +22,14 @@ const Profile = () => {
     const notify = useNotify();
     const userState = useSelector((state: any) => state?.webpage?.user?.user);
     const [detailGame, setDetailGame] = React.useState<any>(null);
+    const [isLoading, setIsLoading] = React.useState<any>(false);
 
-    const listNavigation = [
-        { title: 'Input Promo Code', icon: '/icons/promo-code.png' }
-        // { title: 'Give us Ratings', icon: '/icons/rating.png', onclick: () => router.push('/ratingas') }
-    ];
+    // const listNavigation = [
+    //     { title: 'Input Promo Code', icon: '/icons/promo-code.png' }
+    //     // { title: 'Give us Ratings', icon: '/icons/rating.png', onclick: () => router.push('/ratingas') }
+    // ];
     const fetchData = async () => {
+        setIsLoading(true);
         try {
             const res = await fetchAPI({
                 endpoint: `/auths/detail`,
@@ -36,14 +39,21 @@ const Profile = () => {
             if (res.data?.data) {
                 setDetailGame(res.data.data);
             }
+            setIsLoading(false);
         } catch (e: any) {
             notify(e.message, 'error');
+            setIsLoading(false);
         }
+        setIsLoading(false);
     };
 
     React.useEffect(() => {
         fetchData();
     }, []);
+
+    if (isLoading) {
+        return <ProfileSkeletonDetail isLoading={isLoading} />;
+    }
 
     return (
         <Box
@@ -93,7 +103,6 @@ const Profile = () => {
                     </Grid>
                 </Grid>
             </Box>
-
             <Box sx={{ height: '1px', width: '100%', background: '#E6E6E6', my: '24px' }} />
             <Box
                 component='section'
@@ -111,7 +120,7 @@ const Profile = () => {
                 </Box>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
-                        <StatsCard title='Total Earns' icon='/images/point-shops.png' value={detailGame?.total_earns} />
+                        <StatsCard title='Total Earns' icon='/images/point-shops.png' value={detailGame?.total_earnings.point} />
                     </Grid>
                     <Grid item xs={6}>
                         <StatsCard title='Total Plays' icon='/icons/plays.png' value={detailGame?.total_play} />
@@ -151,14 +160,17 @@ const Profile = () => {
                 <Typography component='h3' fontWeight='bold' fontSize='18px' alignItems='start' marginBottom='24px'>
                     High Scores
                 </Typography>
-                <HighScoreCard
-                    image={detailGame?.highscore[1].banner_url}
-                    title={detailGame?.highscore[1].name}
-                    score={detailGame?.highscore[1].highscore}
-                />
+                {detailGame?.highscore.length > 0 &&
+                    detailGame.highscore.map((item: any, idx: number) => {
+                        return (
+                            <Box key={idx} sx={{ my: '10px' }}>
+                                <HighScoreCard image={item.banner_url} title={item.name} score={item.highscore} />
+                                <Box sx={{ height: '1px', width: '100%', background: '#E6E6E6', my: '24px' }} />
+                            </Box>
+                        );
+                    })}
             </Box>
 
-            <Box sx={{ height: '1px', width: '100%', background: '#E6E6E6', my: '24px' }} />
             <ButtonBase href='/profile/high-scores'>
                 <Typography
                     component='span'
@@ -169,19 +181,19 @@ const Profile = () => {
                     Show All <ArrowForwardIcon sx={{ fontSize: '16px', ml: 0.7 }} />
                 </Typography>
             </ButtonBase>
-            <ButtonBase
+            {/* <ButtonBase
                 sx={{
                     background: 'url(/images/dummy/banner-invite.png)',
                     backgroundPosition: 'right',
                     backgroundSize: 'cover',
-                    height: '140px',
+                    height: '200px',
                     width: '100%',
                     borderRadius: '6px',
-                    marginTop: '26px'
+                    marginTop: '0px'
                 }}
                 onClick={() => router.push('/referral')}
-            />
-            <Box component='section' sx={{ width: '100%', marginTop: '7px' }}>
+            /> */}
+            {/* <Box component='section' sx={{ width: '100%', marginTop: '7px' }}>
                 {listNavigation.map((item: any) => {
                     return (
                         <Box key={item.title} sx={{ width: '100%', padding: '25px 0', borderBottom: '2px solid #F4F1FF' }}>
@@ -189,7 +201,7 @@ const Profile = () => {
                         </Box>
                     );
                 })}
-            </Box>
+            </Box> */}
             <SocialMediaList />
         </Box>
     );

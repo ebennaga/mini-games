@@ -37,7 +37,8 @@ const GameResultTournament = () => {
                 const resData = response.data.data;
                 setFirstPosition(resData.leaderboards[0]);
                 setAuthsData(resData.auths);
-                if (resData.total_prize.coin > 0) {
+
+                if (resData?.entry_coin === 0) {
                     setTypeTournament('casual');
                 } else {
                     setTypeTournament('grand');

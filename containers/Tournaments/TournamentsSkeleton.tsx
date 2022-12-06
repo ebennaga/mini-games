@@ -1,4 +1,4 @@
-import { Box, Skeleton } from '@mui/material';
+import { Box, Skeleton, Typography } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import TournamentSliderSkeleton from 'components/TournamentSlider/TournamentSliderSkeleton';
 import React from 'react';
@@ -8,8 +8,13 @@ const TournamentsSkeleton = () => {
     const userState = useSelector((state: any) => state.webpage?.user?.user);
     return (
         <Box width='-webkit-fill-available'>
-            <HeaderBack title={`${userState.page === 'grand' ? 'Grand Tournaments' : 'Casual Tournaments'}`} isTournament />
-            <Skeleton sx={{ height: '30px', width: '200px', mt: 3 }} />
+            <HeaderBack title={`${userState?.page === 'casual' ? 'Casual Tournaments' : 'Grand Tournaments'}`} isTournament />
+            <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
+                <img src='/icons/wifi.svg' width='14px' height='18.5px' alt='attention' />
+                <Typography component='h2' fontSize='18px' marginTop='3px' marginLeft='5px' fontWeight={700} sx={{ color: '#A54CE5' }}>
+                    On Going Tourney
+                </Typography>
+            </Box>
             <TournamentSliderSkeleton />
             {[...Array(2)].map((_item: any, index: number) => {
                 return (

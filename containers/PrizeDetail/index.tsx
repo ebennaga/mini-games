@@ -50,9 +50,9 @@ const PrizeDetailContainer = () => {
     const getDetailRedeem = async () => {
         setIsLoading(true);
         const response = await fetchAPI({ method: 'GET', endpoint: `redemptions/${router.query.id}` });
-        if (response.status === 200) {
+        if (response?.status === 200) {
             setData(response.data.data);
-        } else if (response.status === 401) {
+        } else if (response?.status === 401) {
             router.push('/shops');
         } else {
             notify(response.data.message, 'error');
@@ -82,6 +82,8 @@ const PrizeDetailContainer = () => {
     React.useEffect(() => {
         getDetailRedeem();
     }, []);
+
+    // const Loading: boolean = true;
 
     if (isLoading) {
         return <PrizeSkeletonDetail />;

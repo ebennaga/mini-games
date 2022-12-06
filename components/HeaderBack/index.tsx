@@ -27,26 +27,37 @@ const HeaderBack: React.FC<HeaderBackProps> = ({ title, isSetting, handleBack, i
 
     return (
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-            <ButtonBase onClick={(e: any) => back(e)} sx={{ width: '24px', height: '24px', borderRadius: '50px', background: '#A54CE5' }}>
+            <ButtonBase
+                onClick={(e: any) => back(e)}
+                sx={{
+                    width: '24px',
+                    height: '24px',
+                    borderRadius: '50px',
+                    background: title === 'Grand Tournaments' ? '#2474ED' : '#A54CE5'
+                }}
+            >
                 <ArrowBackIcon sx={{ color: '#fff', width: '40px', height: '20px', fontWeight: 'bold' }} />
             </ButtonBase>
-            <Box sx={{ position: 'relative', width: '100%' }}>
-                <Typography component='h2' sx={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center' }}>
-                    {title}
-                </Typography>
-                {isTournament && (
-                    <img
-                        src={`${userState.page === 'grand' ? '/icons/noto_money-bag.png' : '/icons/free.png'}`}
-                        alt='free'
-                        style={{ position: 'absolute', right: 20, top: 0, rotate: '30deg' }}
-                    />
+            <Box sx={{ width: '100%', display: 'flex', justifyContent: isSetting ? 'space-between' : 'center' }}>
+                <Box />
+                <Box sx={{ width: 'fit-content', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <Typography component='h2' sx={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center' }}>
+                        {title}
+                    </Typography>
+                    {isTournament && (
+                        <img
+                            src={`${userState.page === 'grand' ? '/icons/noto_money-bag.png' : '/icons/free.png'}`}
+                            alt='free'
+                            // style={{ position: 'absolute', top: 0, right: -25, rotate: '30deg' }}
+                        />
+                    )}
+                </Box>
+                {isSetting && (
+                    <ButtonBase onClick={() => router.push('/profile/settings')}>
+                        <SettingsIcon />
+                    </ButtonBase>
                 )}
             </Box>
-            {isSetting && (
-                <ButtonBase onClick={() => router.push('/profile/settings')}>
-                    <SettingsIcon />
-                </ButtonBase>
-            )}
         </Box>
     );
 };

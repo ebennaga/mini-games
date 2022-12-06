@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from '@mui/material/styles';
 import { GlobalStyles, Slide } from '@mui/material';
@@ -13,6 +14,7 @@ import React from 'react';
 import Script from 'next/script';
 import { appWithTranslation } from 'next-i18next';
 import initMyFirebase from '../firebase/firebaseInit';
+import 'swiper/css';
 
 function MyApp({ Component, pageProps }: AppProps) {
     initMyFirebase();

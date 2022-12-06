@@ -45,19 +45,19 @@ const GameDetailContainer = () => {
 
                 // Read data for validate is tournament appears or not
                 dataRes?.tournaments?.map((item: any) => {
-                    if (item.total_prize?.point > 0) {
+                    if (item.entry_coin > 0) {
                         return setIsGrandTournament(isGrandTournament + 1);
                     }
-                    if (item.total_prize?.coin > 0) {
+                    if (item.entry_coin === 0) {
                         return setIsCasualTournament(isCasualTournament + 1);
                     }
                     return null;
                 });
                 dataRes?.free_tournaments?.map((item: any) => {
-                    // if (item.total_prize?.point > 0) {
-                    //     return setIsGrandTournament(isGrandTournament + 1);
-                    // }
-                    if (item.total_prize?.coin > 0) {
+                    if (item.entry_coin > 0) {
+                        return setIsGrandTournament(isGrandTournament + 1);
+                    }
+                    if (item.entry_coin === 0) {
                         return setIsCasualTournament(isCasualTournament + 1);
                     }
                     return null;
@@ -253,13 +253,13 @@ const GameDetailContainer = () => {
                                     const remainingTime = getRemainingTimes(date);
                                     const isComingSoon = remainingTime[0] !== '-' || item.status !== 'OPEN';
 
-                                    if (item.total_prize.point > 0) {
+                                    if (item.entry_coin > 0) {
                                         return (
                                             <TournamentCard
                                                 status={item.status}
                                                 key={item.id}
                                                 time={isComingSoon ? 'coming soon' : item.end_time}
-                                                pool={item.total_prize.point}
+                                                pool={numberFormat(item.total_prize.point)}
                                                 users={item.total_users}
                                                 onClick={() => handleClick(item.id)}
                                                 imageGame={detailGame?.banner_url}
@@ -277,7 +277,7 @@ const GameDetailContainer = () => {
                     </Grid>
                 )}
                 <Box sx={{ bgcolor: '#F8EEFF', padding: '5px 0 34px 0' }}>
-                    {detailGame?.free_tournaments?.length > 0 && isCasualTournament > 0 && (
+                    {detailGame?.tournaments?.length > 0 && isCasualTournament > 0 && (
                         <Grid container paddingX='20px' gap='0px' mt={3} overflow='hidden'>
                             <Grid item xs={12}>
                                 <TitleTournament
@@ -288,12 +288,12 @@ const GameDetailContainer = () => {
                             </Grid>
                             <Grid item xs={12} sx={{ mt: '24px' }}>
                                 <TournamentSlider>
-                                    {detailGame?.free_tournaments?.map((item: any, idx: number) => {
+                                    {detailGame?.tournaments?.map((item: any, idx: number) => {
                                         const date = new Date(item.start_time).toLocaleString('en-US');
                                         const remainingTime = getRemainingTimes(date);
                                         const isComingSoon = remainingTime[0] !== '-' || item.status !== 'OPEN';
 
-                                        if (item.total_prize.coin > 0) {
+                                        if (item.entry_coin === 0) {
                                             return (
                                                 <TournamentCard
                                                     status={item.status}

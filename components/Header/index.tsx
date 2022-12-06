@@ -124,7 +124,7 @@ const Header: React.FC<HeaderProps> = ({
         }
     };
     if (isLoading) {
-        return <HeaderSkeleton />;
+        return <HeaderSkeleton isPage />;
     }
     if (isFirebaseLoading) {
         return (
@@ -173,7 +173,10 @@ const Header: React.FC<HeaderProps> = ({
             }}
         >
             {isBack ? (
-                <ButtonBase onClick={handleBack} sx={{ width: '24px', height: '24px', borderRadius: '50px', background: '#A54CE5' }}>
+                <ButtonBase
+                    onClick={() => router.back()}
+                    sx={{ width: '24px', height: '24px', borderRadius: '50px', background: '#A54CE5' }}
+                >
                     <ArrowBackIcon sx={{ color: '#fff', width: '20px', height: '20px', fontWeight: 'bold' }} />
                 </ButtonBase>
             ) : (

@@ -2,7 +2,7 @@ import { Box, ButtonBase, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Header from 'components/Header';
 // import Link from 'next/link';
-import TournamentSlider from 'components/TournamentSlider';
+// import TournamentSlider from 'components/TournamentSlider';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import InfoCard from 'components/InfoCard';
@@ -13,14 +13,17 @@ import WelcomeDialog from 'components/DialogTutorial/WelcomeDialog';
 import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import { useSelector } from 'react-redux';
 import AdvertiseDialog from 'components/DialogTutorial/AdvertiseDialog';
-import ButtonLanding from 'components/Button/Index';
 import DialogBanner from 'components/DialogBanner';
 import useAuthReducer from 'hooks/useAuthReducer';
+import { SwiperSlide } from 'swiper/react';
+import TournamentSwiper from 'components/TournamentSlider/TournamentSwiper';
 import Search from './Search';
 import GamesCard from './GamesCard';
-import GamesSlider from './GamesSlider';
+// import GamesSlider from './GamesSlider';
 import TournamentCard from './TournamentCard';
 import HomeSkeleton from './HomeSkeleton';
+import GameSwiper from './GameSwiper';
+import EventTournamentSlider from './EventTournamentSlider';
 
 const HomeContainer = () => {
     const router = useRouter();
@@ -135,11 +138,6 @@ const HomeContainer = () => {
         setIsWelcome(true);
     };
 
-    const handlePlayGame = () => {
-        router.push('/tournaments');
-        setUser({ ...userState, page: 'casual' });
-    };
-
     const isNotif = false;
 
     if (isLoading || !datasHome) {
@@ -191,31 +189,7 @@ const HomeContainer = () => {
                     <img src='/icons/message.svg' width='36px' height='30px' alt='inbox' />
                 </ButtonBase>
             </Box>
-            <Box
-                sx={{
-                    width: '100%',
-                    height: '411px',
-                    background: '#6FC0FB',
-                    mb: '20px',
-                    borderRadius: '10px',
-                    backgroundImage: 'url(/images/dummy/bg-gradient-home.png)',
-                    backgroundSize: 'cover',
-                    textAlign: 'center',
-                    position: 'relative'
-                }}
-            >
-                <Box sx={{ top: '20px', position: 'absolute', left: '50%', translate: '-50%', width: '100%' }}>
-                    <Typography sx={{ mb: '20px', color: 'white', fontSize: '26px', fontWeight: 700, lineHeight: '27px' }}>
-                        Play free game, <br /> win attractive prize!
-                    </Typography>
-                    <Typography sx={{ color: 'white', fontSize: '12px', fontWeight: 500 }}>
-                        Play free tournament, collect coins to join grand <br /> tournaments and win the prizes.
-                    </Typography>
-                </Box>
-                <Box sx={{ position: 'absolute', left: '50%', translate: '-50%', bottom: '25px', width: '165px' }}>
-                    <ButtonLanding title='Play Game' backgoundColor='#A54CE5' color='white' height='40px' onClick={handlePlayGame} />
-                </Box>
-            </Box>
+            <EventTournamentSlider />
             <Box
                 sx={{
                     display: 'flex',
@@ -346,7 +320,7 @@ const HomeContainer = () => {
                                 Grand Tournaments
                             </Typography>
                         </Box>
-                        <Box
+                        <ButtonBase
                             onClick={() => {
                                 router.push('/tournaments');
                                 setUser({ ...userState, page: 'grand' });
@@ -355,33 +329,34 @@ const HomeContainer = () => {
                             <a style={{ textDecoration: 'none !important', fontWeight: 600, textDecorationLine: 'none', color: '#A54CE5' }}>
                                 View All
                             </a>
-                        </Box>
+                        </ButtonBase>
                     </Box>
 
                     {/* Tournament Card Start */}
 
-                    <Box id='tournaments'>
-                        <TournamentSlider customMaxWidth='91vw'>
+                    <Box sx={{ width: { xs: '100vw', sm: '100%', md: '100%', lg: '100%' } }}>
+                        <TournamentSwiper>
                             {datasGrands.map((item: any) => {
                                 return (
-                                    <TournamentCard
-                                        key={item.id}
-                                        image={item.banner_url}
-                                        imageGame={item.game.banner_url}
-                                        onClick={() => {
-                                            router.push(`/games/${item.game.id}/tournament/${item.id}`);
-                                        }}
-                                        totalUser={item.total_users}
-                                        prizePool={item.total_prize}
-                                        point={item.entry_coin}
-                                        // time='6d 13h 23m'
-                                        time={item.end_time}
-                                        dataLength={datasHome?.tournaments.length}
-                                        type={item.type}
-                                    />
+                                    <SwiperSlide key={item.id}>
+                                        <TournamentCard
+                                            image={item.banner_url}
+                                            imageGame={item.game.banner_url}
+                                            onClick={() => {
+                                                router.push(`/games/${item.game.id}/tournament/${item.id}`);
+                                            }}
+                                            totalUser={item.total_users}
+                                            prizePool={item.total_prize}
+                                            point={item.entry_coin}
+                                            // time='6d 13h 23m'
+                                            time={item.end_time}
+                                            // dataLength={datasHome?.tournaments.length}
+                                            type={item.type}
+                                        />
+                                    </SwiperSlide>
                                 );
                             })}
-                        </TournamentSlider>
+                        </TournamentSwiper>
                     </Box>
 
                     {/* Tournament Card End */}
@@ -407,7 +382,7 @@ const HomeContainer = () => {
                                 Casual Tournaments
                             </Typography>
                         </Box>
-                        <Box
+                        <ButtonBase
                             onClick={() => {
                                 router.push('/tournaments');
                                 setUser({ ...userState, page: 'casual' });
@@ -416,9 +391,34 @@ const HomeContainer = () => {
                             <a style={{ textDecoration: 'none !important', fontWeight: 600, textDecorationLine: 'none', color: '#A54CE5' }}>
                                 View All
                             </a>
-                        </Box>
+                        </ButtonBase>
                     </Box>
-                    <Box id='tournaments'>
+                    <Box id='tournaments' sx={{ width: { xs: '100vw', sm: '100%', md: '100%', lg: '100%' } }}>
+                        <TournamentSwiper>
+                            {datasCasual?.map((item: any) => {
+                                return (
+                                    <SwiperSlide key={item.id}>
+                                        <TournamentCard
+                                            isCasual
+                                            image={item.banner_url}
+                                            imageGame={item.game.banner_url}
+                                            onClick={() => {
+                                                router.push(`/games/${item.game.id}/tournament/${item.id}`);
+                                            }}
+                                            totalUser={item.total_users}
+                                            prizePool={item.total_prize}
+                                            point={item.entry_coin}
+                                            // time='6d 13h 23m'
+                                            time={item.end_time}
+                                            // dataLength={datasHome?.tournaments.length}
+                                            type={item.type}
+                                        />
+                                    </SwiperSlide>
+                                );
+                            })}
+                        </TournamentSwiper>
+                    </Box>
+                    {/* <Box id='tournaments'>
                         <TournamentSlider customMaxWidth='91vw'>
                             {datasCasual?.map((item: any) => {
                                 return (
@@ -441,7 +441,7 @@ const HomeContainer = () => {
                                 );
                             })}
                         </TournamentSlider>
-                    </Box>
+                    </Box> */}
                 </Box>
             )}
             <Box
@@ -453,13 +453,28 @@ const HomeContainer = () => {
                     zIndex: 1000,
                     background: '#fff',
                     borderRadius: '5px'
+                    // border: '1px solid red'
                 }}
             >
                 <Typography variant='h6' fontWeight='bold' component='h2'>
                     Games
                 </Typography>
-
-                <GamesSlider customMaxWidth='91vw' data={datasHome.games}>
+                <GameSwiper>
+                    {datasHome.games.map((item: any) => {
+                        return (
+                            <SwiperSlide key={item.id}>
+                                <GamesCard
+                                    // href={item.game_url}
+                                    href={`/games/${item.id}`}
+                                    image={item.banner_url}
+                                    title={item.name}
+                                    totalUser={item.user_sessions}
+                                />
+                            </SwiperSlide>
+                        );
+                    })}
+                </GameSwiper>
+                {/* <GamesSlider customMaxWidth='91vw' data={datasHome.games}>
                     {datasHome.games.map((item: any) => {
                         return (
                             <GamesCard
@@ -472,7 +487,7 @@ const HomeContainer = () => {
                             />
                         );
                     })}
-                </GamesSlider>
+                </GamesSlider> */}
             </Box>
             {/* <InfoCard
                 onClick={undefined}
