@@ -228,7 +228,7 @@ const ProfileSetting = () => {
                 </ButtonBase>
                 <Box sx={{ width: '100%', textAlign: 'center', marginTop: '35px', marginBottom: '100px' }}>
                     <Typography component='p' fontSize='14px' fontWeight={700}>
-                        0.3.3
+                        0.3.4
                     </Typography>
                 </Box>
                 <DeleteAccountDialog open={deleteDialog} setOpen={setDeleteDialog} handleDelete={handleDelete} />
