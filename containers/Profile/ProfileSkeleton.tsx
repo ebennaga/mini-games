@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-nested-ternary */
 import React from 'react';
 import HeaderSkeleton from 'components/Header/HeaderSkeleton';
@@ -6,10 +7,10 @@ import Link from 'next/link';
 
 import HeaderBack from 'components/HeaderBack';
 import { useRouter } from 'next/router';
-import BalanceCard from './BalanceCard';
-import StatsCard from './StatsCard';
 import NavigationCard from 'components/NavigationCard';
 import SocialMediaList from 'components/SocialMediaList';
+import BalanceCard from './BalanceCard';
+import StatsCard from './StatsCard';
 
 interface ProfileSkeletonProps {
     isLoading: boolean;
@@ -135,8 +136,8 @@ const ProfileSkeletonDetail: React.FC<ProfileSkeletonProps> = ({ isLoading }) =>
                         <Typography component='h3' fontWeight='bold' fontSize='18px' alignItems='start' marginBottom='24px'>
                             High Scores
                         </Typography>
-                        {[...Array(3)].map((item: any, idx: any) => {
-                            return <Skeleton variant='rounded' width='100%' height={82} key={idx} />;
+                        {[...Array(3)].map((item: any, idex: any) => {
+                            return <Skeleton variant='rounded' width='100%' height={82} key={idex} />;
                         })}
                     </Box>
                 ))}
@@ -144,7 +145,7 @@ const ProfileSkeletonDetail: React.FC<ProfileSkeletonProps> = ({ isLoading }) =>
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Skeleton variant='rounded' width='20%' height={12} />
             </Box>
-            <Box sx={{ display: 'flex', mt: '-20px', flexDirection: 'column' }}>
+            {/* <Box sx={{ display: 'flex', mt: '-20px', flexDirection: 'column' }}>
                 <Box onClick={() => router.push('/referral')} sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                     <img src='/images/dummy/banner-invite.png' alt='yy' style={{ width: '90%' }} />
                 </Box>
@@ -158,7 +159,7 @@ const ProfileSkeletonDetail: React.FC<ProfileSkeletonProps> = ({ isLoading }) =>
                     })}
                 </Box>
                 <SocialMediaList skeleton />
-            </Box>
+            </Box> */}
         </Box>
     );
 };
