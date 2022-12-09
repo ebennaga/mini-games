@@ -93,6 +93,7 @@ const GameResultTournament = () => {
         return <LoadingResultTournament />;
     }
     console.log(firstPosition);
+    console.log('authsdata', authsData?.adjacent_leaderboards);
     return (
         <Box component='main' width='100%'>
             <Box padding='0 20px'>
@@ -161,8 +162,8 @@ const GameResultTournament = () => {
                             username={item.username?.toLowerCase()}
                             score={item.score}
                             type={typeTournament}
-                            point={item.point}
-                            // point={typeTournament === 'casual' ? item.total_prize.coin : item.total_prize.point}
+                            // point={item.point}
+                            point={typeTournament === 'casual' ? item.prize.coin : item.prize.point}
                         />
                     );
                 })}
