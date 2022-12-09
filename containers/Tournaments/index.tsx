@@ -115,7 +115,7 @@ const Tournaments = () => {
                 <HeaderBack title={`${userState?.page === 'casual' ? 'Casual Tournaments' : 'Grand Tournaments'}`} isTournament />
             </Box>
             {dataFeeds.tournaments.length === 0 || dataFeeds.free_tournaments.length === 0 ? (
-                <Box marginTop='150px' sx={{ textAlign: 'center' }}>
+                <Box marginTop='200px' sx={{ textAlign: 'center' }}>
                     <img src='/images/leaderboard-img.png' alt='empty-tournament' />
                     <Typography sx={{ color: '#949494', fontWeight: 700, fontSize: '18px', mt: 3 }}>
                         Stay Tune for the Tournament
