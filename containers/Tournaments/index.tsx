@@ -90,7 +90,8 @@ const Tournaments = () => {
     if (isLoading) {
         return <TournamentsSkeleton />;
     }
-    console.log(dataFeeds?.tournaments.length);
+    console.log(dataFeeds?.tournaments);
+    console.log(dataFeeds?.free_tournaments);
     return (
         <Box sx={{ width: '100%' }}>
             <Box
@@ -113,8 +114,8 @@ const Tournaments = () => {
                 {/* <HeaderBack title='Tournaments' /> */}
                 <HeaderBack title={`${userState?.page === 'casual' ? 'Casual Tournaments' : 'Grand Tournaments'}`} isTournament />
             </Box>
-            {dataFeeds.tournaments.length <= 0 && dataFeeds.free_tournaments.length <= 0 ? (
-                <Box sx={{ textAlign: 'center' }}>
+            {dataFeeds.tournaments.length === 0 || dataFeeds.free_tournaments.length === 0 ? (
+                <Box marginTop='200px' sx={{ textAlign: 'center' }}>
                     <img src='/images/leaderboard-img.png' alt='empty-tournament' />
                     <Typography sx={{ color: '#949494', fontWeight: 700, fontSize: '18px', mt: 3 }}>
                         Stay Tune for the Tournament
@@ -123,22 +124,19 @@ const Tournaments = () => {
             ) : (
                 <>
                     <Box component='section' marginTop='70px' marginBottom='45px'>
-                        {dataFeeds.tournaments.length !== 0 ||
-                            (dataFeeds.free_tournaments.length !== 0 && (
-                                <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-                                    <img src='/icons/wifi.svg' width='14px' height='18.5px' alt='attention' />
-                                    <Typography
-                                        component='h2'
-                                        fontSize='18px'
-                                        marginTop='3px'
-                                        marginLeft='5px'
-                                        fontWeight={700}
-                                        sx={{ color: '#A54CE5' }}
-                                    >
-                                        On Going {userState?.page === 'casual' ? 'Casual Tournaments' : 'Grand Tournaments'}
-                                    </Typography>
-                                </Box>
-                            ))}
+                        <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+                            <img src='/icons/wifi.svg' width='14px' height='18.5px' alt='attention' />
+                            <Typography
+                                component='h2'
+                                fontSize='18px'
+                                marginTop='3px'
+                                marginLeft='5px'
+                                fontWeight={700}
+                                sx={{ color: '#A54CE5' }}
+                            >
+                                On Going {userState?.page === 'casual' ? 'Casual Tournaments' : 'Grand Tournaments'}
+                            </Typography>
+                        </Box>
                         {((userState?.page === 'casual' && dataFeeds?.free_tournaments.length <= 0) ||
                             (userState?.page === 'grand' && dataFeeds?.tournaments.length <= 0)) && (
                             <Box sx={{ textAlign: 'center' }}>
