@@ -37,7 +37,6 @@ const GameResultTournament = () => {
                 const resData = response.data.data;
                 setFirstPosition(resData.leaderboards[0]);
                 setAuthsData(resData.auths);
-
                 if (resData?.entry_coin === 0) {
                     setTypeTournament('casual');
                 } else {
@@ -162,6 +161,7 @@ const GameResultTournament = () => {
                             score={item.score}
                             type={typeTournament}
                             point={item.point}
+                            // point={typeTournament === 'casual' ? item.total_prize.coin : item.total_prize.point}
                         />
                     );
                 })}
