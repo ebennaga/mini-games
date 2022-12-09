@@ -90,8 +90,9 @@ const Tournaments = () => {
     if (isLoading) {
         return <TournamentsSkeleton />;
     }
-    console.log(dataFeeds?.tournaments);
-    console.log(dataFeeds?.free_tournaments);
+    // console.log(dataFeeds?.tournaments);
+    // console.log(dataFeeds?.free_tournaments);
+    // console.log(userState?.page === 'casual' && dataFeeds.free_tournaments.length > 0);
     return (
         <Box sx={{ width: '100%' }}>
             <Box
@@ -115,7 +116,7 @@ const Tournaments = () => {
                 <HeaderBack title={`${userState?.page === 'casual' ? 'Casual Tournaments' : 'Grand Tournaments'}`} isTournament />
             </Box>
             <>
-                <Box component='section' marginBottom='45px'>
+                <Box component='section' marginTop='70px' marginBottom='45px'>
                     {userState?.page === 'casual' && dataFeeds.free_tournaments.length > 0 && (
                         <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
                             <img src='/icons/wifi.svg' width='14px' height='18.5px' alt='attention' />
@@ -127,7 +128,7 @@ const Tournaments = () => {
                                 fontWeight={700}
                                 sx={{ color: '#A54CE5' }}
                             >
-                                On Going {userState?.page === 'casual' ? 'Casual Tournaments' : 'Grand Tournaments'}
+                                On Going Casual Tournaments
                             </Typography>
                         </Box>
                     )}
@@ -142,7 +143,7 @@ const Tournaments = () => {
                                 fontWeight={700}
                                 sx={{ color: '#A54CE5' }}
                             >
-                                On Going {userState?.page === 'casual' ? 'Casual Tournaments' : 'Grand Tournaments'}
+                                On GoingGrand Tournaments
                             </Typography>
                         </Box>
                     )}
