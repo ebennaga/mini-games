@@ -21,6 +21,7 @@ const Tournaments = () => {
     const [borderValue, setBorderValue] = useState<string>('none');
     const [dataFeeds, setDataFeeds] = useState<any>(null);
     const [dataGamesDetail, setDataGamesDetail] = useState<Array<any>>([]);
+    const [isOngoing, setIsOngoing] = useState<number>(0);
 
     const userState = useSelector((state: any) => state.webpage?.user?.user);
 
@@ -168,23 +169,27 @@ const Tournaments = () => {
                                                 .filter((j: any) => j)[0]
                                         };
 
-                                        return (
-                                            <SwiperSlide key={index}>
-                                                <TournamentCard
-                                                    customWidth='93%'
-                                                    onClick={() => router.push(`/games/${item.game.id}/tournament/${item.id}`)}
-                                                    time={item.end_time}
-                                                    pool={item.total_prize.coin}
-                                                    coin={item.entry_coin}
-                                                    users={item.total_users}
-                                                    imageGame={item.game.banner_url}
-                                                    backgroundImage={item.banner_url}
-                                                    type={item.type}
-                                                    status={filter?.status || 'OPEN'}
-                                                    typeTournament='casual'
-                                                />
-                                            </SwiperSlide>
-                                        );
+                                        if (filter.status === 'OPEN') {
+                                            setIsOngoing(isOngoing + 1);
+                                            return (
+                                                <SwiperSlide key={index}>
+                                                    <TournamentCard
+                                                        customWidth='93%'
+                                                        onClick={() => router.push(`/games/${item.game.id}/tournament/${item.id}`)}
+                                                        time={item.end_time}
+                                                        pool={item.total_prize.coin}
+                                                        coin={item.entry_coin}
+                                                        users={item.total_users}
+                                                        imageGame={item.game.banner_url}
+                                                        backgroundImage={item.banner_url}
+                                                        type={item.type}
+                                                        status={filter?.status || 'OPEN'}
+                                                        typeTournament='casual'
+                                                    />
+                                                </SwiperSlide>
+                                            );
+                                        }
+                                        return null;
                                     })}
                                 </TournamentSwiper>
                             ) : (
@@ -206,25 +211,38 @@ const Tournaments = () => {
                                             .map((game: any) => game?.tournaments.filter((i: any) => i.id === item.id)[0])
                                             .filter((j: any) => j)[0]
                                     };
-                                    return (
-                                        <SwiperSlide key={index}>
-                                            <TournamentCard
-                                                customWidth='93%'
-                                                onClick={() => router.push(`/games/${item.game.id}/tournament/${item.id}`)}
-                                                time={item.end_time}
-                                                pool={item.total_prize.point}
-                                                coin={item.entry_coin}
-                                                users={item.total_users}
-                                                imageGame={item.game.banner_url}
-                                                backgroundImage={item.banner_url}
-                                                type={item.type}
-                                                status={filter?.status || 'OPEN'}
-                                                typeTournament='grand'
-                                            />
-                                        </SwiperSlide>
-                                    );
+
+                                    if (filter.status === 'OPEN') {
+                                        setIsOngoing(isOngoing + 1);
+                                        return (
+                                            <SwiperSlide key={index}>
+                                                <TournamentCard
+                                                    customWidth='93%'
+                                                    onClick={() => router.push(`/games/${item.game.id}/tournament/${item.id}`)}
+                                                    time={item.end_time}
+                                                    pool={item.total_prize.point}
+                                                    coin={item.entry_coin}
+                                                    users={item.total_users}
+                                                    imageGame={item.game.banner_url}
+                                                    backgroundImage={item.banner_url}
+                                                    type={item.type}
+                                                    status={filter?.status || 'OPEN'}
+                                                    typeTournament='grand'
+                                                />
+                                            </SwiperSlide>
+                                        );
+                                    }
+                                    return null;
                                 })}
                             </TournamentSwiper>
+                        )}
+                        {!isOngoing && (
+                            <Box marginTop='10px' sx={{ textAlign: 'center' }}>
+                                <img src='/images/leaderboard-img.png' alt='empty-tournament' />
+                                <Typography sx={{ color: '#949494', fontWeight: 700, fontSize: '18px', mt: 3 }}>
+                                    Stay Tune for the Tournament
+                                </Typography>
+                            </Box>
                         )}
                     </Box>
                 </Box>
