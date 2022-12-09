@@ -54,10 +54,10 @@ const GameDetailContainer = () => {
                     return null;
                 });
                 dataRes?.free_tournaments?.map((item: any) => {
-                    // if (item.total_prize?.point > 0) {
-                    //     return setIsGrandTournament(isGrandTournament + 1);
-                    // }
-                    if (item.total_prize?.coin > 0) {
+                    if (item.entry_coin > 0) {
+                        return setIsGrandTournament(isGrandTournament + 1);
+                    }
+                    if (item.entry_coin === 0) {
                         return setIsCasualTournament(isCasualTournament + 1);
                     }
                     return null;
@@ -109,7 +109,7 @@ const GameDetailContainer = () => {
         }
         return setSignupLoginDialog(true);
     };
-    const Loadings: boolean = true;
+
     if (isLoading) {
         return <GameDetailSkeleton />;
     }

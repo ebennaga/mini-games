@@ -21,6 +21,7 @@ const Tournaments = () => {
     const [borderValue, setBorderValue] = useState<string>('none');
     const [dataFeeds, setDataFeeds] = useState<any>(null);
     const [dataGamesDetail, setDataGamesDetail] = useState<Array<any>>([]);
+
     const userState = useSelector((state: any) => state.webpage?.user?.user);
 
     const { fetchAPI } = useAPICaller();
