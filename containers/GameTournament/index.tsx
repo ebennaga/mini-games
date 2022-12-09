@@ -167,6 +167,7 @@ const GameTournament = () => {
                         playerImg3='/icons/dummy/user-2.png'
                         isComingSoon={isComingSoon}
                         type={listingGame?.type}
+                        entryCoin={listingGame?.entry_coin}
                     />{' '}
                 </>
             )}
