@@ -37,7 +37,6 @@ const GameResultTournament = () => {
                 const resData = response.data.data;
                 setFirstPosition(resData.leaderboards[0]);
                 setAuthsData(resData.auths);
-
                 if (resData?.entry_coin === 0) {
                     setTypeTournament('casual');
                 } else {
@@ -93,6 +92,7 @@ const GameResultTournament = () => {
     if (loadingFetchTournament) {
         return <LoadingResultTournament />;
     }
+    console.log(firstPosition);
     return (
         <Box component='main' width='100%'>
             <Box padding='0 20px'>
@@ -135,7 +135,7 @@ const GameResultTournament = () => {
                 </Typography>
                 <RankCard
                     rank={firstPosition?.position}
-                    image='/icons/dummy/profile-2.png'
+                    image={firstPosition?.user.avatar_url}
                     username={firstPosition?.user.username.toLowerCase() || userState.displayName}
                     score={firstPosition?.user.total_score}
                     point={firstPosition?.user.point_prize}
@@ -162,6 +162,7 @@ const GameResultTournament = () => {
                             score={item.score}
                             type={typeTournament}
                             point={item.point}
+                            // point={typeTournament === 'casual' ? item.total_prize.coin : item.total_prize.point}
                         />
                     );
                 })}
