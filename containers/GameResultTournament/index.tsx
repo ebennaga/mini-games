@@ -92,8 +92,9 @@ const GameResultTournament = () => {
     if (loadingFetchTournament) {
         return <LoadingResultTournament />;
     }
-    console.log(firstPosition);
-    console.log('authsdata', authsData?.adjacent_leaderboards);
+    // console.log(firstPosition);
+    // console.log('authsdata', authsData?.adjacent_leaderboards);
+    // console.log('userstate', userState);
     return (
         <Box component='main' width='100%'>
             <Box padding='0 20px'>
@@ -139,7 +140,7 @@ const GameResultTournament = () => {
                     image={firstPosition?.user.avatar_url}
                     username={firstPosition?.user.username.toLowerCase() || userState.displayName}
                     score={firstPosition?.user.total_score}
-                    point={firstPosition?.user.point_prize}
+                    point={typeTournament === 'casual' ? firstPosition?.user.prize.coin : firstPosition?.user.prize.point}
                     disabledUnderline
                     type={typeTournament}
                 />
