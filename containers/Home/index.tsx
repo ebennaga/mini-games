@@ -74,6 +74,7 @@ const HomeContainer = () => {
                 endpoint: '/home/feeds',
                 method: 'GET'
             });
+            // const newDataCasual: any = [];
             const data: any = await getLocalData();
             setDataTutorial(data.tutorial);
             window.scrollTo(0, 0);
@@ -84,8 +85,15 @@ const HomeContainer = () => {
                     setIsWelcome(true);
                 }
                 setDatasHome(res.data.data);
-                setDatasCasual(res.data.data.free_tournaments);
-                setDatasGrands(res.data.data.tournaments);
+                // setDatasCasual(res.data.data.free_tournaments);
+                const newDataCasual = res.data.data.free_tournaments.filter((item: any) => {
+                    return item.status === 'OPEN';
+                });
+                const newDatafGrand = res.data.data.tournaments.filter((item: any) => {
+                    return item.status === 'OPEN';
+                });
+                setDatasCasual(newDataCasual);
+                setDatasGrands(newDatafGrand);
             }
         } catch (e: any) {
             notify('failed data', 'e');
@@ -143,6 +151,8 @@ const HomeContainer = () => {
     if (isLoading || !datasHome) {
         return <HomeSkeleton />;
     }
+    // console.log(datasCasual);
+    // console.log(datasGrands);
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
             <DialogBanner open={openBannerTournament} setOpen={setOpenBannerTournament} />
