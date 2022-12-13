@@ -10,12 +10,6 @@ const getRemainingTimes = (date: any) => {
         let currentHour = currentDate.getHours();
         const timeArr = currentDate.toLocaleTimeString().split(' ');
 
-        if (timeArr[1] === 'PM') {
-            currentHour = 24 - Number(arrHour[0]) - currentHour + 1;
-        } else {
-            currentHour = Number(arrHour[0]) - currentHour + 1;
-        }
-
         if (timeArr[1] === 'AM') {
             const hourInArr = timeArr[0].split(':')[0];
             currentHour = Number(hourInArr) * 2;
@@ -54,6 +48,12 @@ const getRemainingTimes = (date: any) => {
         }
         if (resultHour < 0) {
             resultHour = (-23 - resultHour) * -1;
+        }
+
+        if (timeArr[1] === 'PM') {
+            resultHour = 24 - Number(arrHour[0]) - currentHour - 1;
+        } else {
+            resultHour = Number(arrHour[0]) - currentHour - 1;
         }
 
         return `${currentDay}d ${resultHour}h ${resMinute}m`;
