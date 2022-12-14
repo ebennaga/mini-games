@@ -1,10 +1,7 @@
 /* eslint-disable no-nested-ternary */
-/* eslint-disable no-unused-vars */
 import { Box, Typography } from '@mui/material';
 import HeaderBack from 'components/HeaderBack';
 import TournamentCard from 'components/TournamentCard';
-// import TournamentSlider from 'components/TournamentSlider';
-import TournamentSliderGD from 'components/TournamentSlider/TournamentSliderGD';
 import useAPICaller from 'hooks/useAPICaller';
 import useNotify from 'hooks/useNotify';
 import { useRouter } from 'next/router';
@@ -21,7 +18,6 @@ const Tournaments = () => {
     const [borderValue, setBorderValue] = useState<string>('none');
     const [dataFeeds, setDataFeeds] = useState<any>(null);
     const [dataGamesDetail, setDataGamesDetail] = useState<Array<any>>([]);
-    const [isOngoing, setIsOngoing] = useState<number>(0);
 
     const userState = useSelector((state: any) => state.webpage?.user?.user);
 
@@ -38,7 +34,6 @@ const Tournaments = () => {
             });
             if (resFeeds.status === 200) {
                 setDataFeeds(resFeeds.data.data);
-                console.log(resFeeds.data.data);
             } else {
                 notify('Error fetch data tournaments', 'error');
             }
@@ -92,9 +87,7 @@ const Tournaments = () => {
     if (isLoading) {
         return <TournamentsSkeleton />;
     }
-    // console.log(dataFeeds?.tournaments);
-    // console.log(dataFeeds?.free_tournaments);
-    // console.log(userState?.page === 'casual' && dataFeeds.free_tournaments.length > 0);
+
     return (
         <Box sx={{ width: '100%' }}>
             <Box
@@ -227,13 +220,13 @@ const Tournaments = () => {
                     </Box>
                 </Box>
                 {userState?.page !== 'casual' &&
-                    dataGamesDetail.map((item: any) => {
+                    dataGamesDetail.map((item: any, idx: number) => {
                         const isShow = item.tournaments.filter((value: any) => value.entry_coin > 0);
 
                         return (
                             item.tournaments?.length > 0 &&
                             isShow.length > 0 && (
-                                <Box component='section' marginBottom='46px'>
+                                <Box component='section' marginBottom='46px' key={idx}>
                                     <GameHeader image={item.banner_url} title={item.name} />
                                     <Box marginTop='24px' sx={{ width: { xs: '100vw', sm: '100%', md: '100%', lg: '100%' } }}>
                                         <TournamentSwiper>
@@ -265,13 +258,13 @@ const Tournaments = () => {
                         );
                     })}
                 {userState?.page === 'casual' &&
-                    dataGamesDetail.map((item: any) => {
+                    dataGamesDetail.map((item: any, idx: number) => {
                         const isShow = item.tournaments.filter((value: any) => value.entry_coin === 0);
 
                         return (
                             item.tournaments?.length > 0 &&
                             isShow.length > 0 && (
-                                <Box component='section' marginBottom='46px'>
+                                <Box component='section' marginBottom='46px' key={idx}>
                                     <GameHeader image={item.banner_url} title={item.name} />
                                     <Box marginTop='24px' sx={{ width: { xs: '100vw', sm: '100%', md: '100%', lg: '100%' } }}>
                                         <TournamentSwiper>
