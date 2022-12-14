@@ -12,7 +12,11 @@ const getRemainingTimes = (date: any) => {
 
         if (timeArr[1] === 'AM') {
             const hourInArr = timeArr[0].split(':')[0];
-            currentHour = Number(hourInArr) * 2;
+            if (arrSpace[1] === '12:00:00') {
+                currentHour = Number(hourInArr) * 2 + 2;
+            } else {
+                currentHour = Number(hourInArr);
+            }
         }
 
         const currentMinute = currentDate.getMinutes();
@@ -20,6 +24,21 @@ const getRemainingTimes = (date: any) => {
         let resultHour = Number(arrHour[0]) - Number(currentHour);
         if (arrHour[0] === '00') {
             resultHour = 24 - Number(currentHour) - 1;
+        }
+
+        if (timeArr[1] === 'PM') {
+            if (arrSpace[2] === 'PM') {
+                resultHour = 24 - Number(arrHour[0]) - currentHour - 1;
+            } else {
+                resultHour = Number(arrHour[0]) - currentHour - 1;
+            }
+        }
+        if (timeArr[1] === 'AM') {
+            if (arrSpace[2] === 'PM') {
+                resultHour = 24 - Number(arrHour[0]) - currentHour - 1;
+            } else {
+                resultHour = Number(arrHour[0]) - currentHour - 1;
+            }
         }
 
         let resMinute = currentMinute;
@@ -48,12 +67,6 @@ const getRemainingTimes = (date: any) => {
         }
         if (resultHour < 0) {
             resultHour = (-23 - resultHour) * -1;
-        }
-
-        if (timeArr[1] === 'PM') {
-            resultHour = 24 - Number(arrHour[0]) - currentHour - 1;
-        } else {
-            resultHour = Number(arrHour[0]) - currentHour - 1;
         }
 
         return `${currentDay}d ${resultHour}h ${resMinute}m`;
