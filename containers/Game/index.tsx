@@ -53,6 +53,7 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
             if (res.status === 200 && router.query.search) {
                 const resSearch = await handleSearch(router.query.search, res.data.data);
                 setSearchData(resSearch);
+                setLoading(false);
             }
 
             if (res.status === 200) {
