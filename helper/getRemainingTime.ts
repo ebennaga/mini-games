@@ -1,13 +1,15 @@
 const getRemainingTimes = (date: any) => {
     try {
-        const arrSpace = String(date)[10] === 'T' ? String(date).split('T') : String(date).split(' ');
+        const dateToLocale = new Date(date).toLocaleString('en-US');
+        const arrSpace = String(dateToLocale)[10] === 'T' ? String(dateToLocale).split('T') : String(dateToLocale).split(' ');
         const arrHour: any = arrSpace[1].split(':');
 
         const currentDate: any = new Date();
-        const seconds: any = Math.floor((new Date(date).valueOf() - new Date().valueOf()) / 1000);
+        const seconds: any = Math.floor((new Date(dateToLocale).valueOf() - new Date().valueOf()) / 1000);
         const currentDay = Math.floor(seconds / 86400);
         let currentHour = currentDate.getHours();
         const timeArr = currentDate.toLocaleTimeString().split(' ');
+
         if (timeArr[1] === 'AM') {
             const hourInArr = timeArr[0].split(':')[0];
             currentHour = Number(hourInArr) * 2;
@@ -46,6 +48,12 @@ const getRemainingTimes = (date: any) => {
         }
         if (resultHour < 0) {
             resultHour = (-23 - resultHour) * -1;
+        }
+
+        if (timeArr[1] === 'PM') {
+            resultHour = 24 - Number(arrHour[0]) - currentHour - 1;
+        } else {
+            resultHour = Number(arrHour[0]) - currentHour - 1;
         }
 
         return `${currentDay}d ${resultHour}h ${resMinute}m`;

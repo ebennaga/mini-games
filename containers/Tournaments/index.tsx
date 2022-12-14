@@ -38,6 +38,7 @@ const Tournaments = () => {
             });
             if (resFeeds.status === 200) {
                 setDataFeeds(resFeeds.data.data);
+                console.log(resFeeds.data.data);
             } else {
                 notify('Error fetch data tournaments', 'error');
             }
@@ -144,7 +145,7 @@ const Tournaments = () => {
                                 fontWeight={700}
                                 sx={{ color: '#A54CE5' }}
                             >
-                                On GoingGrand Tournaments
+                                On Going Grand Tournaments
                             </Typography>
                         </Box>
                     )}
