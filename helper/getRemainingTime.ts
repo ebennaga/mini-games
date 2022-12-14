@@ -68,6 +68,9 @@ const getRemainingTimes = (date: any) => {
         if (resultHour < 0) {
             resultHour = (-23 - resultHour) * -1;
         }
+        if (resultHour === -1) {
+            resultHour = 0;
+        }
 
         return `${currentDay}d ${resultHour}h ${resMinute}m`;
     } catch (err: any) {
