@@ -18,7 +18,7 @@ import TitleTournament from 'components/TitleTournament';
 import GameDetailSkeleton from './GameDetailSkeleton';
 
 const GameDetailContainer = () => {
-    const isBack = true;
+    // const isBack = true;
     const router = useRouter();
     const { fetchAPI } = useAPICaller();
     const [isLoading, setIsLoading] = React.useState(true);
@@ -126,7 +126,14 @@ const GameDetailContainer = () => {
                     backgroundColor: 'transparent'
                 }}
             >
-                <Header isBack={isBack} hrefBack='/games' point={102_300} profilePicture='/icons/dummy/profile.png' />
+                <Header
+                    logo='/images/arrowback.svg'
+                    heightLogo='auto'
+                    widthLogo='30px'
+                    hrefBack='/games'
+                    point={102_300}
+                    profilePicture='/icons/dummy/profile.png'
+                />
             </Box>
             <Box
                 sx={{

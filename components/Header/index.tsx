@@ -174,7 +174,7 @@ const Header: React.FC<HeaderProps> = ({
         >
             {isBack ? (
                 <ButtonBase
-                    onClick={() => router.back()}
+                    onClick={() => router.push(`/games/${router.query.id}`)}
                     sx={{ width: '24px', height: '24px', borderRadius: '50px', background: '#A54CE5' }}
                 >
                     <ArrowBackIcon sx={{ color: '#fff', width: '20px', height: '20px', fontWeight: 'bold' }} />
