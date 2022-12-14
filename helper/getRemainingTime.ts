@@ -35,9 +35,9 @@ const getRemainingTimes = (date: any) => {
         }
         if (timeArr[1] === 'AM') {
             if (arrSpace[2] === 'PM') {
-                resultHour = 24 - Number(arrHour[0]) - currentHour - 1;
+                resultHour = 12 - Number(arrHour[0]) - currentHour;
             } else {
-                resultHour = Number(arrHour[0]) - currentHour - 1;
+                resultHour = Number(arrHour[0]) - currentHour;
             }
         }
 
