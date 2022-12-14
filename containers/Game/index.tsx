@@ -57,6 +57,7 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
 
             if (res.status === 200) {
                 setListingGame(res.data.data);
+                setLoading(false);
             } else {
                 notify(res.message, 'error');
                 setLoading(false);
