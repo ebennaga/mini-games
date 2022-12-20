@@ -245,7 +245,7 @@ const Tournaments = () => {
                                                                 backgroundImage={itm.banner_url}
                                                                 type={itm.type}
                                                                 status={itm.status}
-                                                                typeTournament={item.entry_coin === 0 ? 'casual' : 'grand'}
+                                                                typeTournament='grand'
                                                             />
                                                         </SwiperSlide>
                                                     )
@@ -283,7 +283,7 @@ const Tournaments = () => {
                                                                 backgroundImage={itm.banner_url}
                                                                 type={itm.type}
                                                                 status={itm.status}
-                                                                typeTournament={item.entry_coin === 0 ? 'casual' : 'grand'}
+                                                                typeTournament='casual'
                                                             />
                                                         </SwiperSlide>
                                                     )
