@@ -14,6 +14,24 @@ const Document = () => {
             <body>
                 <Main />
                 <NextScript />
+                <noscript>
+                    {/* <iframe
+                        src='https://www.googletagmanager.com/ns.html?id=GTM-N4328N7'
+                        height='0'
+                        width='0'
+                        style='display:none;visibility:hidden'
+                    /> */}
+                    <iframe
+                        src='https://www.googletagmanager.com/ns.html?id=GTM-N4328N7'
+                        height='0'
+                        width='0'
+                        title='googleTagManagerNoScript'
+                        style={{
+                            display: 'none',
+                            visibility: 'hidden'
+                        }}
+                    />
+                </noscript>
             </body>
         </Html>
     );
