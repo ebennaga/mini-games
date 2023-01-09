@@ -173,11 +173,22 @@ const GameResultTournament = () => {
                     sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '72px', marginBottom: '30px' }}
                 >
                     <Typography component='p' fontSize='14px' fontWeight={600}>
-                        Use your
+                        {typeTournament === 'casual' ? '' : 'Use your'}
                     </Typography>
-                    <img src='/icons/coins.svg' width='12.91px' height='10.95px' alt='coins' style={{ padding: '0 2px' }} loading='lazy' />
+                    {typeTournament === 'casual' ? (
+                        ''
+                    ) : (
+                        <img
+                            src='/icons/coins.svg'
+                            width='12.91px'
+                            height='10.95px'
+                            alt='coins'
+                            style={{ padding: '0 2px' }}
+                            loading='lazy'
+                        />
+                    )}
                     <Typography component='p' fontSize='14px' fontWeight={800} paddingRight='2px'>
-                        20
+                        {typeTournament === 'casual' ? '' : 20}
                     </Typography>
                     <Typography component='p' fontSize='14px' fontWeight={600}>
                         for Playing Again

@@ -251,9 +251,9 @@ const ShopsContainer = () => {
                         alignItems='center'
                         sx={{ backgroundColor: '#A54CE5', borderRadius: '15px', height: '230px' }}
                         direction='row'
-                        onClick={() => {
-                            if (!isComingSoon) router.push('/shops/lucky-raffle');
-                        }}
+                        // onClick={() => {
+                        //     if (!isComingSoon) router.push('/shops/lucky-raffle');
+                        // }}
                     >
                         <Grid
                             item
@@ -297,9 +297,9 @@ const ShopsContainer = () => {
                                     </Box>
                                 ) : (
                                     <Button
-                                        onClick={() => {
-                                            router.push('/shops/lucky-raffle');
-                                        }}
+                                        // onClick={() => {
+                                        //     router.push('/shops/lucky-raffle');
+                                        // }}
                                         title='Join Now'
                                         backgoundColor='white'
                                         color='#A54CE5'
