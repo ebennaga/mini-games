@@ -66,7 +66,7 @@ const Page: NextPage = () => {
                     ],
                     'div-gpt-ad-1673345189765-0'
                 )
-                .setCollapseEmptyDiv(true)
+                // .setCollapseEmptyDiv(true)
                 .defineSizeMapping(mapping1)
                 .addService(googletag.pubads());
             googletag.pubads().enableSingleRequest();
@@ -92,7 +92,7 @@ const Page: NextPage = () => {
 
             <Layout backgoundColor='#fff' isCarousel isTab isBackground>
                 <HomePage />
-                <div id='div-gpt-ad-1673345189765-0' style={{ textAlign: 'center' }}>
+                <div id='div-gpt-ad-1673345189765-0' style={{ textAlign: 'center', marginTop: '10%', backgroundColor: '#92a8d1' }}>
                     <script>
                         {/* var gptAdSlots = [];
       window.googletag = window.googletag || {cmd: []};
