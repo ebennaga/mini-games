@@ -1,13 +1,52 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import Layout from 'components/Layout/Index';
 import Script from 'next/script';
+import React from 'react';
 
 const HomePage = dynamic(() => import('containers/Home'), { ssr: false });
+export {};
 
+declare global {
+    interface Window {
+        googletag: any;
+    }
+}
 const Page: NextPage = () => {
+    React.useEffect(() => {
+        window.googletag = window.googletag || { cmd: [] };
+        googletag.cmd.push(function () {
+            googletag
+                .defineSlot(
+                    '/21622890900,22860604212/ID_prizeplay.io_res_home_top_320x100//320x50',
+                    [
+                        [320, 50],
+                        [320, 100]
+                    ],
+                    'div-gpt-ad-1673344839334-0'
+                )
+                .setCollapseEmptyDiv(true)
+                .addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+            googletag.display('div-gpt-ad-1673344839334-0');
+        });
+        // window.googletag = window.googletag || { cmd: [] };
+        // let adSlot1;
+        // let adSlot2;
+        // googletag.cmd.push(function () {
+        //     // Define ad slot 1.
+        //     adSlot1 = googletag?.defineSlot('/6355419/Travel/Europe/France', [728, 90], 'banner-ad-1').addService(googletag.pubads());
+        //     // Define ad slot 2.
+        //     // adSlot2 = googletag.defineSlot('/6355419/Travel/Europe/France', [728, 90], 'banner-ad-2').addService(googletag.pubads());
+        //     // Enable SRA and services.
+        //     googletag.pubads().enableSingleRequest();
+        //     googletag.enableServices();
+        // });
+    }, []);
     return (
         <>
             <Head>
@@ -21,9 +60,26 @@ const Page: NextPage = () => {
                 src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3078290294001067'
                 crossOrigin='anonymous'
             />
+            {/* <Script async src='https://securepubads.g.doubleclick.net/tag/js/gpt.js' /> */}
+            <script async src='https://securepubads.g.doubleclick.net/tag/js/gpt.js' />
 
             <Layout backgoundColor='#fff' isCarousel isTab isBackground>
                 <HomePage />
+                <div id='div-gpt-ad-1673344839334-0' style={{ textAlign: 'center' }}>
+                    <script>
+                        {/* var gptAdSlots = [];
+      window.googletag = window.googletag || {cmd: []};
+      googletag.cmd.push(function() {
+      var mapping1 = googletag.sizeMapping().
+      addSize([780, 500],[[300, 250], [336, 280]]).
+      addSize([0, 0], [[300, 250], [336, 280], [300, 600]]).
+      build();   
+          gptAdSlots[0] =
+          googletag.defineSlot('/21622890900,22860604212/ID_prizeplay.io_res_home_mid_300x600//300x250//336x280', [[300, 600], [300, 250], [336, 280]], 'div-gpt-ad-1673345189765-0').setCollapseEmptyDiv(true).defineSizeMapping(mapping1).addService(googletag.pubads());
+          googletag.pubads().enableSingleRequest();googletag.enableServices();googletag.display('div-gpt-ad-1673345189765-0');
+      }); */}
+                    </script>
+                </div>
             </Layout>
         </>
     );
