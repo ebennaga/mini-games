@@ -31,7 +31,6 @@ const Header: React.FC<HeaderProps> = ({
     point,
     profilePicture,
     isBack,
-
     hrefBack,
     paddingX,
     widthLogo = '75px',
@@ -126,6 +125,7 @@ const Header: React.FC<HeaderProps> = ({
     if (isLoading) {
         return <HeaderSkeleton isPage />;
     }
+    // console.log(router.asPath.includes('/shops/prize/'));
     if (isFirebaseLoading) {
         return (
             <Box
@@ -174,7 +174,12 @@ const Header: React.FC<HeaderProps> = ({
         >
             {isBack ? (
                 <ButtonBase
-                    onClick={() => router.push(`/games/${router.query.id}`)}
+                    onClick={() => {
+                        if (router.asPath.includes('/shops/prize/')) {
+                            return router.back();
+                        }
+                        return router.push(`/games/${router.query.id}`);
+                    }}
                     sx={{ width: '24px', height: '24px', borderRadius: '50px', background: '#A54CE5' }}
                 >
                     <ArrowBackIcon sx={{ color: '#fff', width: '20px', height: '20px', fontWeight: 'bold' }} />
