@@ -20,18 +20,18 @@ const Page = () => {
         googletag.cmd.push(function () {
             googletag
                 .defineSlot(
-                    '/21622890900,22860604212/ID_prizeplay.io_res_home_top_320x100//320x50',
+                    '/21622890900,22860604212/ID_prizeplay.io_res_cate_top_320x100//320x50',
                     [
                         [320, 50],
                         [320, 100]
                     ],
-                    'div-gpt-ad-1673344839334-0'
+                    'div-gpt-ad-1673345092793-0'
                 )
-                // .setCollapseEmptyDiv(false)
+                .setCollapseEmptyDiv(true)
                 .addService(googletag.pubads());
             googletag.pubads().enableSingleRequest();
             googletag.enableServices();
-            googletag.display('div-gpt-ad-1673344839334-0');
+            googletag.display('div-gpt-ad-1673345092793-0');
         });
     }, []);
     return (
@@ -43,7 +43,7 @@ const Page = () => {
             </Head>
             <Layout backgoundColor='#fff' isBackground>
                 <PlayGameContainer />
-                <div id='div-gpt-ad-1673344839334-0' style={{ textAlign: 'center' }} />
+                <div id='div-gpt-ad-1673345092793-0' style={{ textAlign: 'center' }} />
             </Layout>
         </>
     );
