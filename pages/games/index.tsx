@@ -74,7 +74,6 @@ const Page = () => {
             <script async src='https://securepubads.g.doubleclick.net/tag/js/gpt.js' />
             <Layout isTab isBackground>
                 <GameContainer playerImg1='' playerImg2='' playerImg3='' totalPlayer={0} />
-                <div id='div-gpt-ad-1673345310263-0' style={{ textAlign: 'center' }} />
             </Layout>
         </>
     );

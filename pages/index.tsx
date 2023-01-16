@@ -84,8 +84,10 @@ const Page: NextPage = () => {
             googletag.pubads().enableSingleRequest();
             googletag.enableServices();
             googletag.display('div-gpt-ad-1673344839334-0');
+            googletag.display('div-gpt-ad-1673345189765-0');
         });
     }, []);
+
     return (
         <>
             <Head>
@@ -93,6 +95,7 @@ const Page: NextPage = () => {
                 <link rel='manifest' href='/manifest.json' />
                 <meta name='description' content='Play for fun and prize' />
                 <link rel='icon' href='/favicon.ico' />
+                <meta name='facebook-domain-verification' content='fn8rg0nxt2hs13pi1kkbtfsq4dadfd' />
             </Head>
             <Script
                 async
@@ -104,7 +107,9 @@ const Page: NextPage = () => {
 
             <Layout backgoundColor='#fff' isCarousel isTab isBackground>
                 <HomePage />
-                <div id='div-gpt-ad-1673344839334-0' style={{ textAlign: 'center' }} />
+                {/* <div id='div-gpt-ad-1673344839334-0' style={{ textAlign: 'center' }} /> */}
+
+                <div id='div-gpt-ad-1673345189765-0' style={{ textAlign: 'center' }} />
             </Layout>
         </>
     );
