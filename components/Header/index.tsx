@@ -24,6 +24,7 @@ interface HeaderProps {
     paddingX?: string;
     isShops?: boolean;
     dataLocal?: any;
+    customBackElement?: any;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -36,7 +37,8 @@ const Header: React.FC<HeaderProps> = ({
     widthLogo = '75px',
     heightLogo = '39px',
     isShops = false,
-    dataLocal
+    dataLocal,
+    customBackElement
 }) => {
     const userState = useSelector((state: any) => state?.webpage?.user?.user);
     const classes = useStyles();
@@ -142,7 +144,7 @@ const Header: React.FC<HeaderProps> = ({
                     paddingX: paddingX || 0
                 }}
             >
-                {isBack ? (
+                {/* {isBack ? (
                     <ButtonBase
                         onClick={() => router.back()}
                         sx={{ width: '24px', height: '24px', borderRadius: '50px', background: '#A54CE5' }}
@@ -153,7 +155,20 @@ const Header: React.FC<HeaderProps> = ({
                     <ButtonBase onClick={() => router.push('/')}>
                         <img src={logo} width={widthLogo} height={heightLogo} alt='prize play' loading='lazy' />
                     </ButtonBase>
-                )}
+                )} */}
+                {customBackElement ||
+                    (isBack && !customBackElement ? (
+                        <ButtonBase
+                            onClick={() => router.back()}
+                            sx={{ width: '24px', height: '24px', borderRadius: '50px', background: '#A54CE5' }}
+                        >
+                            <ArrowBackIcon sx={{ color: '#fff', width: '20px', height: '20px', fontWeight: 'bold' }} />
+                        </ButtonBase>
+                    ) : (
+                        <ButtonBase onClick={() => router.push('/')}>
+                            <img src={logo} width={widthLogo} height={heightLogo} alt='prize play' loading='lazy' />
+                        </ButtonBase>
+                    ))}
             </Box>
         );
     }
@@ -172,7 +187,7 @@ const Header: React.FC<HeaderProps> = ({
                 paddingX: paddingX || 0
             }}
         >
-            {isBack ? (
+            {/* {isBack ? (
                 <ButtonBase
                     onClick={() => {
                         if (router.asPath.includes('/shops/prize/')) {
@@ -185,10 +200,36 @@ const Header: React.FC<HeaderProps> = ({
                     <ArrowBackIcon sx={{ color: '#fff', width: '20px', height: '20px', fontWeight: 'bold' }} />
                 </ButtonBase>
             ) : (
-                <ButtonBase onClick={() => router.push('/')}>
+                <ButtonBase
+                    onClick={() => {
+                        router.push('/');
+                    }}
+                >
                     <img src={logo} width={widthLogo} height={heightLogo} alt='prize play' loading='lazy' />
                 </ButtonBase>
-            )}
+            )} */}
+            {customBackElement ||
+                (isBack ? (
+                    <ButtonBase
+                        onClick={() => {
+                            if (router.asPath.includes('/shops/prize/')) {
+                                return router.back();
+                            }
+                            return router.push(`/games/${router.query.id}`);
+                        }}
+                        sx={{ width: '24px', height: '24px', borderRadius: '50px', background: '#A54CE5' }}
+                    >
+                        <ArrowBackIcon sx={{ color: '#fff', width: '20px', height: '20px', fontWeight: 'bold' }} />
+                    </ButtonBase>
+                ) : (
+                    <ButtonBase
+                        onClick={() => {
+                            router.push('/');
+                        }}
+                    >
+                        <img src={logo} width={widthLogo} height={heightLogo} alt='prize play' loading='lazy' />
+                    </ButtonBase>
+                ))}
             {userState && userState?.api_token ? (
                 <Box className={classes.headerRight} sx={{ display: 'flex', alignItems: 'center' }}>
                     <ButtonBase onClick={() => router.push('/topup')}>
