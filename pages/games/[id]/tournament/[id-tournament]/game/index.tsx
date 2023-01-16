@@ -57,7 +57,6 @@ const Page = () => {
             </Head>
             <Layout backgoundColor='#fff' isBackground>
                 <PlayGameContainer />
-                <div id='div-gpt-ad-1673345092793-0' style={{ textAlign: 'center' }} />
             </Layout>
         </>
     );

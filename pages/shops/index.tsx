@@ -68,7 +68,6 @@ const Page = () => {
             </Head>
             <Layout backgoundColor='#fff' isTab isBackground>
                 <ShopsContainer />
-                <div id='div-gpt-ad-1673345406261-0' />
             </Layout>
         </>
     );

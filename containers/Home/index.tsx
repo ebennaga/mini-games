@@ -180,6 +180,7 @@ const HomeContainer = () => {
             >
                 <Header logo='/icons/logo.svg' point={102_300} profilePicture='/icons/dummy/profile.png' dataLocal={dataTutorial} />
             </Box>
+
             <Box component='section' sx={{ display: 'flex', alignItems: 'center' }}>
                 <Search form={form} name='search' placeholder='Search Games' onSubmit={handleSearch} />
                 <ButtonBase onClick={handleMessage} sx={{ marginLeft: '17px', position: 'relative' }}>
@@ -199,6 +200,7 @@ const HomeContainer = () => {
                     <img src='/icons/message.svg' width='36px' height='30px' alt='inbox' />
                 </ButtonBase>
             </Box>
+            <div id='div-gpt-ad-1673344839334-0' style={{ textAlign: 'center' }} />
             <EventTournamentSlider />
             <Box
                 sx={{
