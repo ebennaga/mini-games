@@ -15,6 +15,8 @@ import SignupLoginDialog from 'components/Dialog/SignupLoginDialog';
 import useAuthReducer from 'hooks/useAuthReducer';
 import getRemainingTimes from 'helper/getRemainingTime';
 import TitleTournament from 'components/TitleTournament';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Link from 'next/link';
 import GameDetailSkeleton from './GameDetailSkeleton';
 
 const GameDetailContainer = () => {
@@ -29,6 +31,7 @@ const GameDetailContainer = () => {
     const [openNotifDialog, setOpenNotifDialog] = React.useState<boolean>(false);
     const [isCasualTournament, setIsCasualTournament] = React.useState<number>(0);
     const [isGrandTournament, setIsGrandTournament] = React.useState<number>(0);
+    // const [inertialAds, setInertialAds] = React.useState<'default' | 'open' | 'close'>('default');
 
     const { setUser, clearUser } = useAuthReducer();
 
@@ -110,6 +113,27 @@ const GameDetailContainer = () => {
         return setSignupLoginDialog(true);
     };
 
+    React.useEffect(() => {
+        window.googletag = window.googletag || { cmd: [] };
+        googletag.cmd.push(() => {
+            const slot = googletag.defineOutOfPageSlot(
+                '/21622890900,22860604212/ID_prizeplay.io_res_cate_interstitial_fullscreen',
+                googletag.enums.OutOfPageFormat.INTERSTITIAL
+            );
+            if (slot) {
+                slot.addService(googletag.pubads());
+
+                googletag.pubads().addEventListener('slotOnload', (event: any) => {
+                    if (slot === event.slot) {
+                        document.getElementById('link').style.display = 'flex';
+                    }
+                });
+            }
+            googletag.enableServices();
+            googletag.display(slot);
+        });
+    }, []);
+
     if (isLoading) {
         return <GameDetailSkeleton />;
     }
@@ -133,7 +157,30 @@ const GameDetailContainer = () => {
                     hrefBack='/games'
                     point={102_300}
                     profilePicture='/icons/dummy/profile.png'
+                    customBackElement={
+                        <Link href='/games'>
+                            <a
+                                id='link'
+                                style={{
+                                    width: '24px',
+                                    height: '24px',
+                                    borderRadius: '50px',
+                                    background: '#A54CE5',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                <ArrowBackIcon sx={{ color: '#fff', width: '20px', height: '20px', fontWeight: 'bold' }} />
+                            </a>
+                        </Link>
+                    }
                 />
+                <Link href='/games'>
+                    <a data-google-interstitial='false' style={{ display: 'none' }}>
+                        interstitial
+                    </a>
+                </Link>
             </Box>
             <Box
                 sx={{
