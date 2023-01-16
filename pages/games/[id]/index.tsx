@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
