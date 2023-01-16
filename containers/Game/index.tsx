@@ -129,6 +129,7 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
                     profilePicture='/icons/dummy/profile.png'
                 />
             </Box>
+            <div id='div-gpt-ad-1673345310263-0' style={{ textAlign: 'center' }} />
             <Box
                 sx={{
                     display: 'flex',

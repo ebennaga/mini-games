@@ -193,6 +193,7 @@ const ShopsContainer = () => {
                         </ShopsSwiper>
                     </Box>
                 )}
+                <div id='div-gpt-ad-1673345406261-0' style={{ textAlign: 'center' }} />
                 <Box width='100%' padding='0 20px' margin='20px 0px'>
                     <Grid container justifyContent='space-between' alignItems='center'>
                         <Grid item xs={7} sm={7}>

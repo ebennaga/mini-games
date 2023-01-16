@@ -41,6 +41,7 @@ const PlayTournamentContainer = () => {
     }
     return (
         <Box sx={{ width: '100%' }}>
+            <div id='div-gpt-ad-1673345092793-0' style={{ textAlign: 'center' }} />
             <iframe
                 id='frameGame'
                 onLoad={handleLoad}
