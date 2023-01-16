@@ -87,26 +87,7 @@ const Page: NextPage = () => {
             googletag.display('div-gpt-ad-1673345189765-0');
         });
     }, []);
-    // React.useEffect(() => {
-    //     window.googletag = window.googletag || { cmd: [] };
-    //     let adSlot1;
-    //     let adSlot2;
 
-    //     googletag.cmd.push(function () {
-    //         // Define ad slot 1.
-    //         adSlot1 = googletag.defineSlot('/6355419/Travel/Europe/France', [728, 90], 'banner-ad-1').addService(googletag.pubads());
-    //         // Define and configure ad slot 2.
-    //         adSlot2 = googletag
-    //             .defineSlot('/6355419/Travel/Europe/France', [728, 90], 'banner-ad-2')
-    //             .setTargeting('test', 'privacy')
-    //             .addService(googletag.pubads());
-    //         // Enable SRA and services.
-    //         googletag.pubads().enableSingleRequest();
-    //         googletag.enableServices();
-    //         googletag.display('banner-ad-1');
-
-    //     });
-    // }, []);
     return (
         <>
             <Head>
