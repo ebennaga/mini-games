@@ -16,78 +16,6 @@ declare global {
     }
 }
 const Page: NextPage = () => {
-    React.useEffect(() => {
-        // window.googletag = window.googletag || { cmd: [] };
-        // googletag.cmd.push(function () {
-        //     googletag
-        //         .defineSlot(
-        //             '/21622890900,22860604212/ID_prizeplay.io_res_home_top_320x100//320x50',
-        //             [
-        //                 [320, 50],
-        //                 [320, 100]
-        //             ],
-        //             'div-gpt-ad-1673344839334-0'
-        //         )
-        //         .setCollapseEmptyDiv(false)
-        //         .addService(googletag.pubads());
-        //     googletag.pubads().enableSingleRequest();
-        //     googletag.enableServices();
-        //     googletag.display('div-gpt-ad-1673344839334-0');
-        // });
-
-        // slot top
-        const gptAdSlots = [];
-        window.googletag = window.googletag || { cmd: [] };
-        googletag.cmd.push(function () {
-            const mapping1 = googletag
-                .sizeMapping()
-                .addSize(
-                    [780, 500],
-                    [
-                        [300, 250],
-                        [336, 280]
-                    ]
-                )
-                .addSize(
-                    [0, 0],
-                    [
-                        [300, 250],
-                        [336, 280],
-                        [300, 600]
-                    ]
-                )
-                .build();
-            gptAdSlots[0] = googletag.defineSlot(
-                '/21622890900,22860604212/ID_prizeplay.io_res_home_top_320x100//320x50',
-                [
-                    [320, 50],
-                    [320, 100]
-                ],
-                'div-gpt-ad-1673344839334-0'
-            );
-            gptAdSlots[1] = googletag
-                .defineSlot(
-                    '/21622890900,22860604212/ID_prizeplay.io_res_home_mid_300x600//300x250//336x280',
-                    [
-                        [300, 600],
-                        [300, 250],
-                        [336, 280]
-                    ],
-                    'div-gpt-ad-1673345189765-0'
-                )
-
-                // slot 2
-
-                // .setCollapseEmptyDiv(true)
-                // .defineSizeMapping(mapping1)
-                .addService(googletag.pubads());
-            googletag.pubads().enableSingleRequest();
-            googletag.enableServices();
-            googletag.display('div-gpt-ad-1673344839334-0');
-            googletag.display('div-gpt-ad-1673345189765-0');
-        });
-    }, []);
-
     return (
         <>
             <Head>
@@ -107,9 +35,6 @@ const Page: NextPage = () => {
 
             <Layout backgoundColor='#fff' isCarousel isTab isBackground>
                 <HomePage />
-                {/* <div id='div-gpt-ad-1673344839334-0' style={{ textAlign: 'center' }} /> */}
-
-                <div id='div-gpt-ad-1673345189765-0' style={{ textAlign: 'center' }} />
             </Layout>
         </>
     );
