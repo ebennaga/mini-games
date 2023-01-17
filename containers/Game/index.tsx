@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import Header from 'components/Header';
 import { useRouter } from 'next/router';
@@ -91,6 +92,58 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
         };
     }, []);
 
+    // Google ads
+    React.useEffect(() => {
+        if (!isLoading) {
+            const gptAdSlots = [];
+            window.googletag = window.googletag || { cmd: [] };
+            googletag.cmd.push(function () {
+                const slot = googletag.defineOutOfPageSlot(
+                    '/21622890900,22860604212/ID_prizeplay.io_res_cate_interstitial_fullscreen',
+                    googletag.enums.OutOfPageFormat.INTERSTITIAL
+                );
+                if (slot) slot.addService(googletag.pubads());
+                googletag.enableServices();
+                googletag.display(slot);
+                const mapping1 = googletag
+                    .sizeMapping()
+                    .addSize(
+                        [780, 500],
+                        [
+                            [300, 250],
+                            [336, 280]
+                        ]
+                    )
+                    .addSize(
+                        [0, 0],
+                        [
+                            [300, 250],
+                            [336, 280],
+                            [300, 600]
+                        ]
+                    )
+                    .build();
+                gptAdSlots[0] = googletag
+                    .defineSlot(
+                        '/21622890900,22860604212/ID_prizeplay.io_res_cate_mid2_336x280//300x250//320x100//320x50',
+                        [
+                            [320, 50],
+                            [336, 280],
+                            [320, 100],
+                            [300, 250]
+                        ],
+                        'div-gpt-ad-1673345310263-0'
+                    )
+                    .setCollapseEmptyDiv(true)
+                    // .defineSizeMapping(mapping2)
+                    .addService(googletag.pubads());
+                googletag.pubads().enableSingleRequest();
+                googletag.enableServices();
+                googletag.display('div-gpt-ad-1673345310263-0');
+            });
+        }
+    }, [isLoading]);
+
     const cards = [
         {
             id: 1,
@@ -129,7 +182,7 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
                     profilePicture='/icons/dummy/profile.png'
                 />
             </Box>
-            <div id='div-gpt-ad-1673345310263-0' style={{ textAlign: 'center' }} />
+            <div id='div-gpt-ad-1673345310263-0' style={{ textAlign: 'center', padding: '25px' }} />
             <Box
                 sx={{
                     display: 'flex',
