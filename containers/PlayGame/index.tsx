@@ -23,7 +23,8 @@ const PlayGameContainer = () => {
         }
     }, []);
 
-    const data: any = typeof window !== 'undefined' && `${window.location.origin}/games/${route.query.id}`;
+    // const data: any = typeof window !== 'undefined' && `${window.location.origin}/games/${route.query.id}`;
+    const data: any = typeof window !== 'undefined' && `${window.location.origin}/blank`;
 
     const buff = typeof window !== 'undefined' && Buffer.from(data);
     const base64data = typeof window !== 'undefined' && encodeURIComponent(buff.toString('base64'));
