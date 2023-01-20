@@ -195,12 +195,12 @@ const HomeContainer = () => {
                     // slot 2
 
                     // .setCollapseEmptyDiv(true)
-                    // .defineSizeMapping(mapping1)
+                    .defineSizeMapping(mapping1)
                     .addService(googletag.pubads());
                 googletag.pubads().enableSingleRequest();
                 googletag.enableServices();
                 googletag.display('div-gpt-ad-1673344839334-0');
-                googletag.display('div-gpt-ad-1673345189765-0');
+                // googletag.display('div-gpt-ad-1673345189765-0');
             });
         }
     }, [isLoading]);
