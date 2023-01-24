@@ -44,8 +44,9 @@ const AgeConfirmation: React.FC<IAgeConfirmation> = ({ form, nameDate, nameMonth
         const result: any = dataDate.filter(
             (item: any) => item.noMonth === Number(form.watch(nameMonth)) || item.month === form.watch(nameMonth)
         );
+
         setCurrentDate(result[0]);
-        setMonthConditional({ isList: monthConditional.isList, value: result[0].month });
+        setMonthConditional({ isList: monthConditional.isList, value: result[0]?.month });
         if (form.watch(nameMonth) === 'February' && Number(form.watch(nameDate)) > dataDate[1].total) {
             form.setValue(nameDate, dataDate[1].total);
             setDateConditional({ isList: dateConditional.isList, value: dataDate[1].total });

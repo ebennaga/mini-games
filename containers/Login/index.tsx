@@ -103,7 +103,7 @@ const Login = () => {
                         google_id: user.uid
                     }
                 });
-                // console.log(user);
+
                 if (response.status === 200) {
                     const tempData = { ...userState, ...response.data.data, ...userData };
                     setUser(tempData);

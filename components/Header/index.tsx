@@ -127,7 +127,7 @@ const Header: React.FC<HeaderProps> = ({
     if (isLoading) {
         return <HeaderSkeleton isPage />;
     }
-    // console.log(router.asPath.includes('/shops/prize/'));
+
     if (isFirebaseLoading) {
         return (
             <Box

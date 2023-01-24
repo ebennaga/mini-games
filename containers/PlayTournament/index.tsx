@@ -40,6 +40,25 @@ const PlayTournamentContainer = () => {
     React.useEffect(() => {
         window.googletag = window.googletag || { cmd: [] };
         googletag.cmd.push(function () {
+            const mapping = googletag
+                .sizeMapping()
+                .addSize(
+                    [1024, 768],
+                    [
+                        [750, 200],
+                        [728, 90]
+                    ]
+                )
+                .addSize([640, 480], [300, 250])
+                .addSize(
+                    [0, 0],
+                    [
+                        [300, 250],
+                        [336, 280],
+                        [300, 600]
+                    ]
+                )
+                .build();
             googletag
                 .defineSlot(
                     '/21622890900,22860604212/ID_prizeplay.io_res_cate_top_320x100//320x50',
@@ -50,6 +69,7 @@ const PlayTournamentContainer = () => {
                     'div-gpt-ad-1673345092793-0'
                 )
                 .setCollapseEmptyDiv(true)
+                .defineSizeMapping(mapping)
                 .addService(googletag.pubads());
             googletag.pubads().enableSingleRequest();
             googletag.enableServices();
