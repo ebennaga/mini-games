@@ -34,7 +34,7 @@ const PrizeDetailContainer = () => {
         mode: 'all',
         defaultValues: {
             date: new Date().getDate() || '',
-            month: new Date().getMonth()?.toLocaleString('en-US') || '',
+            month: (new Date().getMonth() + 1).toLocaleString('en-US') || '',
             year: new Date().getFullYear() || ''
         }
     });
