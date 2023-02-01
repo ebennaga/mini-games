@@ -134,6 +134,7 @@ const ShopsContainer = () => {
                     // .defineSizeMapping(mapping2)
                     .addService(googletag.pubads());
                 googletag.pubads().enableSingleRequest();
+                googletag.pubads().refresh();
                 googletag.enableServices();
                 googletag.display('div-gpt-ad-1673345406261-0');
             });
