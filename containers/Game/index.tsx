@@ -138,6 +138,7 @@ const GameContainer: React.FC<GameProps> = ({ playerImg1, playerImg2, playerImg3
                     // .defineSizeMapping(mapping2)
                     .addService(googletag.pubads());
                 googletag.pubads().enableSingleRequest();
+                googletag.pubads().refresh();
                 googletag.enableServices();
                 googletag.display('div-gpt-ad-1673345310263-0');
             });
