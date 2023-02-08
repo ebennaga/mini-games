@@ -92,9 +92,6 @@ const GameResultTournament = () => {
     if (loadingFetchTournament) {
         return <LoadingResultTournament />;
     }
-    // console.log(firstPosition);
-    // console.log('authsdata', authsData?.adjacent_leaderboards);
-    // console.log('userstate', userState);
     return (
         <Box component='main' width='100%'>
             <Box padding='0 20px'>
@@ -188,11 +185,13 @@ const GameResultTournament = () => {
                         />
                     )}
                     <Typography component='p' fontSize='14px' fontWeight={800} paddingRight='2px'>
-                        {typeTournament === 'casual' ? '' : 20}
+                        {typeTournament === 'casual' ? '' : userState?.entryCoin}
                     </Typography>
-                    <Typography component='p' fontSize='14px' fontWeight={600}>
-                        for Playing Again
-                    </Typography>
+                    {typeTournament !== 'casual' && (
+                        <Typography component='p' fontSize='14px' fontWeight={600}>
+                            for Playing Again
+                        </Typography>
+                    )}
                 </Box>
                 <ButtonBase
                     onClick={getGameSession}
