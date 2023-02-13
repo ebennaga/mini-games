@@ -107,32 +107,38 @@ const TabPanelPoinTs: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTrans
             <Box>
                 <Typography sx={{ fontWeight: 'bold', mt: '15px' }}>Today</Typography>
                 {todayTransactions !== null &&
-                    todayTransactions?.map((i: any, idx: number) => (
-                        <TransactionCard
-                            type={i.type}
-                            isToday
-                            key={idx}
-                            title={i.description}
-                            amount={numberFormat(i.point)}
-                            subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
-                            created={i?.created_at}
-                        />
-                    ))}
+                    todayTransactions?.map(
+                        (i: any, idx: number) =>
+                            i.point !== null && (
+                                <TransactionCard
+                                    type={i.type}
+                                    isToday
+                                    key={idx}
+                                    title={i.description}
+                                    amount={numberFormat(i.point)}
+                                    subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
+                                    created={i?.created_at}
+                                />
+                            )
+                    )}
             </Box>
             <Box>
                 <Typography sx={{ fontWeight: 'bold', mt: '15px' }}>Yesterday</Typography>
                 {yesterdayTransactions !== null &&
-                    yesterdayTransactions?.map((i: any, idx: number) => (
-                        <TransactionCard
-                            type={i.type}
-                            isYesterday
-                            key={idx}
-                            title={i.description}
-                            amount={i.point}
-                            subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
-                            created={i?.created_at}
-                        />
-                    ))}
+                    yesterdayTransactions?.map(
+                        (i: any, idx: number) =>
+                            i.point !== null && (
+                                <TransactionCard
+                                    type={i.type}
+                                    isYesterday
+                                    key={idx}
+                                    title={i.description}
+                                    amount={i.point}
+                                    subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
+                                    created={i?.created_at}
+                                />
+                            )
+                    )}
                 {yesterdayTransactions === null && (
                     <Box sx={{ textAlign: 'center' }}>
                         <Typography sx={{ mt: '15px', color: '#A54CE5', fontSize: '12px', fontWeight: 'bold' }}>
@@ -143,18 +149,21 @@ const TabPanelPoinTs: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTrans
                 )}
             </Box>
             {!isLoading &&
-                daysAgoTransactions?.map((i: any, idx: number) => (
-                    <TransactionCard
-                        type={i.type}
-                        key={idx}
-                        title={i.description}
-                        amount={numberFormat(i.point)}
-                        subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
-                        created={i?.created_at}
-                        isToday={false}
-                        isYesterday={false}
-                    />
-                ))}
+                daysAgoTransactions?.map(
+                    (i: any, idx: number) =>
+                        i.point !== null && (
+                            <TransactionCard
+                                type={i.type}
+                                key={idx}
+                                title={i.description}
+                                amount={numberFormat(i.point)}
+                                subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
+                                created={i?.created_at}
+                                isToday={false}
+                                isYesterday={false}
+                            />
+                        )
+                )}
         </TabPanelTransaction>
     );
 };
