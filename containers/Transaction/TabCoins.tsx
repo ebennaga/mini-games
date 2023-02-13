@@ -34,7 +34,7 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                 endpoint: `transactions/history`,
                 method: 'GET'
             });
-            console.log('coin :', result);
+
             if (result.status === 200) {
                 setCointTransaction(result.data.data);
             }
@@ -88,10 +88,10 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
     //     });
     // }, []);
 
-    // console.log('yesterday', yesterdayTransaction);
     // console.log('histories', cointTansaction);
     // console.log('coin', cointTansaction);
     // console.log('todays', new Date('2022-10-25T03:23:37.000Z').getDate());
+
     return (
         <TabPanelTransaction value={value} index={index}>
             {isAnyTransaction && (
@@ -106,36 +106,42 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
             <Box>
                 <Typography sx={{ fontWeight: 'bold', mt: '15px' }}>Today</Typography>
                 {todayTransactions !== null &&
-                    todayTransactions?.map((i: any, idx: number) => (
-                        <TransactionCard
-                            status={i.status}
-                            type={i.type}
-                            isToday
-                            key={idx}
-                            title={i.description}
-                            isCoin
-                            amount={i.coin}
-                            subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
-                            created={i?.created_at}
-                        />
-                    ))}
+                    todayTransactions?.map(
+                        (i: any, idx: number) =>
+                            i.coin !== 0 && (
+                                <TransactionCard
+                                    status={i.status}
+                                    type={i.type}
+                                    isToday
+                                    key={idx}
+                                    title={i.description}
+                                    isCoin
+                                    amount={i.coin}
+                                    subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
+                                    created={i?.created_at}
+                                />
+                            )
+                    )}
             </Box>
             <Box>
                 <Typography sx={{ fontWeight: 'bold', mt: '15px' }}>Yesterday</Typography>
                 {yesterdayTransactions !== null &&
-                    yesterdayTransactions?.map((i: any, idx: number) => (
-                        <TransactionCard
-                            status={i.status}
-                            type={i.type}
-                            isYesterday
-                            key={idx}
-                            title={i.description}
-                            isCoin
-                            amount={i.coin}
-                            subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
-                            created={i?.created_at}
-                        />
-                    ))}
+                    yesterdayTransactions?.map(
+                        (i: any, idx: number) =>
+                            i.coin !== 0 && (
+                                <TransactionCard
+                                    status={i.status}
+                                    type={i.type}
+                                    isYesterday
+                                    key={idx}
+                                    title={i.description}
+                                    isCoin
+                                    amount={i.coin}
+                                    subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
+                                    created={i?.created_at}
+                                />
+                            )
+                    )}
                 {yesterdayTransactions === null && (
                     <Box sx={{ textAlign: 'center' }}>
                         <Typography sx={{ mt: '15px', color: '#A54CE5', fontSize: '12px', fontWeight: 'bold' }}>
@@ -146,20 +152,23 @@ const TabPanelCoins: React.FC<TabPanelCoinsProps> = ({ value, index, isAnyTransa
                 )}
             </Box>
             {!isLoading &&
-                daysAgoTransactions?.map((i: any, idx: number) => (
-                    <TransactionCard
-                        status={i.status}
-                        type={i.type}
-                        key={idx}
-                        title={i.description}
-                        isCoin
-                        amount={i.coin}
-                        subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
-                        created={i?.created_at}
-                        isToday={false}
-                        isYesterday={false}
-                    />
-                ))}
+                daysAgoTransactions?.map(
+                    (i: any, idx: number) =>
+                        i.coin !== 0 && (
+                            <TransactionCard
+                                status={i.status}
+                                type={i.type}
+                                key={idx}
+                                title={i.description}
+                                isCoin
+                                amount={i.coin}
+                                subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
+                                created={i?.created_at}
+                                isToday={false}
+                                isYesterday={false}
+                            />
+                        )
+                )}
         </TabPanelTransaction>
     );
 };
