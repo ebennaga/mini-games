@@ -249,21 +249,25 @@ const TopUp = () => {
             </Box>
             <Box sx={{ textAlign: 'center', paddingX: '20px' }}>
                 {histories?.length > 0 &&
+                    histories.coin !== 0 &&
                     histories
                         .slice(0, 3)
-                        .map((i: any, idx: number) => (
-                            <TransactionCard
-                                isToday
-                                key={idx}
-                                title={i.description}
-                                isCoin
-                                amount={i.coin}
-                                subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
-                                created={i?.created_at}
-                                status={i.status}
-                                type={i.type}
-                            />
-                        ))}
+                        .map(
+                            (i: any, idx: number) =>
+                                i.coin !== 0 && (
+                                    <TransactionCard
+                                        isToday
+                                        key={idx}
+                                        title={i.description}
+                                        isCoin
+                                        amount={i.coin}
+                                        subtitle={`Transaction - ${new Date(i?.created_at).toLocaleTimeString()}`}
+                                        created={i?.created_at}
+                                        status={i.status}
+                                        type={i.type}
+                                    />
+                                )
+                        )}
                 {histories?.length === 0 && <Typography sx={{ mt: '10px', color: 'red' }}>There is not any histories top up</Typography>}
             </Box>
             {userState && (
