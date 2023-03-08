@@ -46,19 +46,26 @@ const RedeemHistoryContainer = () => {
     }, []);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        const filterData = (status: string) => histories?.filter((item: any) => item.status === status);
-
+        console.log('histories', histories);
+        // const filterData = (status: string) => histories?.filter((item: any) => item.status === status);
+        const filterData = histories?.filter((item: any) => item.delivery.status);
+        console.log('filterdata', filterData);
         setValue(newValue);
         if (newValue === 0) {
+            console.log('newvalue', newValue);
             setTabData(histories);
         } else if (newValue === 1) {
-            const filtData = histories?.filter((item: any) => item.status !== 'pending-payment');
+            const filtData = histories?.filter((item: any) => item.delivery[0].status === 'pending');
+            console.log('filtdata', filtData);
             setTabData(filtData);
         } else if (newValue === 2) {
-            const filtData = filterData('paid');
+            const filtData = histories?.filter((item: any) => item.delivery[0].status === 'processed');
             setTabData(filtData);
         } else if (newValue === 3) {
-            const filtData = filterData('open');
+            const filtData = histories?.filter((item: any) => item.delivery[0].status === 'delivered');
+            setTabData(filtData);
+        } else if (newValue === 4) {
+            const filtData = histories?.filter((item: any) => item.delivery[0].status === 'completed');
             setTabData(filtData);
         }
     };
@@ -66,6 +73,7 @@ const RedeemHistoryContainer = () => {
     if (isLoading) {
         return <RedeemHistoryLoading />;
     }
+    console.log('histories', histories);
     return (
         <Box sx={{ width: '100%' }}>
             <Box padding='20px 20px 0px'>
@@ -136,6 +144,8 @@ const RedeemHistoryContainer = () => {
             <Box sx={{ border: '1px solid rgba(0, 0, 0, 0.1)' }} />
             {tabData?.map((item: any) => {
                 const courier = item.delivery?.courier?.name;
+                const status = item.delivery[0]?.status;
+
                 return item?.items.map((itm: any) => {
                     return (
                         <Box
@@ -196,7 +206,7 @@ const RedeemHistoryContainer = () => {
                                         </Typography>
                                     </Box>
                                     <Box sx={{ ml: 10 }}>
-                                        <Typography sx={{ color: '#A54CE5', fontWeight: 600, fontSize: '12px' }}>{item.status}</Typography>
+                                        <Typography sx={{ color: '#A54CE5', fontWeight: 600, fontSize: '12px' }}>{status}</Typography>
                                     </Box>
                                 </Box>
                             </Box>
