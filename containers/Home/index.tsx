@@ -209,7 +209,7 @@ const HomeContainer = () => {
         return <HomeSkeleton />;
     }
     // console.log(datasCasual);
-    // console.log(datasGrands);
+
     return (
         <Box sx={{ color: '#373737', width: '100%' }}>
             <DialogBanner open={openBannerTournament} setOpen={setOpenBannerTournament} />

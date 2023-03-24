@@ -69,6 +69,11 @@ const GameTournament = () => {
                 descriptionGame: data.description
             };
             const newState = { ...userState, ...dataGames };
+
+            if (listingGame?.entry_coin) {
+                newState.entryCoin = listingGame.entry_coin;
+            }
+
             setUser(newState);
         } else {
             notify('failed get detail game', 'error');
