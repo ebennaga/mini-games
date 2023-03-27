@@ -41,7 +41,7 @@ const AdvertiseDialog: React.FC<IAdvertiseDialog> = ({ open, setOpen }) => {
                     style={{ paddingBottom: '2rem' }}
                 >
                     <SwiperSlide style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <img src='/images/prize-play-kotak-kopi.jpeg' alt='banner 1' loading='lazy' />
+                        <img src='/images/banner_welcome_1.png' alt='banner 1' loading='lazy' />
                     </SwiperSlide>
                     <SwiperSlide style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <img src='/images/banner_welcome_2.png' alt='banner 2' loading='lazy' />
